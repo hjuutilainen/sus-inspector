@@ -7,6 +7,7 @@
 //
 
 #import "SIAppDelegate.h"
+#import "DataModelHeaders.h"
 
 @implementation SIAppDelegate
 
@@ -22,9 +23,180 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
+NSString *defaultInstanceName = @"Default Reposado Instance";
+NSString *defaultReposadoDataDirectory = @"data";
+NSString *defaultReposadoCodeDirectory = @"code";
+
+- (NSDictionary *)preferencesForLocalReposadoAtURL:(NSURL *)installURL
+{
+    NSURL *localReposadoDataURL = [installURL URLByAppendingPathComponent:defaultReposadoDataDirectory];
+    NSURL *reposadoHtmlURL = [localReposadoDataURL URLByAppendingPathComponent:@"html"];
+    NSURL *reposadoMetadataURL = [localReposadoDataURL URLByAppendingPathComponent:@"metadata"];
+    
+    NSDictionary *reposadoPrefs = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [reposadoMetadataURL relativePath], @"UpdatesMetadataDir",
+                                   [reposadoHtmlURL relativePath], @"UpdatesRootDir",
+                                   nil];
+    return reposadoPrefs;
+}
+
+- (void)configureReposadoInstance:(ReposadoInstanceMO *)instance
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSURL *localReposadoDataURL = [instance.reposadoInstallURL URLByAppendingPathComponent:defaultReposadoDataDirectory];
+    NSURL *reposadoHtmlURL = [localReposadoDataURL URLByAppendingPathComponent:@"html"];
+    NSURL *reposadoMetadataURL = [localReposadoDataURL URLByAppendingPathComponent:@"metadata"];
+    [fileManager createDirectoryAtURL:localReposadoDataURL withIntermediateDirectories:YES attributes:nil error:nil];
+    [fileManager createDirectoryAtURL:reposadoHtmlURL withIntermediateDirectories:YES attributes:nil error:nil];
+    [fileManager createDirectoryAtURL:reposadoMetadataURL withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    NSDictionary *prefs = [self preferencesForLocalReposadoAtURL:instance.reposadoInstallURL];
+    NSURL *preferencesURL = [instance.codeURL URLByAppendingPathComponent:@"preferences.plist"];
+    [prefs writeToURL:preferencesURL atomically:YES];
+}
+
+- (ReposadoInstanceMO *)setupLocalReposadoAtURL:(NSURL *)installURL
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager createDirectoryAtURL:installURL withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    ReposadoInstanceMO *newReposadoInstance = [NSEntityDescription insertNewObjectForEntityForName:@"ReposadoInstance" inManagedObjectContext:self.managedObjectContext];
+    newReposadoInstance.reposadoInstallURL = installURL;
+    newReposadoInstance.reposadoTitle = @"Default Reposado Instance";
+    
+    // Reposado components we need
+    NSURL *repo_syncURL = [newReposadoInstance.codeURL URLByAppendingPathComponent:@"repo_sync"];
+    NSURL *repoutilURL = [newReposadoInstance.codeURL URLByAppendingPathComponent:@"repoutil"];
+    NSURL *reposadolibURL = [newReposadoInstance.codeURL URLByAppendingPathComponent:@"reposadolib" isDirectory:YES];
+    NSURL *reposadoInitURL = [reposadolibURL URLByAppendingPathComponent:@"__init__.py"];
+    NSURL *reposadocommonURL = [reposadolibURL URLByAppendingPathComponent:@"reposadocommon.py"];
+    
+    // Determine if everything is installed
+    BOOL reposadoInstalled = YES;
+    if (![fileManager fileExistsAtPath:[repo_syncURL path]]) reposadoInstalled = NO;
+    if (![fileManager fileExistsAtPath:[repoutilURL path]]) reposadoInstalled = NO;
+    if (![fileManager fileExistsAtPath:[reposadolibURL path]]) reposadoInstalled = NO;
+    if (![fileManager fileExistsAtPath:[reposadoInitURL path]]) reposadoInstalled = NO;
+    if (![fileManager fileExistsAtPath:[reposadocommonURL path]]) reposadoInstalled = NO;
+    
+    // Install if needed
+    if (!reposadoInstalled) {
+        NSLog(@"Installing local reposado to %@", [newReposadoInstance.codeURL path]);
+        if ([fileManager fileExistsAtPath:[newReposadoInstance.codeURL path]]) {
+            [fileManager removeItemAtURL:newReposadoInstance.codeURL error:nil];
+        }
+        NSString *mainBundleURL = [[NSBundle mainBundle] bundlePath];
+        NSString *bundledReposado = [mainBundleURL stringByAppendingString:@"/Contents/Resources/reposado/code"];
+        NSURL *bundledReposadoURL = [NSURL fileURLWithPath:bundledReposado isDirectory:YES];
+        NSError *error = nil;
+        [fileManager copyItemAtURL:bundledReposadoURL toURL:newReposadoInstance.codeURL error:&error];
+        if (error) {
+            NSLog(@"%@", [error description]);
+        }
+        
+        // Configure the created instance
+        [self configureReposadoInstance:newReposadoInstance];
+    }
+    return newReposadoInstance;
+}
+
+- (SUProductMO *)newOrExistingProductForID:(NSString *)productID
+{
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    
+    NSFetchRequest *fetchForProduct = [[NSFetchRequest alloc] init];
+    [fetchForProduct setEntity:[NSEntityDescription entityForName:@"SUProduct" inManagedObjectContext:moc]];
+    NSPredicate *productIDPredicate = [NSPredicate predicateWithFormat:@"productID == %@", productID];
+    [fetchForProduct setPredicate:productIDPredicate];
+    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchForProduct error:nil];
+    if (numFoundCatalogs == 0) {
+        SUProductMO *newProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:moc];
+        newProduct.productID = productID;
+        return newProduct;
+    } else {
+        SUProductMO *existingProduct = [[moc executeFetchRequest:fetchForProduct error:nil] objectAtIndex:0];
+        return existingProduct;
+    }
+}
+
+- (void)readReposadoInstanceContents:(ReposadoInstanceMO *)instance
+{
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    
+    /*
+     * Check the created/modified dates
+     */
+    NSArray *keysToGet = [NSArray arrayWithObjects:NSURLContentModificationDateKey, NSURLCreationDateKey, nil];
+    NSDictionary *urlResourceValues = [instance.productInfoURL resourceValuesForKeys:keysToGet error:nil];
+    NSDate *modificationDate = [urlResourceValues objectForKey:NSURLContentModificationDateKey];
+    NSDate *creationDate = [urlResourceValues objectForKey:NSURLCreationDateKey];
+    
+    if (([modificationDate isEqualToDate:instance.productInfoModificationDate]) && ([creationDate isEqualToDate:instance.productInfoCreationDate])) {
+        NSLog(@"No need to read ProductInfo");
+    } else {
+        NSLog(@"Reading %@", [instance.productInfoURL path]);
+        
+        instance.productInfoModificationDate = modificationDate;
+        instance.productInfoCreationDate = creationDate;
+        
+        NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:instance.productInfoURL];
+        [productInfo enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            SUProductMO *newProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:moc];
+            newProduct.productID = (NSString *)key;
+            newProduct.productTitle = [obj objectForKey:@"title"];
+            newProduct.productDescription = [obj objectForKey:@"description"];
+            newProduct.productPostDate = [obj objectForKey:@"PostDate"];
+            NSString *sizeAsString = [obj objectForKey:@"size"];
+            newProduct.productSize = [NSNumber numberWithInteger:[sizeAsString integerValue]];
+            newProduct.productVersion = [obj objectForKey:@"version"];
+            
+            NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
+            for (NSString *aCatalogString in appleCatalogs) {
+                NSURL *catalogURL = [NSURL URLWithString:aCatalogString];
+                NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:moc];
+                NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
+                [fetchForCatalogs setEntity:catalogEntityDescr];
+                NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"catalogURL == %@", catalogURL];
+                [fetchForCatalogs setPredicate:installURLPredicate];
+                NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchForCatalogs error:nil];
+                if (numFoundCatalogs == 0) {
+                    NSLog(@"Creating %@", [catalogURL absoluteString]);
+                    SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:moc];
+                    newCatalog.catalogURL = catalogURL;
+                    [newCatalog addProductsObject:newProduct];
+                } else {
+                    SUCatalogMO *existingCatalog = [[moc executeFetchRequest:fetchForCatalogs error:nil] objectAtIndex:0];
+                    [existingCatalog addProductsObject:newProduct];
+                }
+            }
+        }];
+    }
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"productPostDate" ascending:NO selector:@selector(compare:)];
+    [self.productsArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByDate, nil]];
+    
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    
+    // This is the directory where default reposado instance will be installed
+    NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:defaultInstanceName];
+    
+    NSEntityDescription *reposadoEntityDescr = [NSEntityDescription entityForName:@"ReposadoInstance" inManagedObjectContext:moc];
+    NSFetchRequest *fetchForReposadoInstances = [[NSFetchRequest alloc] init];
+    [fetchForReposadoInstances setEntity:reposadoEntityDescr];
+    NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"reposadoInstallURL == %@", localReposadoInstallURL];
+    [fetchForReposadoInstances setPredicate:installURLPredicate];
+    NSUInteger numFoundReposados = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
+    if (numFoundReposados == 0) {
+        ReposadoInstanceMO *existing = [self setupLocalReposadoAtURL:localReposadoInstallURL];
+        [self readReposadoInstanceContents:existing];
+    } else {
+        ReposadoInstanceMO *defaultReposado = [[moc executeFetchRequest:fetchForReposadoInstances error:nil] objectAtIndex:0];
+        [self readReposadoInstanceContents:defaultReposado];
+    }
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "fi.obsolete.SUS_Inspector" in the user's Application Support directory.
