@@ -1,0 +1,3 @@
+[submodule "reposado"]
+	path = reposado
+	url = git@github.com:hjuutilainen/reposado.git
