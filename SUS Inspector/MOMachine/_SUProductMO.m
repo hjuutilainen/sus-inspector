@@ -6,6 +6,7 @@
 const struct SUProductMOAttributes SUProductMOAttributes = {
 	.productDescription = @"productDescription",
 	.productID = @"productID",
+	.productIsDeprecated = @"productIsDeprecated",
 	.productPostDate = @"productPostDate",
 	.productSize = @"productSize",
 	.productTitle = @"productTitle",
@@ -45,6 +46,11 @@ const struct SUProductMOFetchedProperties SUProductMOFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"productIsDeprecatedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"productIsDeprecated"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"productSizeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"productSize"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -66,6 +72,32 @@ const struct SUProductMOFetchedProperties SUProductMOFetchedProperties = {
 
 @dynamic productID;
 
+
+
+
+
+
+@dynamic productIsDeprecated;
+
+
+
+- (BOOL)productIsDeprecatedValue {
+	NSNumber *result = [self productIsDeprecated];
+	return [result boolValue];
+}
+
+- (void)setProductIsDeprecatedValue:(BOOL)value_ {
+	[self setProductIsDeprecated:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveProductIsDeprecatedValue {
+	NSNumber *result = [self primitiveProductIsDeprecated];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveProductIsDeprecatedValue:(BOOL)value_ {
+	[self setPrimitiveProductIsDeprecated:[NSNumber numberWithBool:value_]];
+}
 
 
 

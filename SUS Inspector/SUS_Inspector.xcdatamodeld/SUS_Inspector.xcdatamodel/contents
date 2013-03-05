@@ -19,6 +19,7 @@
     <entity name="SUProduct" representedClassName="SUProductMO" syncable="YES">
         <attribute name="productDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productIsDeprecated" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="productPostDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="productSize" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="productTitle" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,8 +27,8 @@
         <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUCatalog" inverseName="products" inverseEntity="SUCatalog" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SUCatalog" positionX="-522" positionY="-81" width="128" height="118"/>
-        <element name="SUProduct" positionX="-234" positionY="-99" width="128" height="148"/>
         <element name="ReposadoInstance" positionX="-830" positionY="-72" width="128" height="148"/>
+        <element name="SUCatalog" positionX="-522" positionY="-81" width="128" height="118"/>
+        <element name="SUProduct" positionX="-234" positionY="-99" width="128" height="165"/>
     </elements>
 </model>

@@ -7,6 +7,7 @@
 extern const struct SUProductMOAttributes {
 	 NSString *productDescription;
 	 NSString *productID;
+	 NSString *productIsDeprecated;
 	 NSString *productPostDate;
 	 NSString *productSize;
 	 NSString *productTitle;
@@ -21,6 +22,7 @@ extern const struct SUProductMOFetchedProperties {
 } SUProductMOFetchedProperties;
 
 @class SUCatalogMO;
+
 
 
 
@@ -57,6 +59,20 @@ extern const struct SUProductMOFetchedProperties {
 
 
 //- (BOOL)validateProductID:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, retain) NSNumber* productIsDeprecated;
+
+
+
+@property BOOL productIsDeprecatedValue;
+- (BOOL)productIsDeprecatedValue;
+- (void)setProductIsDeprecatedValue:(BOOL)value_;
+
+//- (BOOL)validateProductIsDeprecated:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -136,6 +152,15 @@ extern const struct SUProductMOFetchedProperties {
 
 - (NSString*)primitiveProductID;
 - (void)setPrimitiveProductID:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveProductIsDeprecated;
+- (void)setPrimitiveProductIsDeprecated:(NSNumber*)value;
+
+- (BOOL)primitiveProductIsDeprecatedValue;
+- (void)setPrimitiveProductIsDeprecatedValue:(BOOL)value_;
 
 
 

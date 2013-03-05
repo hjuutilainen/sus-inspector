@@ -10,6 +10,12 @@
 
 @implementation SUProductMO
 
-// Custom logic goes here.
+- (NSString *)statusDescription
+{
+    if (self.productIsDeprecatedValue)
+        return @"Deprecated";
+    else
+        return @"Active";
+}
 
 @end

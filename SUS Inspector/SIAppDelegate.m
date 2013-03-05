@@ -8,6 +8,7 @@
 
 #import "SIAppDelegate.h"
 #import "DataModelHeaders.h"
+#import "SIMainWindowController.h"
 
 @implementation SIAppDelegate
 
@@ -142,32 +143,43 @@ NSString *defaultReposadoCodeDirectory = @"code";
         
         NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:instance.productInfoURL];
         [productInfo enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            SUProductMO *newProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:moc];
-            newProduct.productID = (NSString *)key;
-            newProduct.productTitle = [obj objectForKey:@"title"];
-            newProduct.productDescription = [obj objectForKey:@"description"];
-            newProduct.productPostDate = [obj objectForKey:@"PostDate"];
-            NSString *sizeAsString = [obj objectForKey:@"size"];
-            newProduct.productSize = [NSNumber numberWithInteger:[sizeAsString integerValue]];
-            newProduct.productVersion = [obj objectForKey:@"version"];
+            /*
+             * Create product objects
+             */
             
-            NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
-            for (NSString *aCatalogString in appleCatalogs) {
-                NSURL *catalogURL = [NSURL URLWithString:aCatalogString];
-                NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:moc];
-                NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
-                [fetchForCatalogs setEntity:catalogEntityDescr];
-                NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"catalogURL == %@", catalogURL];
-                [fetchForCatalogs setPredicate:installURLPredicate];
-                NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchForCatalogs error:nil];
-                if (numFoundCatalogs == 0) {
-                    NSLog(@"Creating %@", [catalogURL absoluteString]);
-                    SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:moc];
-                    newCatalog.catalogURL = catalogURL;
-                    [newCatalog addProductsObject:newProduct];
-                } else {
-                    SUCatalogMO *existingCatalog = [[moc executeFetchRequest:fetchForCatalogs error:nil] objectAtIndex:0];
-                    [existingCatalog addProductsObject:newProduct];
+            // Check if the product is valid
+            if (([obj objectForKey:@"title"]) || ([obj objectForKey:@"version"])) {
+                
+                SUProductMO *newProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:moc];
+                newProduct.productID = (NSString *)key;
+                newProduct.productTitle = [obj objectForKey:@"title"];
+                newProduct.productDescription = [obj objectForKey:@"description"];
+                newProduct.productPostDate = [obj objectForKey:@"PostDate"];
+                NSString *sizeAsString = [obj objectForKey:@"size"];
+                newProduct.productSize = [NSNumber numberWithInteger:[sizeAsString integerValue]];
+                newProduct.productVersion = [obj objectForKey:@"version"];
+                
+                NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
+                if ([appleCatalogs count] == 0) {
+                    newProduct.productIsDeprecatedValue = YES;
+                }
+                for (NSString *aCatalogString in appleCatalogs) {
+                    NSURL *catalogURL = [NSURL URLWithString:aCatalogString];
+                    NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:moc];
+                    NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
+                    [fetchForCatalogs setEntity:catalogEntityDescr];
+                    NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"catalogURL == %@", catalogURL];
+                    [fetchForCatalogs setPredicate:installURLPredicate];
+                    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchForCatalogs error:nil];
+                    if (numFoundCatalogs == 0) {
+                        NSLog(@"Creating %@", [catalogURL absoluteString]);
+                        SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:moc];
+                        newCatalog.catalogURL = catalogURL;
+                        [newCatalog addProductsObject:newProduct];
+                    } else {
+                        SUCatalogMO *existingCatalog = [[moc executeFetchRequest:fetchForCatalogs error:nil] objectAtIndex:0];
+                        [existingCatalog addProductsObject:newProduct];
+                    }
                 }
             }
         }];
@@ -176,6 +188,13 @@ NSString *defaultReposadoCodeDirectory = @"code";
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    /*
+     * Create view and window controllers
+     */
+    self.mainWindowController = [[SIMainWindowController alloc] initWithWindowNibName:@"SIMainWindowController"];
+    [self.mainWindowController showWindow:self];
+    
+    
     NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"productPostDate" ascending:NO selector:@selector(compare:)];
     [self.productsArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByDate, nil]];
     
@@ -197,6 +216,11 @@ NSString *defaultReposadoCodeDirectory = @"code";
         ReposadoInstanceMO *defaultReposado = [[moc executeFetchRequest:fetchForReposadoInstances error:nil] objectAtIndex:0];
         [self readReposadoInstanceContents:defaultReposado];
     }
+}
+
+- (void)awakeFromNib
+{
+    
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "fi.obsolete.SUS_Inspector" in the user's Application Support directory.
