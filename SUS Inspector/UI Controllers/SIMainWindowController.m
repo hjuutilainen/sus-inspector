@@ -7,6 +7,8 @@
 //
 
 #import "SIMainWindowController.h"
+#import "SIProgressWindowController.h"
+#import "SIProductsViewController.h"
 
 @interface SIMainWindowController ()
 
@@ -24,11 +26,72 @@
     return self;
 }
 
+
 - (void)windowDidLoad
 {
     [super windowDidLoad];
     
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    [self.window center];
+    
+    self.progressWindowController = [[SIProgressWindowController alloc] initWithWindowNibName:@"SIProgressWindowController"];
+    self.productsViewController = [[SIProductsViewController alloc] initWithNibName:@"SIProductsViewController" bundle:nil];
+    
+    [self.mainSplitView setDelegate:self];
+    
+    [self.rightView addSubview:self.productsViewController.view];
+    [[self.productsViewController view] setFrame:[self.rightView frame]];
+    [[self.productsViewController view] setFrameOrigin:NSMakePoint(0,0)];
+    [[self.productsViewController view] setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    
+    
 }
+
+- (void)showProgressPanel
+{
+    [NSApp beginSheet:self.progressWindowController.window
+       modalForWindow:self.window modalDelegate:nil
+       didEndSelector:nil contextInfo:nil];
+    [self.progressWindowController.progressIndicator setIndeterminate:YES];
+    [self.progressWindowController.progressIndicator startAnimation:self];
+}
+
+
+- (void)hideProgressPanel
+{
+    [NSApp endSheet:self.progressWindowController.window];
+    [self.progressWindowController.window close];
+    [self.progressWindowController.progressIndicator stopAnimation:self];
+}
+
+
+#pragma mark -
+#pragma mark NSSplitView delegates
+
+- (void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize
+{
+    if (sender == self.mainSplitView) {
+        
+        // Resize only the right side of the splitview
+        
+        NSView *left = [[sender subviews] objectAtIndex:0];
+        NSView *right = [[sender subviews] objectAtIndex:1];
+        float dividerThickness = [sender dividerThickness];
+        NSRect newFrame = [sender frame];
+        NSRect leftFrame = [left frame];
+        NSRect rightFrame = [right frame];
+        
+        rightFrame.size.height = newFrame.size.height;
+        rightFrame.size.width = newFrame.size.width - leftFrame.size.width - dividerThickness;
+        rightFrame.origin = NSMakePoint(leftFrame.size.width + dividerThickness, 0);
+        
+        leftFrame.size.height = newFrame.size.height;
+        leftFrame.origin.x = 0;
+        
+        [left setFrame:leftFrame];
+        [right setFrame:rightFrame];
+    }
+}
+
+
 
 @end

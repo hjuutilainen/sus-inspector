@@ -7,10 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SIOperationManager.h"
 
 @class SIMainWindowController;
 
-@interface SIAppDelegate : NSObject <NSApplicationDelegate>
+@interface SIAppDelegate : NSObject <NSApplicationDelegate, SIOperationManagerDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSArrayController *productsArrayController;
@@ -23,5 +24,10 @@
 
 - (IBAction)saveAction:(id)sender;
 
+- (IBAction)reposyncAction:(id)sender;
+
+// SIOperationManager delegates
+- (void)willStartOperations:(id)sender;
+- (void)willEndOperations:(id)sender;
 
 @end

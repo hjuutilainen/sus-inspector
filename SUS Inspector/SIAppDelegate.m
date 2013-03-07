@@ -9,6 +9,7 @@
 #import "SIAppDelegate.h"
 #import "DataModelHeaders.h"
 #import "SIMainWindowController.h"
+#import "SIOperationManager.h"
 
 @implementation SIAppDelegate
 
@@ -186,6 +187,31 @@ NSString *defaultReposadoCodeDirectory = @"code";
     }
 }
 
+- (IBAction)reposyncAction:(id)sender
+{
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    SIOperationManager *operationManager = [SIOperationManager sharedManager];
+    operationManager.delegate = self;
+    // This is the directory where default reposado instance will be installed
+    NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:defaultInstanceName];
+    
+    NSEntityDescription *reposadoEntityDescr = [NSEntityDescription entityForName:@"ReposadoInstance" inManagedObjectContext:moc];
+    NSFetchRequest *fetchForReposadoInstances = [[NSFetchRequest alloc] init];
+    [fetchForReposadoInstances setEntity:reposadoEntityDescr];
+    NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"reposadoInstallURL == %@", localReposadoInstallURL];
+    [fetchForReposadoInstances setPredicate:installURLPredicate];
+    NSUInteger numFoundReposados = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
+    if (numFoundReposados == 0) {
+        ReposadoInstanceMO *existing = [self setupLocalReposadoAtURL:localReposadoInstallURL];
+        [[SIOperationManager sharedManager] runReposync:existing];
+    } else {
+        ReposadoInstanceMO *defaultReposado = [[moc executeFetchRequest:fetchForReposadoInstances error:nil] objectAtIndex:0];
+        [[SIOperationManager sharedManager] runReposync:defaultReposado];
+    }
+    
+    
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     /*
@@ -194,11 +220,9 @@ NSString *defaultReposadoCodeDirectory = @"code";
     self.mainWindowController = [[SIMainWindowController alloc] initWithWindowNibName:@"SIMainWindowController"];
     [self.mainWindowController showWindow:self];
     
-    
-    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"productPostDate" ascending:NO selector:@selector(compare:)];
-    [self.productsArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByDate, nil]];
-    
     NSManagedObjectContext *moc = [self managedObjectContext];
+    SIOperationManager *operationManager = [SIOperationManager sharedManager];
+    operationManager.delegate = self;
     
     // This is the directory where default reposado instance will be installed
     NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:defaultInstanceName];
@@ -211,16 +235,25 @@ NSString *defaultReposadoCodeDirectory = @"code";
     NSUInteger numFoundReposados = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
     if (numFoundReposados == 0) {
         ReposadoInstanceMO *existing = [self setupLocalReposadoAtURL:localReposadoInstallURL];
-        [self readReposadoInstanceContents:existing];
+        [operationManager readReposadoInstanceContentsAsync:existing];
     } else {
         ReposadoInstanceMO *defaultReposado = [[moc executeFetchRequest:fetchForReposadoInstances error:nil] objectAtIndex:0];
-        [self readReposadoInstanceContents:defaultReposado];
+        [operationManager readReposadoInstanceContentsAsync:defaultReposado];
     }
 }
 
 - (void)awakeFromNib
 {
     
+}
+
+- (void)willStartOperations:(id)sender
+{
+    [self.mainWindowController showProgressPanel];
+}
+- (void)willEndOperations:(id)sender
+{
+    [self.mainWindowController hideProgressPanel];
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "fi.obsolete.SUS_Inspector" in the user's Application Support directory.
@@ -312,7 +345,8 @@ NSString *defaultReposadoCodeDirectory = @"code";
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    //_managedObjectContext = [[NSManagedObjectContext alloc] init];
+    _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [_managedObjectContext setPersistentStoreCoordinator:coordinator];
 
     return _managedObjectContext;

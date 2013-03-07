@@ -20,6 +20,16 @@
     return [(NSURL *)self.reposadoInstallURL URLByAppendingPathComponent:@"code"];
 }
 
+- (NSURL *)reposyncURL
+{
+    return [(NSURL *)self.codeURL URLByAppendingPathComponent:@"repo_sync"];
+}
+
+- (NSString *)reposyncPath
+{
+    return [self.reposyncURL path];
+}
+
 - (NSURL *)productInfoURL
 {
     NSURL *returnURL = [[self dataURL] URLByAppendingPathComponent:@"metadata" isDirectory:YES];

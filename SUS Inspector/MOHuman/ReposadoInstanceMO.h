@@ -4,6 +4,8 @@
 
 - (NSURL *)dataURL;
 - (NSURL *)codeURL;
+- (NSURL *)reposyncURL;
+- (NSString *)reposyncPath;
 - (NSURL *)productInfoURL;
 - (NSDictionary *)productInfoDictionary;
 

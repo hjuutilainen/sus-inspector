@@ -8,6 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface SIMainWindowController : NSWindowController
+@class SIProgressWindowController;
+@class SIProductsViewController;
+
+@interface SIMainWindowController : NSWindowController <NSSplitViewDelegate>
+
+@property (retain) SIProgressWindowController *progressWindowController;
+@property (retain) SIProductsViewController *productsViewController;
+@property (assign) IBOutlet NSView *leftView;
+@property (assign) IBOutlet NSView *rightView;
+@property (assign) IBOutlet NSSplitView *mainSplitView;
+
+- (void)showProgressPanel;
+- (void)hideProgressPanel;
 
 @end

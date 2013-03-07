@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F53BDE4416E874D300055BC3 /* SIOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE4316E874D300055BC3 /* SIOperationManager.m */; };
+		F53BDE4B16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE4A16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m */; };
+		F53BDE4F16E89BD200055BC3 /* SIProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE4D16E89BD100055BC3 /* SIProgressWindowController.m */; };
+		F53BDE5016E89BD200055BC3 /* SIProgressWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F53BDE4E16E89BD200055BC3 /* SIProgressWindowController.xib */; };
+		F53BDE5416E8A0CD00055BC3 /* SIProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5216E8A0CD00055BC3 /* SIProductsViewController.m */; };
+		F53BDE5516E8A0CD00055BC3 /* SIProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F53BDE5316E8A0CD00055BC3 /* SIProductsViewController.xib */; };
+		F53BDE5816E8A3C300055BC3 /* GradientBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5716E8A3C200055BC3 /* GradientBackgroundView.m */; };
+		F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */; };
 		F5E06E3D16E473FF008B7831 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E06E3C16E473FF008B7831 /* Cocoa.framework */; };
 		F5E06E4716E473FF008B7831 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5E06E4516E473FF008B7831 /* InfoPlist.strings */; };
 		F5E06E4916E473FF008B7831 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E4816E473FF008B7831 /* main.m */; };
@@ -69,6 +77,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F53BDE4216E874D300055BC3 /* SIOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIOperationManager.h; sourceTree = "<group>"; };
+		F53BDE4316E874D300055BC3 /* SIOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIOperationManager.m; sourceTree = "<group>"; };
+		F53BDE4916E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+HJGCDExtensions.h"; sourceTree = "<group>"; };
+		F53BDE4A16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+HJGCDExtensions.m"; sourceTree = "<group>"; };
+		F53BDE4C16E89BD100055BC3 /* SIProgressWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIProgressWindowController.h; path = "UI Controllers/SIProgressWindowController.h"; sourceTree = "<group>"; };
+		F53BDE4D16E89BD100055BC3 /* SIProgressWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIProgressWindowController.m; path = "UI Controllers/SIProgressWindowController.m"; sourceTree = "<group>"; };
+		F53BDE4E16E89BD200055BC3 /* SIProgressWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIProgressWindowController.xib; path = "UI Controllers/SIProgressWindowController.xib"; sourceTree = "<group>"; };
+		F53BDE5116E8A0CD00055BC3 /* SIProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIProductsViewController.h; path = "UI Controllers/SIProductsViewController.h"; sourceTree = "<group>"; };
+		F53BDE5216E8A0CD00055BC3 /* SIProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIProductsViewController.m; path = "UI Controllers/SIProductsViewController.m"; sourceTree = "<group>"; };
+		F53BDE5316E8A0CD00055BC3 /* SIProductsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIProductsViewController.xib; path = "UI Controllers/SIProductsViewController.xib"; sourceTree = "<group>"; };
+		F53BDE5616E8A3C200055BC3 /* GradientBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientBackgroundView.h; sourceTree = "<group>"; };
+		F53BDE5716E8A3C200055BC3 /* GradientBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientBackgroundView.m; sourceTree = "<group>"; };
+		F53BDE5916E8B4C800055BC3 /* AMShellWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMShellWrapper.h; sourceTree = "<group>"; };
+		F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMShellWrapper.m; sourceTree = "<group>"; };
 		F5E06E3916E473FF008B7831 /* SUS Inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SUS Inspector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E06E3C16E473FF008B7831 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F5E06E3F16E473FF008B7831 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -146,6 +168,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F53BDE4516E875AE00055BC3 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Operations;
+			sourceTree = "<group>";
+		};
 		F5E06E3016E473FF008B7831 = {
 			isa = PBXGroup;
 			children = (
@@ -189,11 +218,14 @@
 		F5E06E4216E473FF008B7831 /* SUS Inspector */ = {
 			isa = PBXGroup;
 			children = (
+				F53BDE4516E875AE00055BC3 /* Operations */,
 				F5EE0D9316E5D998006AEA8B /* UI Controllers */,
 				F5E06EA416E4D876008B7831 /* Utilities */,
 				F5E06EA216E49CCD008B7831 /* CoreData */,
 				F5E06E4E16E473FF008B7831 /* SIAppDelegate.h */,
 				F5E06E4F16E473FF008B7831 /* SIAppDelegate.m */,
+				F53BDE4216E874D300055BC3 /* SIOperationManager.h */,
+				F53BDE4316E874D300055BC3 /* SIOperationManager.m */,
 				F5E06E5116E473FF008B7831 /* MainMenu.xib */,
 				F5E06E5416E473FF008B7831 /* SUS_Inspector.xcdatamodeld */,
 				F5E06E4316E473FF008B7831 /* Supporting Files */,
@@ -326,6 +358,12 @@
 		F5E06EA416E4D876008B7831 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F53BDE5916E8B4C800055BC3 /* AMShellWrapper.h */,
+				F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */,
+				F53BDE5616E8A3C200055BC3 /* GradientBackgroundView.h */,
+				F53BDE5716E8A3C200055BC3 /* GradientBackgroundView.m */,
+				F53BDE4916E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.h */,
+				F53BDE4A16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m */,
 				F5E06EA516E4D8A1008B7831 /* SISizeFormatter.h */,
 				F5E06EA616E4D8A1008B7831 /* SISizeFormatter.m */,
 			);
@@ -338,6 +376,12 @@
 				F5EE0D9416E5D9E1006AEA8B /* SIMainWindowController.h */,
 				F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */,
 				F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */,
+				F53BDE4C16E89BD100055BC3 /* SIProgressWindowController.h */,
+				F53BDE4D16E89BD100055BC3 /* SIProgressWindowController.m */,
+				F53BDE4E16E89BD200055BC3 /* SIProgressWindowController.xib */,
+				F53BDE5116E8A0CD00055BC3 /* SIProductsViewController.h */,
+				F53BDE5216E8A0CD00055BC3 /* SIProductsViewController.m */,
+				F53BDE5316E8A0CD00055BC3 /* SIProductsViewController.xib */,
 			);
 			name = "UI Controllers";
 			sourceTree = "<group>";
@@ -420,6 +464,8 @@
 				F5E06E4D16E473FF008B7831 /* Credits.rtf in Resources */,
 				F5E06E5316E473FF008B7831 /* MainMenu.xib in Resources */,
 				F5EE0D9816E5D9E1006AEA8B /* SIMainWindowController.xib in Resources */,
+				F53BDE5016E89BD200055BC3 /* SIProgressWindowController.xib in Resources */,
+				F53BDE5516E8A0CD00055BC3 /* SIProductsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +511,12 @@
 				F5E06EA116E49CC9008B7831 /* _SUProductMO.m in Sources */,
 				F5E06EA716E4D8A1008B7831 /* SISizeFormatter.m in Sources */,
 				F5EE0D9716E5D9E1006AEA8B /* SIMainWindowController.m in Sources */,
+				F53BDE4416E874D300055BC3 /* SIOperationManager.m in Sources */,
+				F53BDE4B16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m in Sources */,
+				F53BDE4F16E89BD200055BC3 /* SIProgressWindowController.m in Sources */,
+				F53BDE5416E8A0CD00055BC3 /* SIProductsViewController.m in Sources */,
+				F53BDE5816E8A3C300055BC3 /* GradientBackgroundView.m in Sources */,
+				F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
