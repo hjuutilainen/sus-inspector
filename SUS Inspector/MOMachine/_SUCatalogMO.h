@@ -2,24 +2,24 @@
 // Make changes to SUCatalogMO.h instead.
 
 #import <CoreData/CoreData.h>
-
+#import "SourceListItemMO.h"
 
 extern const struct SUCatalogMOAttributes {
 	 NSString *catalogDescription;
+	 NSString *catalogOSVersion;
 	 NSString *catalogTitle;
 	 NSString *catalogURL;
 } SUCatalogMOAttributes;
 
 extern const struct SUCatalogMORelationships {
-	 NSString *products;
 	 NSString *reposadoInstance;
 } SUCatalogMORelationships;
 
 extern const struct SUCatalogMOFetchedProperties {
 } SUCatalogMOFetchedProperties;
 
-@class SUProductMO;
 @class ReposadoInstanceMO;
+
 
 
 
@@ -28,7 +28,7 @@ extern const struct SUCatalogMOFetchedProperties {
 @interface SUCatalogMOID : NSManagedObjectID {}
 @end
 
-@interface _SUCatalogMO : NSManagedObject {}
+@interface _SUCatalogMO : SourceListItemMO {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
@@ -43,6 +43,16 @@ extern const struct SUCatalogMOFetchedProperties {
 
 
 //- (BOOL)validateCatalogDescription:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, retain) NSString* catalogOSVersion;
+
+
+
+//- (BOOL)validateCatalogOSVersion:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -68,13 +78,6 @@ extern const struct SUCatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSSet *products;
-
-- (NSMutableSet*)productsSet;
-
-
-
-
 @property (nonatomic, retain) ReposadoInstanceMO *reposadoInstance;
 
 //- (BOOL)validateReposadoInstance:(id*)value_ error:(NSError**)error_;
@@ -87,11 +90,6 @@ extern const struct SUCatalogMOFetchedProperties {
 
 @interface _SUCatalogMO (CoreDataGeneratedAccessors)
 
-- (void)addProducts:(NSSet*)value_;
-- (void)removeProducts:(NSSet*)value_;
-- (void)addProductsObject:(SUProductMO*)value_;
-- (void)removeProductsObject:(SUProductMO*)value_;
-
 @end
 
 @interface _SUCatalogMO (CoreDataGeneratedPrimitiveAccessors)
@@ -99,6 +97,12 @@ extern const struct SUCatalogMOFetchedProperties {
 
 - (NSString*)primitiveCatalogDescription;
 - (void)setPrimitiveCatalogDescription:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveCatalogOSVersion;
+- (void)setPrimitiveCatalogOSVersion:(NSString*)value;
 
 
 
@@ -113,11 +117,6 @@ extern const struct SUCatalogMOFetchedProperties {
 - (void)setPrimitiveCatalogURL:(id)value;
 
 
-
-
-
-- (NSMutableSet*)primitiveProducts;
-- (void)setPrimitiveProducts:(NSMutableSet*)value;
 
 
 

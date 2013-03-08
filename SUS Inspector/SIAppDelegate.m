@@ -122,76 +122,21 @@ NSString *defaultReposadoCodeDirectory = @"code";
     }
 }
 
-- (void)readReposadoInstanceContents:(ReposadoInstanceMO *)instance
-{
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    
-    /*
-     * Check the created/modified dates
-     */
-    NSArray *keysToGet = [NSArray arrayWithObjects:NSURLContentModificationDateKey, NSURLCreationDateKey, nil];
-    NSDictionary *urlResourceValues = [instance.productInfoURL resourceValuesForKeys:keysToGet error:nil];
-    NSDate *modificationDate = [urlResourceValues objectForKey:NSURLContentModificationDateKey];
-    NSDate *creationDate = [urlResourceValues objectForKey:NSURLCreationDateKey];
-    
-    if (([modificationDate isEqualToDate:instance.productInfoModificationDate]) && ([creationDate isEqualToDate:instance.productInfoCreationDate])) {
-        NSLog(@"No need to read ProductInfo");
-    } else {
-        NSLog(@"Reading %@", [instance.productInfoURL path]);
-        
-        instance.productInfoModificationDate = modificationDate;
-        instance.productInfoCreationDate = creationDate;
-        
-        NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:instance.productInfoURL];
-        [productInfo enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            /*
-             * Create product objects
-             */
-            
-            // Check if the product is valid
-            if (([obj objectForKey:@"title"]) || ([obj objectForKey:@"version"])) {
-                
-                SUProductMO *newProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:moc];
-                newProduct.productID = (NSString *)key;
-                newProduct.productTitle = [obj objectForKey:@"title"];
-                newProduct.productDescription = [obj objectForKey:@"description"];
-                newProduct.productPostDate = [obj objectForKey:@"PostDate"];
-                NSString *sizeAsString = [obj objectForKey:@"size"];
-                newProduct.productSize = [NSNumber numberWithInteger:[sizeAsString integerValue]];
-                newProduct.productVersion = [obj objectForKey:@"version"];
-                
-                NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
-                if ([appleCatalogs count] == 0) {
-                    newProduct.productIsDeprecatedValue = YES;
-                }
-                for (NSString *aCatalogString in appleCatalogs) {
-                    NSURL *catalogURL = [NSURL URLWithString:aCatalogString];
-                    NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:moc];
-                    NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
-                    [fetchForCatalogs setEntity:catalogEntityDescr];
-                    NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"catalogURL == %@", catalogURL];
-                    [fetchForCatalogs setPredicate:installURLPredicate];
-                    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchForCatalogs error:nil];
-                    if (numFoundCatalogs == 0) {
-                        NSLog(@"Creating %@", [catalogURL absoluteString]);
-                        SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:moc];
-                        newCatalog.catalogURL = catalogURL;
-                        [newCatalog addProductsObject:newProduct];
-                    } else {
-                        SUCatalogMO *existingCatalog = [[moc executeFetchRequest:fetchForCatalogs error:nil] objectAtIndex:0];
-                        [existingCatalog addProductsObject:newProduct];
-                    }
-                }
-            }
-        }];
-    }
-}
 
 - (IBAction)reposyncAction:(id)sender
 {
-    NSManagedObjectContext *moc = [self managedObjectContext];
     SIOperationManager *operationManager = [SIOperationManager sharedManager];
     operationManager.delegate = self;
+    [operationManager runReposync:self.defaultReposadoInstance];
+}
+
+- (void)setupDefaultReposado
+{
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    
+    SIOperationManager *operationManager = [SIOperationManager sharedManager];
+    operationManager.delegate = self;
+    
     // This is the directory where default reposado instance will be installed
     NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:defaultInstanceName];
     
@@ -201,15 +146,16 @@ NSString *defaultReposadoCodeDirectory = @"code";
     NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"reposadoInstallURL == %@", localReposadoInstallURL];
     [fetchForReposadoInstances setPredicate:installURLPredicate];
     NSUInteger numFoundReposados = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
+    ReposadoInstanceMO *instance = nil;
     if (numFoundReposados == 0) {
-        ReposadoInstanceMO *existing = [self setupLocalReposadoAtURL:localReposadoInstallURL];
-        [[SIOperationManager sharedManager] runReposync:existing];
+        instance = [self setupLocalReposadoAtURL:localReposadoInstallURL];
     } else {
-        ReposadoInstanceMO *defaultReposado = [[moc executeFetchRequest:fetchForReposadoInstances error:nil] objectAtIndex:0];
-        [[SIOperationManager sharedManager] runReposync:defaultReposado];
+        instance = [[moc executeFetchRequest:fetchForReposadoInstances error:nil] objectAtIndex:0];
     }
+    [fetchForReposadoInstances release];
     
-    
+    self.defaultReposadoInstance = instance;
+    [operationManager readReposadoInstanceContentsAsync:instance];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -220,26 +166,10 @@ NSString *defaultReposadoCodeDirectory = @"code";
     self.mainWindowController = [[SIMainWindowController alloc] initWithWindowNibName:@"SIMainWindowController"];
     [self.mainWindowController showWindow:self];
     
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    SIOperationManager *operationManager = [SIOperationManager sharedManager];
-    operationManager.delegate = self;
-    
-    // This is the directory where default reposado instance will be installed
-    NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:defaultInstanceName];
-    
-    NSEntityDescription *reposadoEntityDescr = [NSEntityDescription entityForName:@"ReposadoInstance" inManagedObjectContext:moc];
-    NSFetchRequest *fetchForReposadoInstances = [[NSFetchRequest alloc] init];
-    [fetchForReposadoInstances setEntity:reposadoEntityDescr];
-    NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"reposadoInstallURL == %@", localReposadoInstallURL];
-    [fetchForReposadoInstances setPredicate:installURLPredicate];
-    NSUInteger numFoundReposados = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
-    if (numFoundReposados == 0) {
-        ReposadoInstanceMO *existing = [self setupLocalReposadoAtURL:localReposadoInstallURL];
-        [operationManager readReposadoInstanceContentsAsync:existing];
-    } else {
-        ReposadoInstanceMO *defaultReposado = [[moc executeFetchRequest:fetchForReposadoInstances error:nil] objectAtIndex:0];
-        [operationManager readReposadoInstanceContentsAsync:defaultReposado];
-    }
+    /*
+     * Setup a default reposado instance
+     */
+    [self setupDefaultReposado];
 }
 
 - (void)awakeFromNib
@@ -247,14 +177,24 @@ NSString *defaultReposadoCodeDirectory = @"code";
     
 }
 
+
+# pragma mark -
+# pragma mark SIOprationManager delegate
+
 - (void)willStartOperations:(id)sender
 {
     [self.mainWindowController showProgressPanel];
 }
+
+
 - (void)willEndOperations:(id)sender
 {
     [self.mainWindowController hideProgressPanel];
 }
+
+
+# pragma mark -
+# pragma mark Core data defaults
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "fi.obsolete.SUS_Inspector" in the user's Application Support directory.
 - (NSURL *)applicationFilesDirectory
@@ -320,7 +260,7 @@ NSString *defaultReposadoCodeDirectory = @"code";
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"SUS_Inspector.storedata"];
     NSPersistentStoreCoordinator *coordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom] autorelease];
-    if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
+    if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }

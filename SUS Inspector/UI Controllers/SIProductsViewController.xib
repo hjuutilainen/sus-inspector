@@ -448,6 +448,7 @@
 								<string key="NSFrame">{{1, 585}, {880, 16}}</string>
 								<reference key="NSSuperview" ref="124599540"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:60</string>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								<int key="NSsFlags">1</int>
@@ -743,6 +744,22 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentSet: delegate.catalogsArrayController.selection.products</string>
+						<reference key="source" ref="606501647"/>
+						<reference key="destination" ref="1004"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="606501647"/>
+							<reference key="NSDestination" ref="1004"/>
+							<string key="NSLabel">contentSet: delegate.catalogsArrayController.selection.products</string>
+							<string key="NSBinding">contentSet</string>
+							<string key="NSKeyPath">delegate.catalogsArrayController.selection.products</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">181</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">predicate: filterPredicate</string>
 						<reference key="source" ref="473316609"/>
 						<reference key="destination" ref="606501647"/>
@@ -1030,7 +1047,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">176</int>
+			<int key="maxID">181</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

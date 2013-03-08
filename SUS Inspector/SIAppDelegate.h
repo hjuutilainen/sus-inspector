@@ -10,6 +10,7 @@
 #import "SIOperationManager.h"
 
 @class SIMainWindowController;
+@class ReposadoInstanceMO;
 
 @interface SIAppDelegate : NSObject <NSApplicationDelegate, SIOperationManagerDelegate>
 
@@ -21,6 +22,9 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (retain) SIMainWindowController *mainWindowController;
+@property (assign) ReposadoInstanceMO *defaultReposadoInstance;
+@property (assign) IBOutlet NSArrayController *catalogsArrayController;
+@property (assign) IBOutlet NSTreeController *sourceListTreeController;
 
 - (IBAction)saveAction:(id)sender;
 

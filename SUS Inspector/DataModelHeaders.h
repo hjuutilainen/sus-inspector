@@ -9,3 +9,4 @@
 #import "ReposadoInstanceMO.h"
 #import "SUCatalogMO.h"
 #import "SUProductMO.h"
+#import "SourceListItemMO.h"

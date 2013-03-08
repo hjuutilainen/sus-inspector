@@ -9,6 +9,7 @@
 #import "SIMainWindowController.h"
 #import "SIProgressWindowController.h"
 #import "SIProductsViewController.h"
+#import "SICatalogsViewController.h"
 
 @interface SIMainWindowController ()
 
@@ -35,6 +36,7 @@
     
     self.progressWindowController = [[SIProgressWindowController alloc] initWithWindowNibName:@"SIProgressWindowController"];
     self.productsViewController = [[SIProductsViewController alloc] initWithNibName:@"SIProductsViewController" bundle:nil];
+    self.catalogsViewController = [[SICatalogsViewController alloc] initWithNibName:@"SICatalogsViewController" bundle:nil];
     
     [self.mainSplitView setDelegate:self];
     
@@ -43,6 +45,10 @@
     [[self.productsViewController view] setFrameOrigin:NSMakePoint(0,0)];
     [[self.productsViewController view] setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     
+    [self.leftView addSubview:self.catalogsViewController.view];
+    [[self.catalogsViewController view] setFrame:[self.leftView frame]];
+    [[self.catalogsViewController view] setFrameOrigin:NSMakePoint(0,0)];
+    [[self.catalogsViewController view] setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     
 }
 

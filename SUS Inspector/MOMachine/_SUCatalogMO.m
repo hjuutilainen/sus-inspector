@@ -5,12 +5,12 @@
 
 const struct SUCatalogMOAttributes SUCatalogMOAttributes = {
 	.catalogDescription = @"catalogDescription",
+	.catalogOSVersion = @"catalogOSVersion",
 	.catalogTitle = @"catalogTitle",
 	.catalogURL = @"catalogURL",
 };
 
 const struct SUCatalogMORelationships SUCatalogMORelationships = {
-	.products = @"products",
 	.reposadoInstance = @"reposadoInstance",
 };
 
@@ -57,6 +57,13 @@ const struct SUCatalogMOFetchedProperties SUCatalogMOFetchedProperties = {
 
 
 
+@dynamic catalogOSVersion;
+
+
+
+
+
+
 @dynamic catalogTitle;
 
 
@@ -70,19 +77,6 @@ const struct SUCatalogMOFetchedProperties SUCatalogMOFetchedProperties = {
 
 
 
-
-@dynamic products;
-
-	
-- (NSMutableSet*)productsSet {
-	[self willAccessValueForKey:@"products"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"products"];
-  
-	[self didAccessValueForKey:@"products"];
-	return result;
-}
-	
 
 @dynamic reposadoInstance;
 

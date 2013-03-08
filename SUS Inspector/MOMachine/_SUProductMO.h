@@ -21,7 +21,7 @@ extern const struct SUProductMORelationships {
 extern const struct SUProductMOFetchedProperties {
 } SUProductMOFetchedProperties;
 
-@class SUCatalogMO;
+@class SourceListItemMO;
 
 
 
@@ -136,8 +136,8 @@ extern const struct SUProductMOFetchedProperties {
 
 - (void)addCatalogs:(NSSet*)value_;
 - (void)removeCatalogs:(NSSet*)value_;
-- (void)addCatalogsObject:(SUCatalogMO*)value_;
-- (void)removeCatalogsObject:(SUCatalogMO*)value_;
+- (void)addCatalogsObject:(SourceListItemMO*)value_;
+- (void)removeCatalogsObject:(SourceListItemMO*)value_;
 
 @end
 

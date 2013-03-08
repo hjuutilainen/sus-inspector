@@ -10,6 +10,14 @@
 
 @implementation SUCatalogMO
 
-// Custom logic goes here.
+- (NSString *)title
+{
+    return self.catalogTitle;
+}
+
+- (NSString *)catalogURLAsString
+{
+    return [self.catalogURL path];
+}
 
 @end

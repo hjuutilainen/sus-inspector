@@ -9,11 +9,18 @@
         <attribute name="reposadoUpdatesRootDir" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUCatalog" inverseName="reposadoInstance" inverseEntity="SUCatalog" syncable="YES"/>
     </entity>
-    <entity name="SUCatalog" representedClassName="SUCatalogMO" syncable="YES">
+    <entity name="SourceListItem" representedClassName="SourceListItemMO" syncable="YES">
+        <attribute name="isGroupItem" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SourceListItem" inverseName="parent" inverseEntity="SourceListItem" syncable="YES"/>
+        <relationship name="parent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SourceListItem" inverseName="children" inverseEntity="SourceListItem" syncable="YES"/>
+        <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUProduct" inverseName="catalogs" inverseEntity="SUProduct" syncable="YES"/>
+    </entity>
+    <entity name="SUCatalog" representedClassName="SUCatalogMO" parentEntity="SourceListItem" syncable="YES">
         <attribute name="catalogDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="catalogOSVersion" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="catalogTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="catalogURL" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUProduct" inverseName="catalogs" inverseEntity="SUProduct" syncable="YES"/>
         <relationship name="reposadoInstance" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReposadoInstance" inverseName="catalogs" inverseEntity="ReposadoInstance" syncable="YES"/>
     </entity>
     <entity name="SUProduct" representedClassName="SUProductMO" syncable="YES">
@@ -24,11 +31,12 @@
         <attribute name="productSize" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="productTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productVersion" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUCatalog" inverseName="products" inverseEntity="SUCatalog" syncable="YES"/>
+        <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SourceListItem" inverseName="products" inverseEntity="SourceListItem" syncable="YES"/>
     </entity>
     <elements>
         <element name="ReposadoInstance" positionX="-830" positionY="-72" width="128" height="148"/>
-        <element name="SUCatalog" positionX="-522" positionY="-81" width="128" height="118"/>
+        <element name="SUCatalog" positionX="-522" positionY="-81" width="128" height="120"/>
         <element name="SUProduct" positionX="-234" positionY="-99" width="128" height="165"/>
+        <element name="SourceListItem" positionX="160" positionY="192" width="128" height="120"/>
     </elements>
 </model>

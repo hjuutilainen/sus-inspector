@@ -80,6 +80,58 @@ static dispatch_queue_t serialQueue;
     });
 }
 
+- (SUProductMO *)newOrExistingProductWithID:(NSString *)productID managedObjectContext:(NSManagedObjectContext *)moc
+{
+    SUProductMO *theProduct = nil;
+    NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
+    [fetchProducts setEntity:[NSEntityDescription entityForName:@"SUProduct" inManagedObjectContext:moc]];
+    [fetchProducts setPredicate:[NSPredicate predicateWithFormat:@"productID == %@", productID]];
+    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchProducts error:nil];
+    if (numFoundCatalogs == 0) {
+        theProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:moc];
+        theProduct.productID = productID;
+    } else {
+        theProduct = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
+    }
+    [fetchProducts release];
+    return theProduct;
+}
+
+- (SUCatalogMO *)newOrExistingCatalogWithURL:(NSURL *)catalogURL managedObjectContext:(NSManagedObjectContext *)moc
+{
+    SUCatalogMO *theCatalog = nil;
+    NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
+    [fetchProducts setEntity:[NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:moc]];
+    [fetchProducts setPredicate:[NSPredicate predicateWithFormat:@"catalogURL == %@", catalogURL]];
+    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchProducts error:nil];
+    if (numFoundCatalogs == 0) {
+        theCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:moc];
+        theCatalog.catalogURL = catalogURL;
+    } else {
+        theCatalog = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
+    }
+    [fetchProducts release];
+    return theCatalog;
+}
+
+- (SourceListItemMO *)newOrExistingSourceListItem:(NSString *)title managedObjectContext:(NSManagedObjectContext *)moc
+{
+    SourceListItemMO *theCatalog = nil;
+    NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
+    [fetchProducts setEntity:[NSEntityDescription entityForName:@"SourceListItem" inManagedObjectContext:moc]];
+    [fetchProducts setPredicate:[NSPredicate predicateWithFormat:@"title == %@", title]];
+    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchProducts error:nil];
+    if (numFoundCatalogs == 0) {
+        theCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SourceListItem" inManagedObjectContext:moc];
+        theCatalog.title = title;
+    } else {
+        theCatalog = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
+    }
+    [fetchProducts release];
+    return theCatalog;
+}
+
+
 - (void)readReposadoInstanceContentsAsync:(ReposadoInstanceMO *)instance
 {
     [self willStartOperations];
@@ -96,38 +148,93 @@ static dispatch_queue_t serialQueue;
             NSDate *modificationDate = [urlResourceValues objectForKey:NSURLContentModificationDateKey];
             NSDate *creationDate = [urlResourceValues objectForKey:NSURLCreationDateKey];
             
-            if (([modificationDate isEqualToDate:instance.productInfoModificationDate]) && ([creationDate isEqualToDate:instance.productInfoCreationDate])) {
-                NSLog(@"No need to read ProductInfo");
-            } else {
+            SourceListItemMO *smartItem = [self newOrExistingSourceListItem:@"PRODUCTS" managedObjectContext:threadSafeMoc];
+            smartItem.isGroupItemValue = YES;
+            
+            SourceListItemMO *catalogsGroupItem = [self newOrExistingSourceListItem:@"CATALOGS" managedObjectContext:threadSafeMoc];
+            catalogsGroupItem.isGroupItemValue = YES;
+            
+            SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:[NSURL URLWithString:@"/all"] managedObjectContext:threadSafeMoc];
+            allCatalog.catalogTitle = @"All products";
+            allCatalog.parent = smartItem;
+            
+            BOOL readNeeded = ((![modificationDate isEqualToDate:instance.productInfoModificationDate]) ||
+                               (![creationDate isEqualToDate:instance.productInfoCreationDate])
+                               ) ? TRUE : FALSE;
+            
+            if (readNeeded)
+            {
                 NSLog(@"Reading %@", [instance.productInfoURL path]);
                 
                 instance.productInfoModificationDate = modificationDate;
                 instance.productInfoCreationDate = creationDate;
                 
                 NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:instance.productInfoURL];
-                [productInfo enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                
+                self.currentOperationTitle = [NSString stringWithFormat:@"Reading product information for %li products...", (unsigned long)[productInfo count]];
+                [productInfo enumerateKeysAndObjectsWithOptions:0 usingBlock:^(id key, id obj, BOOL *stop) {
                     /*
                      * Create product objects
                      */
                     
                     // Check if the product is valid
-                    if (([obj objectForKey:@"title"]) || ([obj objectForKey:@"version"])) {
-                        self.currentOperationDescription = [obj objectForKey:@"title"];
-                        SUProductMO *newProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:threadSafeMoc];
-                        newProduct.productID = (NSString *)key;
+                    BOOL hasProductID   = (![(NSString *)key isEqualToString:@""]) ? TRUE : FALSE;
+                    BOOL hasTitle       = ([obj objectForKey:@"title"]) ? TRUE : FALSE;
+                    BOOL hasVersion     = ([obj objectForKey:@"version"]) ? TRUE : FALSE;
+                    BOOL hasPostDate    = ([obj objectForKey:@"PostDate"]) ? TRUE : FALSE;
+                    BOOL hasSize        = ([obj objectForKey:@"size"]) ? TRUE : FALSE;
+                    
+                    BOOL validProduct   = (hasProductID && hasTitle && hasVersion &&
+                                           hasPostDate && hasSize
+                                           ) ? TRUE : FALSE;
+                    
+                    if (validProduct)
+                    {
+                        self.currentOperationDescription = [NSString stringWithFormat:@"%@ %@", (NSString *)key, [obj objectForKey:@"title"]];
+                        
+                        SUProductMO *newProduct = [self newOrExistingProductWithID:(NSString *)key managedObjectContext:threadSafeMoc];
                         newProduct.productTitle = [obj objectForKey:@"title"];
                         newProduct.productDescription = [obj objectForKey:@"description"];
                         newProduct.productPostDate = [obj objectForKey:@"PostDate"];
                         NSString *sizeAsString = [obj objectForKey:@"size"];
                         newProduct.productSize = [NSNumber numberWithInteger:[sizeAsString integerValue]];
                         newProduct.productVersion = [obj objectForKey:@"version"];
+                        [newProduct addCatalogsObject:allCatalog];
                         
                         NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
                         if ([appleCatalogs count] == 0) {
                             newProduct.productIsDeprecatedValue = YES;
+                            SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:[NSURL URLWithString:@"/deprecated"] managedObjectContext:threadSafeMoc];
+                            deprecatedCatalog.catalogTitle = @"Deprecated products";
+                            deprecatedCatalog.parent = smartItem;
+                            [newProduct addCatalogsObject:deprecatedCatalog];
                         }
                         for (NSString *aCatalogString in appleCatalogs) {
                             NSURL *catalogURL = [NSURL URLWithString:aCatalogString];
+                            NSString *catalogFileName = [catalogURL lastPathComponent];
+                            NSArray *catalogFileNames = [NSArray arrayWithObjects:
+                                                         @"index.sucatalog",
+                                                         @"index-leopard.merged-1.sucatalog",
+                                                         @"index-leopard-snowleopard.merged-1.sucatalog",
+                                                         @"index-lion-snowleopard-leopard.merged-1.sucatalog",
+                                                         @"index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
+                                                         nil];
+                            NSArray *osVersions = [NSArray arrayWithObjects:
+                                                   @"10.4",
+                                                   @"10.5",
+                                                   @"10.6",
+                                                   @"10.7",
+                                                   @"10.8",
+                                                   nil];
+                            NSArray *osNames = [NSArray arrayWithObjects:
+                                                   @"Tiger",
+                                                   @"Leopard",
+                                                   @"Snow Leopard",
+                                                   @"Lion",
+                                                   @"Mountain Lion",
+                                                   nil];
+                            NSDictionary *catalogNamesAndOSVersions = [NSDictionary dictionaryWithObjects:osVersions forKeys:catalogFileNames];
+                            NSDictionary *catalogFilenamesAndDisplayNames = [NSDictionary dictionaryWithObjects:osNames forKeys:catalogFileNames];
                             NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
                             NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
                             [fetchForCatalogs setEntity:catalogEntityDescr];
@@ -135,14 +242,19 @@ static dispatch_queue_t serialQueue;
                             [fetchForCatalogs setPredicate:installURLPredicate];
                             NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
                             if (numFoundCatalogs == 0) {
-                                //NSLog(@"Creating %@", [catalogURL absoluteString]);
-                                SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
-                                newCatalog.catalogURL = catalogURL;
-                                [newCatalog addProductsObject:newProduct];
+                                if ([catalogFileNames containsObject:catalogFileName]) {
+                                    SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
+                                    newCatalog.catalogURL = catalogURL;
+                                    newCatalog.catalogTitle = [catalogFilenamesAndDisplayNames objectForKey:catalogFileName];
+                                    newCatalog.catalogOSVersion = [catalogNamesAndOSVersions objectForKey:catalogFileName];
+                                    newCatalog.parent = catalogsGroupItem;
+                                    [newCatalog addProductsObject:newProduct];
+                                }
                             } else {
                                 SUCatalogMO *existingCatalog = [[threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil] objectAtIndex:0];
                                 [existingCatalog addProductsObject:newProduct];
                             }
+                            [fetchForCatalogs release];
                         }
                     }
                 }];
