@@ -158,6 +158,10 @@ static dispatch_queue_t serialQueue;
             allCatalog.catalogTitle = @"All products";
             allCatalog.parent = smartItem;
             
+            SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:[NSURL URLWithString:@"/deprecated"] managedObjectContext:threadSafeMoc];
+            deprecatedCatalog.catalogTitle = @"Deprecated products";
+            deprecatedCatalog.parent = smartItem;
+            
             BOOL readNeeded = ((![modificationDate isEqualToDate:instance.productInfoModificationDate]) ||
                                (![creationDate isEqualToDate:instance.productInfoCreationDate])
                                ) ? TRUE : FALSE;
@@ -204,9 +208,6 @@ static dispatch_queue_t serialQueue;
                         NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
                         if ([appleCatalogs count] == 0) {
                             newProduct.productIsDeprecatedValue = YES;
-                            SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:[NSURL URLWithString:@"/deprecated"] managedObjectContext:threadSafeMoc];
-                            deprecatedCatalog.catalogTitle = @"Deprecated products";
-                            deprecatedCatalog.parent = smartItem;
                             [newProduct addCatalogsObject:deprecatedCatalog];
                         }
                         for (NSString *aCatalogString in appleCatalogs) {
