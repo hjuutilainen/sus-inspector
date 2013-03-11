@@ -10,6 +10,7 @@
 #import "SIProgressWindowController.h"
 #import "SIProductsViewController.h"
 #import "SICatalogsViewController.h"
+#import "DataModelHeaders.h"
 
 @interface SIMainWindowController ()
 
@@ -37,6 +38,7 @@
     self.progressWindowController = [[SIProgressWindowController alloc] initWithWindowNibName:@"SIProgressWindowController"];
     self.productsViewController = [[SIProductsViewController alloc] initWithNibName:@"SIProductsViewController" bundle:nil];
     self.catalogsViewController = [[SICatalogsViewController alloc] initWithNibName:@"SICatalogsViewController" bundle:nil];
+    self.catalogsViewController.delegate = self;
     
     [self.mainSplitView setDelegate:self];
     
@@ -95,6 +97,17 @@
         
         [left setFrame:leftFrame];
         [right setFrame:rightFrame];
+    }
+}
+
+
+- (void)outlineViewSelectionDidChange
+{
+    //NSLog(@"outlineViewSelectionDidChange");
+    NSArray *selectedSourceListItems = [self.catalogsViewController.sourceListTreeController selectedObjects];
+    if ([selectedSourceListItems count] > 0) {
+        SourceListItemMO *selectedItem = [selectedSourceListItems objectAtIndex:0];
+        [self.productsViewController setSelectedCatalog:selectedItem.catalogReference];
     }
 }
 

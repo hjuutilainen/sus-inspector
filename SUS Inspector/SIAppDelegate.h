@@ -22,7 +22,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (retain) SIMainWindowController *mainWindowController;
-@property (assign) ReposadoInstanceMO *defaultReposadoInstance;
+@property (retain) ReposadoInstanceMO *defaultReposadoInstance;
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSTreeController *sourceListTreeController;
 

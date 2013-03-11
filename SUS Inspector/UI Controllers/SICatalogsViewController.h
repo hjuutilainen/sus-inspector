@@ -10,8 +10,8 @@
 
 @interface SICatalogsViewController : NSViewController
 
-@property (assign) IBOutlet NSArrayController *catalogsArrayController;
-@property (assign) IBOutlet NSTableView *catalogsTableView;
 @property (assign) IBOutlet NSOutlineView *sourceListOutlineView;
+@property (assign) IBOutlet NSTreeController *sourceListTreeController;
+@property (assign) id delegate;
 
 @end

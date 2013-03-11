@@ -25,83 +25,10 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
-NSString *defaultInstanceName = @"Default Reposado Instance";
+NSString *defaultInstanceName = @"Default";
 NSString *defaultReposadoDataDirectory = @"data";
 NSString *defaultReposadoCodeDirectory = @"code";
 
-- (NSDictionary *)preferencesForLocalReposadoAtURL:(NSURL *)installURL
-{
-    NSURL *localReposadoDataURL = [installURL URLByAppendingPathComponent:defaultReposadoDataDirectory];
-    NSURL *reposadoHtmlURL = [localReposadoDataURL URLByAppendingPathComponent:@"html"];
-    NSURL *reposadoMetadataURL = [localReposadoDataURL URLByAppendingPathComponent:@"metadata"];
-    
-    NSDictionary *reposadoPrefs = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   [reposadoMetadataURL relativePath], @"UpdatesMetadataDir",
-                                   [reposadoHtmlURL relativePath], @"UpdatesRootDir",
-                                   nil];
-    return reposadoPrefs;
-}
-
-- (void)configureReposadoInstance:(ReposadoInstanceMO *)instance
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    NSURL *localReposadoDataURL = [instance.reposadoInstallURL URLByAppendingPathComponent:defaultReposadoDataDirectory];
-    NSURL *reposadoHtmlURL = [localReposadoDataURL URLByAppendingPathComponent:@"html"];
-    NSURL *reposadoMetadataURL = [localReposadoDataURL URLByAppendingPathComponent:@"metadata"];
-    [fileManager createDirectoryAtURL:localReposadoDataURL withIntermediateDirectories:YES attributes:nil error:nil];
-    [fileManager createDirectoryAtURL:reposadoHtmlURL withIntermediateDirectories:YES attributes:nil error:nil];
-    [fileManager createDirectoryAtURL:reposadoMetadataURL withIntermediateDirectories:YES attributes:nil error:nil];
-    
-    NSDictionary *prefs = [self preferencesForLocalReposadoAtURL:instance.reposadoInstallURL];
-    NSURL *preferencesURL = [instance.codeURL URLByAppendingPathComponent:@"preferences.plist"];
-    [prefs writeToURL:preferencesURL atomically:YES];
-}
-
-- (ReposadoInstanceMO *)setupLocalReposadoAtURL:(NSURL *)installURL
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    [fileManager createDirectoryAtURL:installURL withIntermediateDirectories:YES attributes:nil error:nil];
-    
-    ReposadoInstanceMO *newReposadoInstance = [NSEntityDescription insertNewObjectForEntityForName:@"ReposadoInstance" inManagedObjectContext:self.managedObjectContext];
-    newReposadoInstance.reposadoInstallURL = installURL;
-    newReposadoInstance.reposadoTitle = @"Default Reposado Instance";
-    
-    // Reposado components we need
-    NSURL *repo_syncURL = [newReposadoInstance.codeURL URLByAppendingPathComponent:@"repo_sync"];
-    NSURL *repoutilURL = [newReposadoInstance.codeURL URLByAppendingPathComponent:@"repoutil"];
-    NSURL *reposadolibURL = [newReposadoInstance.codeURL URLByAppendingPathComponent:@"reposadolib" isDirectory:YES];
-    NSURL *reposadoInitURL = [reposadolibURL URLByAppendingPathComponent:@"__init__.py"];
-    NSURL *reposadocommonURL = [reposadolibURL URLByAppendingPathComponent:@"reposadocommon.py"];
-    
-    // Determine if everything is installed
-    BOOL reposadoInstalled = YES;
-    if (![fileManager fileExistsAtPath:[repo_syncURL path]]) reposadoInstalled = NO;
-    if (![fileManager fileExistsAtPath:[repoutilURL path]]) reposadoInstalled = NO;
-    if (![fileManager fileExistsAtPath:[reposadolibURL path]]) reposadoInstalled = NO;
-    if (![fileManager fileExistsAtPath:[reposadoInitURL path]]) reposadoInstalled = NO;
-    if (![fileManager fileExistsAtPath:[reposadocommonURL path]]) reposadoInstalled = NO;
-    
-    // Install if needed
-    if (!reposadoInstalled) {
-        NSLog(@"Installing local reposado to %@", [newReposadoInstance.codeURL path]);
-        if ([fileManager fileExistsAtPath:[newReposadoInstance.codeURL path]]) {
-            [fileManager removeItemAtURL:newReposadoInstance.codeURL error:nil];
-        }
-        NSString *mainBundleURL = [[NSBundle mainBundle] bundlePath];
-        NSString *bundledReposado = [mainBundleURL stringByAppendingString:@"/Contents/Resources/reposado/code"];
-        NSURL *bundledReposadoURL = [NSURL fileURLWithPath:bundledReposado isDirectory:YES];
-        NSError *error = nil;
-        [fileManager copyItemAtURL:bundledReposadoURL toURL:newReposadoInstance.codeURL error:&error];
-        if (error) {
-            NSLog(@"%@", [error description]);
-        }
-        
-        // Configure the created instance
-        [self configureReposadoInstance:newReposadoInstance];
-    }
-    return newReposadoInstance;
-}
 
 - (SUProductMO *)newOrExistingProductForID:(NSString *)productID
 {
@@ -148,7 +75,12 @@ NSString *defaultReposadoCodeDirectory = @"code";
     NSUInteger numFoundReposados = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
     ReposadoInstanceMO *instance = nil;
     if (numFoundReposados == 0) {
-        instance = [self setupLocalReposadoAtURL:localReposadoInstallURL];
+        instance = [NSEntityDescription insertNewObjectForEntityForName:@"ReposadoInstance" inManagedObjectContext:self.managedObjectContext];
+        instance.reposadoInstallURL = localReposadoInstallURL;
+        BOOL installedAndConfigured = [instance runInitialSetup];
+        if (!installedAndConfigured) {
+            NSLog(@"Error: Failed to setup local reposado instance");
+        }
     } else {
         instance = [[moc executeFetchRequest:fetchForReposadoInstances error:nil] objectAtIndex:0];
     }
@@ -260,7 +192,7 @@ NSString *defaultReposadoCodeDirectory = @"code";
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"SUS_Inspector.storedata"];
     NSPersistentStoreCoordinator *coordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom] autorelease];
-    if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
+    if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }

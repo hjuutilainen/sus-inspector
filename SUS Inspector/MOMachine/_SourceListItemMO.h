@@ -5,22 +5,28 @@
 
 
 extern const struct SourceListItemMOAttributes {
+	 NSString *iconImage;
+	 NSString *iconName;
 	 NSString *isGroupItem;
+	 NSString *sortIndex;
 	 NSString *title;
 } SourceListItemMOAttributes;
 
 extern const struct SourceListItemMORelationships {
+	 NSString *catalogReference;
 	 NSString *children;
 	 NSString *parent;
-	 NSString *products;
 } SourceListItemMORelationships;
 
 extern const struct SourceListItemMOFetchedProperties {
 } SourceListItemMOFetchedProperties;
 
+@class SUCatalogMO;
 @class SourceListItemMO;
 @class SourceListItemMO;
-@class SUProductMO;
+
+@class NSObject;
+
 
 
 
@@ -33,6 +39,26 @@ extern const struct SourceListItemMOFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (SourceListItemMOID*)objectID;
+
+
+
+
+
+@property (nonatomic, retain) id iconImage;
+
+
+
+//- (BOOL)validateIconImage:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, retain) NSString* iconName;
+
+
+
+//- (BOOL)validateIconName:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -52,12 +78,33 @@ extern const struct SourceListItemMOFetchedProperties {
 
 
 
+@property (nonatomic, retain) NSNumber* sortIndex;
+
+
+
+@property int32_t sortIndexValue;
+- (int32_t)sortIndexValue;
+- (void)setSortIndexValue:(int32_t)value_;
+
+//- (BOOL)validateSortIndex:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, retain) NSString* title;
 
 
 
 //- (BOOL)validateTitle:(id*)value_ error:(NSError**)error_;
 
+
+
+
+
+@property (nonatomic, retain) SUCatalogMO *catalogReference;
+
+//- (BOOL)validateCatalogReference:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -76,13 +123,6 @@ extern const struct SourceListItemMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSSet *products;
-
-- (NSMutableSet*)productsSet;
-
-
-
-
 
 @end
 
@@ -93,14 +133,21 @@ extern const struct SourceListItemMOFetchedProperties {
 - (void)addChildrenObject:(SourceListItemMO*)value_;
 - (void)removeChildrenObject:(SourceListItemMO*)value_;
 
-- (void)addProducts:(NSSet*)value_;
-- (void)removeProducts:(NSSet*)value_;
-- (void)addProductsObject:(SUProductMO*)value_;
-- (void)removeProductsObject:(SUProductMO*)value_;
-
 @end
 
 @interface _SourceListItemMO (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (id)primitiveIconImage;
+- (void)setPrimitiveIconImage:(id)value;
+
+
+
+
+- (NSString*)primitiveIconName;
+- (void)setPrimitiveIconName:(NSString*)value;
+
+
 
 
 - (NSNumber*)primitiveIsGroupItem;
@@ -112,10 +159,24 @@ extern const struct SourceListItemMOFetchedProperties {
 
 
 
+- (NSNumber*)primitiveSortIndex;
+- (void)setPrimitiveSortIndex:(NSNumber*)value;
+
+- (int32_t)primitiveSortIndexValue;
+- (void)setPrimitiveSortIndexValue:(int32_t)value_;
+
+
+
+
 - (NSString*)primitiveTitle;
 - (void)setPrimitiveTitle:(NSString*)value;
 
 
+
+
+
+- (SUCatalogMO*)primitiveCatalogReference;
+- (void)setPrimitiveCatalogReference:(SUCatalogMO*)value;
 
 
 
@@ -126,11 +187,6 @@ extern const struct SourceListItemMOFetchedProperties {
 
 - (SourceListItemMO*)primitiveParent;
 - (void)setPrimitiveParent:(SourceListItemMO*)value;
-
-
-
-- (NSMutableSet*)primitiveProducts;
-- (void)setPrimitiveProducts:(NSMutableSet*)value;
 
 
 @end

@@ -5,13 +5,17 @@
 
 const struct SUCatalogMOAttributes SUCatalogMOAttributes = {
 	.catalogDescription = @"catalogDescription",
+	.catalogDisplayName = @"catalogDisplayName",
+	.catalogFileURL = @"catalogFileURL",
 	.catalogOSVersion = @"catalogOSVersion",
 	.catalogTitle = @"catalogTitle",
 	.catalogURL = @"catalogURL",
 };
 
 const struct SUCatalogMORelationships SUCatalogMORelationships = {
+	.products = @"products",
 	.reposadoInstance = @"reposadoInstance",
+	.sourceListItem = @"sourceListItem",
 };
 
 const struct SUCatalogMOFetchedProperties SUCatalogMOFetchedProperties = {
@@ -57,6 +61,20 @@ const struct SUCatalogMOFetchedProperties SUCatalogMOFetchedProperties = {
 
 
 
+@dynamic catalogDisplayName;
+
+
+
+
+
+
+@dynamic catalogFileURL;
+
+
+
+
+
+
 @dynamic catalogOSVersion;
 
 
@@ -78,7 +96,24 @@ const struct SUCatalogMOFetchedProperties SUCatalogMOFetchedProperties = {
 
 
 
+@dynamic products;
+
+	
+- (NSMutableSet*)productsSet {
+	[self willAccessValueForKey:@"products"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"products"];
+  
+	[self didAccessValueForKey:@"products"];
+	return result;
+}
+	
+
 @dynamic reposadoInstance;
+
+	
+
+@dynamic sourceListItem;
 
 	
 

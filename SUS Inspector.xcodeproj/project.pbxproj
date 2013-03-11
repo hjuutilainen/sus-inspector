@@ -19,6 +19,10 @@
 		F53BDE5516E8A0CD00055BC3 /* SIProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F53BDE5316E8A0CD00055BC3 /* SIProductsViewController.xib */; };
 		F53BDE5816E8A3C300055BC3 /* GradientBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5716E8A3C200055BC3 /* GradientBackgroundView.m */; };
 		F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */; };
+		F5D151A816EDED9C0072EE5F /* 293-database.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D151A616EDED9C0072EE5F /* 293-database.png */; };
+		F5D151A916EDED9C0072EE5F /* 293-database@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D151A716EDED9C0072EE5F /* 293-database@2x.png */; };
+		F5D151AC16EDEFB60072EE5F /* 179-notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D151AA16EDEFB60072EE5F /* 179-notepad.png */; };
+		F5D151AD16EDEFB60072EE5F /* 179-notepad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D151AB16EDEFB60072EE5F /* 179-notepad@2x.png */; };
 		F5E06E3D16E473FF008B7831 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E06E3C16E473FF008B7831 /* Cocoa.framework */; };
 		F5E06E4716E473FF008B7831 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5E06E4516E473FF008B7831 /* InfoPlist.strings */; };
 		F5E06E4916E473FF008B7831 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E4816E473FF008B7831 /* main.m */; };
@@ -30,10 +34,6 @@
 		F5E06E5F16E47400008B7831 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E06E3C16E473FF008B7831 /* Cocoa.framework */; };
 		F5E06E6716E47400008B7831 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5E06E6516E47400008B7831 /* InfoPlist.strings */; };
 		F5E06E6A16E47400008B7831 /* SUS_InspectorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E6916E47400008B7831 /* SUS_InspectorTests.m */; };
-		F5E06E8916E47AAA008B7831 /* repo_sync in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E06E7516E479DB008B7831 /* repo_sync */; };
-		F5E06E8A16E47AD5008B7831 /* repoutil in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E06E7916E479DB008B7831 /* repoutil */; };
-		F5E06E8C16E47AEF008B7831 /* __init__.py in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E06E7716E479DB008B7831 /* __init__.py */; };
-		F5E06E8D16E47AF1008B7831 /* reposadocommon.py in CopyFiles */ = {isa = PBXBuildFile; fileRef = F5E06E7816E479DB008B7831 /* reposadocommon.py */; };
 		F5E06E9C16E49CC9008B7831 /* ReposadoInstanceMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9016E49CC9008B7831 /* ReposadoInstanceMO.m */; };
 		F5E06E9D16E49CC9008B7831 /* SUCatalogMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9216E49CC9008B7831 /* SUCatalogMO.m */; };
 		F5E06E9E16E49CC9008B7831 /* SUProductMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9416E49CC9008B7831 /* SUProductMO.m */; };
@@ -54,31 +54,6 @@
 			remoteInfo = "SUS Inspector";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		F5E06E8816E47A16008B7831 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = reposado/code;
-			dstSubfolderSpec = 7;
-			files = (
-				F5E06E8916E47AAA008B7831 /* repo_sync in CopyFiles */,
-				F5E06E8A16E47AD5008B7831 /* repoutil in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F5E06E8B16E47ADC008B7831 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = reposado/code/reposadolib;
-			dstSubfolderSpec = 7;
-			files = (
-				F5E06E8C16E47AEF008B7831 /* __init__.py in CopyFiles */,
-				F5E06E8D16E47AF1008B7831 /* reposadocommon.py in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F501047F16E9DF0900B345DE /* SICatalogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SICatalogsViewController.h; path = "UI Controllers/SICatalogsViewController.h"; sourceTree = "<group>"; };
@@ -102,6 +77,10 @@
 		F53BDE5716E8A3C200055BC3 /* GradientBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientBackgroundView.m; sourceTree = "<group>"; };
 		F53BDE5916E8B4C800055BC3 /* AMShellWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMShellWrapper.h; sourceTree = "<group>"; };
 		F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMShellWrapper.m; sourceTree = "<group>"; };
+		F5D151A616EDED9C0072EE5F /* 293-database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "293-database.png"; sourceTree = "<group>"; };
+		F5D151A716EDED9C0072EE5F /* 293-database@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "293-database@2x.png"; sourceTree = "<group>"; };
+		F5D151AA16EDEFB60072EE5F /* 179-notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "179-notepad.png"; sourceTree = "<group>"; };
+		F5D151AB16EDEFB60072EE5F /* 179-notepad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "179-notepad@2x.png"; sourceTree = "<group>"; };
 		F5E06E3916E473FF008B7831 /* SUS Inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SUS Inspector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E06E3C16E473FF008B7831 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F5E06E3F16E473FF008B7831 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -186,6 +165,17 @@
 			name = Operations;
 			sourceTree = "<group>";
 		};
+		F5D151A516EDED8B0072EE5F /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				F5D151AA16EDEFB60072EE5F /* 179-notepad.png */,
+				F5D151AB16EDEFB60072EE5F /* 179-notepad@2x.png */,
+				F5D151A616EDED9C0072EE5F /* 293-database.png */,
+				F5D151A716EDED9C0072EE5F /* 293-database@2x.png */,
+			);
+			name = icons;
+			sourceTree = "<group>";
+		};
 		F5E06E3016E473FF008B7831 = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +237,7 @@
 		F5E06E4316E473FF008B7831 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F5D151A516EDED8B0072EE5F /* icons */,
 				F5E06E4416E473FF008B7831 /* SUS Inspector-Info.plist */,
 				F5E06E4516E473FF008B7831 /* InfoPlist.strings */,
 				F5E06E4816E473FF008B7831 /* main.m */,
@@ -388,9 +379,6 @@
 		F5EE0D9316E5D998006AEA8B /* UI Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F5EE0D9416E5D9E1006AEA8B /* SIMainWindowController.h */,
-				F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */,
-				F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */,
 				F53BDE4C16E89BD100055BC3 /* SIProgressWindowController.h */,
 				F53BDE4D16E89BD100055BC3 /* SIProgressWindowController.m */,
 				F53BDE4E16E89BD200055BC3 /* SIProgressWindowController.xib */,
@@ -400,6 +388,9 @@
 				F501047F16E9DF0900B345DE /* SICatalogsViewController.h */,
 				F501048016E9DF0900B345DE /* SICatalogsViewController.m */,
 				F501048116E9DF0900B345DE /* SICatalogsViewController.xib */,
+				F5EE0D9416E5D9E1006AEA8B /* SIMainWindowController.h */,
+				F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */,
+				F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */,
 			);
 			name = "UI Controllers";
 			sourceTree = "<group>";
@@ -414,8 +405,7 @@
 				F5E06E3516E473FF008B7831 /* Sources */,
 				F5E06E3616E473FF008B7831 /* Frameworks */,
 				F5E06E3716E473FF008B7831 /* Resources */,
-				F5E06E8816E47A16008B7831 /* CopyFiles */,
-				F5E06E8B16E47ADC008B7831 /* CopyFiles */,
+				F5D151A416EDC11C0072EE5F /* reposado */,
 			);
 			buildRules = (
 			);
@@ -485,6 +475,10 @@
 				F53BDE5016E89BD200055BC3 /* SIProgressWindowController.xib in Resources */,
 				F53BDE5516E8A0CD00055BC3 /* SIProductsViewController.xib in Resources */,
 				F501048316E9DF0900B345DE /* SICatalogsViewController.xib in Resources */,
+				F5D151A816EDED9C0072EE5F /* 293-database.png in Resources */,
+				F5D151A916EDED9C0072EE5F /* 293-database@2x.png in Resources */,
+				F5D151AC16EDEFB60072EE5F /* 179-notepad.png in Resources */,
+				F5D151AD16EDEFB60072EE5F /* 179-notepad@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +493,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		F5D151A416EDC11C0072EE5F /* reposado */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = reposado;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# ==========================================================\n#  This script creates a .bundle from included reposado\n# ==========================================================\n\n# Clean the current output directory\nREPOSADO_OUT=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/reposado.bundle/\"\nif [[ -d \"${REPOSADO_OUT}\" ]]; then\n    rm -rf \"${REPOSADO_OUT}\"\nfi\n\n# Run a git checkout-index for the reposado submodule\ncd \"${SRCROOT}/reposado\"; git checkout-index --prefix=\"${REPOSADO_OUT}\" -a\n\n# Exit with the git checkout-index exit code\nexit $?\n";
+		};
 		F5E06E5A16E473FF008B7831 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

@@ -62,7 +62,7 @@
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="217882240">
 									<int key="NSCellFlags">68157504</int>
-									<int key="NSCellFlags2">272761856</int>
+									<int key="NSCellFlags2">71435264</int>
 									<string key="NSContents">Label</string>
 									<object class="NSFont" key="NSSupport" id="26">
 										<string key="NSName">LucidaGrande</string>
@@ -180,7 +180,7 @@
 										<reference key="NSNextResponder" ref="762036787"/>
 										<int key="NSvFlags">4352</int>
 										<array class="NSMutableArray" key="NSSubviews"/>
-										<string key="NSFrameSize">{912, 393}</string>
+										<string key="NSFrameSize">{914, 393}</string>
 										<reference key="NSSuperview" ref="762036787"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="33004187"/>
@@ -192,7 +192,7 @@
 											<reference key="NSNextResponder" ref="778590303"/>
 											<int key="NSvFlags">256</int>
 											<array class="NSMutableArray" key="NSSubviews"/>
-											<string key="NSFrameSize">{912, 17}</string>
+											<string key="NSFrameSize">{914, 17}</string>
 											<reference key="NSSuperview" ref="778590303"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="762036787"/>
@@ -208,7 +208,7 @@
 										</object>
 										<array class="NSMutableArray" key="NSTableColumns">
 											<object class="NSTableColumn" id="857063858">
-												<double key="NSWidth">407</double>
+												<double key="NSWidth">409</double>
 												<double key="NSMinWidth">40</double>
 												<double key="NSMaxWidth">1000</double>
 												<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -419,7 +419,7 @@
 										<int key="NSTableViewRowSizeStyle">1</int>
 									</object>
 								</array>
-								<string key="NSFrame">{{1, 17}, {912, 393}}</string>
+								<string key="NSFrame">{{1, 17}, {914, 393}}</string>
 								<reference key="NSSuperview" ref="124599540"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="792767998"/>
@@ -462,7 +462,7 @@
 								<array class="NSMutableArray" key="NSSubviews">
 									<reference ref="520246706"/>
 								</array>
-								<string key="NSFrame">{{1, 0}, {912, 17}}</string>
+								<string key="NSFrame">{{1, 0}, {914, 17}}</string>
 								<reference key="NSSuperview" ref="124599540"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="520246706"/>
@@ -472,7 +472,7 @@
 								<int key="NScvFlags">4</int>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 20}, {914, 411}}</string>
+						<string key="NSFrame">{{-1, 20}, {916, 411}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="778590303"/>
@@ -504,7 +504,6 @@
 				<bool key="NSPreservesSelection">YES</bool>
 				<bool key="NSSelectsInsertedObjects">YES</bool>
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
-				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 				<bool key="NSAutomaticallyRearrangesObjects">YES</bool>
 			</object>
 		</array>
@@ -744,19 +743,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentSet: delegate.catalogsArrayController.selection.products</string>
+						<string key="label">contentSet: selectedCatalog.products</string>
 						<reference key="source" ref="606501647"/>
-						<reference key="destination" ref="1004"/>
+						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="606501647"/>
-							<reference key="NSDestination" ref="1004"/>
-							<string key="NSLabel">contentSet: delegate.catalogsArrayController.selection.products</string>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">contentSet: selectedCatalog.products</string>
 							<string key="NSBinding">contentSet</string>
-							<string key="NSKeyPath">delegate.catalogsArrayController.selection.products</string>
+							<string key="NSKeyPath">selectedCatalog.products</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">181</int>
+					<int key="connectionID">185</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1047,7 +1046,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">181</int>
+			<int key="maxID">185</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

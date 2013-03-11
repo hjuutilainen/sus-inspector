@@ -27,8 +27,8 @@
 
 - (void)awakeFromNib
 {
-    //NSSortDescriptor *sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"catalogOSVersion" ascending:NO selector:@selector(compare:)];
-    //[self.catalogsArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByTitle, nil]];
+    NSSortDescriptor *sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"sortIndex" ascending:YES selector:@selector(compare:)];
+    [self.sourceListTreeController setSortDescriptors:[NSArray arrayWithObjects:sortByTitle, nil]];
     
     // The basic recipe for a sidebar. Note that the selectionHighlightStyle is set to NSTableViewSelectionHighlightStyleSourceList in the nib
     [self.sourceListOutlineView sizeLastColumnToFit];
@@ -74,6 +74,16 @@
         return YES;
     }
 }
+
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification
+{
+    if ([self.delegate respondsToSelector:@selector(outlineViewSelectionDidChange)]) {
+        [self.delegate performSelectorOnMainThread:@selector(outlineViewSelectionDidChange)
+                                        withObject:nil
+                                     waitUntilDone:NO];
+    }
+}
+
 
 
 @end
