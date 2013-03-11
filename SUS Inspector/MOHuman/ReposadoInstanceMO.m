@@ -100,9 +100,28 @@
 
 - (NSDictionary *)preferencesAsDictionary
 {
+    /*
+     <key>AppleCatalogURLs</key>
+     <array>
+     <string>http://swscan.apple.com/content/catalogs/index.sucatalog</string>
+     <string>http://swscan.apple.com/content/catalogs/index-1.sucatalog</string>
+     <string>http://swscan.apple.com/content/catalogs/others/index-leopard.merged-1.sucatalog</string>
+     <string>http://swscan.apple.com/content/catalogs/others/index-leopard-snowleopard.merged-1.sucatalog</string>
+     <string>http://swscan.apple.com/content/catalogs/others/index-lion-snowleopard-leopard.merged-1.sucatalog</string>
+     <string>http://swscan.apple.com/content/catalogs/others/index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
+     </array>
+     */
+    NSArray *appleCatalogURLs = [NSArray arrayWithObjects:
+                                 //@"http://swscan.apple.com/content/catalogs/index.sucatalog",
+                                 //@"http://swscan.apple.com/content/catalogs/others/index-leopard.merged-1.sucatalog",
+                                 //@"http://swscan.apple.com/content/catalogs/others/index-leopard-snowleopard.merged-1.sucatalog",
+                                 //@"http://swscan.apple.com/content/catalogs/others/index-lion-snowleopard-leopard.merged-1.sucatalog",
+                                 @"http://swscan.apple.com/content/catalogs/others/index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
+                                 nil];
     NSDictionary *reposadoPrefs = [NSDictionary dictionaryWithObjectsAndKeys:
                                    [self.reposadoMetadataURL relativePath], @"UpdatesMetadataDir",
                                    [self.reposadoHtmlURL relativePath], @"UpdatesRootDir",
+                                   appleCatalogURLs, @"AppleCatalogURLs",
                                    nil];
     return reposadoPrefs;
 }

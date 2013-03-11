@@ -135,33 +135,32 @@ static dispatch_queue_t serialQueue;
 {
     NSManagedObjectContext *parentMoc = [[NSApp delegate] managedObjectContext];
     [parentMoc performBlockWithPrivateQueueConcurrencyAndWait:^(NSManagedObjectContext *threadSafeMoc) {
-        
-        //NSManagedObjectContext *threadSafeMoc = [[NSApp delegate] managedObjectContext];
-        
+                
         SourceListItemMO *smartItem = [self newOrExistingSourceListItem:@"PRODUCTS" managedObjectContext:threadSafeMoc];
         smartItem.isGroupItemValue = YES;
         smartItem.sortIndexValue = 0;
         
-        NSImage *instanceImage = [NSImage imageNamed:@"293-database"];
-        [instanceImage setTemplate:YES];
+        NSImage *instanceImage = [NSImage imageNamed:@"104-index-cards"];
+        [instanceImage setTemplate:YES];        
         
         SourceListItemMO *allProductsItem = [self newOrExistingSourceListItem:@"All Products" managedObjectContext:threadSafeMoc];
         allProductsItem.iconImage = instanceImage;
         allProductsItem.parent = smartItem;
         allProductsItem.sortIndexValue = 0;
+        SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:[NSURL URLWithString:@"/all"] managedObjectContext:threadSafeMoc];
+        allProductsItem.catalogReference = allCatalog;
         
         SourceListItemMO *deprecatedProductsItem = [self newOrExistingSourceListItem:@"Deprecated Products" managedObjectContext:threadSafeMoc];
         deprecatedProductsItem.iconImage = instanceImage;
         deprecatedProductsItem.parent = smartItem;
         deprecatedProductsItem.sortIndexValue = 1;
+        SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:[NSURL URLWithString:@"/deprecated"] managedObjectContext:threadSafeMoc];
+        deprecatedProductsItem.catalogReference = deprecatedCatalog;
         
         
         SourceListItemMO *catalogsGroupItem = [self newOrExistingSourceListItem:@"CATALOGS" managedObjectContext:threadSafeMoc];
         catalogsGroupItem.isGroupItemValue = YES;
         catalogsGroupItem.sortIndexValue = 1;
-        
-        //SourceListItemMO *instancesGroupItem = [self newOrExistingSourceListItem:@"REPOSADO" managedObjectContext:threadSafeMoc];
-        //instancesGroupItem.isGroupItemValue = YES;
         
         // Fetch all catalogs
         NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
@@ -174,40 +173,13 @@ static dispatch_queue_t serialQueue;
             NSArray *allCatalogs = [threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil];
             [allCatalogs enumerateObjectsUsingBlock:^(SUCatalogMO *catalog, NSUInteger idx, BOOL *stop) {
                 SourceListItemMO *catalogItem = [self newOrExistingSourceListItem:catalog.catalogTitle managedObjectContext:threadSafeMoc];
-                NSImage *instanceImage = [NSImage imageNamed:@"179-notepad"];
+                NSImage *instanceImage = [NSImage imageNamed:@"96-book"];
                 [instanceImage setTemplate:YES];
                 catalogItem.iconImage = instanceImage;
                 catalogItem.parent = catalogsGroupItem;
                 catalogItem.catalogReference = catalog;
             }];
         }
-        
-        // Fetch all reposado instances
-        /*
-        NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"ReposadoInstance" inManagedObjectContext:threadSafeMoc];
-        NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
-        [fetchForCatalogs setEntity:catalogEntityDescr];
-        NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
-        if (numFoundCatalogs != 0) {
-            NSArray *allInstances = [threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil];
-            [allInstances enumerateObjectsUsingBlock:^(ReposadoInstanceMO *instance, NSUInteger idx, BOOL *stop) {
-                SourceListItemMO *instanceItem = [self newOrExistingSourceListItem:[instance.reposadoTitle uppercaseString] managedObjectContext:threadSafeMoc];
-                instanceItem.isGroupItemValue = YES;
-                instanceItem.sortIndexValue = idx + 1;
-                
-                [instance.catalogs enumerateObjectsUsingBlock:^(SUCatalogMO *catalog, BOOL *stop) {
-                    SourceListItemMO *catalogItem = [self newOrExistingSourceListItem:catalog.catalogTitle managedObjectContext:threadSafeMoc];
-                    NSImage *instanceImage = [NSImage imageNamed:@"179-notepad"];
-                    [instanceImage setTemplate:YES];
-                    catalogItem.iconImage = instanceImage;
-                    catalogItem.parent = instanceItem;
-                    catalogItem.productsFetchPredicate = [NSPredicate predicateWithFormat:@"ANY catalogs.catalogURL == %@", catalog.catalogURL];
-                }];
-                
-            }];
-        }
-        [fetchForCatalogs release];
-        */
     }];
 }
 

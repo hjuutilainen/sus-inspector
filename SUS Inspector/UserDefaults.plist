@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>reposadoDefaults</key>
+	<dict>
+		<key>AppleCatalogURLs</key>
+		<array>
+			<string>http://swscan.apple.com/content/catalogs/index.sucatalog</string>
+			<string>http://swscan.apple.com/content/catalogs/others/index-leopard.merged-1.sucatalog</string>
+			<string>http://swscan.apple.com/content/catalogs/others/index-leopard-snowleopard.merged-1.sucatalog</string>
+			<string>http://swscan.apple.com/content/catalogs/others/index-lion-snowleopard-leopard.merged-1.sucatalog</string>
+			<string>http://swscan.apple.com/content/catalogs/others/index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
+		</array>
+		<key>AdditionalCurlOptions</key>
+		<array/>
+		<key>PreferredLocalizations</key>
+		<array>
+			<string>English</string>
+			<string>en</string>
+		</array>
+		<key>CurlPath</key>
+		<string>/usr/bin/curl</string>
+	</dict>
+</dict>
+</plist>

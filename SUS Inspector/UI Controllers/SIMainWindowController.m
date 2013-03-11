@@ -10,6 +10,7 @@
 #import "SIProgressWindowController.h"
 #import "SIProductsViewController.h"
 #import "SICatalogsViewController.h"
+#import "SIReposadoSettingsController.h"
 #import "DataModelHeaders.h"
 
 @interface SIMainWindowController ()
@@ -39,6 +40,8 @@
     self.productsViewController = [[SIProductsViewController alloc] initWithNibName:@"SIProductsViewController" bundle:nil];
     self.catalogsViewController = [[SICatalogsViewController alloc] initWithNibName:@"SICatalogsViewController" bundle:nil];
     self.catalogsViewController.delegate = self;
+    self.reposadoSettingsController = [[SIReposadoSettingsController alloc] initWithWindowNibName:@"SIReposadoSettingsController"];
+    //[self.reposadoSettingsController showWindow:self];
     
     [self.mainSplitView setDelegate:self];
     

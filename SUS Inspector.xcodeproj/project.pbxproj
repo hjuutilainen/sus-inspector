@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26201BC316EE3680003F6416 /* 96-book.png in Resources */ = {isa = PBXBuildFile; fileRef = 26201BC116EE3680003F6416 /* 96-book.png */; };
+		26201BC416EE3680003F6416 /* 96-book@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26201BC216EE3680003F6416 /* 96-book@2x.png */; };
+		26201BC916EE3781003F6416 /* 97-puzzle-piece.png in Resources */ = {isa = PBXBuildFile; fileRef = 26201BC516EE3781003F6416 /* 97-puzzle-piece.png */; };
+		26201BCA16EE3781003F6416 /* 97-puzzle-piece@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26201BC616EE3781003F6416 /* 97-puzzle-piece@2x.png */; };
+		26201BCB16EE3781003F6416 /* 104-index-cards.png in Resources */ = {isa = PBXBuildFile; fileRef = 26201BC716EE3781003F6416 /* 104-index-cards.png */; };
+		26201BCC16EE3781003F6416 /* 104-index-cards@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26201BC816EE3781003F6416 /* 104-index-cards@2x.png */; };
+		26201BCE16EE3C37003F6416 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26201BCD16EE3C37003F6416 /* UserDefaults.plist */; };
+		26201BD116EE4041003F6416 /* SIReposadoSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26201BD016EE4041003F6416 /* SIReposadoSettingsController.m */; };
+		26201BD316EE405F003F6416 /* SIReposadoSettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26201BD216EE405F003F6416 /* SIReposadoSettingsController.xib */; };
 		F501048216E9DF0900B345DE /* SICatalogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048016E9DF0900B345DE /* SICatalogsViewController.m */; };
 		F501048316E9DF0900B345DE /* SICatalogsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F501048116E9DF0900B345DE /* SICatalogsViewController.xib */; };
 		F501048616EA044100B345DE /* SourceListItemMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048516EA044100B345DE /* SourceListItemMO.m */; };
@@ -56,6 +65,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		26201BC116EE3680003F6416 /* 96-book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "96-book.png"; sourceTree = "<group>"; };
+		26201BC216EE3680003F6416 /* 96-book@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "96-book@2x.png"; sourceTree = "<group>"; };
+		26201BC516EE3781003F6416 /* 97-puzzle-piece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "97-puzzle-piece.png"; sourceTree = "<group>"; };
+		26201BC616EE3781003F6416 /* 97-puzzle-piece@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "97-puzzle-piece@2x.png"; sourceTree = "<group>"; };
+		26201BC716EE3781003F6416 /* 104-index-cards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "104-index-cards.png"; sourceTree = "<group>"; };
+		26201BC816EE3781003F6416 /* 104-index-cards@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "104-index-cards@2x.png"; sourceTree = "<group>"; };
+		26201BCD16EE3C37003F6416 /* UserDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserDefaults.plist; sourceTree = "<group>"; };
+		26201BCF16EE4041003F6416 /* SIReposadoSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIReposadoSettingsController.h; path = "UI Controllers/SIReposadoSettingsController.h"; sourceTree = "<group>"; };
+		26201BD016EE4041003F6416 /* SIReposadoSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIReposadoSettingsController.m; path = "UI Controllers/SIReposadoSettingsController.m"; sourceTree = "<group>"; };
+		26201BD216EE405F003F6416 /* SIReposadoSettingsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIReposadoSettingsController.xib; path = "UI Controllers/SIReposadoSettingsController.xib"; sourceTree = "<group>"; };
 		F501047F16E9DF0900B345DE /* SICatalogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SICatalogsViewController.h; path = "UI Controllers/SICatalogsViewController.h"; sourceTree = "<group>"; };
 		F501048016E9DF0900B345DE /* SICatalogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SICatalogsViewController.m; path = "UI Controllers/SICatalogsViewController.m"; sourceTree = "<group>"; };
 		F501048116E9DF0900B345DE /* SICatalogsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SICatalogsViewController.xib; path = "UI Controllers/SICatalogsViewController.xib"; sourceTree = "<group>"; };
@@ -168,6 +187,12 @@
 		F5D151A516EDED8B0072EE5F /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				26201BC516EE3781003F6416 /* 97-puzzle-piece.png */,
+				26201BC616EE3781003F6416 /* 97-puzzle-piece@2x.png */,
+				26201BC716EE3781003F6416 /* 104-index-cards.png */,
+				26201BC816EE3781003F6416 /* 104-index-cards@2x.png */,
+				26201BC116EE3680003F6416 /* 96-book.png */,
+				26201BC216EE3680003F6416 /* 96-book@2x.png */,
 				F5D151AA16EDEFB60072EE5F /* 179-notepad.png */,
 				F5D151AB16EDEFB60072EE5F /* 179-notepad@2x.png */,
 				F5D151A616EDED9C0072EE5F /* 293-database.png */,
@@ -243,6 +268,7 @@
 				F5E06E4816E473FF008B7831 /* main.m */,
 				F5E06E4A16E473FF008B7831 /* SUS Inspector-Prefix.pch */,
 				F5E06E4B16E473FF008B7831 /* Credits.rtf */,
+				26201BCD16EE3C37003F6416 /* UserDefaults.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -391,6 +417,9 @@
 				F5EE0D9416E5D9E1006AEA8B /* SIMainWindowController.h */,
 				F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */,
 				F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */,
+				26201BCF16EE4041003F6416 /* SIReposadoSettingsController.h */,
+				26201BD016EE4041003F6416 /* SIReposadoSettingsController.m */,
+				26201BD216EE405F003F6416 /* SIReposadoSettingsController.xib */,
 			);
 			name = "UI Controllers";
 			sourceTree = "<group>";
@@ -479,6 +508,14 @@
 				F5D151A916EDED9C0072EE5F /* 293-database@2x.png in Resources */,
 				F5D151AC16EDEFB60072EE5F /* 179-notepad.png in Resources */,
 				F5D151AD16EDEFB60072EE5F /* 179-notepad@2x.png in Resources */,
+				26201BC316EE3680003F6416 /* 96-book.png in Resources */,
+				26201BC416EE3680003F6416 /* 96-book@2x.png in Resources */,
+				26201BC916EE3781003F6416 /* 97-puzzle-piece.png in Resources */,
+				26201BCA16EE3781003F6416 /* 97-puzzle-piece@2x.png in Resources */,
+				26201BCB16EE3781003F6416 /* 104-index-cards.png in Resources */,
+				26201BCC16EE3781003F6416 /* 104-index-cards@2x.png in Resources */,
+				26201BCE16EE3C37003F6416 /* UserDefaults.plist in Resources */,
+				26201BD316EE405F003F6416 /* SIReposadoSettingsController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +584,7 @@
 				F501048216E9DF0900B345DE /* SICatalogsViewController.m in Sources */,
 				F501048616EA044100B345DE /* SourceListItemMO.m in Sources */,
 				F501048916EA044A00B345DE /* _SourceListItemMO.m in Sources */,
+				26201BD116EE4041003F6416 /* SIReposadoSettingsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
