@@ -39,7 +39,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{196, 240}, {900, 480}}</string>
 				<int key="NSWTFlags">544735232</int>
-				<string key="NSWindowTitle">Window</string>
+				<string key="NSWindowTitle">SUS Inspector</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
@@ -68,6 +68,7 @@
 									<string key="NSFrame">{{257, 0}, {643, 480}}</string>
 									<reference key="NSSuperview" ref="800024404"/>
 									<reference key="NSWindow"/>
+									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:13</string>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -225,7 +226,6 @@
 						<string key="leftView">NSView</string>
 						<string key="mainSplitView">NSSplitView</string>
 						<string key="rightView">NSView</string>
-						<string key="sourceListTreeController">NSTreeController</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="leftView">
@@ -239,10 +239,6 @@
 						<object class="IBToOneOutletInfo" key="rightView">
 							<string key="name">rightView</string>
 							<string key="candidateClassName">NSView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="sourceListTreeController">
-							<string key="name">sourceListTreeController</string>
-							<string key="candidateClassName">NSTreeController</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
