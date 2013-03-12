@@ -2,6 +2,49 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>defaultCatalogs</key>
+	<array>
+		<dict>
+			<key>catalogOSVersion</key>
+			<string>10.8</string>
+			<key>catalogURL</key>
+			<string>http://swscan.apple.com/content/catalogs/others/index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
+			<key>catalogDisplayName</key>
+			<string>Mountain Lion</string>
+		</dict>
+		<dict>
+			<key>catalogOSVersion</key>
+			<string>10.7</string>
+			<key>catalogURL</key>
+			<string>http://swscan.apple.com/content/catalogs/others/index-lion-snowleopard-leopard.merged-1.sucatalog</string>
+			<key>catalogDisplayName</key>
+			<string>Lion</string>
+		</dict>
+		<dict>
+			<key>catalogOSVersion</key>
+			<string>10.6</string>
+			<key>catalogURL</key>
+			<string>http://swscan.apple.com/content/catalogs/others/index-leopard-snowleopard.merged-1.sucatalog</string>
+			<key>catalogDisplayName</key>
+			<string>Snow Leopard</string>
+		</dict>
+		<dict>
+			<key>catalogOSVersion</key>
+			<string>10.5</string>
+			<key>catalogURL</key>
+			<string>http://swscan.apple.com/content/catalogs/others/index-leopard.merged-1.sucatalog</string>
+			<key>catalogDisplayName</key>
+			<string>Leopard</string>
+		</dict>
+		<dict>
+			<key>catalogOSVersion</key>
+			<string>10.4</string>
+			<key>catalogURL</key>
+			<string>http://swscan.apple.com/content/catalogs/index.sucatalog</string>
+			<key>catalogDisplayName</key>
+			<string>Tiger</string>
+		</dict>
+	</array>
 	<key>reposadoDefaults</key>
 	<dict>
 		<key>AppleCatalogURLs</key>

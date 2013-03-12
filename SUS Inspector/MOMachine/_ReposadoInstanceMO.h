@@ -18,6 +18,7 @@ extern const struct ReposadoInstanceMORelationships {
 } ReposadoInstanceMORelationships;
 
 extern const struct ReposadoInstanceMOFetchedProperties {
+	 NSString *activeCatalogs;
 } ReposadoInstanceMOFetchedProperties;
 
 @class SUCatalogMO;
@@ -108,6 +109,8 @@ extern const struct ReposadoInstanceMOFetchedProperties {
 
 
 
+
+@property (nonatomic, readonly) NSArray *activeCatalogs;
 
 
 @end

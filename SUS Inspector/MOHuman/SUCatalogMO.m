@@ -17,7 +17,7 @@
 
 - (NSString *)catalogURLAsString
 {
-    return [self.catalogURL path];
+    return self.catalogURL;
 }
 
 @end

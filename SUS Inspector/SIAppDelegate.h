@@ -8,11 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SIOperationManager.h"
+#import "SIReposadoConfigurationController.h"
 
 @class SIMainWindowController;
 @class ReposadoInstanceMO;
 
-@interface SIAppDelegate : NSObject <NSApplicationDelegate, SIOperationManagerDelegate>
+@interface SIAppDelegate : NSObject <NSApplicationDelegate, SIOperationManagerDelegate, SIReposadoConfigurationControllerDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSArrayController *productsArrayController;
@@ -33,5 +34,8 @@
 // SIOperationManager delegates
 - (void)willStartOperations:(id)sender;
 - (void)willEndOperations:(id)sender;
+
+// SIReposadoConfigurationController delegates
+- (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(ReposadoInstanceMO *)object;
 
 @end

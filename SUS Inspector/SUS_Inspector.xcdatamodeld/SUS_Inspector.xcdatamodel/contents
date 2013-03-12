@@ -8,6 +8,9 @@
         <attribute name="reposadoUpdatesMetadataDir" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reposadoUpdatesRootDir" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUCatalog" inverseName="reposadoInstance" inverseEntity="SUCatalog" syncable="YES"/>
+        <fetchedProperty name="activeCatalogs" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="SUCatalog" predicateString="($FETCH_SOURCE IN catalogs) AND (isActive == TRUE)"/>
+        </fetchedProperty>
     </entity>
     <entity name="SourceListItem" representedClassName="SourceListItemMO" syncable="YES">
         <attribute name="iconImage" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -20,12 +23,14 @@
         <relationship name="parent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SourceListItem" inverseName="children" inverseEntity="SourceListItem" syncable="YES"/>
     </entity>
     <entity name="SUCatalog" representedClassName="SUCatalogMO" syncable="YES">
+        <attribute name="allowRemove" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="catalogDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="catalogDisplayName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="catalogFileURL" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="catalogOSVersion" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="catalogTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="catalogURL" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="catalogURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUProduct" inverseName="catalogs" inverseEntity="SUProduct" syncable="YES"/>
         <relationship name="reposadoInstance" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReposadoInstance" inverseName="catalogs" inverseEntity="ReposadoInstance" syncable="YES"/>
         <relationship name="sourceListItem" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SourceListItem" inverseName="catalogReference" inverseEntity="SourceListItem" syncable="YES"/>
@@ -41,9 +46,9 @@
         <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUCatalog" inverseName="products" inverseEntity="SUCatalog" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ReposadoInstance" positionX="-830" positionY="-72" width="128" height="148"/>
+        <element name="ReposadoInstance" positionX="-830" positionY="-72" width="128" height="179"/>
         <element name="SourceListItem" positionX="160" positionY="192" width="128" height="165"/>
-        <element name="SUCatalog" positionX="-522" positionY="-81" width="128" height="180"/>
+        <element name="SUCatalog" positionX="-522" positionY="-81" width="128" height="210"/>
         <element name="SUProduct" positionX="-234" positionY="-99" width="128" height="165"/>
     </elements>
 </model>

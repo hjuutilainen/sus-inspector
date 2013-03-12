@@ -10,6 +10,7 @@
 #import "DataModelHeaders.h"
 #import "SIMainWindowController.h"
 #import "SIOperationManager.h"
+#import "SIReposadoConfigurationController.h"
 
 @implementation SIAppDelegate
 
@@ -28,6 +29,19 @@
 NSString *defaultInstanceName = @"Default";
 NSString *defaultReposadoDataDirectory = @"data";
 NSString *defaultReposadoCodeDirectory = @"code";
+
+
+- (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(ReposadoInstanceMO *)object
+{
+    [self.managedObjectContext refreshObject:object mergeChanges:YES];
+    [[[self managedObjectContext] undoManager] endUndoGrouping];
+    
+    if (returnCode == NSOKButton) {
+        [self.defaultReposadoInstance configureReposado];
+    } else if (returnCode == NSOKButton) {
+        [[[self managedObjectContext] undoManager] undo];
+    }
+}
 
 
 - (SUProductMO *)newOrExistingProductForID:(NSString *)productID
@@ -77,17 +91,37 @@ NSString *defaultReposadoCodeDirectory = @"code";
     if (numFoundReposados == 0) {
         instance = [NSEntityDescription insertNewObjectForEntityForName:@"ReposadoInstance" inManagedObjectContext:self.managedObjectContext];
         instance.reposadoInstallURL = localReposadoInstallURL;
+        
+        for (NSDictionary *defaultCatalog in [[NSUserDefaults standardUserDefaults] arrayForKey:@"defaultCatalogs"]) {
+            SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:moc];
+            newCatalog.catalogURL = [defaultCatalog objectForKey:@"catalogURL"];
+            newCatalog.catalogDisplayName = [defaultCatalog objectForKey:@"catalogDisplayName"];
+            newCatalog.catalogOSVersion = [defaultCatalog objectForKey:@"catalogOSVersion"];
+            newCatalog.isActiveValue = YES;
+            [instance addCatalogsObject:newCatalog];
+        }
+        
+        self.defaultReposadoInstance = instance;
+        
+        [[[self managedObjectContext] undoManager] beginUndoGrouping];
+        [[[self managedObjectContext] undoManager] setActionName:@"Edit Reposado Configuration"];
+        
+        [self.mainWindowController.reposadoConfigurationController beginEditSessionWithObject:self.defaultReposadoInstance delegate:self];
+        
+        /*
         BOOL installedAndConfigured = [instance runInitialSetup];
         if (!installedAndConfigured) {
             NSLog(@"Error: Failed to setup local reposado instance");
         }
+         */
     } else {
         instance = [[moc executeFetchRequest:fetchForReposadoInstances error:nil] objectAtIndex:0];
+        self.defaultReposadoInstance = instance;
+        [operationManager readReposadoInstanceContentsAsync:instance];
     }
     [fetchForReposadoInstances release];
     
-    self.defaultReposadoInstance = instance;
-    [operationManager readReposadoInstanceContentsAsync:instance];
+    
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -121,6 +155,7 @@ NSString *defaultReposadoCodeDirectory = @"code";
 
 - (void)willEndOperations:(id)sender
 {
+    [[SIOperationManager sharedManager] setupSourceListItems];
     [self.mainWindowController hideProgressPanel];
 }
 
@@ -133,7 +168,7 @@ NSString *defaultReposadoCodeDirectory = @"code";
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *appSupportURL = [[fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
-    return [appSupportURL URLByAppendingPathComponent:@"fi.obsolete.SUS_Inspector"];
+    return [appSupportURL URLByAppendingPathComponent:@"SUS Inspector"];
 }
 
 // Creates if necessary and returns the managed object model for the application.

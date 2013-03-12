@@ -17,6 +17,7 @@ const struct ReposadoInstanceMORelationships ReposadoInstanceMORelationships = {
 };
 
 const struct ReposadoInstanceMOFetchedProperties ReposadoInstanceMOFetchedProperties = {
+	.activeCatalogs = @"activeCatalogs",
 };
 
 @implementation ReposadoInstanceMOID
@@ -108,6 +109,8 @@ const struct ReposadoInstanceMOFetchedProperties ReposadoInstanceMOFetchedProper
 	
 
 
+
+@dynamic activeCatalogs;
 
 
 

@@ -100,41 +100,29 @@
 
 - (NSDictionary *)preferencesAsDictionary
 {
-    /*
-     <key>AppleCatalogURLs</key>
-     <array>
-     <string>http://swscan.apple.com/content/catalogs/index.sucatalog</string>
-     <string>http://swscan.apple.com/content/catalogs/index-1.sucatalog</string>
-     <string>http://swscan.apple.com/content/catalogs/others/index-leopard.merged-1.sucatalog</string>
-     <string>http://swscan.apple.com/content/catalogs/others/index-leopard-snowleopard.merged-1.sucatalog</string>
-     <string>http://swscan.apple.com/content/catalogs/others/index-lion-snowleopard-leopard.merged-1.sucatalog</string>
-     <string>http://swscan.apple.com/content/catalogs/others/index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
-     </array>
-     */
-    NSArray *appleCatalogURLs = [NSArray arrayWithObjects:
-                                 //@"http://swscan.apple.com/content/catalogs/index.sucatalog",
-                                 //@"http://swscan.apple.com/content/catalogs/others/index-leopard.merged-1.sucatalog",
-                                 //@"http://swscan.apple.com/content/catalogs/others/index-leopard-snowleopard.merged-1.sucatalog",
-                                 //@"http://swscan.apple.com/content/catalogs/others/index-lion-snowleopard-leopard.merged-1.sucatalog",
-                                 @"http://swscan.apple.com/content/catalogs/others/index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-                                 nil];
+    NSPredicate *active = [NSPredicate predicateWithFormat:@"isActive == TRUE"];
+    NSSet *activeCatalogs = [self.catalogs filteredSetUsingPredicate:active];
+    NSSortDescriptor *sortByOS = [NSSortDescriptor sortDescriptorWithKey:@"catalogOSVersion" ascending:YES];
+    NSArray *sortedByOS = [activeCatalogs sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortByOS]];
+    NSArray *catalogURLs = [sortedByOS valueForKeyPath:@"catalogURL"];
+    
     NSDictionary *reposadoPrefs = [NSDictionary dictionaryWithObjectsAndKeys:
                                    [self.reposadoMetadataURL relativePath], @"UpdatesMetadataDir",
                                    [self.reposadoHtmlURL relativePath], @"UpdatesRootDir",
-                                   appleCatalogURLs, @"AppleCatalogURLs",
+                                   catalogURLs, @"AppleCatalogURLs",
                                    nil];
     return reposadoPrefs;
 }
 
 
-- (BOOL)configureReposado
+- (BOOL)writeReposadoPreferences
 {
     NSDictionary *prefs = [self preferencesAsDictionary];
     NSURL *preferencesURL = [self.reposadoCodeURL URLByAppendingPathComponent:@"preferences.plist"];
     return [prefs writeToURL:preferencesURL atomically:YES];
 }
 
-- (BOOL)runInitialSetup
+- (BOOL)configureReposado
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
@@ -152,8 +140,8 @@
     
     self.reposadoTitle = [self.reposadoInstallURL lastPathComponent];
     
-    if (![self copyReposadoBundleFiles]) return NO;
-    if (![self configureReposado]) return NO;
+    [self copyReposadoBundleFiles];
+    [self writeReposadoPreferences];
     return YES;
 }
 

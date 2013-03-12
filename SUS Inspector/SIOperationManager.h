@@ -28,6 +28,7 @@
 @property (retain) AMShellWrapper *shellWrapper;
 
 + (SIOperationManager *)sharedManager;
+- (void)setupSourceListItems;
 - (void)readReposadoInstanceContentsAsync:(ReposadoInstanceMO *)instance;
 - (void)runReposync:(ReposadoInstanceMO *)instance;
 

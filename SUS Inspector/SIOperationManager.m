@@ -97,7 +97,7 @@ static dispatch_queue_t serialQueue;
     return theProduct;
 }
 
-- (SUCatalogMO *)newOrExistingCatalogWithURL:(NSURL *)catalogURL managedObjectContext:(NSManagedObjectContext *)moc
+- (SUCatalogMO *)newOrExistingCatalogWithURL:(NSString *)catalogURL managedObjectContext:(NSManagedObjectContext *)moc
 {
     SUCatalogMO *theCatalog = nil;
     NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
@@ -135,7 +135,7 @@ static dispatch_queue_t serialQueue;
 {
     NSManagedObjectContext *parentMoc = [[NSApp delegate] managedObjectContext];
     [parentMoc performBlockWithPrivateQueueConcurrencyAndWait:^(NSManagedObjectContext *threadSafeMoc) {
-                
+    //NSManagedObjectContext *threadSafeMoc = [[NSApp delegate] managedObjectContext];
         SourceListItemMO *smartItem = [self newOrExistingSourceListItem:@"PRODUCTS" managedObjectContext:threadSafeMoc];
         smartItem.isGroupItemValue = YES;
         smartItem.sortIndexValue = 0;
@@ -147,14 +147,14 @@ static dispatch_queue_t serialQueue;
         allProductsItem.iconImage = instanceImage;
         allProductsItem.parent = smartItem;
         allProductsItem.sortIndexValue = 0;
-        SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:[NSURL URLWithString:@"/all"] managedObjectContext:threadSafeMoc];
+        SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
         allProductsItem.catalogReference = allCatalog;
         
         SourceListItemMO *deprecatedProductsItem = [self newOrExistingSourceListItem:@"Deprecated Products" managedObjectContext:threadSafeMoc];
         deprecatedProductsItem.iconImage = instanceImage;
         deprecatedProductsItem.parent = smartItem;
         deprecatedProductsItem.sortIndexValue = 1;
-        SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:[NSURL URLWithString:@"/deprecated"] managedObjectContext:threadSafeMoc];
+        SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
         deprecatedProductsItem.catalogReference = deprecatedCatalog;
         
         
@@ -165,14 +165,14 @@ static dispatch_queue_t serialQueue;
         // Fetch all catalogs
         NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
         NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(catalogURL != %@) AND (catalogURL != %@)", [NSURL URLWithString:@"/deprecated"], [NSURL URLWithString:@"/all"]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(catalogURL != %@) AND (catalogURL != %@)", @"/deprecated", @"/all"];
         [fetchForCatalogs setPredicate:predicate];
         [fetchForCatalogs setEntity:catalogEntityDescr];
         NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
         if (numFoundCatalogs != 0) {
             NSArray *allCatalogs = [threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil];
             [allCatalogs enumerateObjectsUsingBlock:^(SUCatalogMO *catalog, NSUInteger idx, BOOL *stop) {
-                SourceListItemMO *catalogItem = [self newOrExistingSourceListItem:catalog.catalogTitle managedObjectContext:threadSafeMoc];
+                SourceListItemMO *catalogItem = [self newOrExistingSourceListItem:catalog.catalogDisplayName managedObjectContext:threadSafeMoc];
                 NSImage *instanceImage = [NSImage imageNamed:@"96-book"];
                 [instanceImage setTemplate:YES];
                 catalogItem.iconImage = instanceImage;
@@ -202,28 +202,28 @@ static dispatch_queue_t serialQueue;
              * Check the created/modified dates
              */
             NSArray *keysToGet = [NSArray arrayWithObjects:NSURLContentModificationDateKey, NSURLCreationDateKey, nil];
-            NSDictionary *urlResourceValues = [instance.productInfoURL resourceValuesForKeys:keysToGet error:nil];
+            NSDictionary *urlResourceValues = [blockInstance.productInfoURL resourceValuesForKeys:keysToGet error:nil];
             NSDate *modificationDate = [urlResourceValues objectForKey:NSURLContentModificationDateKey];
             NSDate *creationDate = [urlResourceValues objectForKey:NSURLCreationDateKey];
             
-            SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:[NSURL URLWithString:@"/all"] managedObjectContext:threadSafeMoc];
+            SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
             allCatalog.catalogTitle = @"All products";
             
-            SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:[NSURL URLWithString:@"/deprecated"] managedObjectContext:threadSafeMoc];
+            SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
             deprecatedCatalog.catalogTitle = @"Deprecated products";
             
-            BOOL readNeeded = ((![modificationDate isEqualToDate:instance.productInfoModificationDate]) ||
-                               (![creationDate isEqualToDate:instance.productInfoCreationDate])
+            BOOL readNeeded = ((![modificationDate isEqualToDate:blockInstance.productInfoModificationDate]) ||
+                               (![creationDate isEqualToDate:blockInstance.productInfoCreationDate])
                                ) ? TRUE : FALSE;
             
             if (readNeeded)
             {
-                NSLog(@"Reading %@", [instance.productInfoURL path]);
+                NSLog(@"Reading %@", [blockInstance.productInfoURL path]);
                 
-                instance.productInfoModificationDate = modificationDate;
-                instance.productInfoCreationDate = creationDate;
+                blockInstance.productInfoModificationDate = modificationDate;
+                blockInstance.productInfoCreationDate = creationDate;
                 
-                NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:instance.productInfoURL];
+                NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:blockInstance.productInfoURL];
                 
                 self.currentOperationTitle = [NSString stringWithFormat:@"Reading product information for %li products...", (unsigned long)[productInfo count]];
                 [productInfo enumerateKeysAndObjectsWithOptions:0 usingBlock:^(id key, id obj, BOOL *stop) {
@@ -261,46 +261,23 @@ static dispatch_queue_t serialQueue;
                             [newProduct addCatalogsObject:deprecatedCatalog];
                         }
                         for (NSString *aCatalogString in appleCatalogs) {
-                            NSURL *catalogURL = [NSURL URLWithString:aCatalogString];
-                            NSString *catalogFileName = [catalogURL lastPathComponent];
-                            NSArray *catalogFileNames = [NSArray arrayWithObjects:
-                                                         @"index.sucatalog",
-                                                         @"index-leopard.merged-1.sucatalog",
-                                                         @"index-leopard-snowleopard.merged-1.sucatalog",
-                                                         @"index-lion-snowleopard-leopard.merged-1.sucatalog",
-                                                         @"index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-                                                         nil];
-                            NSArray *osVersions = [NSArray arrayWithObjects:
-                                                   @"10.4",
-                                                   @"10.5",
-                                                   @"10.6",
-                                                   @"10.7",
-                                                   @"10.8",
-                                                   nil];
-                            NSArray *osNames = [NSArray arrayWithObjects:
-                                                   @"Tiger",
-                                                   @"Leopard",
-                                                   @"Snow Leopard",
-                                                   @"Lion",
-                                                   @"Mountain Lion",
-                                                   nil];
-                            NSDictionary *catalogNamesAndOSVersions = [NSDictionary dictionaryWithObjects:osVersions forKeys:catalogFileNames];
-                            NSDictionary *catalogFilenamesAndDisplayNames = [NSDictionary dictionaryWithObjects:osNames forKeys:catalogFileNames];
                             NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
                             NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
                             [fetchForCatalogs setEntity:catalogEntityDescr];
-                            NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"catalogURL == %@", catalogURL];
+                            NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"catalogURL == %@", aCatalogString];
                             [fetchForCatalogs setPredicate:installURLPredicate];
                             NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
                             if (numFoundCatalogs == 0) {
+                                /*
                                 if ([catalogFileNames containsObject:catalogFileName]) {
                                     SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
-                                    newCatalog.catalogURL = catalogURL;
+                                    newCatalog.catalogURL = aCatalogString;
                                     newCatalog.catalogTitle = [catalogFilenamesAndDisplayNames objectForKey:catalogFileName];
                                     newCatalog.catalogOSVersion = [catalogNamesAndOSVersions objectForKey:catalogFileName];
                                     [newCatalog addProductsObject:newProduct];
                                     [blockInstance addCatalogsObject:newCatalog];
                                 }
+                                 */
                             } else {
                                 SUCatalogMO *existingCatalog = [[threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil] objectAtIndex:0];
                                 [existingCatalog addProductsObject:newProduct];
@@ -311,7 +288,6 @@ static dispatch_queue_t serialQueue;
                 }];
             }
         }];
-        [self setupSourceListItems];
         [self willEndOperations];
     });
 }

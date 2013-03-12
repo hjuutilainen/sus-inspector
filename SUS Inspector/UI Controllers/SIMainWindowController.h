@@ -11,14 +11,14 @@
 @class SIProgressWindowController;
 @class SIProductsViewController;
 @class SICatalogsViewController;
-@class SIReposadoSettingsController;
+@class SIReposadoConfigurationController;
 
 @interface SIMainWindowController : NSWindowController <NSSplitViewDelegate>
 
 @property (retain) SIProgressWindowController *progressWindowController;
 @property (retain) SIProductsViewController *productsViewController;
 @property (retain) SICatalogsViewController *catalogsViewController;
-@property (retain) SIReposadoSettingsController *reposadoSettingsController;
+@property (retain) SIReposadoConfigurationController *reposadoConfigurationController;
 @property (assign) IBOutlet NSView *leftView;
 @property (assign) IBOutlet NSView *rightView;
 @property (assign) IBOutlet NSSplitView *mainSplitView;

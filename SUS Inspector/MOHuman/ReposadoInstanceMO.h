@@ -11,6 +11,6 @@
 - (NSString *)reposyncPath;
 - (NSURL *)productInfoURL;
 - (NSDictionary *)productInfoDictionary;
-- (BOOL)runInitialSetup;
+- (BOOL)configureReposado;
 
 @end

@@ -4,12 +4,14 @@
 #import "_SUCatalogMO.h"
 
 const struct SUCatalogMOAttributes SUCatalogMOAttributes = {
+	.allowRemove = @"allowRemove",
 	.catalogDescription = @"catalogDescription",
 	.catalogDisplayName = @"catalogDisplayName",
 	.catalogFileURL = @"catalogFileURL",
 	.catalogOSVersion = @"catalogOSVersion",
 	.catalogTitle = @"catalogTitle",
 	.catalogURL = @"catalogURL",
+	.isActive = @"isActive",
 };
 
 const struct SUCatalogMORelationships SUCatalogMORelationships = {
@@ -47,9 +49,45 @@ const struct SUCatalogMOFetchedProperties SUCatalogMOFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"allowRemoveValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"allowRemove"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"isActiveValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isActive"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic allowRemove;
+
+
+
+- (BOOL)allowRemoveValue {
+	NSNumber *result = [self allowRemove];
+	return [result boolValue];
+}
+
+- (void)setAllowRemoveValue:(BOOL)value_ {
+	[self setAllowRemove:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveAllowRemoveValue {
+	NSNumber *result = [self primitiveAllowRemove];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveAllowRemoveValue:(BOOL)value_ {
+	[self setPrimitiveAllowRemove:[NSNumber numberWithBool:value_]];
+}
+
 
 
 
@@ -91,6 +129,32 @@ const struct SUCatalogMOFetchedProperties SUCatalogMOFetchedProperties = {
 
 @dynamic catalogURL;
 
+
+
+
+
+
+@dynamic isActive;
+
+
+
+- (BOOL)isActiveValue {
+	NSNumber *result = [self isActive];
+	return [result boolValue];
+}
+
+- (void)setIsActiveValue:(BOOL)value_ {
+	[self setIsActive:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIsActiveValue {
+	NSNumber *result = [self primitiveIsActive];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsActiveValue:(BOOL)value_ {
+	[self setPrimitiveIsActive:[NSNumber numberWithBool:value_]];
+}
 
 
 
