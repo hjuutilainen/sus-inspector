@@ -66,9 +66,7 @@
     [NSApp stopModal];
     
     if ([self.delegate respondsToSelector:@selector(reposadoConfigurationDidFinish:returnCode:object:)]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.delegate reposadoConfigurationDidFinish:self returnCode:NSOKButton object:self.reposadoInstance];
-        });
+        [self.delegate reposadoConfigurationDidFinish:self returnCode:NSOKButton object:self.reposadoInstance];
     }
 }
 
@@ -79,9 +77,7 @@
     [NSApp stopModal];
     
     if ([self.delegate respondsToSelector:@selector(reposadoConfigurationDidFinish:returnCode:object:)]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.delegate reposadoConfigurationDidFinish:self returnCode:NSCancelButton object:self.reposadoInstance];
-        });
+        [self.delegate reposadoConfigurationDidFinish:self returnCode:NSCancelButton object:self.reposadoInstance];
     }
 }
 

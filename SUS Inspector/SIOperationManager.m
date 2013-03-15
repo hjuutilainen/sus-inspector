@@ -8,6 +8,7 @@
 
 #import "SIOperationManager.h"
 #import "NSManagedObjectContext+HJGCDExtensions.h"
+#import "SIAppDelegate.h"
 
 @interface SIOperationManager () {
     // Private interface
@@ -183,6 +184,104 @@ static dispatch_queue_t serialQueue;
     }];
 }
 
+- (void)readReposadoInstanceContents:(ReposadoInstanceMO *)blockInstance managedObjectContext:(NSManagedObjectContext *)threadSafeMoc
+{
+    /*
+     * Check the created/modified dates
+     */
+    NSArray *keysToGet = [NSArray arrayWithObjects:NSURLContentModificationDateKey, NSURLCreationDateKey, nil];
+    NSDictionary *urlResourceValues = [blockInstance.productInfoURL resourceValuesForKeys:keysToGet error:nil];
+    NSDate *modificationDate = [urlResourceValues objectForKey:NSURLContentModificationDateKey];
+    NSDate *creationDate = [urlResourceValues objectForKey:NSURLCreationDateKey];
+    
+    __block SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
+    allCatalog.catalogTitle = @"All products";
+    
+    __block SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
+    deprecatedCatalog.catalogTitle = @"Deprecated products";
+    
+    BOOL readNeeded = ((![modificationDate isEqualToDate:blockInstance.productInfoModificationDate]) ||
+                       (![creationDate isEqualToDate:blockInstance.productInfoCreationDate])
+                       ) ? TRUE : FALSE;
+    
+    if (readNeeded)
+    {
+        NSLog(@"Reading %@", [blockInstance.productInfoURL path]);
+        
+        blockInstance.productInfoModificationDate = modificationDate;
+        blockInstance.productInfoCreationDate = creationDate;
+                
+        // Delete all products
+        NSFetchRequest *fetchAllProducts = [[NSFetchRequest alloc] init];
+        [fetchAllProducts setEntity:[NSEntityDescription entityForName:@"SUProduct" inManagedObjectContext:threadSafeMoc]];
+        NSArray *allProducts = [threadSafeMoc executeFetchRequest:fetchAllProducts error:nil];
+        for (SUProductMO *aProduct in allProducts) {
+            [threadSafeMoc deleteObject:aProduct];
+        }
+        
+        NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:blockInstance.productInfoURL];
+        
+        self.currentOperationTitle = [NSString stringWithFormat:@"Reading product information for %li products...", (unsigned long)[productInfo count]];
+        [productInfo enumerateKeysAndObjectsWithOptions:0 usingBlock:^(NSString *key, id obj, BOOL *stop) {
+            self.currentOperationDescription = [NSString stringWithFormat:@"%@ %@", (NSString *)key, [obj objectForKey:@"title"]];
+            /*
+             * Create product objects
+             */
+            
+            // Check if the product is valid
+            BOOL hasProductID   = (![(NSString *)key isEqualToString:@""]) ? TRUE : FALSE;
+            BOOL hasTitle       = ([obj objectForKey:@"title"]) ? TRUE : FALSE;
+            BOOL hasVersion     = ([obj objectForKey:@"version"]) ? TRUE : FALSE;
+            BOOL hasPostDate    = ([obj objectForKey:@"PostDate"]) ? TRUE : FALSE;
+            BOOL hasSize        = ([obj objectForKey:@"size"]) ? TRUE : FALSE;
+            
+            BOOL validProduct   = (hasProductID && hasTitle && hasVersion &&
+                                   hasPostDate && hasSize
+                                   ) ? TRUE : FALSE;
+            
+            if (validProduct)
+            {
+                
+                SUProductMO *newProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:threadSafeMoc];
+                newProduct.productID = key;
+                newProduct.productTitle = [obj objectForKey:@"title"];
+                newProduct.productDescription = [obj objectForKey:@"description"];
+                newProduct.productPostDate = [obj objectForKey:@"PostDate"];
+                NSString *sizeAsString = [obj objectForKey:@"size"];
+                newProduct.productSize = [NSNumber numberWithInteger:[sizeAsString integerValue]];
+                newProduct.productVersion = [obj objectForKey:@"version"];
+                [newProduct addCatalogsObject:allCatalog];
+                
+                NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
+                if ([appleCatalogs count] == 0) {
+                    newProduct.productIsDeprecatedValue = YES;
+                    [newProduct addCatalogsObject:deprecatedCatalog];
+                }
+                for (NSString *aCatalogString in appleCatalogs) {
+                    
+                    NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
+                    NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
+                    [fetchForCatalogs setEntity:catalogEntityDescr];
+                    NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"catalogURL == %@", aCatalogString];
+                    [fetchForCatalogs setPredicate:installURLPredicate];
+                    NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
+                    if (numFoundCatalogs == 0) {
+                        NSLog(@"ERROR: Did not find catalog object for URL %@", aCatalogString);
+                    } else {
+                        SUCatalogMO *existingCatalog = [[threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil] objectAtIndex:0];
+                        [existingCatalog addProductsObject:newProduct];
+                    }
+                    [fetchForCatalogs release];
+                }
+                
+            } else {
+                NSLog(@"Invalid product %@. Skipped...", key);
+            }
+        }];
+        self.currentOperationDescription = @"";
+    }
+}
+
 
 - (void)readReposadoInstanceContentsAsync:(ReposadoInstanceMO *)instance
 {
@@ -193,102 +292,25 @@ static dispatch_queue_t serialQueue;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
         NSManagedObjectContext *parentMoc = [[NSApp delegate] managedObjectContext];
+        
         [parentMoc performBlockWithPrivateQueueConcurrencyAndWait:^(NSManagedObjectContext *threadSafeMoc) {
-            
             // Get the reposado instance in this managed object context
             ReposadoInstanceMO *blockInstance = (ReposadoInstanceMO *)[threadSafeMoc objectWithID:instanceID];
-            
-            /*
-             * Check the created/modified dates
-             */
-            NSArray *keysToGet = [NSArray arrayWithObjects:NSURLContentModificationDateKey, NSURLCreationDateKey, nil];
-            NSDictionary *urlResourceValues = [blockInstance.productInfoURL resourceValuesForKeys:keysToGet error:nil];
-            NSDate *modificationDate = [urlResourceValues objectForKey:NSURLContentModificationDateKey];
-            NSDate *creationDate = [urlResourceValues objectForKey:NSURLCreationDateKey];
-            
-            SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
-            allCatalog.catalogTitle = @"All products";
-            
-            SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
-            deprecatedCatalog.catalogTitle = @"Deprecated products";
-            
-            BOOL readNeeded = ((![modificationDate isEqualToDate:blockInstance.productInfoModificationDate]) ||
-                               (![creationDate isEqualToDate:blockInstance.productInfoCreationDate])
-                               ) ? TRUE : FALSE;
-            
-            if (readNeeded)
-            {
-                NSLog(@"Reading %@", [blockInstance.productInfoURL path]);
-                
-                blockInstance.productInfoModificationDate = modificationDate;
-                blockInstance.productInfoCreationDate = creationDate;
-                
-                NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:blockInstance.productInfoURL];
-                
-                self.currentOperationTitle = [NSString stringWithFormat:@"Reading product information for %li products...", (unsigned long)[productInfo count]];
-                [productInfo enumerateKeysAndObjectsWithOptions:0 usingBlock:^(id key, id obj, BOOL *stop) {
-                    /*
-                     * Create product objects
-                     */
-                    
-                    // Check if the product is valid
-                    BOOL hasProductID   = (![(NSString *)key isEqualToString:@""]) ? TRUE : FALSE;
-                    BOOL hasTitle       = ([obj objectForKey:@"title"]) ? TRUE : FALSE;
-                    BOOL hasVersion     = ([obj objectForKey:@"version"]) ? TRUE : FALSE;
-                    BOOL hasPostDate    = ([obj objectForKey:@"PostDate"]) ? TRUE : FALSE;
-                    BOOL hasSize        = ([obj objectForKey:@"size"]) ? TRUE : FALSE;
-                    
-                    BOOL validProduct   = (hasProductID && hasTitle && hasVersion &&
-                                           hasPostDate && hasSize
-                                           ) ? TRUE : FALSE;
-                    
-                    if (validProduct)
-                    {
-                        self.currentOperationDescription = [NSString stringWithFormat:@"%@ %@", (NSString *)key, [obj objectForKey:@"title"]];
-                        
-                        SUProductMO *newProduct = [self newOrExistingProductWithID:(NSString *)key managedObjectContext:threadSafeMoc];
-                        newProduct.productTitle = [obj objectForKey:@"title"];
-                        newProduct.productDescription = [obj objectForKey:@"description"];
-                        newProduct.productPostDate = [obj objectForKey:@"PostDate"];
-                        NSString *sizeAsString = [obj objectForKey:@"size"];
-                        newProduct.productSize = [NSNumber numberWithInteger:[sizeAsString integerValue]];
-                        newProduct.productVersion = [obj objectForKey:@"version"];
-                        [newProduct addCatalogsObject:allCatalog];
-                        
-                        NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
-                        if ([appleCatalogs count] == 0) {
-                            newProduct.productIsDeprecatedValue = YES;
-                            [newProduct addCatalogsObject:deprecatedCatalog];
-                        }
-                        for (NSString *aCatalogString in appleCatalogs) {
-                            NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
-                            NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
-                            [fetchForCatalogs setEntity:catalogEntityDescr];
-                            NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"catalogURL == %@", aCatalogString];
-                            [fetchForCatalogs setPredicate:installURLPredicate];
-                            NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
-                            if (numFoundCatalogs == 0) {
-                                /*
-                                if ([catalogFileNames containsObject:catalogFileName]) {
-                                    SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
-                                    newCatalog.catalogURL = aCatalogString;
-                                    newCatalog.catalogTitle = [catalogFilenamesAndDisplayNames objectForKey:catalogFileName];
-                                    newCatalog.catalogOSVersion = [catalogNamesAndOSVersions objectForKey:catalogFileName];
-                                    [newCatalog addProductsObject:newProduct];
-                                    [blockInstance addCatalogsObject:newCatalog];
-                                }
-                                 */
-                            } else {
-                                SUCatalogMO *existingCatalog = [[threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil] objectAtIndex:0];
-                                [existingCatalog addProductsObject:newProduct];
-                            }
-                            [fetchForCatalogs release];
-                        }
-                    }
-                }];
-            }
+            [self readReposadoInstanceContents:blockInstance managedObjectContext:threadSafeMoc];
+            self.currentOperationTitle = @"Saving...";
         }];
         [self willEndOperations];
+        
+        /*
+        [parentMoc performBlockWithPrivateQueueConcurrency:^(NSManagedObjectContext *threadSafeMoc) {
+            // Get the reposado instance in this managed object context
+            ReposadoInstanceMO *blockInstance = (ReposadoInstanceMO *)[threadSafeMoc objectWithID:instanceID];
+            [self readReposadoInstanceContents:blockInstance managedObjectContext:threadSafeMoc];
+        } completionBlock:^{
+            self.currentOperationTitle = @"Saving...";
+            [self willEndOperations];
+        }];
+         */
     });
 }
 
@@ -320,12 +342,6 @@ static dispatch_queue_t serialQueue;
     if (![string isEqualToString:@""]) {
         self.currentOperationDescription = string;
     }
-    
-    /*
-	NSTextStorage *text = [textOutlet textStorage];
-	[text replaceCharactersInRange:NSMakeRange([text length], 0) withString:string];
-	[textOutlet scrollRangeToVisible:NSMakeRange([text length], 0)];
-     */
 }
 
 // output from stdout
@@ -338,6 +354,7 @@ static dispatch_queue_t serialQueue;
 - (void)process:(AMShellWrapper *)wrapper appendError:(NSString *)error
 {
 	//[errorOutlet setString:[[errorOutlet string] stringByAppendingString:error]];
+    NSLog(@"ERROR: %@", error);
 }
 
 // This method is a callback which your controller can use to do other initialization
@@ -362,7 +379,9 @@ static dispatch_queue_t serialQueue;
 	[runButton setTitle:@"Execute"];
 	[runButton setAction:@selector(printBanner:)];
      */
-    [self willEndOperations];
+    
+    [self readReposadoInstanceContentsAsync:[[NSApp delegate] defaultReposadoInstance]];
+    //[self willEndOperations];
 }
 
 - (void)processLaunchException:(NSException *)exception

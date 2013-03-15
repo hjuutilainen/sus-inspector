@@ -39,11 +39,18 @@
     // NSTableViewRowSizeStyleDefault should be used, unless the user has picked an explicit size. In that case, it should be stored out and re-used.
     [self.sourceListOutlineView setRowSizeStyle:NSTableViewRowSizeStyleDefault];
     
-    // Expand all the root items; disable the expansion animation that normally happens
-    [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:0];
+    // Disable animation
+    //[NSAnimationContext beginGrouping];
+    //[[NSAnimationContext currentContext] setDuration:0];
+    
+    // Expand all items in the source list
     [self.sourceListOutlineView expandItem:nil expandChildren:YES];
-    [NSAnimationContext endGrouping];
+    
+    // Make sure the "All Products" item is selected
+    NSUInteger defaultIndexes[] = {0,0};
+    [self.sourceListTreeController setSelectionIndexPath:[NSIndexPath indexPathWithIndexes:defaultIndexes length:2]];
+    
+    //[NSAnimationContext endGrouping];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item

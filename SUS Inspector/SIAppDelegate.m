@@ -38,6 +38,10 @@ NSString *defaultReposadoCodeDirectory = @"code";
     
     if (returnCode == NSOKButton) {
         [self.defaultReposadoInstance configureReposado];
+        SIOperationManager *operationManager = [SIOperationManager sharedManager];
+        operationManager.delegate = self;
+        [operationManager setupSourceListItems];
+        [operationManager runReposync:self.defaultReposadoInstance];
     } else if (returnCode == NSOKButton) {
         [[[self managedObjectContext] undoManager] undo];
     }
@@ -74,6 +78,7 @@ NSString *defaultReposadoCodeDirectory = @"code";
 - (void)setupDefaultReposado
 {
     NSManagedObjectContext *moc = [self managedObjectContext];
+    [moc setUndoManager:nil];
     
     SIOperationManager *operationManager = [SIOperationManager sharedManager];
     operationManager.delegate = self;
@@ -227,7 +232,7 @@ NSString *defaultReposadoCodeDirectory = @"code";
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"SUS_Inspector.storedata"];
     NSPersistentStoreCoordinator *coordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom] autorelease];
-    if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
+    if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
