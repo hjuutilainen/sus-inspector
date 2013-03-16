@@ -6,7 +6,9 @@
 const struct ReposadoInstanceMOAttributes ReposadoInstanceMOAttributes = {
 	.productInfoCreationDate = @"productInfoCreationDate",
 	.productInfoModificationDate = @"productInfoModificationDate",
+	.reposadoCatalogsBaseURLString = @"reposadoCatalogsBaseURLString",
 	.reposadoInstallURL = @"reposadoInstallURL",
+	.reposadoSetupComplete = @"reposadoSetupComplete",
 	.reposadoTitle = @"reposadoTitle",
 	.reposadoUpdatesMetadataDir = @"reposadoUpdatesMetadataDir",
 	.reposadoUpdatesRootDir = @"reposadoUpdatesRootDir",
@@ -46,6 +48,11 @@ const struct ReposadoInstanceMOFetchedProperties ReposadoInstanceMOFetchedProper
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"reposadoSetupCompleteValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"reposadoSetupComplete"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
@@ -67,8 +74,41 @@ const struct ReposadoInstanceMOFetchedProperties ReposadoInstanceMOFetchedProper
 
 
 
+@dynamic reposadoCatalogsBaseURLString;
+
+
+
+
+
+
 @dynamic reposadoInstallURL;
 
+
+
+
+
+
+@dynamic reposadoSetupComplete;
+
+
+
+- (BOOL)reposadoSetupCompleteValue {
+	NSNumber *result = [self reposadoSetupComplete];
+	return [result boolValue];
+}
+
+- (void)setReposadoSetupCompleteValue:(BOOL)value_ {
+	[self setReposadoSetupComplete:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveReposadoSetupCompleteValue {
+	NSNumber *result = [self primitiveReposadoSetupComplete];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveReposadoSetupCompleteValue:(BOOL)value_ {
+	[self setPrimitiveReposadoSetupComplete:[NSNumber numberWithBool:value_]];
+}
 
 
 

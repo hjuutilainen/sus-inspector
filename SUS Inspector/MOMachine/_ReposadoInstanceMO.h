@@ -7,7 +7,9 @@
 extern const struct ReposadoInstanceMOAttributes {
 	 NSString *productInfoCreationDate;
 	 NSString *productInfoModificationDate;
+	 NSString *reposadoCatalogsBaseURLString;
 	 NSString *reposadoInstallURL;
+	 NSString *reposadoSetupComplete;
 	 NSString *reposadoTitle;
 	 NSString *reposadoUpdatesMetadataDir;
 	 NSString *reposadoUpdatesRootDir;
@@ -25,7 +27,9 @@ extern const struct ReposadoInstanceMOFetchedProperties {
 
 
 
+
 @class NSObject;
+
 
 
 
@@ -63,11 +67,35 @@ extern const struct ReposadoInstanceMOFetchedProperties {
 
 
 
+@property (nonatomic, retain) NSString* reposadoCatalogsBaseURLString;
+
+
+
+//- (BOOL)validateReposadoCatalogsBaseURLString:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, retain) id reposadoInstallURL;
 
 
 
 //- (BOOL)validateReposadoInstallURL:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, retain) NSNumber* reposadoSetupComplete;
+
+
+
+@property BOOL reposadoSetupCompleteValue;
+- (BOOL)reposadoSetupCompleteValue;
+- (void)setReposadoSetupCompleteValue:(BOOL)value_;
+
+//- (BOOL)validateReposadoSetupComplete:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -139,8 +167,23 @@ extern const struct ReposadoInstanceMOFetchedProperties {
 
 
 
+- (NSString*)primitiveReposadoCatalogsBaseURLString;
+- (void)setPrimitiveReposadoCatalogsBaseURLString:(NSString*)value;
+
+
+
+
 - (id)primitiveReposadoInstallURL;
 - (void)setPrimitiveReposadoInstallURL:(id)value;
+
+
+
+
+- (NSNumber*)primitiveReposadoSetupComplete;
+- (void)setPrimitiveReposadoSetupComplete:(NSNumber*)value;
+
+- (BOOL)primitiveReposadoSetupCompleteValue;
+- (void)setPrimitiveReposadoSetupCompleteValue:(BOOL)value_;
 
 
 

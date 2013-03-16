@@ -33,37 +33,30 @@ NSString *defaultReposadoCodeDirectory = @"code";
 
 - (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(ReposadoInstanceMO *)object
 {
+    /*
+     * This is a callback from Reposado configuration
+     */
     [self.managedObjectContext refreshObject:object mergeChanges:YES];
     [[[self managedObjectContext] undoManager] endUndoGrouping];
     
     if (returnCode == NSOKButton) {
+        /*
+         * User approved the Reposado settings
+         * Install, configure and run the initial repo_sync
+         */
         [self.defaultReposadoInstance configureReposado];
+        self.defaultReposadoInstance.reposadoSetupCompleteValue = YES;
         SIOperationManager *operationManager = [SIOperationManager sharedManager];
         operationManager.delegate = self;
         [operationManager setupSourceListItems];
         [operationManager runReposync:self.defaultReposadoInstance];
     } else if (returnCode == NSOKButton) {
+        /*
+         * User cancelled the configuration.
+         * Undo everything and delete the instance
+         */
         [[[self managedObjectContext] undoManager] undo];
-    }
-}
-
-
-- (SUProductMO *)newOrExistingProductForID:(NSString *)productID
-{
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    
-    NSFetchRequest *fetchForProduct = [[NSFetchRequest alloc] init];
-    [fetchForProduct setEntity:[NSEntityDescription entityForName:@"SUProduct" inManagedObjectContext:moc]];
-    NSPredicate *productIDPredicate = [NSPredicate predicateWithFormat:@"productID == %@", productID];
-    [fetchForProduct setPredicate:productIDPredicate];
-    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchForProduct error:nil];
-    if (numFoundCatalogs == 0) {
-        SUProductMO *newProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:moc];
-        newProduct.productID = productID;
-        return newProduct;
-    } else {
-        SUProductMO *existingProduct = [[moc executeFetchRequest:fetchForProduct error:nil] objectAtIndex:0];
-        return existingProduct;
+        [self.managedObjectContext deleteObject:object];
     }
 }
 
@@ -75,58 +68,83 @@ NSString *defaultReposadoCodeDirectory = @"code";
     [operationManager runReposync:self.defaultReposadoInstance];
 }
 
-- (void)setupDefaultReposado
+- (void)setupReposadoInstance:(ReposadoInstanceMO *)instance
+{
+    self.defaultReposadoInstance = instance;
+    
+    [[[self managedObjectContext] undoManager] beginUndoGrouping];
+    [[[self managedObjectContext] undoManager] setActionName:@"Edit Reposado Configuration"];
+    
+    // Run the configuration GUI
+    [self.mainWindowController.reposadoConfigurationController beginEditSessionWithObject:self.defaultReposadoInstance delegate:self];
+}
+
+- (void)createDefaultReposadoInstance
 {
     NSManagedObjectContext *moc = [self managedObjectContext];
-    [moc setUndoManager:nil];
-    
-    SIOperationManager *operationManager = [SIOperationManager sharedManager];
-    operationManager.delegate = self;
     
     // This is the directory where default reposado instance will be installed
     NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:defaultInstanceName];
-    
-    NSEntityDescription *reposadoEntityDescr = [NSEntityDescription entityForName:@"ReposadoInstance" inManagedObjectContext:moc];
-    NSFetchRequest *fetchForReposadoInstances = [[NSFetchRequest alloc] init];
-    [fetchForReposadoInstances setEntity:reposadoEntityDescr];
-    NSPredicate *installURLPredicate = [NSPredicate predicateWithFormat:@"reposadoInstallURL == %@", localReposadoInstallURL];
-    [fetchForReposadoInstances setPredicate:installURLPredicate];
-    NSUInteger numFoundReposados = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
     ReposadoInstanceMO *instance = nil;
-    if (numFoundReposados == 0) {
-        instance = [NSEntityDescription insertNewObjectForEntityForName:@"ReposadoInstance" inManagedObjectContext:self.managedObjectContext];
-        instance.reposadoInstallURL = localReposadoInstallURL;
-        
-        for (NSDictionary *defaultCatalog in [[NSUserDefaults standardUserDefaults] arrayForKey:@"defaultCatalogs"]) {
-            SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:moc];
-            newCatalog.catalogURL = [defaultCatalog objectForKey:@"catalogURL"];
-            newCatalog.catalogDisplayName = [defaultCatalog objectForKey:@"catalogDisplayName"];
-            newCatalog.catalogOSVersion = [defaultCatalog objectForKey:@"catalogOSVersion"];
-            newCatalog.isActiveValue = YES;
-            [instance addCatalogsObject:newCatalog];
-        }
-        
-        self.defaultReposadoInstance = instance;
-        
-        [[[self managedObjectContext] undoManager] beginUndoGrouping];
-        [[[self managedObjectContext] undoManager] setActionName:@"Edit Reposado Configuration"];
-        
-        [self.mainWindowController.reposadoConfigurationController beginEditSessionWithObject:self.defaultReposadoInstance delegate:self];
-        
-        /*
-        BOOL installedAndConfigured = [instance runInitialSetup];
-        if (!installedAndConfigured) {
-            NSLog(@"Error: Failed to setup local reposado instance");
-        }
-         */
-    } else {
-        instance = [[moc executeFetchRequest:fetchForReposadoInstances error:nil] objectAtIndex:0];
-        self.defaultReposadoInstance = instance;
-        [operationManager readReposadoInstanceContentsAsync:instance];
+    instance = [NSEntityDescription insertNewObjectForEntityForName:@"ReposadoInstance"
+                                             inManagedObjectContext:self.managedObjectContext];
+    instance.reposadoInstallURL = localReposadoInstallURL;
+    
+    // Set some defaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *defaultBaseURL = [defaults stringForKey:@"reposadoCatalogsBaseURL"];
+    instance.reposadoCatalogsBaseURLString = defaultBaseURL;
+    for (NSDictionary *defaultCatalog in [defaults arrayForKey:@"defaultCatalogs"]) {
+        SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:moc];
+        NSString *defaultCatalogURL = [defaultCatalog objectForKey:@"catalogURL"];
+        NSString *newURL = [defaultCatalogURL stringByReplacingOccurrencesOfString:@"http://swscan.apple.com"
+                                                                        withString:defaultBaseURL];
+        newCatalog.catalogURL = newURL;
+        newCatalog.catalogDisplayName = [defaultCatalog objectForKey:@"catalogDisplayName"];
+        newCatalog.catalogOSVersion = [defaultCatalog objectForKey:@"catalogOSVersion"];
+        newCatalog.isActiveValue = YES;
+        [instance addCatalogsObject:newCatalog];
     }
-    [fetchForReposadoInstances release];
     
-    
+    [self setupReposadoInstance:instance];
+}
+
+- (void)checkForConfiguredReposadoInstance
+{
+    /*
+     * Fetch all reposado instances.
+     * There should be also one!
+     */
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSEntityDescription *reposadoEntityDescr = [NSEntityDescription entityForName:@"ReposadoInstance" inManagedObjectContext:moc];
+    NSFetchRequest *fetchForReposadoInstances = [[[NSFetchRequest alloc] init] autorelease];
+    [fetchForReposadoInstances setEntity:reposadoEntityDescr];
+    NSUInteger numFoundReposados = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
+    if (numFoundReposados == 0) {
+        /*
+         * Setup a default reposado instance
+         */
+        [self createDefaultReposadoInstance];
+    } else {
+        NSArray *foundInstances = [moc executeFetchRequest:fetchForReposadoInstances error:nil];
+        if ([foundInstances count] > 1) {
+            NSLog(@"WARNING: Multiple reposado instances found. Using the first one and it might not be correct...");
+        }
+        ReposadoInstanceMO *instance = [foundInstances objectAtIndex:0];
+        self.defaultReposadoInstance = instance;
+        if (instance.reposadoSetupCompleteValue) {
+            /*
+             * The instance has gone through setup
+             */
+            [[SIOperationManager sharedManager] readReposadoInstanceContentsAsync:instance];
+        } else {
+            /*
+             * User has probably cancelled the setup so
+             * run the configuration GUI again.
+             */
+            [self setupReposadoInstance:instance];
+        }
+    }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -138,14 +156,20 @@ NSString *defaultReposadoCodeDirectory = @"code";
     [self.mainWindowController showWindow:self];
     
     /*
-     * Setup a default reposado instance
+     * We need one configured Reposado instance
      */
-    [self setupDefaultReposado];
+    [self checkForConfiguredReposadoInstance];
 }
 
 - (void)awakeFromNib
 {
+    SIOperationManager *operationManager = [SIOperationManager sharedManager];
+    operationManager.delegate = self;
     
+    /*
+     * Setup the initial source list items
+     */
+    [operationManager setupSourceListItems];
 }
 
 
@@ -160,8 +184,8 @@ NSString *defaultReposadoCodeDirectory = @"code";
 
 - (void)willEndOperations:(id)sender
 {
-    [[SIOperationManager sharedManager] setupSourceListItems];
     [self.mainWindowController hideProgressPanel];
+    [[SIOperationManager sharedManager] setupSourceListItems];
 }
 
 

@@ -166,7 +166,7 @@ static dispatch_queue_t serialQueue;
         // Fetch all catalogs
         NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
         NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(catalogURL != %@) AND (catalogURL != %@)", @"/deprecated", @"/all"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(catalogURL != %@) AND (catalogURL != %@) AND isActive == TRUE", @"/deprecated", @"/all"];
         [fetchForCatalogs setPredicate:predicate];
         [fetchForCatalogs setEntity:catalogEntityDescr];
         NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
