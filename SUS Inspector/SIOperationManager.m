@@ -137,6 +137,17 @@ static dispatch_queue_t serialQueue;
     NSManagedObjectContext *parentMoc = [[NSApp delegate] managedObjectContext];
     [parentMoc performBlockWithPrivateQueueConcurrencyAndWait:^(NSManagedObjectContext *threadSafeMoc) {
     //NSManagedObjectContext *threadSafeMoc = [[NSApp delegate] managedObjectContext];
+        
+        // Delete all sourcelistitems
+        /*
+        NSFetchRequest *fetchAllProducts = [[NSFetchRequest alloc] init];
+        [fetchAllProducts setEntity:[NSEntityDescription entityForName:@"SourceListItem" inManagedObjectContext:threadSafeMoc]];
+        NSArray *allProducts = [threadSafeMoc executeFetchRequest:fetchAllProducts error:nil];
+        for (SourceListItemMO *aProduct in allProducts) {
+            [threadSafeMoc deleteObject:aProduct];
+        }
+         */
+        
         SourceListItemMO *smartItem = [self newOrExistingSourceListItem:@"PRODUCTS" managedObjectContext:threadSafeMoc];
         smartItem.isGroupItemValue = YES;
         smartItem.sortIndexValue = 0;
@@ -166,7 +177,12 @@ static dispatch_queue_t serialQueue;
         // Fetch all catalogs
         NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
         NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(catalogURL != %@) AND (catalogURL != %@) AND isActive == TRUE", @"/deprecated", @"/all"];
+        NSPredicate *notDeprecated = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/deprecated"];
+        NSPredicate *notAll = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/all"];
+        NSPredicate *isActive = [NSPredicate predicateWithFormat:@"isActive == TRUE"];
+        NSPredicate *instanceSetupComplete = [NSPredicate predicateWithFormat:@"reposadoInstance.reposadoSetupComplete == TRUE"];
+        NSArray *subPredicates = [NSArray arrayWithObjects:notAll, notDeprecated, isActive, instanceSetupComplete, nil];
+        NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
         [fetchForCatalogs setPredicate:predicate];
         [fetchForCatalogs setEntity:catalogEntityDescr];
         NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
@@ -182,6 +198,9 @@ static dispatch_queue_t serialQueue;
             }];
         }
     }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SIDidSetupSourceListItems" object:nil];
+    });
 }
 
 - (void)readReposadoInstanceContents:(ReposadoInstanceMO *)blockInstance managedObjectContext:(NSManagedObjectContext *)threadSafeMoc

@@ -25,8 +25,20 @@
     return self;
 }
 
+- (void)updateSourceList
+{
+    // Expand all items in the source list
+    [self.sourceListOutlineView expandItem:nil expandChildren:YES];
+    
+    // Make sure the "All Products" item is selected
+    NSUInteger defaultIndexes[] = {0,0};
+    [self.sourceListTreeController setSelectionIndexPath:[NSIndexPath indexPathWithIndexes:defaultIndexes length:2]];
+}
+
 - (void)awakeFromNib
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSourceList) name:@"SIDidSetupSourceListItems" object:nil];
+    
     NSSortDescriptor *sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"sortIndex" ascending:YES selector:@selector(compare:)];
     NSSortDescriptor *sortByOSVersion = [NSSortDescriptor sortDescriptorWithKey:@"catalogReference.catalogOSVersion" ascending:NO selector:@selector(compare:)];
     [self.sourceListTreeController setSortDescriptors:[NSArray arrayWithObjects:sortByTitle, sortByOSVersion, nil]];
@@ -43,12 +55,7 @@
     //[NSAnimationContext beginGrouping];
     //[[NSAnimationContext currentContext] setDuration:0];
     
-    // Expand all items in the source list
-    [self.sourceListOutlineView expandItem:nil expandChildren:YES];
     
-    // Make sure the "All Products" item is selected
-    NSUInteger defaultIndexes[] = {0,0};
-    [self.sourceListTreeController setSelectionIndexPath:[NSIndexPath indexPathWithIndexes:defaultIndexes length:2]];
     
     //[NSAnimationContext endGrouping];
 }

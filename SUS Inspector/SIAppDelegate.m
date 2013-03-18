@@ -36,18 +36,16 @@ NSString *defaultReposadoCodeDirectory = @"code";
     /*
      * This is a callback from Reposado configuration
      */
-    [self.managedObjectContext refreshObject:object mergeChanges:YES];
-    [[[self managedObjectContext] undoManager] endUndoGrouping];
     
     if (returnCode == NSOKButton) {
         /*
          * User approved the Reposado settings
          * Install, configure and run the initial repo_sync
          */
+        [self.managedObjectContext refreshObject:object mergeChanges:YES];
         [self.defaultReposadoInstance configureReposado];
         self.defaultReposadoInstance.reposadoSetupCompleteValue = YES;
         SIOperationManager *operationManager = [SIOperationManager sharedManager];
-        operationManager.delegate = self;
         [operationManager setupSourceListItems];
         [operationManager runReposync:self.defaultReposadoInstance];
     } else if (returnCode == NSOKButton) {
@@ -55,8 +53,12 @@ NSString *defaultReposadoCodeDirectory = @"code";
          * User cancelled the configuration.
          * Undo everything and delete the instance
          */
-        [[[self managedObjectContext] undoManager] undo];
+        for (SUCatalogMO *aCatalog in object.catalogs) {
+            [self.managedObjectContext deleteObject:aCatalog];
+        }
         [self.managedObjectContext deleteObject:object];
+        SIOperationManager *operationManager = [SIOperationManager sharedManager];
+        [operationManager setupSourceListItems];
     }
 }
 
@@ -72,12 +74,13 @@ NSString *defaultReposadoCodeDirectory = @"code";
 {
     self.defaultReposadoInstance = instance;
     
-    [[[self managedObjectContext] undoManager] beginUndoGrouping];
-    [[[self managedObjectContext] undoManager] setActionName:@"Edit Reposado Configuration"];
+    //[[[self managedObjectContext] undoManager] beginUndoGrouping];
+    //[[[self managedObjectContext] undoManager] setActionName:@"Edit Reposado Configuration"];
     
     // Run the configuration GUI
     [self.mainWindowController.reposadoConfigurationController beginEditSessionWithObject:self.defaultReposadoInstance delegate:self];
 }
+
 
 - (void)createDefaultReposadoInstance
 {
@@ -128,7 +131,7 @@ NSString *defaultReposadoCodeDirectory = @"code";
     } else {
         NSArray *foundInstances = [moc executeFetchRequest:fetchForReposadoInstances error:nil];
         if ([foundInstances count] > 1) {
-            NSLog(@"WARNING: Multiple reposado instances found. Using the first one and it might not be correct...");
+            NSLog(@"WARNING: Multiple reposado instances found. Using the first one and it might not be the right thing to do...");
         }
         ReposadoInstanceMO *instance = [foundInstances objectAtIndex:0];
         self.defaultReposadoInstance = instance;

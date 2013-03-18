@@ -12,6 +12,7 @@ extern const struct SUCatalogMOAttributes {
 	 NSString *catalogOSVersion;
 	 NSString *catalogTitle;
 	 NSString *catalogURL;
+	 NSString *catalogURLFromInstanceDefaultURL;
 	 NSString *isActive;
 } SUCatalogMOAttributes;
 
@@ -32,6 +33,7 @@ extern const struct SUCatalogMOFetchedProperties {
 
 
 @class NSObject;
+
 
 
 
@@ -119,6 +121,16 @@ extern const struct SUCatalogMOFetchedProperties {
 
 
 //- (BOOL)validateCatalogURL:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, retain) NSString* catalogURLFromInstanceDefaultURL;
+
+
+
+//- (BOOL)validateCatalogURLFromInstanceDefaultURL:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -215,6 +227,12 @@ extern const struct SUCatalogMOFetchedProperties {
 
 - (NSString*)primitiveCatalogURL;
 - (void)setPrimitiveCatalogURL:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveCatalogURLFromInstanceDefaultURL;
+- (void)setPrimitiveCatalogURLFromInstanceDefaultURL:(NSString*)value;
 
 
 

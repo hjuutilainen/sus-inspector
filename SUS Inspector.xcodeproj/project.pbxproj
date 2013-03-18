@@ -28,6 +28,8 @@
 		F53BDE5516E8A0CD00055BC3 /* SIProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F53BDE5316E8A0CD00055BC3 /* SIProductsViewController.xib */; };
 		F53BDE5816E8A3C300055BC3 /* GradientBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5716E8A3C200055BC3 /* GradientBackgroundView.m */; };
 		F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */; };
+		F58FF41316F7530500EF58B0 /* MIT-License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F58FF41016F7530500EF58B0 /* MIT-License.rtf */; };
+		F58FF41416F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */; };
 		F5C6643D16EF1994009802F2 /* GradientButtonBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C6643C16EF1994009802F2 /* GradientButtonBarView.m */; };
 		F5D151A816EDED9C0072EE5F /* 293-database.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D151A616EDED9C0072EE5F /* 293-database.png */; };
 		F5D151A916EDED9C0072EE5F /* 293-database@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D151A716EDED9C0072EE5F /* 293-database@2x.png */; };
@@ -97,6 +99,9 @@
 		F53BDE5716E8A3C200055BC3 /* GradientBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientBackgroundView.m; sourceTree = "<group>"; };
 		F53BDE5916E8B4C800055BC3 /* AMShellWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMShellWrapper.h; sourceTree = "<group>"; };
 		F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMShellWrapper.m; sourceTree = "<group>"; };
+		F58FF41016F7530500EF58B0 /* MIT-License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "MIT-License.rtf"; sourceTree = "<group>"; };
+		F58FF41116F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
+		F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
 		F5C6643B16EF1994009802F2 /* GradientButtonBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientButtonBarView.h; sourceTree = "<group>"; };
 		F5C6643C16EF1994009802F2 /* GradientButtonBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientButtonBarView.m; sourceTree = "<group>"; };
 		F5D151A616EDED9C0072EE5F /* 293-database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "293-database.png"; sourceTree = "<group>"; };
@@ -185,6 +190,16 @@
 			children = (
 			);
 			name = Operations;
+			sourceTree = "<group>";
+		};
+		F58FF40F16F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell */ = {
+			isa = PBXGroup;
+			children = (
+				F58FF41016F7530500EF58B0 /* MIT-License.rtf */,
+				F58FF41116F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.h */,
+				F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */,
+			);
+			path = RSVerticallyCenteredTextFieldCell;
 			sourceTree = "<group>";
 		};
 		F5D151A516EDED8B0072EE5F /* icons */ = {
@@ -425,6 +440,7 @@
 				26201BCF16EE4041003F6416 /* SIReposadoConfigurationController.h */,
 				26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */,
 				26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */,
+				F58FF40F16F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell */,
 			);
 			name = "UI Controllers";
 			sourceTree = "<group>";
@@ -521,6 +537,7 @@
 				26201BCC16EE3781003F6416 /* 104-index-cards@2x.png in Resources */,
 				26201BCE16EE3C37003F6416 /* UserDefaults.plist in Resources */,
 				26201BD316EE405F003F6416 /* SIReposadoConfigurationController.xib in Resources */,
+				F58FF41316F7530500EF58B0 /* MIT-License.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +608,7 @@
 				F501048916EA044A00B345DE /* _SourceListItemMO.m in Sources */,
 				26201BD116EE4041003F6416 /* SIReposadoConfigurationController.m in Sources */,
 				F5C6643D16EF1994009802F2 /* GradientButtonBarView.m in Sources */,
+				F58FF41416F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,6 +730,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS Inspector/SUS Inspector-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -724,6 +743,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS Inspector/SUS Inspector-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

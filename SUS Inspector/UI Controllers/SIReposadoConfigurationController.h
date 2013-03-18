@@ -26,9 +26,14 @@
 @property (retain) NSUndoManager *undoManager;
 @property (assign) ReposadoInstanceMO *reposadoInstance;
 @property NSModalSession modalSession;
+@property (retain) NSString *customBaseURL;
+@property (assign) IBOutlet NSArrayController *catalogsArrayController;
+@property (assign) IBOutlet NSObjectController *reposadoInstanceObjectController;
+@property (assign) IBOutlet NSTableView *catalogsTableView;
 
 - (NSModalSession)beginEditSessionWithObject:(ReposadoInstanceMO *)instance delegate:(id)modalDelegate;
 - (IBAction)saveAction:(id)sender;
 - (IBAction)cancelAction:(id)sender;
+- (IBAction)resetCatalogsToDefaultAction:(id)sender;
 
 @end

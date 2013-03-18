@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="ReposadoInstance" representedClassName="ReposadoInstanceMO" syncable="YES">
         <attribute name="productInfoCreationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="productInfoModificationDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -27,11 +27,12 @@
     <entity name="SUCatalog" representedClassName="SUCatalogMO" syncable="YES">
         <attribute name="allowRemove" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="catalogDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="catalogDisplayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="catalogDisplayName" optional="YES" attributeType="String" defaultValueString="New Catalog" syncable="YES"/>
         <attribute name="catalogFileURL" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="catalogOSVersion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="catalogOSVersion" optional="YES" attributeType="String" defaultValueString="10.999" syncable="YES"/>
         <attribute name="catalogTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="catalogURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="catalogURLFromInstanceDefaultURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUProduct" inverseName="catalogs" inverseEntity="SUProduct" syncable="YES"/>
         <relationship name="reposadoInstance" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReposadoInstance" inverseName="catalogs" inverseEntity="ReposadoInstance" syncable="YES"/>
@@ -50,7 +51,7 @@
     <elements>
         <element name="ReposadoInstance" positionX="-830" positionY="-72" width="128" height="209"/>
         <element name="SourceListItem" positionX="160" positionY="192" width="128" height="165"/>
-        <element name="SUCatalog" positionX="-522" positionY="-81" width="128" height="210"/>
+        <element name="SUCatalog" positionX="-522" positionY="-81" width="128" height="225"/>
         <element name="SUProduct" positionX="-234" positionY="-99" width="128" height="165"/>
     </elements>
 </model>

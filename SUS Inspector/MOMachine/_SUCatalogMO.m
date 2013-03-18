@@ -11,6 +11,7 @@ const struct SUCatalogMOAttributes SUCatalogMOAttributes = {
 	.catalogOSVersion = @"catalogOSVersion",
 	.catalogTitle = @"catalogTitle",
 	.catalogURL = @"catalogURL",
+	.catalogURLFromInstanceDefaultURL = @"catalogURLFromInstanceDefaultURL",
 	.isActive = @"isActive",
 };
 
@@ -128,6 +129,13 @@ const struct SUCatalogMOFetchedProperties SUCatalogMOFetchedProperties = {
 
 
 @dynamic catalogURL;
+
+
+
+
+
+
+@dynamic catalogURLFromInstanceDefaultURL;
 
 
 
