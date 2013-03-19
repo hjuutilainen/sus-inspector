@@ -7,6 +7,7 @@
 //
 
 #import "SIProductsViewController.h"
+#import "SIProductInfoWindowController.h"
 
 @interface SIProductsViewController ()
 
@@ -24,12 +25,29 @@
     return self;
 }
 
+- (void)openGetInfoWindow
+{
+    SUProductMO *selectedProduct = [[self.productsArrayController selectedObjects] objectAtIndex:0];
+    [self.productInfoWindowController setProduct:selectedProduct];
+    [self.productInfoWindowController showWindow:nil];
+}
+
+- (IBAction)getInfoAction:(id)sender
+{
+    [self openGetInfoWindow];
+}
+
 - (void)awakeFromNib
 {
     NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"productPostDate" ascending:NO selector:@selector(compare:)];
     NSSortDescriptor *sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"productTitle" ascending:YES selector:@selector(localizedStandardCompare:)];
     NSSortDescriptor *sortByID = [NSSortDescriptor sortDescriptorWithKey:@"productID" ascending:YES selector:@selector(localizedStandardCompare:)];
     [self.productsArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByDate, sortByTitle, sortByID, nil]];
+    
+    [self.productsTableView setTarget:self];
+    [self.productsTableView setDoubleAction:@selector(openGetInfoWindow)];
+    
+    self.productInfoWindowController = [[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"];
 }
 
 @end

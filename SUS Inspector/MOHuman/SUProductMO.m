@@ -18,4 +18,9 @@
         return @"Active";
 }
 
+- (NSString *)productTitleWithVersion
+{
+    return [NSString stringWithFormat:@"%@ - Version %@", self.productTitle, self.productVersion];
+}
+
 @end

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		260775AE16F777AA0062F69C /* SIProductInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260775AC16F777AA0062F69C /* SIProductInfoWindowController.m */; };
+		260775AF16F777AA0062F69C /* SIProductInfoWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260775AD16F777AA0062F69C /* SIProductInfoWindowController.xib */; };
+		260775B116F77ADE0062F69C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260775B016F77ADE0062F69C /* WebKit.framework */; };
 		26201BC316EE3680003F6416 /* 96-book.png in Resources */ = {isa = PBXBuildFile; fileRef = 26201BC116EE3680003F6416 /* 96-book.png */; };
 		26201BC416EE3680003F6416 /* 96-book@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26201BC216EE3680003F6416 /* 96-book@2x.png */; };
 		26201BC916EE3781003F6416 /* 97-puzzle-piece.png in Resources */ = {isa = PBXBuildFile; fileRef = 26201BC516EE3781003F6416 /* 97-puzzle-piece.png */; };
@@ -68,6 +71,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		260775AB16F777AA0062F69C /* SIProductInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIProductInfoWindowController.h; path = "UI Controllers/SIProductInfoWindowController.h"; sourceTree = "<group>"; };
+		260775AC16F777AA0062F69C /* SIProductInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIProductInfoWindowController.m; path = "UI Controllers/SIProductInfoWindowController.m"; sourceTree = "<group>"; };
+		260775AD16F777AA0062F69C /* SIProductInfoWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIProductInfoWindowController.xib; path = "UI Controllers/SIProductInfoWindowController.xib"; sourceTree = "<group>"; };
+		260775B016F77ADE0062F69C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		26201BC116EE3680003F6416 /* 96-book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "96-book.png"; sourceTree = "<group>"; };
 		26201BC216EE3680003F6416 /* 96-book@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "96-book@2x.png"; sourceTree = "<group>"; };
 		26201BC516EE3781003F6416 /* 97-puzzle-piece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "97-puzzle-piece.png"; sourceTree = "<group>"; };
@@ -169,6 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				260775B116F77ADE0062F69C /* WebKit.framework in Frameworks */,
 				F5E06E3D16E473FF008B7831 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,6 +230,7 @@
 		F5E06E3016E473FF008B7831 = {
 			isa = PBXGroup;
 			children = (
+				260775B016F77ADE0062F69C /* WebKit.framework */,
 				F5E06E7316E479DB008B7831 /* reposado */,
 				F5E06E4216E473FF008B7831 /* SUS Inspector */,
 				F5E06E6216E47400008B7831 /* SUS InspectorTests */,
@@ -441,6 +450,9 @@
 				26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */,
 				26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */,
 				F58FF40F16F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell */,
+				260775AB16F777AA0062F69C /* SIProductInfoWindowController.h */,
+				260775AC16F777AA0062F69C /* SIProductInfoWindowController.m */,
+				260775AD16F777AA0062F69C /* SIProductInfoWindowController.xib */,
 			);
 			name = "UI Controllers";
 			sourceTree = "<group>";
@@ -538,6 +550,7 @@
 				26201BCE16EE3C37003F6416 /* UserDefaults.plist in Resources */,
 				26201BD316EE405F003F6416 /* SIReposadoConfigurationController.xib in Resources */,
 				F58FF41316F7530500EF58B0 /* MIT-License.rtf in Resources */,
+				260775AF16F777AA0062F69C /* SIProductInfoWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +622,7 @@
 				26201BD116EE4041003F6416 /* SIReposadoConfigurationController.m in Sources */,
 				F5C6643D16EF1994009802F2 /* GradientButtonBarView.m in Sources */,
 				F58FF41416F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
+				260775AE16F777AA0062F69C /* SIProductInfoWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

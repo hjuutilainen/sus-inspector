@@ -9,9 +9,15 @@
 #import <Cocoa/Cocoa.h>
 #import "DataModelHeaders.h"
 
+@class SIProductInfoWindowController;
+
 @interface SIProductsViewController : NSViewController
 
 @property (assign) IBOutlet NSArrayController *productsArrayController;
+@property (assign) IBOutlet NSTableView *productsTableView;
 @property (retain) SUCatalogMO *selectedCatalog;
+@property (retain) SIProductInfoWindowController *productInfoWindowController;
+
+- (IBAction)getInfoAction:(id)sender;
 
 @end
