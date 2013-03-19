@@ -14,6 +14,9 @@
 @interface SIProductInfoWindowController : NSWindowController
 
 @property (retain) SUProductMO *product;
+@property (retain) NSArray *catalogs;
 @property (assign) IBOutlet WebView *webView;
+@property (assign) IBOutlet NSArrayController *catalogsArrayController;
+@property (assign) IBOutlet NSTokenField *catalogsTokenField;
 
 @end

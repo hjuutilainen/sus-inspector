@@ -160,6 +160,7 @@ static dispatch_queue_t serialQueue;
         allProductsItem.parent = smartItem;
         allProductsItem.sortIndexValue = 0;
         SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
+        allCatalog.catalogDisplayName = @"All Products";
         allProductsItem.catalogReference = allCatalog;
         
         SourceListItemMO *deprecatedProductsItem = [self newOrExistingSourceListItem:@"Deprecated Products" managedObjectContext:threadSafeMoc];
@@ -167,6 +168,7 @@ static dispatch_queue_t serialQueue;
         deprecatedProductsItem.parent = smartItem;
         deprecatedProductsItem.sortIndexValue = 1;
         SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
+        deprecatedCatalog.catalogDisplayName = @"Deprecated Products";
         deprecatedProductsItem.catalogReference = deprecatedCatalog;
         
         
