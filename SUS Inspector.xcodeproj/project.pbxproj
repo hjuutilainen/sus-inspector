@@ -23,6 +23,8 @@
 		F501048316E9DF0900B345DE /* SICatalogsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F501048116E9DF0900B345DE /* SICatalogsViewController.xib */; };
 		F501048616EA044100B345DE /* SourceListItemMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048516EA044100B345DE /* SourceListItemMO.m */; };
 		F501048916EA044A00B345DE /* _SourceListItemMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048816EA044A00B345DE /* _SourceListItemMO.m */; };
+		F51F79AB16F8C421008BEA0D /* SIPkginfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F51F79A916F8C421008BEA0D /* SIPkginfoWindowController.m */; };
+		F51F79AC16F8C421008BEA0D /* SIPkginfoWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F51F79AA16F8C421008BEA0D /* SIPkginfoWindowController.xib */; };
 		F53BDE4416E874D300055BC3 /* SIOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE4316E874D300055BC3 /* SIOperationManager.m */; };
 		F53BDE4B16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE4A16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m */; };
 		F53BDE4F16E89BD200055BC3 /* SIProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE4D16E89BD100055BC3 /* SIProgressWindowController.m */; };
@@ -92,6 +94,9 @@
 		F501048516EA044100B345DE /* SourceListItemMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListItemMO.m; sourceTree = "<group>"; };
 		F501048716EA044A00B345DE /* _SourceListItemMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SourceListItemMO.h; sourceTree = "<group>"; };
 		F501048816EA044A00B345DE /* _SourceListItemMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SourceListItemMO.m; sourceTree = "<group>"; };
+		F51F79A816F8C421008BEA0D /* SIPkginfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIPkginfoWindowController.h; path = "UI Controllers/SIPkginfoWindowController.h"; sourceTree = "<group>"; };
+		F51F79A916F8C421008BEA0D /* SIPkginfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIPkginfoWindowController.m; path = "UI Controllers/SIPkginfoWindowController.m"; sourceTree = "<group>"; };
+		F51F79AA16F8C421008BEA0D /* SIPkginfoWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIPkginfoWindowController.xib; path = "UI Controllers/SIPkginfoWindowController.xib"; sourceTree = "<group>"; };
 		F53BDE4216E874D300055BC3 /* SIOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIOperationManager.h; sourceTree = "<group>"; };
 		F53BDE4316E874D300055BC3 /* SIOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIOperationManager.m; sourceTree = "<group>"; };
 		F53BDE4916E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+HJGCDExtensions.h"; sourceTree = "<group>"; };
@@ -453,6 +458,9 @@
 				260775AB16F777AA0062F69C /* SIProductInfoWindowController.h */,
 				260775AC16F777AA0062F69C /* SIProductInfoWindowController.m */,
 				260775AD16F777AA0062F69C /* SIProductInfoWindowController.xib */,
+				F51F79A816F8C421008BEA0D /* SIPkginfoWindowController.h */,
+				F51F79A916F8C421008BEA0D /* SIPkginfoWindowController.m */,
+				F51F79AA16F8C421008BEA0D /* SIPkginfoWindowController.xib */,
 			);
 			name = "UI Controllers";
 			sourceTree = "<group>";
@@ -551,6 +559,7 @@
 				26201BD316EE405F003F6416 /* SIReposadoConfigurationController.xib in Resources */,
 				F58FF41316F7530500EF58B0 /* MIT-License.rtf in Resources */,
 				260775AF16F777AA0062F69C /* SIProductInfoWindowController.xib in Resources */,
+				F51F79AC16F8C421008BEA0D /* SIPkginfoWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +632,7 @@
 				F5C6643D16EF1994009802F2 /* GradientButtonBarView.m in Sources */,
 				F58FF41416F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				260775AE16F777AA0062F69C /* SIProductInfoWindowController.m in Sources */,
+				F51F79AB16F8C421008BEA0D /* SIPkginfoWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
