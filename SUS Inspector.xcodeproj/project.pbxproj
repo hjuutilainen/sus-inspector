@@ -19,6 +19,7 @@
 		26201BCE16EE3C37003F6416 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26201BCD16EE3C37003F6416 /* UserDefaults.plist */; };
 		26201BD116EE4041003F6416 /* SIReposadoConfigurationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */; };
 		26201BD316EE405F003F6416 /* SIReposadoConfigurationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */; };
+		D02F46BBA900C02FF0022F4B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0232CCEE9E4AC0981A6AAEE /* Localizable.strings */; };
 		F501048216E9DF0900B345DE /* SICatalogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048016E9DF0900B345DE /* SICatalogsViewController.m */; };
 		F501048316E9DF0900B345DE /* SICatalogsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F501048116E9DF0900B345DE /* SICatalogsViewController.xib */; };
 		F501048616EA044100B345DE /* SourceListItemMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048516EA044100B345DE /* SourceListItemMO.m */; };
@@ -87,6 +88,7 @@
 		26201BCF16EE4041003F6416 /* SIReposadoConfigurationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIReposadoConfigurationController.h; path = "UI Controllers/SIReposadoConfigurationController.h"; sourceTree = "<group>"; };
 		26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIReposadoConfigurationController.m; path = "UI Controllers/SIReposadoConfigurationController.m"; sourceTree = "<group>"; };
 		26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIReposadoConfigurationController.xib; path = "UI Controllers/SIReposadoConfigurationController.xib"; sourceTree = "<group>"; };
+		D0232CCEE9E4AC0981A6AAEE /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "UI Controllers/Localizable.strings"; sourceTree = "<group>"; };
 		F501047F16E9DF0900B345DE /* SICatalogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SICatalogsViewController.h; path = "UI Controllers/SICatalogsViewController.h"; sourceTree = "<group>"; };
 		F501048016E9DF0900B345DE /* SICatalogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SICatalogsViewController.m; path = "UI Controllers/SICatalogsViewController.m"; sourceTree = "<group>"; };
 		F501048116E9DF0900B345DE /* SICatalogsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SICatalogsViewController.xib; path = "UI Controllers/SICatalogsViewController.xib"; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				F5E06E5116E473FF008B7831 /* MainMenu.xib */,
 				F5E06E5416E473FF008B7831 /* SUS_Inspector.xcdatamodeld */,
 				F5E06E4316E473FF008B7831 /* Supporting Files */,
+				D0232CCEE9E4AC0981A6AAEE /* Localizable.strings */,
 			);
 			path = "SUS Inspector";
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				F58FF41316F7530500EF58B0 /* MIT-License.rtf in Resources */,
 				260775AF16F777AA0062F69C /* SIProductInfoWindowController.xib in Resources */,
 				F51F79AC16F8C421008BEA0D /* SIPkginfoWindowController.xib in Resources */,
+				D02F46BBA900C02FF0022F4B /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

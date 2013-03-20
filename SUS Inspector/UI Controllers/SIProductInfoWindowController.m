@@ -69,7 +69,8 @@
 
 
 // Convert the Contact entity into a displayable string for the token
-- (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
+- (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject
+{
     SUCatalogMO *catalog = (SUCatalogMO *)representedObject;
     return [NSString stringWithFormat:@"%@", catalog.catalogDisplayName];
 }
@@ -82,7 +83,7 @@
     NSMutableArray *toAdd = [NSMutableArray array];
     // Iterate over all the tokens to be added
     for (NSString *token in tokens) {
-        // Find the relevent object in our possible contacts list
+        // Find the relevant object in our possible contacts list
         NSUInteger index = [[self possibleContacts] indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             Contact *contact = (Contact *)obj;
             NSString *contactName = [NSString stringWithFormat:@"%@ %@", contact.firstname, contact.lastname];

@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface SICatalogsViewController : NSViewController
+@interface SICatalogsViewController : NSViewController <NSOutlineViewDelegate>
 
 @property (assign) IBOutlet NSOutlineView *sourceListOutlineView;
 @property (assign) IBOutlet NSTreeController *sourceListTreeController;

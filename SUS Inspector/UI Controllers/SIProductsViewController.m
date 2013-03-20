@@ -60,8 +60,8 @@
     [self.productsTableView setTarget:self];
     [self.productsTableView setDoubleAction:@selector(openGetInfoWindow)];
     
-    self.productInfoWindowController = [[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"];
-    self.pkginfoWindowController = [[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"];
+    self.productInfoWindowController = [[[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"] autorelease];
+    self.pkginfoWindowController = [[[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"] autorelease];
 }
 
 @end

@@ -37,7 +37,7 @@
 
 - (NSURL *)reposyncURL
 {
-    return [(NSURL *)self.reposadoCodeURL URLByAppendingPathComponent:@"repo_sync"];
+    return [self.reposadoCodeURL URLByAppendingPathComponent:@"repo_sync"];
 }
 
 - (NSString *)reposyncPath
@@ -65,7 +65,7 @@
     NSURL *repoutilURL = [self.reposadoCodeURL URLByAppendingPathComponent:@"repoutil"];
     NSURL *reposadolibURL = [self.reposadoCodeURL URLByAppendingPathComponent:@"reposadolib" isDirectory:YES];
     NSURL *reposadoInitURL = [reposadolibURL URLByAppendingPathComponent:@"__init__.py"];
-    NSURL *reposadocommonURL = [reposadolibURL URLByAppendingPathComponent:@"reposadocommon.py"];
+    NSURL *reposadoCommonURL = [reposadolibURL URLByAppendingPathComponent:@"reposadocommon.py"];
     
     // Determine if everything is installed
     BOOL reposadoInstalled = YES;
@@ -73,7 +73,7 @@
     if (![fileManager fileExistsAtPath:[repoutilURL path]]) reposadoInstalled = NO;
     if (![fileManager fileExistsAtPath:[reposadolibURL path]]) reposadoInstalled = NO;
     if (![fileManager fileExistsAtPath:[reposadoInitURL path]]) reposadoInstalled = NO;
-    if (![fileManager fileExistsAtPath:[reposadocommonURL path]]) reposadoInstalled = NO;
+    if (![fileManager fileExistsAtPath:[reposadoCommonURL path]]) reposadoInstalled = NO;
     
     // Install if needed
     if (!reposadoInstalled) {
@@ -95,7 +95,6 @@
         // Needed files are already copied
         return YES;
     }
-    return NO;
 }
 
 - (NSDictionary *)preferencesAsDictionary

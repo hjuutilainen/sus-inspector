@@ -29,7 +29,7 @@ static dispatch_queue_t serialQueue;
     dispatch_once(&onceQueue, ^{
         serialQueue = dispatch_queue_create("fi.obsolete.sus-inspector.serialqueue", NULL);
         if (sharedManager == nil) {
-            sharedManager = [super allocWithZone:zone];
+            sharedManager = (SIOperationManager *) [super allocWithZone:zone];
         }
     });
     
@@ -52,7 +52,7 @@ static dispatch_queue_t serialQueue;
     dispatch_sync(serialQueue, ^{
         obj = [super init];
         if (obj) {
-            self.operationQueue = [[NSOperationQueue alloc] init];
+            self.operationQueue = [[[NSOperationQueue alloc] init] autorelease];
             [self.operationQueue setMaxConcurrentOperationCount:4];
         }
     });
@@ -81,7 +81,7 @@ static dispatch_queue_t serialQueue;
     });
 }
 
-- (SUProductMO *)newOrExistingProductWithID:(NSString *)productID managedObjectContext:(NSManagedObjectContext *)moc
+- (SUProductMO *)productWithID:(NSString *)productID managedObjectContext:(NSManagedObjectContext *)moc
 {
     SUProductMO *theProduct = nil;
     NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
@@ -98,7 +98,7 @@ static dispatch_queue_t serialQueue;
     return theProduct;
 }
 
-- (SUCatalogMO *)newOrExistingCatalogWithURL:(NSString *)catalogURL managedObjectContext:(NSManagedObjectContext *)moc
+- (SUCatalogMO *)catalogWithURL:(NSString *)catalogURL managedObjectContext:(NSManagedObjectContext *)moc
 {
     SUCatalogMO *theCatalog = nil;
     NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
@@ -115,7 +115,7 @@ static dispatch_queue_t serialQueue;
     return theCatalog;
 }
 
-- (SourceListItemMO *)newOrExistingSourceListItem:(NSString *)title managedObjectContext:(NSManagedObjectContext *)moc
+- (SourceListItemMO *)sourceListItemWithTitle:(NSString *)title managedObjectContext:(NSManagedObjectContext *)moc
 {
     SourceListItemMO *theCatalog = nil;
     NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
@@ -136,43 +136,32 @@ static dispatch_queue_t serialQueue;
 {
     NSManagedObjectContext *parentMoc = [[NSApp delegate] managedObjectContext];
     [parentMoc performBlockWithPrivateQueueConcurrencyAndWait:^(NSManagedObjectContext *threadSafeMoc) {
-    //NSManagedObjectContext *threadSafeMoc = [[NSApp delegate] managedObjectContext];
         
-        // Delete all sourcelistitems
-        /*
-        NSFetchRequest *fetchAllProducts = [[NSFetchRequest alloc] init];
-        [fetchAllProducts setEntity:[NSEntityDescription entityForName:@"SourceListItem" inManagedObjectContext:threadSafeMoc]];
-        NSArray *allProducts = [threadSafeMoc executeFetchRequest:fetchAllProducts error:nil];
-        for (SourceListItemMO *aProduct in allProducts) {
-            [threadSafeMoc deleteObject:aProduct];
-        }
-         */
-        
-        SourceListItemMO *smartItem = [self newOrExistingSourceListItem:@"PRODUCTS" managedObjectContext:threadSafeMoc];
+        SourceListItemMO *smartItem = [self sourceListItemWithTitle:@"PRODUCTS" managedObjectContext:threadSafeMoc];
         smartItem.isGroupItemValue = YES;
         smartItem.sortIndexValue = 0;
         
         NSImage *instanceImage = [NSImage imageNamed:@"104-index-cards"];
         [instanceImage setTemplate:YES];        
         
-        SourceListItemMO *allProductsItem = [self newOrExistingSourceListItem:@"All Products" managedObjectContext:threadSafeMoc];
+        SourceListItemMO *allProductsItem = [self sourceListItemWithTitle:@"All Products" managedObjectContext:threadSafeMoc];
         allProductsItem.iconImage = instanceImage;
         allProductsItem.parent = smartItem;
         allProductsItem.sortIndexValue = 0;
-        SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
+        SUCatalogMO *allCatalog = [self catalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
         allCatalog.catalogDisplayName = @"All Products";
         allProductsItem.catalogReference = allCatalog;
         
-        SourceListItemMO *deprecatedProductsItem = [self newOrExistingSourceListItem:@"Deprecated Products" managedObjectContext:threadSafeMoc];
+        SourceListItemMO *deprecatedProductsItem = [self sourceListItemWithTitle:@"Deprecated Products" managedObjectContext:threadSafeMoc];
         deprecatedProductsItem.iconImage = instanceImage;
         deprecatedProductsItem.parent = smartItem;
         deprecatedProductsItem.sortIndexValue = 1;
-        SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
+        SUCatalogMO *deprecatedCatalog = [self catalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
         deprecatedCatalog.catalogDisplayName = @"Deprecated Products";
         deprecatedProductsItem.catalogReference = deprecatedCatalog;
         
         
-        SourceListItemMO *catalogsGroupItem = [self newOrExistingSourceListItem:@"CATALOGS" managedObjectContext:threadSafeMoc];
+        SourceListItemMO *catalogsGroupItem = [self sourceListItemWithTitle:@"CATALOGS" managedObjectContext:threadSafeMoc];
         catalogsGroupItem.isGroupItemValue = YES;
         catalogsGroupItem.sortIndexValue = 1;
         
@@ -191,14 +180,15 @@ static dispatch_queue_t serialQueue;
         if (numFoundCatalogs != 0) {
             NSArray *allCatalogs = [threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil];
             [allCatalogs enumerateObjectsUsingBlock:^(SUCatalogMO *catalog, NSUInteger idx, BOOL *stop) {
-                SourceListItemMO *catalogItem = [self newOrExistingSourceListItem:catalog.catalogDisplayName managedObjectContext:threadSafeMoc];
-                NSImage *instanceImage = [NSImage imageNamed:@"96-book"];
-                [instanceImage setTemplate:YES];
-                catalogItem.iconImage = instanceImage;
+                SourceListItemMO *catalogItem = [self sourceListItemWithTitle:catalog.catalogDisplayName managedObjectContext:threadSafeMoc];
+                NSImage *catalogImage = [NSImage imageNamed:@"96-book"];
+                [catalogImage setTemplate:YES];
+                catalogItem.iconImage = catalogImage;
                 catalogItem.parent = catalogsGroupItem;
                 catalogItem.catalogReference = catalog;
             }];
         }
+        [fetchForCatalogs release];
     }];
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SIDidSetupSourceListItems" object:nil];
@@ -215,10 +205,10 @@ static dispatch_queue_t serialQueue;
     NSDate *modificationDate = [urlResourceValues objectForKey:NSURLContentModificationDateKey];
     NSDate *creationDate = [urlResourceValues objectForKey:NSURLCreationDateKey];
     
-    __block SUCatalogMO *allCatalog = [self newOrExistingCatalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
+    __block SUCatalogMO *allCatalog = [self catalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
     allCatalog.catalogTitle = @"All products";
     
-    __block SUCatalogMO *deprecatedCatalog = [self newOrExistingCatalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
+    __block SUCatalogMO *deprecatedCatalog = [self catalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
     deprecatedCatalog.catalogTitle = @"Deprecated products";
     
     BOOL readNeeded = ((![modificationDate isEqualToDate:blockInstance.productInfoModificationDate]) ||
@@ -244,13 +234,13 @@ static dispatch_queue_t serialQueue;
         
         self.currentOperationTitle = [NSString stringWithFormat:@"Reading product information for %li products...", (unsigned long)[productInfo count]];
         [productInfo enumerateKeysAndObjectsWithOptions:0 usingBlock:^(NSString *key, id obj, BOOL *stop) {
-            self.currentOperationDescription = [NSString stringWithFormat:@"%@ %@", (NSString *)key, [obj objectForKey:@"title"]];
+            self.currentOperationDescription = [NSString stringWithFormat:@"%@ %@", key, [obj objectForKey:@"title"]];
             /*
              * Create product objects
              */
             
             // Check if the product is valid
-            BOOL hasProductID   = (![(NSString *)key isEqualToString:@""]) ? TRUE : FALSE;
+            BOOL hasProductID   = (![key isEqualToString:@""]) ? TRUE : FALSE;
             BOOL hasTitle       = ([obj objectForKey:@"title"]) ? TRUE : FALSE;
             BOOL hasVersion     = ([obj objectForKey:@"version"]) ? TRUE : FALSE;
             BOOL hasPostDate    = ([obj objectForKey:@"PostDate"]) ? TRUE : FALSE;
@@ -263,8 +253,7 @@ static dispatch_queue_t serialQueue;
             if (validProduct)
             {
                 
-                SUProductMO *newProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:threadSafeMoc];
-                newProduct.productID = key;
+                SUProductMO *newProduct = [self productWithID:key managedObjectContext:threadSafeMoc];
                 newProduct.productTitle = [obj objectForKey:@"title"];
                 newProduct.productDescription = [obj objectForKey:@"description"];
                 newProduct.productPostDate = [obj objectForKey:@"PostDate"];
@@ -300,6 +289,7 @@ static dispatch_queue_t serialQueue;
             }
         }];
         self.currentOperationDescription = @"";
+        [fetchAllProducts release];
     }
 }
 

@@ -11,7 +11,7 @@
 
 @class SUProductMO;
 
-@interface SIProductInfoWindowController : NSWindowController
+@interface SIProductInfoWindowController : NSWindowController <NSTokenFieldDelegate>
 
 @property (retain) SUProductMO *product;
 @property (retain) NSArray *catalogs;

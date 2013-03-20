@@ -34,7 +34,7 @@
 	
 	NSRect wholeRect = [self bounds];
 	
-	[fillGradient drawInRect:wholeRect angle:90.0];
+	[self.fillGradient drawInRect:wholeRect angle:90.0];
 	
 	if (self.drawBottomLine) {
         NSBezierPath *bottomLine = [NSBezierPath bezierPath];

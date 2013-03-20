@@ -7,10 +7,7 @@
 //
 
 #import "SIAppDelegate.h"
-#import "DataModelHeaders.h"
 #import "SIMainWindowController.h"
-#import "SIOperationManager.h"
-#import "SIReposadoConfigurationController.h"
 
 @implementation SIAppDelegate
 
@@ -27,8 +24,6 @@
 @synthesize managedObjectContext = _managedObjectContext;
 
 NSString *defaultInstanceName = @"Default";
-NSString *defaultReposadoDataDirectory = @"data";
-NSString *defaultReposadoCodeDirectory = @"code";
 
 
 - (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(ReposadoInstanceMO *)object
@@ -119,11 +114,11 @@ NSString *defaultReposadoCodeDirectory = @"code";
      * There should be also one!
      */
     NSManagedObjectContext *moc = [self managedObjectContext];
-    NSEntityDescription *reposadoEntityDescr = [NSEntityDescription entityForName:@"ReposadoInstance" inManagedObjectContext:moc];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ReposadoInstance" inManagedObjectContext:moc];
     NSFetchRequest *fetchForReposadoInstances = [[[NSFetchRequest alloc] init] autorelease];
-    [fetchForReposadoInstances setEntity:reposadoEntityDescr];
-    NSUInteger numFoundReposados = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
-    if (numFoundReposados == 0) {
+    [fetchForReposadoInstances setEntity:entityDescription];
+    NSUInteger instanceCount = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
+    if (instanceCount == 0) {
         /*
          * Setup a default reposado instance
          */
@@ -155,7 +150,7 @@ NSString *defaultReposadoCodeDirectory = @"code";
     /*
      * Create view and window controllers
      */
-    self.mainWindowController = [[SIMainWindowController alloc] initWithWindowNibName:@"SIMainWindowController"];
+    self.mainWindowController = [[[SIMainWindowController alloc] initWithWindowNibName:@"SIMainWindowController"] autorelease];
     [self.mainWindowController showWindow:self];
     
     /*

@@ -36,11 +36,11 @@
     
     [self.window center];
     
-    self.progressWindowController = [[SIProgressWindowController alloc] initWithWindowNibName:@"SIProgressWindowController"];
-    self.productsViewController = [[SIProductsViewController alloc] initWithNibName:@"SIProductsViewController" bundle:nil];
-    self.catalogsViewController = [[SICatalogsViewController alloc] initWithNibName:@"SICatalogsViewController" bundle:nil];
+    self.progressWindowController = [[[SIProgressWindowController alloc] initWithWindowNibName:@"SIProgressWindowController"] autorelease];
+    self.productsViewController = [[[SIProductsViewController alloc] initWithNibName:@"SIProductsViewController" bundle:nil] autorelease];
+    self.catalogsViewController = [[[SICatalogsViewController alloc] initWithNibName:@"SICatalogsViewController" bundle:nil] autorelease];
     self.catalogsViewController.delegate = self;
-    self.reposadoConfigurationController = [[SIReposadoConfigurationController alloc] initWithWindowNibName:@"SIReposadoConfigurationController"];
+    self.reposadoConfigurationController = [[[SIReposadoConfigurationController alloc] initWithWindowNibName:@"SIReposadoConfigurationController"] autorelease];
     //[self.reposadoConfigurationController showWindow:self];
     
     [self.mainSplitView setDelegate:self];
@@ -82,11 +82,11 @@
 {
     if (sender == self.mainSplitView) {
         
-        // Resize only the right side of the splitview
+        // Resize only the right side of the split view
         
         NSView *left = [[sender subviews] objectAtIndex:0];
         NSView *right = [[sender subviews] objectAtIndex:1];
-        float dividerThickness = [sender dividerThickness];
+        CGFloat dividerThickness = [sender dividerThickness];
         NSRect newFrame = [sender frame];
         NSRect leftFrame = [left frame];
         NSRect rightFrame = [right frame];

@@ -1,0 +1,15 @@
+/****************************************************************************/
+/* Localization file */
+
+
+"Save Pkginfo..." = "Save Pkginfo...";
+"Cancel" = "Cancel";
+"Name" = "Name";
+"Display Name" = "Display Name";
+"Restart Action" = "Restart Action";
+"Unattended Install" = "Unattended Install";
+"Force After" = "Force After";
+"Description" = "Description";
+"Could not save changes while quitting. Quit anyway?" = "Could not save changes while quitting. Quit anyway?";
+"Quitting now will lose any changes you have made since the last successful save" = "Quitting now will lose any changes you have made since the last successful save";
+"Quit anyway" = "Quit anyway";

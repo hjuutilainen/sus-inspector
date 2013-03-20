@@ -227,7 +227,7 @@
     /*
      Description text view
      */
-    id decsriptionLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Description", nil) identifier:@"decsriptionLabel" superView:contentView];
+    id descriptionLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Description", nil) identifier:@"descriptionLabel" superView:contentView];
     NSTextView *descriptionTextView = [[[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 10, 10)] autorelease];
     [descriptionTextView setIdentifier:@"descriptionTextView"];
     [descriptionTextView setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
@@ -248,7 +248,7 @@
                                                          restartActionField, restartActionLabel,
                                                          unattendedLabel, unattendedButton,
                                                          forceAfterLabel, forceAfterCheckBox, forceAfterDatePicker,
-                                                         decsriptionLabel, descriptionTextView, descriptionScroll);
+    descriptionLabel, descriptionTextView, descriptionScroll);
     
     NSDictionary *buttons = NSDictionaryOfVariableBindings(savePkginfoButton, cancelButton);
     
@@ -295,7 +295,7 @@
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[descriptionTextView(>=20)]|" options:0 metrics:nil views:views]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[descriptionTextView(>=20)]|" options:0 metrics:nil views:views]];
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[decsriptionLabel]-[descriptionScroll(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[descriptionLabel]-[descriptionScroll(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     [contentView addConstraint:[NSLayoutConstraint constraintWithItem:descriptionScroll
                                                             attribute:NSLayoutAttributeBottom
                                                             relatedBy:NSLayoutRelationEqual
