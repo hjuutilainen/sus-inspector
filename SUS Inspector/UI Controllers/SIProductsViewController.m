@@ -8,6 +8,7 @@
 
 #import "SIProductsViewController.h"
 #import "SIProductInfoWindowController.h"
+#import "SIPkginfoWindowController.h"
 
 @interface SIProductsViewController ()
 
@@ -37,6 +38,18 @@
     [self openGetInfoWindow];
 }
 
+- (void)openPkginfoWindow
+{
+    SUProductMO *selectedProduct = [[self.productsArrayController selectedObjects] objectAtIndex:0];
+    [self.pkginfoWindowController setProduct:selectedProduct];
+    [self.pkginfoWindowController showWindow:nil];
+}
+
+- (IBAction)createPkginfoAction:(id)sender
+{
+    [self openPkginfoWindow];
+}
+
 - (void)awakeFromNib
 {
     NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"productPostDate" ascending:NO selector:@selector(compare:)];
@@ -48,6 +61,7 @@
     [self.productsTableView setDoubleAction:@selector(openGetInfoWindow)];
     
     self.productInfoWindowController = [[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"];
+    self.pkginfoWindowController = [[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"];
 }
 
 @end

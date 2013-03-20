@@ -21,5 +21,7 @@
 @property (retain) NSArray *munki_blocking_applications;
 @property (retain) NSNumber *munki_unattended_install;
 @property (retain) NSDate *munki_force_install_after_date;
+@property (retain) NSNumber *munki_force_install_after_date_enabled;
+
 
 @end

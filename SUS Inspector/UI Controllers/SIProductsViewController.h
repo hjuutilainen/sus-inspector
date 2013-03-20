@@ -10,6 +10,7 @@
 #import "DataModelHeaders.h"
 
 @class SIProductInfoWindowController;
+@class SIPkginfoWindowController;
 
 @interface SIProductsViewController : NSViewController
 
@@ -17,7 +18,9 @@
 @property (assign) IBOutlet NSTableView *productsTableView;
 @property (retain) SUCatalogMO *selectedCatalog;
 @property (retain) SIProductInfoWindowController *productInfoWindowController;
+@property (retain) SIPkginfoWindowController *pkginfoWindowController;
 
 - (IBAction)getInfoAction:(id)sender;
+- (IBAction)createPkginfoAction:(id)sender;
 
 @end
