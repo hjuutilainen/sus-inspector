@@ -41,9 +41,8 @@
     [super showWindow:sender];
     self.munki_name = self.product.productID;
     self.munki_display_name = self.product.productTitle;
-    self.munki_description = self.product.productDescription;
     self.munki_RestartAction = nil;
-    self.munki_description = self.product.productDescription;
+    self.munki_description = nil;
     
     
     NSDate *now = [NSDate date];
@@ -60,6 +59,24 @@
     self.munki_force_install_after_date = newDate;
     self.munki_force_install_after_date_enabled = [NSNumber numberWithBool:NO];
     
+}
+
+- (IBAction)htmlDescriptionToPlainText:(id)sender
+{
+    NSData *data = [self.product.productDescription dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSAttributedString *html = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:nil] autorelease];
+    self.munki_description = [html string];
+}
+
+- (IBAction)populateDescriptionAction:(id)sender
+{
+    self.munki_description = self.product.productDescription;
+}
+
+- (IBAction)clearDescriptionAction:(id)sender
+{
+    self.munki_description = nil;
 }
 
 - (void)savePkginfoAction:(id)sender
@@ -223,7 +240,7 @@
     
     // Horizontal layout
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[nameLabel]-(>=0)-|" options:NSLayoutFormatAlignAllTop metrics:nil views:buttons]];
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[pkginfoScrollView(>=400)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:buttons]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[pkginfoScrollView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:buttons]];
     
     // Vertical layout
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[nameLabel]-[pkginfoScrollView]|" options:NSLayoutFormatAlignAllLeading metrics:nil views:buttons]];
@@ -242,7 +259,7 @@
      */
     id nameLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Name", nil) identifier:@"nameLabel" superView:parentView];
     id nameField = [self addTextFieldWithidentifier:@"nameField" superView:parentView];
-    
+    [nameField setEnabled:NO];
     [nameField bind:@"value" toObject:self withKeyPath:@"munki_name" options:textFieldOptions];
     
     /*
@@ -317,7 +334,6 @@
     [descriptionScroll setHasVerticalScroller:YES];
     [descriptionScroll setHasHorizontalScroller:NO];
     [descriptionScroll setAutohidesScrollers:NO];
-    //[descriptionScroll setAutoresizesSubviews:NO];
     
     NSTextView *descriptionTextView = [[[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, contentSize.width, contentSize.height)] autorelease];
     [descriptionTextView setIdentifier:@"descriptionTextView"];
@@ -342,12 +358,19 @@
     [descriptionScroll setDocumentView:descriptionTextView];
     [parentView addSubview:descriptionScroll];
     
+    NSPopUpButton *descriptionPopupButton = self.descriptionPopupButton;
+    [descriptionPopupButton setIdentifier:@"descriptionPopupButton"];
+    [descriptionPopupButton setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
+    [descriptionPopupButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [descriptionPopupButton setImagePosition:NSImageOnly];
+    [parentView addSubview:descriptionPopupButton];
+    
     NSDictionary *views = NSDictionaryOfVariableBindings(nameLabel, nameField,
                                                          displayNameField, displayNameLabel,
                                                          restartActionField, restartActionLabel,
                                                          unattendedLabel, unattendedButton,
                                                          forceAfterLabel, forceAfterCheckBox, forceAfterDatePicker,
-                                                         descriptionLabel, descriptionTextView, descriptionScroll);
+                                                         descriptionLabel, descriptionTextView, descriptionScroll, descriptionPopupButton);
     
     
     
@@ -385,6 +408,16 @@
     [descriptionScroll addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[descriptionTextView(>=20)]|" options:0 metrics:nil views:views]];
     [descriptionScroll setContentHuggingPriority:NSLayoutPriorityDefaultLow - 1 forOrientation:NSLayoutConstraintOrientationHorizontal];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[descriptionLabel]-[descriptionScroll(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[descriptionPopupButton(38@200)]-(>=20)-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraint:[NSLayoutConstraint constraintWithItem:descriptionPopupButton
+                                                           attribute:NSLayoutAttributeRight
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:descriptionScroll
+                                                           attribute:NSLayoutAttributeRight
+                                                          multiplier:1.f constant:0.f]];
+    
+    
     /*
     [parentView addConstraint:[NSLayoutConstraint constraintWithItem:descriptionScroll
                                                             attribute:NSLayoutAttributeBottom
@@ -397,10 +430,14 @@
     
     
     // Vertical layout
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[nameField]-[displayNameField]-[restartActionField]-(16)-[forceAfterCheckBox]-(16)-[descriptionScroll(>=200)]-(>=0)-|"
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[nameField]-[displayNameField]-[restartActionField]-(16)-[forceAfterCheckBox]-(16)-[descriptionScroll(>=200)]"
                                                                         options:NSLayoutFormatAlignAllLeading
                                                                         metrics:nil
                                                                           views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[descriptionScroll]-(2)-[descriptionPopupButton]|"
+                                                                       options:NSLayoutFormatAlignAllTrailing
+                                                                       metrics:nil
+                                                                         views:views]];
     
 }
 

@@ -26,6 +26,11 @@
 @property (assign) IBOutlet NSView *leftSubView;
 @property (assign) IBOutlet NSView *rightSubView;
 @property (assign) IBOutlet NSSplitView *splitView;
+@property (assign) IBOutlet NSPopUpButton *descriptionPopupButton;
+
+- (IBAction)populateDescriptionAction:(id)sender;
+- (IBAction)clearDescriptionAction:(id)sender;
+- (IBAction)htmlDescriptionToPlainText:(id)sender;
 
 
 @end
