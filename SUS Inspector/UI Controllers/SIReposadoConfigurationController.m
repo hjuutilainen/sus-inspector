@@ -115,7 +115,8 @@
 # pragma mark -
 # pragma mark NSTableView delegates
 
-- (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row __unused {
+- (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
     NSString *identifier = [tableColumn identifier];
     id cell = [tableColumn dataCell];
     if ([identifier isEqualToString:@"isActive"]) {

@@ -22,6 +22,10 @@
 @property (retain) NSNumber *munki_unattended_install;
 @property (retain) NSDate *munki_force_install_after_date;
 @property (retain) NSNumber *munki_force_install_after_date_enabled;
+@property (readonly, retain) NSString *pkginfo;
+@property (assign) IBOutlet NSView *leftSubView;
+@property (assign) IBOutlet NSView *rightSubView;
+@property (assign) IBOutlet NSSplitView *splitView;
 
 
 @end
