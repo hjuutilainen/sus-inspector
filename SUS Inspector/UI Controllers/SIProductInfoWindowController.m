@@ -20,7 +20,7 @@
 {
     self = [super initWithWindow:window];
     if (self) {
-        
+        self.webView = [[[WebView alloc] init] autorelease];
     }
     
     return self;
@@ -154,13 +154,62 @@
     [parentView addSubview:productCatalogsTokenField];
     [productCatalogsTokenField bind:@"value" toObject:self withKeyPath:@"catalogs" options:bindOptions];
     
+    /*
+     Separator 1
+     */
+    NSBox *separatorLine1 = [[[NSBox alloc] init] autorelease];
+    [separatorLine1 setBoxType:NSBoxSeparator];
+    [separatorLine1 setAutoresizingMask:NSViewWidthSizable];
+    [separatorLine1 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [parentView addSubview:separatorLine1];
+    
+    /*
+     Packages table view
+     */
+    NSTextField *packagesLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Packages", nil) identifier:@"packagesLabel" superView:parentView];
+    NSTableView *packagesTableView = self.packagesTableView;
+    [packagesTableView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    [packagesTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSScrollView *packagesScrollView = [[[NSScrollView alloc] init] autorelease];
+    [packagesScrollView setIdentifier:@"packagesScrollView"];
+    [packagesScrollView setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
+    [packagesScrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [packagesScrollView setBorderType:NSBezelBorder];
+    [packagesScrollView setHasVerticalScroller:YES];
+    [packagesScrollView setHasHorizontalScroller:YES];
+    [packagesScrollView setAutohidesScrollers:NO];
+    [packagesScrollView setAutoresizesSubviews:YES];
+    [packagesScrollView setDocumentView:packagesTableView];
+    [parentView addSubview:packagesScrollView];
+    
+    /*
+     Separator 2
+     */
+    NSBox *separatorLine2 = [[[NSBox alloc] init] autorelease];
+    [separatorLine2 setBoxType:NSBoxSeparator];
+    [separatorLine2 setAutoresizingMask:NSViewWidthSizable];
+    [separatorLine2 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [parentView addSubview:separatorLine2];
+    
+    /*
+     Description web view
+     */
+    WebView *webView = self.webView;
+    [webView setPolicyDelegate:self];
+    [webView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    [webView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [parentView addSubview:webView];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(nameLabel,
                                                          productIDLabel, productIDTextField,
                                                          productVersionLabel, productVersionTextField,
                                                          productReleasedLabel, productReleasedTextField,
                                                          productSizeLabel, productSizeTextField,
-                                                         productCatalogsLabel, productCatalogsTokenField);
+                                                         productCatalogsLabel, productCatalogsTokenField,
+                                                         separatorLine1,
+                                                         packagesLabel, packagesScrollView,
+                                                         separatorLine2,
+                                                         webView);
     
     
     
@@ -186,21 +235,19 @@
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productReleasedLabel]-[productReleasedTextField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productSizeLabel]-[productSizeTextField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productCatalogsLabel]-[productCatalogsTokenField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[separatorLine1]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[packagesLabel]-[packagesScrollView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[separatorLine2]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[webView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     
     NSArray *textFields = [NSArray arrayWithObjects:productIDTextField, productVersionTextField, productReleasedTextField, productSizeTextField, productCatalogsTokenField, nil];
     for (NSView *view in textFields) {
         [view setContentHuggingPriority:NSLayoutPriorityDefaultLow - 1 forOrientation:NSLayoutConstraintOrientationHorizontal];
     }
     
-    /*
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[displayNameLabel]-[displayNameField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[catalogsLabel]-[catalogsTokenField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[restartActionLabel]-[restartActionField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
-    */
-    
     
     // Vertical layout
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[nameLabel]-(20)-[productIDLabel]-[productVersionLabel]-[productReleasedLabel]-[productSizeLabel]-[productCatalogsLabel]-(>=0)-|"
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(12)-[nameLabel]-(12)-[productIDLabel]-[productVersionLabel]-[productReleasedLabel]-[productSizeLabel]-[productCatalogsLabel]-[separatorLine1]-[packagesLabel]-[separatorLine2]-[webView(>=200)]-|"
                                                                        options:NSLayoutFormatAlignAllLeading
                                                                        metrics:nil
                                                                          views:views]];

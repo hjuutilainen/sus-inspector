@@ -15,7 +15,8 @@
 
 @property (retain) SUProductMO *product;
 @property (retain) NSArray *catalogs;
-@property (assign) IBOutlet WebView *webView;
+@property (retain) WebView *webView;
+@property (assign) IBOutlet NSTableView *packagesTableView;
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSTokenField *catalogsTokenField;
 
