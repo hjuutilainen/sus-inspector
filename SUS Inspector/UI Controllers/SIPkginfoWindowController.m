@@ -22,6 +22,8 @@
     self = [super initWithWindow:window];
     if (self) {
         // Initialization code here.
+        NSArray *restartActions = [NSArray arrayWithObjects:@"RequireShutdown", @"RequireRestart", @"RecommendRestart", @"RequireLogout", @"None", nil];
+        self.restartActionTemplates = [restartActions sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
     }
     
     return self;
@@ -31,7 +33,7 @@
 {
     [super windowDidLoad];
     [self.window setBackgroundColor:[NSColor whiteColor]];
-    [self.window center];
+    
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
@@ -41,9 +43,11 @@
     [super showWindow:sender];
     self.munki_name = self.product.productID;
     self.munki_display_name = self.product.productTitle;
+    
+    self.munki_catalogs = [NSArray arrayWithObjects:@"testing", nil];
+    
     self.munki_RestartAction = nil;
     self.munki_description = nil;
-    
     
     NSDate *now = [NSDate date];
     NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
@@ -99,6 +103,7 @@
         NSSet *affectingKeys = [NSSet setWithObjects:
                                 @"munki_name",
                                 @"munki_display_name",
+                                @"munki_catalogs",
                                 @"munki_description",
                                 @"munki_RestartAction",
                                 @"munki_force_install_after_date_enabled",
@@ -117,6 +122,9 @@
     if (self.munki_name) [dict setObject:self.munki_name forKey:@"name"];
     if (self.munki_display_name) [dict setObject:self.munki_display_name forKey:@"display_name"];
     if (self.munki_description) [dict setObject:self.munki_description forKey:@"description"];
+    if ([self.munki_catalogs count] > 0) {
+        [dict setObject:self.munki_catalogs forKey:@"catalogs"];
+    }
     if (self.munki_RestartAction) [dict setObject:self.munki_RestartAction forKey:@"RestartAction"];
     if ([self.munki_force_install_after_date_enabled boolValue]) {
         [dict setObject:self.munki_force_install_after_date forKey:@"force_install_after_date"];
@@ -171,6 +179,7 @@
     [textField setIdentifier:identifier];
     [[textField cell] setControlSize:NSRegularControlSize];
     [textField setBordered:YES];
+    [textField setCompletes:YES];
     [textField setBezeled:YES];
     [textField setSelectable:YES];
     [textField setEditable:YES];
@@ -202,9 +211,6 @@
 
 - (void)setupPkginfoPreviewView:(NSView *)parentView
 {
-    [parentView setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
-    [parentView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
     id nameLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Pkginfo Preview", nil) identifier:@"nameLabel" superView:parentView];
     
     NSTextView *pkginfoTextView = [[[NSTextView alloc] initWithFrame:[parentView bounds]] autorelease];
@@ -269,12 +275,27 @@
     id displayNameField = [self addTextFieldWithidentifier:@"displayNameField" superView:parentView];
     [displayNameField bind:@"value" toObject:self withKeyPath:@"munki_display_name" options:textFieldOptions];
     
+    
+    
+    /*
+     Catalogs token field
+     */
+    id catalogsLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Catalogs", nil) identifier:@"catalogsLabel" superView:parentView];
+    NSTokenField *catalogsTokenField = self.catalogsTokenField;
+    [catalogsTokenField setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
+    [catalogsTokenField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [parentView addSubview:catalogsTokenField];
+    [catalogsTokenField bind:@"value" toObject:self withKeyPath:@"munki_catalogs" options:textFieldOptions];
+    
+    
+    
     /*
      Restart Action field
      */
     id restartActionLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Restart Action", nil) identifier:@"restartActionLabel" superView:parentView];
     id restartActionField = [self addComboBoxWithidentifier:@"restartActionField" superView:parentView];
     [restartActionField bind:@"value" toObject:self withKeyPath:@"munki_RestartAction" options:textFieldOptions];
+    [restartActionField bind:@"contentValues" toObject:self withKeyPath:@"restartActionTemplates" options:nil];
     
     /*
      Unattended install label and check box
@@ -366,13 +387,21 @@
     [parentView addSubview:descriptionPopupButton];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(nameLabel, nameField,
-                                                         displayNameField, displayNameLabel,
+                                                         displayNameLabel, displayNameField,
+                                                         catalogsLabel, catalogsTokenField,
                                                          restartActionField, restartActionLabel,
                                                          unattendedLabel, unattendedButton,
                                                          forceAfterLabel, forceAfterCheckBox, forceAfterDatePicker,
                                                          descriptionLabel, descriptionTextView, descriptionScroll, descriptionPopupButton);
     
-    
+    /*
+     Create a correct key view loop
+     */
+    [self.window setInitialFirstResponder:displayNameField];
+    [displayNameField setNextKeyView:catalogsTokenField];
+    [catalogsTokenField setNextKeyView:restartActionField];
+    [restartActionField setNextKeyView:descriptionTextView];
+    [descriptionTextView setNextKeyView:displayNameField];
     
     
     /*
@@ -382,6 +411,7 @@
     // Horizontal layout
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[nameLabel]-[nameField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[displayNameLabel]-[displayNameField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[catalogsLabel]-[catalogsTokenField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[restartActionLabel]-[restartActionField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[forceAfterLabel]-[forceAfterCheckBox]-[forceAfterDatePicker(>=20)]-[unattendedButton]-|" options:0 metrics:nil views:views]];
@@ -430,7 +460,7 @@
     
     
     // Vertical layout
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[nameField]-[displayNameField]-[restartActionField]-(16)-[forceAfterCheckBox]-(16)-[descriptionScroll(>=200)]"
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[nameField]-[displayNameField]-[catalogsTokenField]-[restartActionField]-(16)-[forceAfterCheckBox]-(16)-[descriptionScroll(>=200)]"
                                                                         options:NSLayoutFormatAlignAllLeading
                                                                         metrics:nil
                                                                           views:views]];
@@ -445,6 +475,8 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    
+    [self.window center];
     
     [self.window bind:@"title" toObject:self withKeyPath:@"product.productTitleWithVersion" options:nil];
     
@@ -478,11 +510,17 @@
      Split view children layout
      */
     NSView *leftSubView = self.leftSubView;
+    [leftSubView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
+    [leftSubView setTranslatesAutoresizingMaskIntoConstraints:NO];
     NSView *rightSubView = self.rightSubView;
+    [rightSubView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
+    [rightSubView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
     [self setupPkginfoPreviewView:rightSubView];
     [self setupPkginfoView:leftSubView];
-    
 }
+
+
 
 
 @end
