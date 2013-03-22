@@ -8,6 +8,7 @@
 
 #import "SIProductInfoWindowController.h"
 #import "DataModelHeaders.h"
+#import "SISizeFormatter.h"
 
 @interface SIProductInfoWindowController ()
 
@@ -48,6 +49,179 @@
 
 }
 
+
+- (NSTextField *)addTextFieldWithidentifier:(NSString *)identifier superView:(NSView *)superview
+{
+    NSTextField *textField = [[[NSTextField alloc] init] autorelease];
+    [textField setIdentifier:identifier];
+    [[textField cell] setControlSize:NSRegularControlSize];
+    [textField setBordered:NO];
+    [textField setBezeled:NO];
+    [textField setSelectable:YES];
+    [textField setEditable:NO];
+    [textField setFont:[NSFont systemFontOfSize:13.0]];
+    [textField setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [superview addSubview:textField];
+    return textField;
+}
+
+- (NSTextField *)addLabelFieldWithTitle:(NSString *)title identifier:(NSString *)identifier superView:(NSView *)superview
+{
+    NSTextField *textField = [[[NSTextField alloc] init] autorelease];
+    [textField setIdentifier:identifier];
+    [textField setStringValue:title];
+    [[textField cell] setControlSize:NSRegularControlSize];
+    [textField setAlignment:NSRightTextAlignment];
+    [textField setBordered:NO];
+    [textField setBezeled:NO];
+    [textField setSelectable:NO];
+    [textField setEditable:NO];
+    [textField setDrawsBackground:NO];
+    [textField setFont:[NSFont boldSystemFontOfSize:13.0]];
+    [textField setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
+    [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [superview addSubview:textField];
+    return textField;
+}
+
+
+
+- (void)setupProductInfoView:(NSView *)parentView
+{
+    
+    /*
+     Binding options
+     */
+    NSDictionary *bindOptions = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSContinuouslyUpdatesValueBindingOption, nil];
+    
+    /*
+     Name field
+     */
+    NSTextField *nameLabel = [self addTextFieldWithidentifier:@"nameLabel" superView:parentView];
+    [nameLabel setFont:[NSFont boldSystemFontOfSize:16.0]];
+    [nameLabel bind:@"value" toObject:self withKeyPath:@"product.productTitle" options:bindOptions];
+    
+    
+    /*
+     Product ID
+     */
+    NSTextField *productIDLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Product ID", nil) identifier:@"productIDLabel" superView:parentView];
+    NSTextField *productIDTextField = [self addTextFieldWithidentifier:@"productIDTextField" superView:parentView];
+    [productIDTextField bind:@"value" toObject:self withKeyPath:@"product.productID" options:bindOptions];
+    
+    /*
+     Version
+     */
+    NSTextField *productVersionLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Version", nil) identifier:@"productVersionLabel" superView:parentView];
+    NSTextField *productVersionTextField = [self addTextFieldWithidentifier:@"productVersionTextField" superView:parentView];
+    [productVersionTextField bind:@"value" toObject:self withKeyPath:@"product.productVersion" options:bindOptions];
+    
+    /*
+     Released date
+     */
+    NSTextField *productReleasedLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Released", nil) identifier:@"productReleasedLabel" superView:parentView];
+    NSTextField *productReleasedTextField = [self addTextFieldWithidentifier:@"productReleasedTextField" superView:parentView];
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [productReleasedTextField setFormatter:dateFormatter];
+    [productReleasedTextField bind:@"value" toObject:self withKeyPath:@"product.productPostDate" options:bindOptions];
+    
+    
+    /*
+     Size
+     */
+    NSTextField *productSizeLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Size", nil) identifier:@"productSizeLabel" superView:parentView];
+    NSTextField *productSizeTextField = [self addTextFieldWithidentifier:@"productSizeTextField" superView:parentView];
+    SISizeFormatter *fileSizeFormatter = [[[SISizeFormatter alloc] init] autorelease];
+    [productSizeTextField setFormatter:fileSizeFormatter];
+    [productSizeTextField bind:@"value" toObject:self withKeyPath:@"product.productSize" options:bindOptions];
+    
+    
+    /*
+     Catalogs token field
+     */
+    NSTextField *productCatalogsLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Catalogs", nil) identifier:@"productCatalogsLabel" superView:parentView];
+    NSTokenField *productCatalogsTokenField = [[[NSTokenField alloc] init] autorelease];
+    [productCatalogsTokenField setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
+    [productCatalogsTokenField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [productCatalogsTokenField setDelegate:self];
+    [productCatalogsTokenField setBordered:NO];
+    [productCatalogsTokenField setBezeled:NO];
+    [productCatalogsTokenField setSelectable:YES];
+    [productCatalogsTokenField setEditable:NO];
+    [parentView addSubview:productCatalogsTokenField];
+    [productCatalogsTokenField bind:@"value" toObject:self withKeyPath:@"catalogs" options:bindOptions];
+    
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(nameLabel,
+                                                         productIDLabel, productIDTextField,
+                                                         productVersionLabel, productVersionTextField,
+                                                         productReleasedLabel, productReleasedTextField,
+                                                         productSizeLabel, productSizeTextField,
+                                                         productCatalogsLabel, productCatalogsTokenField);
+    
+    
+    
+    /*
+     Create a correct key view loop
+     */
+    /*
+    [self.window setInitialFirstResponder:displayNameField];
+    [displayNameField setNextKeyView:catalogsTokenField];
+    [catalogsTokenField setNextKeyView:restartActionField];
+    [restartActionField setNextKeyView:descriptionTextView];
+    [descriptionTextView setNextKeyView:displayNameField];
+    */
+    
+    /*
+     Text field layout
+     */
+    
+    // Horizontal layout
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[nameLabel(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productIDLabel]-[productIDTextField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productVersionLabel]-[productVersionTextField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productReleasedLabel]-[productReleasedTextField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productSizeLabel]-[productSizeTextField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productCatalogsLabel]-[productCatalogsTokenField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    
+    NSArray *textFields = [NSArray arrayWithObjects:productIDTextField, productVersionTextField, productReleasedTextField, productSizeTextField, productCatalogsTokenField, nil];
+    for (NSView *view in textFields) {
+        [view setContentHuggingPriority:NSLayoutPriorityDefaultLow - 1 forOrientation:NSLayoutConstraintOrientationHorizontal];
+    }
+    
+    /*
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[displayNameLabel]-[displayNameField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[catalogsLabel]-[catalogsTokenField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[restartActionLabel]-[restartActionField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+    */
+    
+    
+    // Vertical layout
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[nameLabel]-(20)-[productIDLabel]-[productVersionLabel]-[productReleasedLabel]-[productSizeLabel]-[productCatalogsLabel]-(>=0)-|"
+                                                                       options:NSLayoutFormatAlignAllLeading
+                                                                       metrics:nil
+                                                                         views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[productIDTextField]-[productVersionTextField]-[productReleasedTextField]-[productSizeTextField]-[productCatalogsTokenField]-(>=20)-|"
+                                                                       options:NSLayoutFormatAlignAllLeading
+                                                                       metrics:nil
+                                                                         views:views]];
+    
+    
+}
+
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [self.window center];
+    
+    [self setupProductInfoView:[self.window contentView]];
+}
+
 - (void)windowDidLoad
 {
     [super windowDidLoad];
@@ -75,37 +249,5 @@
     return [NSString stringWithFormat:@"%@", catalog.catalogDisplayName];
 }
 
-/*
-// This gets called when the NSTokenField attempts to commit the changes. Since we only allow pre-configured contacts
-// it must be in our list of possible contacts, otherwise we won't add the contact.
-- (NSArray *)tokenField:(NSTokenField *)tokenField shouldAddObjects:(NSArray *)tokens atIndex:(NSUInteger)idx {
-    
-    NSMutableArray *toAdd = [NSMutableArray array];
-    // Iterate over all the tokens to be added
-    for (NSString *token in tokens) {
-        // Find the relevant object in our possible contacts list
-        NSUInteger index = [[self possibleContacts] indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            Contact *contact = (Contact *)obj;
-            NSString *contactName = [NSString stringWithFormat:@"%@ %@", contact.firstname, contact.lastname];
-            if ([contactName isEqualToString:token]) {
-                *stop = YES;
-                return YES;
-            }
-            return NO;
-        }];
-        
-        if (index != NSNotFound) {
-            [toAdd addObject:[[self possibleContacts ] objectAtIndex:index]];
-        } // else not a possible contact so don't add it.
-    }
-    return toAdd;
-}
-
-// We don't allow editing of the contact names directly, so just return the string again.
-- (NSString *)tokenField:(NSTokenField *)tokenField editingStringForRepresentedObject:(id)representedObject {
-    Contact *contact = (Contact *)representedObject;
-    return [NSString stringWithFormat:@"%@ %@", contact.firstname, contact.lastname];
-}
- */
 
 @end
