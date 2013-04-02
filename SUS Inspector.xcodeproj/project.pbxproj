@@ -59,6 +59,8 @@
 		F5E06EA016E49CC9008B7831 /* _SUCatalogMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9916E49CC9008B7831 /* _SUCatalogMO.m */; };
 		F5E06EA116E49CC9008B7831 /* _SUProductMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9B16E49CC9008B7831 /* _SUProductMO.m */; };
 		F5E06EA716E4D8A1008B7831 /* SISizeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06EA616E4D8A1008B7831 /* SISizeFormatter.m */; };
+		F5E07B5E170ACA910069993C /* SIPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E07B5C170ACA910069993C /* SIPreferencesController.m */; };
+		F5E07B5F170ACA910069993C /* SIPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5E07B5D170ACA910069993C /* SIPreferencesController.xib */; };
 		F5EE0D9716E5D9E1006AEA8B /* SIMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */; };
 		F5EE0D9816E5D9E1006AEA8B /* SIMainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */; };
 /* End PBXBuildFile section */
@@ -173,6 +175,9 @@
 		F5E06EA316E49CFD008B7831 /* DataModelHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModelHeaders.h; sourceTree = "<group>"; };
 		F5E06EA516E4D8A1008B7831 /* SISizeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SISizeFormatter.h; sourceTree = "<group>"; };
 		F5E06EA616E4D8A1008B7831 /* SISizeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SISizeFormatter.m; sourceTree = "<group>"; };
+		F5E07B5B170ACA910069993C /* SIPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIPreferencesController.h; path = "UI Controllers/SIPreferencesController.h"; sourceTree = "<group>"; };
+		F5E07B5C170ACA910069993C /* SIPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIPreferencesController.m; path = "UI Controllers/SIPreferencesController.m"; sourceTree = "<group>"; };
+		F5E07B5D170ACA910069993C /* SIPreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIPreferencesController.xib; path = "UI Controllers/SIPreferencesController.xib"; sourceTree = "<group>"; };
 		F5EE0D9416E5D9E1006AEA8B /* SIMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIMainWindowController.h; path = "UI Controllers/SIMainWindowController.h"; sourceTree = "<group>"; };
 		F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIMainWindowController.m; path = "UI Controllers/SIMainWindowController.m"; sourceTree = "<group>"; };
 		F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIMainWindowController.xib; path = "UI Controllers/SIMainWindowController.xib"; sourceTree = "<group>"; };
@@ -464,6 +469,9 @@
 				F51F79A816F8C421008BEA0D /* SIPkginfoWindowController.h */,
 				F51F79A916F8C421008BEA0D /* SIPkginfoWindowController.m */,
 				F51F79AA16F8C421008BEA0D /* SIPkginfoWindowController.xib */,
+				F5E07B5B170ACA910069993C /* SIPreferencesController.h */,
+				F5E07B5C170ACA910069993C /* SIPreferencesController.m */,
+				F5E07B5D170ACA910069993C /* SIPreferencesController.xib */,
 			);
 			name = "UI Controllers";
 			sourceTree = "<group>";
@@ -564,6 +572,7 @@
 				260775AF16F777AA0062F69C /* SIProductInfoWindowController.xib in Resources */,
 				F51F79AC16F8C421008BEA0D /* SIPkginfoWindowController.xib in Resources */,
 				D02F46BBA900C02FF0022F4B /* Localizable.strings in Resources */,
+				F5E07B5F170ACA910069993C /* SIPreferencesController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +646,7 @@
 				F58FF41416F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				260775AE16F777AA0062F69C /* SIProductInfoWindowController.m in Sources */,
 				F51F79AB16F8C421008BEA0D /* SIPkginfoWindowController.m in Sources */,
+				F5E07B5E170ACA910069993C /* SIPreferencesController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

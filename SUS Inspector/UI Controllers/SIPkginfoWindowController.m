@@ -17,11 +17,23 @@
 
 @dynamic pkginfo;
 
+- (NSURL *)showSavePanelForPkginfo:(NSString *)fileName
+{
+	NSSavePanel *savePanel = [NSSavePanel savePanel];
+	savePanel.nameFieldStringValue = fileName;
+    savePanel.title = @"Save pkginfo";
+	if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+	{
+		return [savePanel URL];
+	} else {
+		return nil;
+	}
+}
+
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
     if (self) {
-        // Initialization code here.
         NSArray *restartActions = [NSArray arrayWithObjects:@"RequireShutdown", @"RequireRestart", @"RecommendRestart", @"RequireLogout", @"None", nil];
         self.restartActionTemplates = [restartActions sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
     }
@@ -29,13 +41,12 @@
     return self;
 }
 
+
+
 - (void)windowDidLoad
 {
     [super windowDidLoad];
     [self.window setBackgroundColor:[NSColor whiteColor]];
-    
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
 - (void)showWindow:(id)sender
@@ -43,8 +54,13 @@
     [super showWindow:sender];
     self.munki_name = self.product.productID;
     self.munki_display_name = self.product.productTitle;
+    self.munki_version = self.product.productVersion;
     
-    self.munki_catalogs = [NSArray arrayWithObjects:@"testing", nil];
+    NSArray *catalogDictsFromDefaults = [[NSUserDefaults standardUserDefaults] arrayForKey:@"defaultMunkiCatalogs"];
+    NSArray *catalogs = [catalogDictsFromDefaults valueForKeyPath:@"title"];
+    
+    self.munki_catalogs = catalogs;
+    self.munki_unattended_install = [NSNumber numberWithBool:NO];
     
     self.munki_RestartAction = nil;
     self.munki_description = nil;
@@ -85,12 +101,20 @@
 
 - (void)savePkginfoAction:(id)sender
 {
-    NSLog(@"savePkginfoAction");
+    NSString *displayNameTemplate = [self.munki_display_name stringByReplacingOccurrencesOfString:@" " withString:@" "];
+    NSString *filenameTemplate = [NSString stringWithFormat:@"%@ %@ %@.plist", displayNameTemplate, self.munki_version, self.munki_name];
+    NSURL *saveURL = [self showSavePanelForPkginfo:filenameTemplate];
+    if (!saveURL) {
+        return;
+    }
+    if (![[self pkginfo] writeToURL:saveURL atomically:YES encoding:NSUTF8StringEncoding error:nil]) {
+        NSLog(@"Failed to write %@", [saveURL path]);
+    }
 }
 
 - (void)cancelSavePkginfoAction:(id)sender
 {
-    NSLog(@"cancelSavePkginfoAction");
+    [self.window close];
 }
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
@@ -103,6 +127,7 @@
         NSSet *affectingKeys = [NSSet setWithObjects:
                                 @"munki_name",
                                 @"munki_display_name",
+                                @"munki_version",
                                 @"munki_catalogs",
                                 @"munki_description",
                                 @"munki_RestartAction",
@@ -119,8 +144,10 @@
 - (NSString *)pkginfo
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:@"apple_update_metadata" forKey:@"installer_type"];
     if (self.munki_name) [dict setObject:self.munki_name forKey:@"name"];
     if (self.munki_display_name) [dict setObject:self.munki_display_name forKey:@"display_name"];
+    if (self.munki_version) [dict setObject:self.munki_version forKey:@"version"];
     if (self.munki_description) [dict setObject:self.munki_description forKey:@"description"];
     if ([self.munki_catalogs count] > 0) {
         [dict setObject:self.munki_catalogs forKey:@"catalogs"];
@@ -276,6 +303,14 @@
     [displayNameField bind:@"value" toObject:self withKeyPath:@"munki_display_name" options:textFieldOptions];
     
     
+    /*
+     Display name field
+     */
+    id versionLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Version", nil) identifier:@"versionLabel" superView:parentView];
+    id versionField = [self addTextFieldWithidentifier:@"versionField" superView:parentView];
+    [versionField bind:@"value" toObject:self withKeyPath:@"munki_version" options:textFieldOptions];
+    
+    
     
     /*
      Catalogs token field
@@ -284,6 +319,7 @@
     NSTokenField *catalogsTokenField = self.catalogsTokenField;
     [catalogsTokenField setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
     [catalogsTokenField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [catalogsTokenField setDelegate:self];
     [parentView addSubview:catalogsTokenField];
     [catalogsTokenField bind:@"value" toObject:self withKeyPath:@"munki_catalogs" options:textFieldOptions];
     
@@ -388,6 +424,7 @@
     
     NSDictionary *views = NSDictionaryOfVariableBindings(nameLabel, nameField,
                                                          displayNameLabel, displayNameField,
+                                                         versionLabel, versionField,
                                                          catalogsLabel, catalogsTokenField,
                                                          restartActionField, restartActionLabel,
                                                          unattendedLabel, unattendedButton,
@@ -398,7 +435,8 @@
      Create a correct key view loop
      */
     [self.window setInitialFirstResponder:displayNameField];
-    [displayNameField setNextKeyView:catalogsTokenField];
+    [displayNameField setNextKeyView:versionField];
+    [versionField setNextKeyView:catalogsTokenField];
     [catalogsTokenField setNextKeyView:restartActionField];
     [restartActionField setNextKeyView:descriptionTextView];
     [descriptionTextView setNextKeyView:displayNameField];
@@ -411,6 +449,7 @@
     // Horizontal layout
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[nameLabel]-[nameField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[displayNameLabel]-[displayNameField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[versionLabel]-[versionField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[catalogsLabel]-[catalogsTokenField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[restartActionLabel]-[restartActionField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     
@@ -460,7 +499,7 @@
     
     
     // Vertical layout
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[nameField]-[displayNameField]-[catalogsTokenField]-[restartActionField]-(16)-[forceAfterCheckBox]-(16)-[descriptionScroll(>=200)]"
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[nameField]-[displayNameField]-[versionField]-[catalogsTokenField]-[restartActionField]-(16)-[forceAfterCheckBox]-(16)-[descriptionScroll(>=200)]"
                                                                         options:NSLayoutFormatAlignAllLeading
                                                                         metrics:nil
                                                                           views:views]];
@@ -495,8 +534,11 @@
      */
     NSButton *savePkginfoButton = [self addPushButtonWithTitle:NSLocalizedString(@"Save Pkginfo...", nil) identifier:@"savePkginfoButton" superView:contentView];
     [savePkginfoButton setAction:@selector(savePkginfoAction:)];
+    [savePkginfoButton setKeyEquivalent:@"s"];
+    [savePkginfoButton setKeyEquivalentModifierMask:NSCommandKeyMask];
     NSButton *cancelButton = [self addPushButtonWithTitle:NSLocalizedString(@"Cancel", nil) identifier:@"cancelButton" superView:contentView];
     [cancelButton setAction:@selector(cancelSavePkginfoAction:)];
+    [cancelButton setKeyEquivalent:@"\e"]; // escape
     
     /*
      Window layout
@@ -518,6 +560,19 @@
     
     [self setupPkginfoPreviewView:rightSubView];
     [self setupPkginfoView:leftSubView];
+}
+
+
+# pragma mark -
+# pragma mark NSTokenFieldDelegate methods
+
+- (NSArray *)tokenField:(NSTokenField *)tokenField completionsForSubstring:(NSString *)substring indexOfToken:(NSInteger)tokenIndex indexOfSelectedItem:(NSInteger *)selectedIndex
+{
+    NSArray *catalogDictsFromDefaults = [[NSUserDefaults standardUserDefaults] arrayForKey:@"defaultMunkiCatalogs"];
+    NSArray *catalogs = [catalogDictsFromDefaults valueForKeyPath:@"title"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH[d] %@", substring];
+    NSArray *matchingCatalogs = [catalogs filteredArrayUsingPredicate:predicate];
+    return matchingCatalogs;
 }
 
 

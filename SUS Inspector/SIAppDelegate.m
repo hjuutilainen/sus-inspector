@@ -8,6 +8,7 @@
 
 #import "SIAppDelegate.h"
 #import "SIMainWindowController.h"
+#import "SIPreferencesController.h"
 
 @implementation SIAppDelegate
 
@@ -24,6 +25,13 @@
 @synthesize managedObjectContext = _managedObjectContext;
 
 NSString *defaultInstanceName = @"Default";
+
+
+- (IBAction)openPreferencesAction:sender
+{
+	self.preferencesController = [[SIPreferencesController alloc] initWithWindowNibName:@"SIPreferencesController"];
+	[self.preferencesController showWindow:self];
+}
 
 
 - (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(ReposadoInstanceMO *)object

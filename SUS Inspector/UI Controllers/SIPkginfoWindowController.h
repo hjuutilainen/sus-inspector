@@ -10,13 +10,14 @@
 
 @class SUProductMO;
 
-@interface SIPkginfoWindowController : NSWindowController
+@interface SIPkginfoWindowController : NSWindowController <NSTokenFieldDelegate>
 
 @property (retain) SUProductMO *product;
 
 @property (retain) NSString *munki_name;
 @property (retain) NSString *munki_description;
 @property (retain) NSString *munki_display_name;
+@property (retain) NSString *munki_version;
 @property (retain) NSString *munki_RestartAction;
 @property (retain) NSArray *munki_blocking_applications;
 @property (retain) NSArray *restartActionTemplates;

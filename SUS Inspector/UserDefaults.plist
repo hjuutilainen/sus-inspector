@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>pkginfoFileExtensions</key>
+	<array>
+		<string>.plist</string>
+		<string>.pkginfo</string>
+	</array>
+	<key>pkginfoDefaultFileExtension</key>
+	<string>.plist</string>
+	<key>defaultMunkiCatalogs</key>
+	<array>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>title</key>
+			<string>testing</string>
+		</dict>
+	</array>
 	<key>reposadoCatalogsBaseURL</key>
 	<string>http://swscan.apple.com</string>
 	<key>defaultCatalogs</key>

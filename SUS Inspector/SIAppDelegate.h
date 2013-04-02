@@ -11,6 +11,7 @@
 #import "SIReposadoConfigurationController.h"
 
 @class SIMainWindowController;
+@class SIPreferencesController;
 @class ReposadoInstanceMO;
 
 @interface SIAppDelegate : NSObject <NSApplicationDelegate, SIOperationManagerDelegate, SIReposadoConfigurationControllerDelegate>
@@ -23,6 +24,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (retain) SIMainWindowController *mainWindowController;
+@property (retain) SIPreferencesController *preferencesController;
 @property (retain) ReposadoInstanceMO *defaultReposadoInstance;
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSTreeController *sourceListTreeController;
@@ -30,6 +32,8 @@
 - (IBAction)saveAction:(id)sender;
 
 - (IBAction)reposyncAction:(id)sender;
+
+- (IBAction)openPreferencesAction:(id)sender;
 
 // SIOperationManager delegates
 - (void)willStartOperations:(id)sender;
