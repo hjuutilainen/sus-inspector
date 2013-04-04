@@ -30,6 +30,12 @@
     return self.catalogTitle;
 }
 
+- (NSString *)catalogFilename
+{
+    NSURL *asURL = [NSURL URLWithString:self.catalogURL];
+    return [asURL lastPathComponent];
+}
+
 - (NSString *)catalogURLAsString
 {
     return self.catalogURL;

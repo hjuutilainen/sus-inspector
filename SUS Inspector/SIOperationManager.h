@@ -26,6 +26,8 @@
 @property (retain) NSString *currentOperationTitle;
 @property (retain) NSString *currentOperationDescription;
 @property (retain) AMShellWrapper *shellWrapper;
+@property (retain) NSArray *currentCatalogs;
+
 
 + (SIOperationManager *)sharedManager;
 - (void)setupSourceListItems;

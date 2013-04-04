@@ -98,6 +98,20 @@ static dispatch_queue_t serialQueue;
     return theProduct;
 }
 
+- (NSArray *)allCatalogs
+{
+    NSArray *catalogs = nil;
+    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
+    [fetchProducts setEntity:[NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:moc]];
+    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchProducts error:nil];
+    if (numFoundCatalogs > 0) {
+        catalogs = [moc executeFetchRequest:fetchProducts error:nil];
+    }
+    [fetchProducts release];
+    return catalogs;
+}
+
 - (SUCatalogMO *)catalogWithURL:(NSString *)catalogURL managedObjectContext:(NSManagedObjectContext *)moc
 {
     SUCatalogMO *theCatalog = nil;
@@ -328,6 +342,7 @@ static dispatch_queue_t serialQueue;
 
 - (void)runReposync:(ReposadoInstanceMO *)instance
 {
+    self.currentCatalogs = [self allCatalogs];
     NSArray *arguments = [NSArray arrayWithObjects:instance.reposyncPath, nil];
     AMShellWrapper *wrapper = [[[AMShellWrapper alloc] initWithInputPipe:nil
                                                               outputPipe:nil
@@ -348,10 +363,41 @@ static dispatch_queue_t serialQueue;
 // conforming to the AMShellWrapperDelegate protocol:
 // ============================================================
 
+- (NSString *)cleanReposadoMessage:(NSString *)message
+{
+    NSString *cleanedString = message;
+    for (SUCatalogMO *aCatalog in self.currentCatalogs) {
+        cleanedString = [cleanedString stringByReplacingOccurrencesOfString:aCatalog.catalogURL
+                                                                 withString:[NSString stringWithFormat:@"catalog %@", aCatalog.catalogDisplayName]];
+        cleanedString = [cleanedString stringByReplacingOccurrencesOfString:aCatalog.catalogFilename
+                                                                 withString:[NSString stringWithFormat:@"catalog %@", aCatalog.catalogDisplayName]];
+    }
+    
+    // If we still have long URLs in the message, replace them with the last path component
+    NSError *error = NULL;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink error:&error];
+    NSTextCheckingResult *match = [detector firstMatchInString:cleanedString options:0 range:NSMakeRange(0, [cleanedString length])];
+    if (match) {
+        NSURL *url = [match URL];
+        cleanedString = [cleanedString stringByReplacingOccurrencesOfString:[url relativeString]
+                                                                 withString:[url lastPathComponent]];
+    }
+    
+    NSRegularExpression *distRegex = [NSRegularExpression regularExpressionWithPattern:@"Downloading \\d+ bytes from" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSRange rangeOfFirstMatch = [distRegex rangeOfFirstMatchInString:cleanedString options:0 range:NSMakeRange(0, [cleanedString length])];
+    if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
+        NSString *substringForFirstMatch = [cleanedString substringWithRange:rangeOfFirstMatch];
+        cleanedString = [cleanedString stringByReplacingOccurrencesOfString:substringForFirstMatch
+                                                                 withString:@"Downloading"];
+    }
+    
+    return cleanedString;
+}
+
 - (void)write:(NSString *)string
 {
     if (![string isEqualToString:@""]) {
-        self.currentOperationDescription = string;
+        self.currentOperationDescription = [self cleanReposadoMessage:string];
     }
 }
 
