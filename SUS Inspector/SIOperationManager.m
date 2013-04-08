@@ -81,6 +81,23 @@ static dispatch_queue_t serialQueue;
     });
 }
 
+- (SUPackageMO *)packageWithURLString:(NSString *)urlString  managedObjectContext:(NSManagedObjectContext *)moc
+{
+    SUPackageMO *thePackage = nil;
+    NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
+    [fetchObjects setEntity:[NSEntityDescription entityForName:@"SUPackage" inManagedObjectContext:moc]];
+    [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"packageURL == %@", urlString]];
+    NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
+    if (numFoundObjects == 0) {
+        thePackage = [NSEntityDescription insertNewObjectForEntityForName:@"SUPackage" inManagedObjectContext:moc];
+        thePackage.packageURL = urlString;
+    } else {
+        thePackage = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
+    }
+    [fetchObjects release];
+    return thePackage;
+}
+
 - (SUProductMO *)productWithID:(NSString *)productID managedObjectContext:(NSManagedObjectContext *)moc
 {
     SUProductMO *theProduct = nil;
@@ -266,7 +283,9 @@ static dispatch_queue_t serialQueue;
             
             if (validProduct)
             {
-                
+                /*
+                 * Parse the basic properties
+                 */
                 SUProductMO *newProduct = [self productWithID:key managedObjectContext:threadSafeMoc];
                 newProduct.productTitle = [obj objectForKey:@"title"];
                 newProduct.productDescription = [obj objectForKey:@"description"];
@@ -276,13 +295,15 @@ static dispatch_queue_t serialQueue;
                 newProduct.productVersion = [obj objectForKey:@"version"];
                 [newProduct addCatalogsObject:allCatalog];
                 
+                /*
+                 * Parse catalogs
+                 */
                 NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
                 if ([appleCatalogs count] == 0) {
                     newProduct.productIsDeprecatedValue = YES;
                     [newProduct addCatalogsObject:deprecatedCatalog];
                 }
                 for (NSString *aCatalogString in appleCatalogs) {
-                    
                     NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SUCatalog" inManagedObjectContext:threadSafeMoc];
                     NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
                     [fetchForCatalogs setEntity:catalogEntityDescr];
@@ -296,6 +317,21 @@ static dispatch_queue_t serialQueue;
                         [existingCatalog addProductsObject:newProduct];
                     }
                     [fetchForCatalogs release];
+                }
+                
+                /*
+                 * Parse packages
+                 */
+                NSDictionary *catalogEntry = [obj objectForKey:@"CatalogEntry"];
+                NSArray *packages = [catalogEntry objectForKey:@"Packages"];
+                for (NSDictionary *aPackage in packages) {
+                    NSString *packageURL = [aPackage objectForKey:@"URL"];
+                    NSNumber *size = [aPackage objectForKey:@"Size"];
+                    NSString *metadataURL = [aPackage objectForKey:@"MetadataURL"];
+                    SUPackageMO *newPackage = [self packageWithURLString:packageURL managedObjectContext:threadSafeMoc];
+                    newPackage.packageSize = size;
+                    newPackage.packageMetadataURL = metadataURL;
+                    newPackage.product = newProduct;
                 }
                 
             } else {

@@ -17,6 +17,7 @@
 @property (retain) NSArray *catalogs;
 @property (retain) WebView *webView;
 @property (assign) IBOutlet NSTableView *packagesTableView;
+@property (assign) IBOutlet NSScrollView *packagesScrollView;
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSTokenField *catalogsTokenField;
 

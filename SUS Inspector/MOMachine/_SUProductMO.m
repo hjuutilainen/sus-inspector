@@ -15,6 +15,7 @@ const struct SUProductMOAttributes SUProductMOAttributes = {
 
 const struct SUProductMORelationships SUProductMORelationships = {
 	.catalogs = @"catalogs",
+	.packages = @"packages",
 };
 
 const struct SUProductMOFetchedProperties SUProductMOFetchedProperties = {
@@ -159,6 +160,19 @@ const struct SUProductMOFetchedProperties SUProductMOFetchedProperties = {
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"catalogs"];
   
 	[self didAccessValueForKey:@"catalogs"];
+	return result;
+}
+	
+
+@dynamic packages;
+
+	
+- (NSMutableSet*)packagesSet {
+	[self willAccessValueForKey:@"packages"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"packages"];
+  
+	[self didAccessValueForKey:@"packages"];
 	return result;
 }
 	

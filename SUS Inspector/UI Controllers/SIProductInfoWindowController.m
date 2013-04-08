@@ -167,10 +167,10 @@
      Packages table view
      */
     NSTextField *packagesLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Packages", nil) identifier:@"packagesLabel" superView:parentView];
-    NSTableView *packagesTableView = self.packagesTableView;
-    [packagesTableView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-    [packagesTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    NSScrollView *packagesScrollView = [[[NSScrollView alloc] init] autorelease];
+    //NSTableView *packagesTableView = self.packagesTableView;
+    //[packagesTableView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    //[packagesTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSScrollView *packagesScrollView = self.packagesScrollView;
     [packagesScrollView setIdentifier:@"packagesScrollView"];
     [packagesScrollView setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
     [packagesScrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -179,7 +179,7 @@
     [packagesScrollView setHasHorizontalScroller:YES];
     [packagesScrollView setAutohidesScrollers:NO];
     [packagesScrollView setAutoresizesSubviews:YES];
-    [packagesScrollView setDocumentView:packagesTableView];
+    //[packagesScrollView setDocumentView:packagesTableView];
     [parentView addSubview:packagesScrollView];
     
     /*
@@ -253,6 +253,10 @@
                                                                          views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[productIDTextField]-[productVersionTextField]-[productReleasedTextField]-[productSizeTextField]-[productCatalogsTokenField]-(>=20)-|"
                                                                        options:NSLayoutFormatAlignAllLeading
+                                                                       metrics:nil
+                                                                         views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[separatorLine1]-[packagesScrollView(>=100)]-[separatorLine2]"
+                                                                       options:NSLayoutFormatAlignAllTrailing
                                                                        metrics:nil
                                                                          views:views]];
     

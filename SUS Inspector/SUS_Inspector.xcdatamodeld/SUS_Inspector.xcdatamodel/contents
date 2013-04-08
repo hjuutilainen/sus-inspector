@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="ReposadoInstance" representedClassName="ReposadoInstanceMO" syncable="YES">
         <attribute name="productInfoCreationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="productInfoModificationDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -38,6 +38,12 @@
         <relationship name="reposadoInstance" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReposadoInstance" inverseName="catalogs" inverseEntity="ReposadoInstance" syncable="YES"/>
         <relationship name="sourceListItem" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SourceListItem" inverseName="catalogReference" inverseEntity="SourceListItem" syncable="YES"/>
     </entity>
+    <entity name="SUPackage" representedClassName="SUPackageMO" syncable="YES">
+        <attribute name="packageMetadataURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="packageSize" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="packageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="product" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SUProduct" inverseName="packages" inverseEntity="SUProduct" syncable="YES"/>
+    </entity>
     <entity name="SUProduct" representedClassName="SUProductMO" syncable="YES">
         <attribute name="productDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productID" optional="YES" attributeType="String" syncable="YES"/>
@@ -47,11 +53,13 @@
         <attribute name="productTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productVersion" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUCatalog" inverseName="products" inverseEntity="SUCatalog" syncable="YES"/>
+        <relationship name="packages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SUPackage" inverseName="product" inverseEntity="SUPackage" syncable="YES"/>
     </entity>
     <elements>
         <element name="ReposadoInstance" positionX="-830" positionY="-72" width="128" height="209"/>
         <element name="SourceListItem" positionX="160" positionY="192" width="128" height="165"/>
         <element name="SUCatalog" positionX="-522" positionY="-81" width="128" height="225"/>
-        <element name="SUProduct" positionX="-234" positionY="-99" width="128" height="165"/>
+        <element name="SUProduct" positionX="-234" positionY="-99" width="128" height="180"/>
+        <element name="SUPackage" positionX="160" positionY="192" width="128" height="105"/>
     </elements>
 </model>

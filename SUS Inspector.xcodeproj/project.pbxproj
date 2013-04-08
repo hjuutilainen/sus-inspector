@@ -19,6 +19,8 @@
 		26201BCE16EE3C37003F6416 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26201BCD16EE3C37003F6416 /* UserDefaults.plist */; };
 		26201BD116EE4041003F6416 /* SIReposadoConfigurationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */; };
 		26201BD316EE405F003F6416 /* SIReposadoConfigurationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */; };
+		26B05AD01711E42100B24A5A /* _SUPackageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26B05ACF1711E42100B24A5A /* _SUPackageMO.m */; };
+		26B05AD31711E42E00B24A5A /* SUPackageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26B05AD21711E42E00B24A5A /* SUPackageMO.m */; };
 		D02F46BBA900C02FF0022F4B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0232CCEE9E4AC0981A6AAEE /* Localizable.strings */; };
 		F501048216E9DF0900B345DE /* SICatalogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048016E9DF0900B345DE /* SICatalogsViewController.m */; };
 		F501048316E9DF0900B345DE /* SICatalogsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F501048116E9DF0900B345DE /* SICatalogsViewController.xib */; };
@@ -90,6 +92,10 @@
 		26201BCF16EE4041003F6416 /* SIReposadoConfigurationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIReposadoConfigurationController.h; path = "UI Controllers/SIReposadoConfigurationController.h"; sourceTree = "<group>"; };
 		26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIReposadoConfigurationController.m; path = "UI Controllers/SIReposadoConfigurationController.m"; sourceTree = "<group>"; };
 		26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIReposadoConfigurationController.xib; path = "UI Controllers/SIReposadoConfigurationController.xib"; sourceTree = "<group>"; };
+		26B05ACE1711E42100B24A5A /* _SUPackageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SUPackageMO.h; sourceTree = "<group>"; };
+		26B05ACF1711E42100B24A5A /* _SUPackageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SUPackageMO.m; sourceTree = "<group>"; };
+		26B05AD11711E42E00B24A5A /* SUPackageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUPackageMO.h; sourceTree = "<group>"; };
+		26B05AD21711E42E00B24A5A /* SUPackageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUPackageMO.m; sourceTree = "<group>"; };
 		D0232CCEE9E4AC0981A6AAEE /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "UI Controllers/Localizable.strings"; sourceTree = "<group>"; };
 		F501047F16E9DF0900B345DE /* SICatalogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SICatalogsViewController.h; path = "UI Controllers/SICatalogsViewController.h"; sourceTree = "<group>"; };
 		F501048016E9DF0900B345DE /* SICatalogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SICatalogsViewController.m; path = "UI Controllers/SICatalogsViewController.m"; sourceTree = "<group>"; };
@@ -390,6 +396,8 @@
 		F5E06E8E16E49CC9008B7831 /* MOHuman */ = {
 			isa = PBXGroup;
 			children = (
+				26B05AD11711E42E00B24A5A /* SUPackageMO.h */,
+				26B05AD21711E42E00B24A5A /* SUPackageMO.m */,
 				F501048416EA044100B345DE /* SourceListItemMO.h */,
 				F501048516EA044100B345DE /* SourceListItemMO.m */,
 				F5E06E8F16E49CC9008B7831 /* ReposadoInstanceMO.h */,
@@ -405,6 +413,8 @@
 		F5E06E9516E49CC9008B7831 /* MOMachine */ = {
 			isa = PBXGroup;
 			children = (
+				26B05ACE1711E42100B24A5A /* _SUPackageMO.h */,
+				26B05ACF1711E42100B24A5A /* _SUPackageMO.m */,
 				F501048716EA044A00B345DE /* _SourceListItemMO.h */,
 				F501048816EA044A00B345DE /* _SourceListItemMO.m */,
 				F5E06E9616E49CC9008B7831 /* _ReposadoInstanceMO.h */,
@@ -647,6 +657,8 @@
 				260775AE16F777AA0062F69C /* SIProductInfoWindowController.m in Sources */,
 				F51F79AB16F8C421008BEA0D /* SIPkginfoWindowController.m in Sources */,
 				F5E07B5E170ACA910069993C /* SIPreferencesController.m in Sources */,
+				26B05AD01711E42100B24A5A /* _SUPackageMO.m in Sources */,
+				26B05AD31711E42E00B24A5A /* SUPackageMO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
