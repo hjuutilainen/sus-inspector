@@ -13,6 +13,7 @@
 }
 
 @property (assign) IBOutlet NSView *generalView;
+@property (assign) IBOutlet NSView *munkiView;
 @property (assign) IBOutlet NSView *advancedView;
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSTableView *catalogsTableView;

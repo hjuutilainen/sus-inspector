@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>pkginfoPrefillVersion</key>
+	<true/>
+	<key>pkginfoPrefillDisplayName</key>
+	<true/>
+	<key>pkginfoPrefillDescription</key>
+	<false/>
+	<key>pkginfoPrefillDescriptionType</key>
+	<integer>0</integer>
+	<key>pkginfoUnattendedInstall</key>
+	<false/>
 	<key>pkginfoFileExtensions</key>
 	<array>
 		<string>.plist</string>

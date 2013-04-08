@@ -29,7 +29,6 @@ NSString *defaultInstanceName = @"Default";
 
 - (IBAction)openPreferencesAction:sender
 {
-	self.preferencesController = [[SIPreferencesController alloc] initWithWindowNibName:@"SIPreferencesController"];
 	[self.preferencesController showWindow:self];
 }
 
@@ -160,6 +159,8 @@ NSString *defaultInstanceName = @"Default";
      */
     self.mainWindowController = [[[SIMainWindowController alloc] initWithWindowNibName:@"SIMainWindowController"] autorelease];
     [self.mainWindowController showWindow:self];
+    
+    self.preferencesController = [[[SIPreferencesController alloc] initWithWindowNibName:@"SIPreferencesController"] autorelease];
     
     /*
      * We need one configured Reposado instance

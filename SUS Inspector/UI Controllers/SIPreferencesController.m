@@ -59,30 +59,37 @@
     [self.catalogsTableView editColumn:0 row:row withEvent:nil select:YES];
 }
 
+- (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier
+{
+    NSToolbarItem *toolbarItem;
+    toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
+    [toolbarItem setPaletteLabel:identifier];
+    [toolbarItem setLabel:identifier];
+    [toolbarItem setTarget:self];
+    [toolbarItem setAction:@selector(switchViews:)];
+    return toolbarItem;
+}
+
 - (void)awakeFromNib
 {
     self.items = [[NSMutableDictionary alloc] init];
     
-	NSToolbarItem *generalItem;
-    generalItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"General"];
-    [generalItem setPaletteLabel:@"General"];
-    [generalItem setLabel:@"General"];
-    [generalItem setToolTip:@"General preference options."];
+	NSToolbarItem *generalItem = [self toolbarItemWithIdentifier:@"General"];
+    [generalItem setToolTip:NSLocalizedString(@"General preference options.", nil)];
     [generalItem setImage:[NSImage imageNamed:@"NSPreferencesGeneral"]];
-    [generalItem setTarget:self];
-    [generalItem setAction:@selector(switchViews:)];
     [self.items setObject:generalItem forKey:@"General"];
     [generalItem release];
     
+    NSToolbarItem *munkiItem = [self toolbarItemWithIdentifier:@"Munki"];
+    [munkiItem setToolTip:NSLocalizedString(@"Munki preference options.", nil)];
+    [munkiItem setImage:[NSImage imageNamed:@"NSPreferencesGeneral"]];
+    [self.items setObject:munkiItem forKey:@"Munki"];
+    [munkiItem release];
     
-    NSToolbarItem *advancedItem;
-	advancedItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"Advanced"];
-    [advancedItem setPaletteLabel:@"Advanced"];
-    [advancedItem setLabel:@"Advanced"];
-    [advancedItem setToolTip:@"Advanced options."];
+    
+    NSToolbarItem *advancedItem = [self toolbarItemWithIdentifier:@"Advanced"];
+    [advancedItem setToolTip:NSLocalizedString(@"Advanced options.", nil)];
     [advancedItem setImage:[NSImage imageNamed:@"NSAdvanced"]];
-    [advancedItem setTarget:self];
-    [advancedItem setAction:@selector(switchViews:)];
     [self.items setObject:advancedItem forKey:@"Advanced"];
     [advancedItem release];
 	
@@ -117,6 +124,8 @@
 	
     if ([sender isEqualToString:@"General"]) {
         prefsView = self.generalView;
+    } else if ([sender isEqualToString:@"Munki"]) {
+        prefsView = self.munkiView;
     } else if ([sender isEqualToString:@"Advanced"]) {
         prefsView = self.advancedView;
     } else {
@@ -152,7 +161,7 @@
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)theToolbar
 {
-    return [NSArray arrayWithObjects:@"General", @"Munki", @"Import Options", @"Advanced", nil];
+    return [NSArray arrayWithObjects:@"General", @"Munki", @"Advanced", nil];
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers: (NSToolbar *)toolbar

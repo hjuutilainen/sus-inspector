@@ -42,54 +42,109 @@
 }
 
 
-
 - (void)windowDidLoad
 {
     [super windowDidLoad];
     [self.window setBackgroundColor:[NSColor whiteColor]];
 }
 
-- (void)showWindow:(id)sender
+
+- (void)populateDefaultValues
 {
-    [super showWindow:sender];
-    self.munki_name = self.product.productID;
-    self.munki_display_name = self.product.productTitle;
-    self.munki_version = self.product.productVersion;
+    /*
+     Set default properties for the new pkginfo
+     */
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    /*
+     The name should always be the product ID
+     */
+    self.munki_name = self.product.productID;
+    
+    /*
+     Set other simple keys if wanted
+     */
+    self.munki_display_name = ([defaults boolForKey:@"pkginfoPrefillDisplayName"]) ? self.product.productTitle : nil;
+    self.munki_version = ([defaults boolForKey:@"pkginfoPrefillVersion"]) ? self.product.productVersion : nil;
+    self.munki_unattended_install = ([defaults boolForKey:@"pkginfoUnattendedInstall"]) ? [NSNumber numberWithBool:YES] : [NSNumber numberWithBool:NO] ;
+    self.munki_RestartAction = nil;
+    
+    /*
+     Set the description
+     */
+    if ([defaults boolForKey:@"pkginfoPrefillDescription"]) {
+        if ([defaults integerForKey:@"pkginfoPrefillDescriptionType"] == 0) {
+            self.munki_description = [self plainTextFromHTMLString:self.product.productDescription];
+        } else if ([defaults integerForKey:@"pkginfoPrefillDescriptionType"] == 1) {
+            self.munki_description = self.product.productDescription;
+        } else {
+            self.munki_description = nil;
+        }
+    } else {
+        self.munki_description = nil;
+    }
+    
+    /*
+     Set the default munki catalogs
+     */
     NSArray *catalogDictsFromDefaults = [[NSUserDefaults standardUserDefaults] arrayForKey:@"defaultMunkiCatalogs"];
     NSArray *catalogs = [catalogDictsFromDefaults valueForKeyPath:@"title"];
-    
     self.munki_catalogs = catalogs;
-    self.munki_unattended_install = [NSNumber numberWithBool:NO];
     
-    self.munki_RestartAction = nil;
-    self.munki_description = nil;
+    /*
+     Create a date which is about a week in the future
+     */
     
-    NSDate *now = [NSDate date];
+    // Create a calendar object with time zone set to UTC
     NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     [gregorian setTimeZone:timeZoneUTC];
-    NSDateComponents *dateComponents = [gregorian components:( NSHourCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:now];
+    
+    // Get the current date (without hour, minute and second)
+    NSDate *now = [NSDate date];
+    NSDateComponents *dateComponents = [gregorian components:( NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:now];
+    
+    // Set the clock to a custom value
     [dateComponents setHour:23];
     [dateComponents setMinute:0];
     [dateComponents setSecond:0];
+    
     NSDate *normalizedDate = [gregorian dateFromComponents:dateComponents];
     
+    // Add 7 days to the normalized date
     NSDateComponents *offsetComponents = [[[NSDateComponents alloc] init] autorelease];
     [offsetComponents setDay:7];
+    
     NSDate *newDate = [gregorian dateByAddingComponents:offsetComponents toDate:normalizedDate options:0];
     
+    /*
+     Set a default value for the force_install_after_date but don't enable it
+     */
     self.munki_force_install_after_date = newDate;
     self.munki_force_install_after_date_enabled = [NSNumber numberWithBool:NO];
-    
+}
+
+- (void)showWindow:(id)sender
+{
+    [super showWindow:sender];
+    [self populateDefaultValues];
+}
+
+- (NSString *)plainTextFromHTMLString:(NSString *)htmlString
+{
+    /*
+     Convert the htmlString to data, parse it to a new NSAttributedString
+     and return the plain text value. Rude, I know...
+     */
+    NSData *data = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
+    NSAttributedString *html = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:nil] autorelease];
+    return [html string];
 }
 
 - (IBAction)htmlDescriptionToPlainText:(id)sender
 {
-    NSData *data = [self.product.productDescription dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSAttributedString *html = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:nil] autorelease];
-    self.munki_description = [html string];
+    self.munki_description = [self plainTextFromHTMLString:self.product.productDescription];
 }
 
 - (IBAction)populateDescriptionAction:(id)sender
@@ -104,9 +159,13 @@
 
 - (void)savePkginfoAction:(id)sender
 {
-    NSString *displayNameTemplate = [self.munki_display_name stringByReplacingOccurrencesOfString:@" " withString:@" "];
-    NSString *filenameTemplate = [NSString stringWithFormat:@"%@ %@ %@.plist", displayNameTemplate, self.munki_version, self.munki_name];
-    NSURL *saveURL = [self showSavePanelForPkginfo:filenameTemplate];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *fileExtension = [defaults stringForKey:@"pkginfoDefaultFileExtension"];
+    
+    NSString *filenameTemplate = [NSString stringWithFormat:@"%@ %@ %@", self.munki_display_name, self.munki_version, self.munki_name];
+    NSString *filenameWithExtension = [NSString stringWithFormat:@"%@%@", filenameTemplate, fileExtension];
+    
+    NSURL *saveURL = [self showSavePanelForPkginfo:filenameWithExtension];
     if (!saveURL) {
         return;
     }
@@ -124,7 +183,10 @@
 {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	// Define keys that depend on
+	/*
+     Define the keys that 'pkginfo' value depends on
+     A change in these keys will cause the value of 'pkginfo' to be updated
+     */
     if ([key isEqualToString:@"pkginfo"])
     {
         NSSet *affectingKeys = [NSSet setWithObjects:
@@ -146,7 +208,11 @@
 
 - (NSString *)pkginfo
 {
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    /*
+     Create a pkginfo representation of current values.
+     If some field is empty, we don't want it at all in the resulting string.
+     */
+    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
     [dict setObject:@"apple_update_metadata" forKey:@"installer_type"];
     if (self.munki_name) [dict setObject:self.munki_name forKey:@"name"];
     if (self.munki_display_name) [dict setObject:self.munki_display_name forKey:@"display_name"];
@@ -159,13 +225,23 @@
     if ([self.munki_force_install_after_date_enabled boolValue]) {
         [dict setObject:self.munki_force_install_after_date forKey:@"force_install_after_date"];
     }
+    
+    /*
+     Only add the unattended boolean if it's enabled.
+     Munki defaults to false if it is missing.
+     */
     if ([self.munki_unattended_install boolValue]) {
         [dict setValue:(id)kCFBooleanTrue forKey:@"unattended_install"];
     }
     
+    /*
+     Create a string representation of the dictionary
+     */
     NSError *error;
-	id plist;
-    plist = [NSPropertyListSerialization dataWithPropertyList:dict format:NSPropertyListXMLFormat_v1_0 options:NSPropertyListImmutable error:&error];
+	id plist = [NSPropertyListSerialization dataWithPropertyList:dict
+                                                          format:NSPropertyListXMLFormat_v1_0
+                                                         options:NSPropertyListImmutable
+                                                           error:&error];
     NSString *returnString = [[[NSString alloc] initWithData:plist encoding:NSUTF8StringEncoding] autorelease];
     return returnString;
 }
@@ -305,15 +381,12 @@
     id displayNameField = [self addTextFieldWithidentifier:@"displayNameField" superView:parentView];
     [displayNameField bind:@"value" toObject:self withKeyPath:@"munki_display_name" options:textFieldOptions];
     
-    
     /*
      Display name field
      */
     id versionLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Version", nil) identifier:@"versionLabel" superView:parentView];
     id versionField = [self addTextFieldWithidentifier:@"versionField" superView:parentView];
     [versionField bind:@"value" toObject:self withKeyPath:@"munki_version" options:textFieldOptions];
-    
-    
     
     /*
      Catalogs token field
@@ -325,8 +398,6 @@
     [catalogsTokenField setDelegate:self];
     [parentView addSubview:catalogsTokenField];
     [catalogsTokenField bind:@"value" toObject:self withKeyPath:@"munki_catalogs" options:textFieldOptions];
-    
-    
     
     /*
      Restart Action field
@@ -355,7 +426,6 @@
      Force install after date
      */
     id forceAfterLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Force After", nil) identifier:@"forceAfterLabel" superView:parentView];
-    
     NSDatePicker *forceAfterDatePicker = [[[NSDatePicker alloc] init] autorelease];
     [forceAfterDatePicker setIdentifier:@"forceAfterDatePicker"];
     [forceAfterDatePicker setDatePickerStyle:NSTextFieldAndStepperDatePickerStyle];
@@ -368,7 +438,9 @@
     [forceAfterDatePicker setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
     [forceAfterDatePicker setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    // Set the force_install_after_date date picker to use UTC
+    /*
+     Set the force_install_after_date date picker to use UTC
+     */
     NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     [gregorian setTimeZone:timeZoneUTC];
