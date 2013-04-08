@@ -66,8 +66,11 @@
     self.munki_description = nil;
     
     NSDate *now = [NSDate date];
+    NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    [gregorian setTimeZone:timeZoneUTC];
     NSDateComponents *dateComponents = [gregorian components:( NSHourCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:now];
+    [dateComponents setHour:23];
     [dateComponents setMinute:0];
     [dateComponents setSecond:0];
     NSDate *normalizedDate = [gregorian dateFromComponents:dateComponents];
@@ -364,6 +367,14 @@
     [forceAfterDatePicker setFont:[NSFont systemFontOfSize:13.0]];
     [forceAfterDatePicker setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
     [forceAfterDatePicker setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    // Set the force_install_after_date date picker to use UTC
+    NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    [gregorian setTimeZone:timeZoneUTC];
+    [forceAfterDatePicker setCalendar:gregorian];
+    [forceAfterDatePicker setTimeZone:timeZoneUTC];
+    
     [forceAfterDatePicker bind:@"value" toObject:self withKeyPath:@"munki_force_install_after_date" options:textFieldOptions];
     [forceAfterDatePicker bind:@"enabled" toObject:self withKeyPath:@"munki_force_install_after_date_enabled" options:nil];
     [parentView addSubview:forceAfterDatePicker];
