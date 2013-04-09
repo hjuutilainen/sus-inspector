@@ -20,7 +20,6 @@
 {
     self = [super initWithWindow:window];
     if (self) {
-        self.webView = [[[WebView alloc] init] autorelease];
     }
     
     return self;
@@ -36,7 +35,7 @@
     [self.window center];
     [super showWindow:sender];
         
-    [[self.webView mainFrame] loadHTMLString:self.product.productDescription baseURL:nil];
+    [[self.descriptionWebView mainFrame] loadHTMLString:self.product.productDescription baseURL:nil];
     
     NSPredicate *notDeprecated = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/deprecated"];
     NSPredicate *notAll = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/all"];
@@ -94,6 +93,11 @@
      Binding options
      */
     NSDictionary *bindOptions = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSContinuouslyUpdatesValueBindingOption, nil];
+    
+    /*
+     Window
+     */
+    [self.window bind:@"title" toObject:self withKeyPath:@"product.productTitleWithVersion" options:nil];
     
     /*
      Name field
@@ -157,15 +161,31 @@
     /*
      Separator 1
      */
+    /*
     NSBox *separatorLine1 = [[[NSBox alloc] init] autorelease];
     [separatorLine1 setBoxType:NSBoxSeparator];
     [separatorLine1 setAutoresizingMask:NSViewWidthSizable];
     [separatorLine1 setTranslatesAutoresizingMaskIntoConstraints:NO];
     [parentView addSubview:separatorLine1];
+    */
+    
+    /*
+     Tab view
+     */
+    NSView *tabContainerView = self.tabContainerView;
+    [tabContainerView setIdentifier:@"tabContainerView"];
+    [tabContainerView setAutoresizingMask:(NSViewWidthSizable|NSViewHeightSizable)];
+    [tabContainerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [tabContainerView setAutoresizesSubviews:YES];
+    [parentView addSubview:tabContainerView];
+    
+    
+    
     
     /*
      Packages table view
      */
+    /*
     NSTextField *packagesLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Packages", nil) identifier:@"packagesLabel" superView:parentView];
     //NSTableView *packagesTableView = self.packagesTableView;
     //[packagesTableView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
@@ -181,35 +201,47 @@
     [packagesScrollView setAutoresizesSubviews:YES];
     //[packagesScrollView setDocumentView:packagesTableView];
     [parentView addSubview:packagesScrollView];
+    */
     
     /*
      Separator 2
      */
+    /*
     NSBox *separatorLine2 = [[[NSBox alloc] init] autorelease];
     [separatorLine2 setBoxType:NSBoxSeparator];
     [separatorLine2 setAutoresizingMask:NSViewWidthSizable];
     [separatorLine2 setTranslatesAutoresizingMaskIntoConstraints:NO];
     [parentView addSubview:separatorLine2];
+    */
     
     /*
      Description web view
      */
-    WebView *webView = self.webView;
+    
+    WebView *webView = self.descriptionWebView;
     [webView setPolicyDelegate:self];
     [webView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-    [webView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [parentView addSubview:webView];
+    //[webView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [webView setShouldCloseWithWindow:NO];
+    [webView setShouldUpdateWhileOffscreen:YES];
+    [webView setDrawsBackground:YES];
+    //NSDictionary *tabViewChildren = NSDictionaryOfVariableBindings(webView);
     
+    //[tabView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[webView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:tabViewChildren]];
+    //[tabView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[webView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:tabViewChildren]];
+     
     NSDictionary *views = NSDictionaryOfVariableBindings(nameLabel,
                                                          productIDLabel, productIDTextField,
                                                          productVersionLabel, productVersionTextField,
                                                          productReleasedLabel, productReleasedTextField,
                                                          productSizeLabel, productSizeTextField,
                                                          productCatalogsLabel, productCatalogsTokenField,
-                                                         separatorLine1,
-                                                         packagesLabel, packagesScrollView,
-                                                         separatorLine2,
-                                                         webView);
+                                                         //separatorLine1,
+                                                         tabContainerView
+                                                         //packagesLabel, packagesScrollView,
+                                                         //separatorLine2,
+                                                         //webView
+                                                         );
     
     
     
@@ -235,10 +267,12 @@
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productReleasedLabel]-[productReleasedTextField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productSizeLabel]-[productSizeTextField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productCatalogsLabel]-[productCatalogsTokenField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[separatorLine1]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[packagesLabel]-[packagesScrollView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[separatorLine2]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[webView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    //[parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[separatorLine1]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[tabContainerView(>=100)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    
+    //[parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[packagesLabel]-[packagesScrollView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    //[parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[separatorLine2]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    //[parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[webView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     
     NSArray *textFields = [NSArray arrayWithObjects:productIDTextField, productVersionTextField, productReleasedTextField, productSizeTextField, productCatalogsTokenField, nil];
     for (NSView *view in textFields) {
@@ -247,7 +281,7 @@
     
     
     // Vertical layout
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(12)-[nameLabel]-(12)-[productIDLabel]-[productVersionLabel]-[productReleasedLabel]-[productSizeLabel]-[productCatalogsLabel]-[separatorLine1]-[packagesLabel]-[separatorLine2]-[webView(>=200)]-|"
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(12)-[nameLabel]-(12)-[productIDLabel]-[productVersionLabel]-[productReleasedLabel]-[productSizeLabel]-[productCatalogsLabel]-(12)-[tabContainerView(>=100)]-|"//-[packagesLabel]-[separatorLine2]-[webView(>=200)]-|"
                                                                        options:NSLayoutFormatAlignAllLeading
                                                                        metrics:nil
                                                                          views:views]];
@@ -255,11 +289,12 @@
                                                                        options:NSLayoutFormatAlignAllLeading
                                                                        metrics:nil
                                                                          views:views]];
+    /*
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[separatorLine1]-[packagesScrollView(>=100)]-[separatorLine2]"
                                                                        options:NSLayoutFormatAlignAllTrailing
                                                                        metrics:nil
                                                                          views:views]];
-    
+    */
     
 }
 
@@ -271,6 +306,11 @@
     [self.window center];
     
     [self setupProductInfoView:[self.window contentView]];
+    
+    NSSortDescriptor *sortByFileName = [NSSortDescriptor sortDescriptorWithKey:@"packageFilename" ascending:YES selector:@selector(localizedStandardCompare:)];
+    [self.packagesArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByFileName, nil]];
+    
+    [self.tabView setTabViewType:NSNoTabsNoBorder];
 }
 
 - (void)windowDidLoad
@@ -278,8 +318,20 @@
     [super windowDidLoad];
     [self.window setBackgroundColor:[NSColor whiteColor]];
     
-    
-    
+}
+
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
+{
+    //[[self.descriptionWebView mainFrame] loadHTMLString:self.product.productDescription baseURL:nil];
+    /*
+    [[tabViewItem view] setNeedsDisplay:YES];
+    NSLog([self.descriptionWebView isHidden] ? @"Hidden: Yes" : @"Hidden: No");
+    NSLog(@"%@", NSStringFromRect([self.descriptionWebView bounds]));
+    [self.descriptionWebView setFrame:[[tabViewItem view] bounds]];
+    [self.descriptionWebView setNeedsUpdateConstraints:YES];
+    [self.descriptionWebView setNeedsDisplay:YES];
+    [self.descriptionWebView reload:self];
+    */
 }
 
 - (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener

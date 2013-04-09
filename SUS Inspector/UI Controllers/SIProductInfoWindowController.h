@@ -11,14 +11,17 @@
 
 @class SUProductMO;
 
-@interface SIProductInfoWindowController : NSWindowController <NSTokenFieldDelegate>
+@interface SIProductInfoWindowController : NSWindowController <NSTokenFieldDelegate, NSTabViewDelegate>
 
 @property (retain) SUProductMO *product;
 @property (retain) NSArray *catalogs;
-@property (retain) WebView *webView;
 @property (assign) IBOutlet NSTableView *packagesTableView;
 @property (assign) IBOutlet NSScrollView *packagesScrollView;
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSTokenField *catalogsTokenField;
+@property (assign) IBOutlet NSArrayController *packagesArrayController;
+@property (assign) IBOutlet NSTabView *tabView;
+@property (assign) IBOutlet WebView *descriptionWebView;
+@property (assign) IBOutlet NSView *tabContainerView;
 
 @end
