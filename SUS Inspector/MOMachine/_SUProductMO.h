@@ -16,6 +16,7 @@ extern const struct SUProductMOAttributes {
 
 extern const struct SUProductMORelationships {
 	 NSString *catalogs;
+	 NSString *distributions;
 	 NSString *packages;
 } SUProductMORelationships;
 
@@ -23,6 +24,7 @@ extern const struct SUProductMOFetchedProperties {
 } SUProductMOFetchedProperties;
 
 @class SUCatalogMO;
+@class SUDistributionMO;
 @class SUPackageMO;
 
 
@@ -131,6 +133,13 @@ extern const struct SUProductMOFetchedProperties {
 
 
 
+@property (nonatomic, retain) NSSet *distributions;
+
+- (NSMutableSet*)distributionsSet;
+
+
+
+
 @property (nonatomic, retain) NSSet *packages;
 
 - (NSMutableSet*)packagesSet;
@@ -147,6 +156,11 @@ extern const struct SUProductMOFetchedProperties {
 - (void)removeCatalogs:(NSSet*)value_;
 - (void)addCatalogsObject:(SUCatalogMO*)value_;
 - (void)removeCatalogsObject:(SUCatalogMO*)value_;
+
+- (void)addDistributions:(NSSet*)value_;
+- (void)removeDistributions:(NSSet*)value_;
+- (void)addDistributionsObject:(SUDistributionMO*)value_;
+- (void)removeDistributionsObject:(SUDistributionMO*)value_;
 
 - (void)addPackages:(NSSet*)value_;
 - (void)removePackages:(NSSet*)value_;
@@ -209,6 +223,11 @@ extern const struct SUProductMOFetchedProperties {
 
 - (NSMutableSet*)primitiveCatalogs;
 - (void)setPrimitiveCatalogs:(NSMutableSet*)value;
+
+
+
+- (NSMutableSet*)primitiveDistributions;
+- (void)setPrimitiveDistributions:(NSMutableSet*)value;
 
 
 

@@ -4,6 +4,8 @@
 #import "_SUPackageMO.h"
 
 const struct SUPackageMOAttributes SUPackageMOAttributes = {
+	.packageCachedPath = @"packageCachedPath",
+	.packageIsCached = @"packageIsCached",
 	.packageMetadataURL = @"packageMetadataURL",
 	.packageSize = @"packageSize",
 	.packageURL = @"packageURL",
@@ -42,6 +44,11 @@ const struct SUPackageMOFetchedProperties SUPackageMOFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"packageIsCachedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"packageIsCached"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"packageSizeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"packageSize"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -50,6 +57,39 @@ const struct SUPackageMOFetchedProperties SUPackageMOFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic packageCachedPath;
+
+
+
+
+
+
+@dynamic packageIsCached;
+
+
+
+- (BOOL)packageIsCachedValue {
+	NSNumber *result = [self packageIsCached];
+	return [result boolValue];
+}
+
+- (void)setPackageIsCachedValue:(BOOL)value_ {
+	[self setPackageIsCached:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitivePackageIsCachedValue {
+	NSNumber *result = [self primitivePackageIsCached];
+	return [result boolValue];
+}
+
+- (void)setPrimitivePackageIsCachedValue:(BOOL)value_ {
+	[self setPrimitivePackageIsCached:[NSNumber numberWithBool:value_]];
+}
+
 
 
 

@@ -45,6 +45,20 @@
     return [self.reposyncURL path];
 }
 
+- (NSURL *)getLocalFileURLFromRemoteURL:(NSURL *)url
+{
+    NSString *requestURLRelativePath = [[url relativePath] substringFromIndex:1];
+    NSURL *joined = [self.reposadoHtmlURL URLByAppendingPathComponent:requestURLRelativePath];
+    return joined;
+}
+
+- (NSString *)getLocalFilePathFromRemoteURL:(NSURL *)url
+{
+    NSString *requestURLRelativePath = [[url relativePath] substringFromIndex:1];
+    NSString *joined = [[self.reposadoHtmlURL path] stringByAppendingPathComponent:requestURLRelativePath];
+    return joined;
+}
+
 - (NSURL *)productInfoURL
 {
     NSURL *returnURL = [[self reposadoDataURL] URLByAppendingPathComponent:@"metadata" isDirectory:YES];

@@ -81,8 +81,31 @@ static dispatch_queue_t serialQueue;
     });
 }
 
-- (SUPackageMO *)packageWithURLString:(NSString *)urlString  managedObjectContext:(NSManagedObjectContext *)moc
+- (SUDistributionMO *)distributionWithURLString:(NSString *)urlString managedObjectContext:(NSManagedObjectContext *)moc
 {
+    /*
+    SUDistributionMO *distributionFile = nil;
+    NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
+    [fetchObjects setEntity:[NSEntityDescription entityForName:@"SUDistribution" inManagedObjectContext:moc]];
+    [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"distributionURL == %@", urlString]];
+    NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
+    if (numFoundObjects == 0) {
+        distributionFile = [NSEntityDescription insertNewObjectForEntityForName:@"SUDistribution" inManagedObjectContext:moc];
+        distributionFile.distributionURL = urlString;
+    } else {
+        distributionFile = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
+    }
+    [fetchObjects release];
+    return distributionFile;
+     */
+    SUDistributionMO *distributionFile = [NSEntityDescription insertNewObjectForEntityForName:@"SUDistribution" inManagedObjectContext:moc];
+    distributionFile.distributionURL = urlString;
+    return distributionFile;
+}
+
+- (SUPackageMO *)packageWithURLString:(NSString *)urlString managedObjectContext:(NSManagedObjectContext *)moc
+{
+    /*
     SUPackageMO *thePackage = nil;
     NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
     [fetchObjects setEntity:[NSEntityDescription entityForName:@"SUPackage" inManagedObjectContext:moc]];
@@ -96,10 +119,15 @@ static dispatch_queue_t serialQueue;
     }
     [fetchObjects release];
     return thePackage;
+    */
+    SUPackageMO *thePackage = [NSEntityDescription insertNewObjectForEntityForName:@"SUPackage" inManagedObjectContext:moc];
+    thePackage.packageURL = urlString;
+    return thePackage;
 }
 
 - (SUProductMO *)productWithID:(NSString *)productID managedObjectContext:(NSManagedObjectContext *)moc
 {
+    /*
     SUProductMO *theProduct = nil;
     NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
     [fetchProducts setEntity:[NSEntityDescription entityForName:@"SUProduct" inManagedObjectContext:moc]];
@@ -112,6 +140,10 @@ static dispatch_queue_t serialQueue;
         theProduct = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
     }
     [fetchProducts release];
+    return theProduct;
+    */
+    SUProductMO *theProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SUProduct" inManagedObjectContext:moc];
+    theProduct.productID = productID;
     return theProduct;
 }
 
@@ -250,16 +282,23 @@ static dispatch_queue_t serialQueue;
     {
         NSLog(@"Reading %@", [blockInstance.productInfoURL path]);
         
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        
         blockInstance.productInfoModificationDate = modificationDate;
         blockInstance.productInfoCreationDate = creationDate;
                 
-        // Delete all products
-        NSFetchRequest *fetchAllProducts = [[NSFetchRequest alloc] init];
-        [fetchAllProducts setEntity:[NSEntityDescription entityForName:@"SUProduct" inManagedObjectContext:threadSafeMoc]];
-        NSArray *allProducts = [threadSafeMoc executeFetchRequest:fetchAllProducts error:nil];
-        for (SUProductMO *aProduct in allProducts) {
-            [threadSafeMoc deleteObject:aProduct];
-        }
+        // Delete some objects that we're going to rescan anyway
+        NSArray *entitiesToClear = [NSArray arrayWithObjects:@"SUProduct", @"SUPackage", @"SUDistribution", nil];
+        [entitiesToClear enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            [fetchRequest setEntity:[NSEntityDescription entityForName:obj inManagedObjectContext:threadSafeMoc]];
+            NSArray *foundObjects = [threadSafeMoc executeFetchRequest:fetchRequest error:nil];
+            for (id anObject in foundObjects) {
+                [threadSafeMoc deleteObject:anObject];
+            }
+            [fetchRequest release];
+        }];
+        
         
         NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:blockInstance.productInfoURL];
         
@@ -332,14 +371,33 @@ static dispatch_queue_t serialQueue;
                     newPackage.packageSize = size;
                     newPackage.packageMetadataURL = metadataURL;
                     newPackage.product = newProduct;
+                    NSString *localPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
+                    if ([fileManager fileExistsAtPath:localPath]) {
+                        newPackage.packageIsCachedValue = YES;
+                        newPackage.packageCachedPath = localPath;
+                    }
                 }
+                
+                /*
+                 * Parse distribution files
+                 */
+                NSDictionary *distributions = [catalogEntry objectForKey:@"Distributions"];
+                [distributions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                    SUDistributionMO *newDistribution = [self distributionWithURLString:(NSString *)obj managedObjectContext:threadSafeMoc];
+                    newDistribution.distributionLanguage = key;
+                    newDistribution.product = newProduct;
+                    NSString *localPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:obj]];
+                    if ([fileManager fileExistsAtPath:localPath]) {
+                        newDistribution.distributionIsCachedValue = YES;
+                        newDistribution.distributionCachedPath = localPath;
+                    }
+                }];
                 
             } else {
                 NSLog(@"Invalid product %@. Skipped...", key);
             }
         }];
         self.currentOperationDescription = @"";
-        [fetchAllProducts release];
     }
 }
 
@@ -491,6 +549,105 @@ static dispatch_queue_t serialQueue;
      */
     [self willEndOperations];
 }
+
+
+
+# pragma mark -
+# pragma mark NSURLDownload methods
+
+- (void)cacheDistributionFileWithURL:(NSURL *)url
+{
+    NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
+                                                cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                            timeoutInterval:5.0];
+    
+    NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
+    if (!theDownload) {
+        NSLog(@"Error: Failed to initialize cacheDistributionFileWithURL %@", [url absoluteString]);
+    }
+}
+
+- (void)cachePackageWithURL:(NSURL *)url
+{
+    NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
+                                                cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                            timeoutInterval:5.0];
+    
+    NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
+    if (!theDownload) {
+        NSLog(@"Error: Failed to initialize cachePackageWithURL %@", [url absoluteString]);
+    }
+}
+
+
+- (void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename
+{
+    NSURL *requestURL = [[download request] URL];
+    ReposadoInstanceMO *defaultRep = [[NSApp delegate] defaultReposadoInstance];
+    NSString *joined = [[defaultRep getLocalFileURLFromRemoteURL:requestURL] path];
+    [download setDestination:joined allowOverwrite:YES];
+}
+
+- (void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path
+{
+    NSURL *requestURL = [[download request] URL];
+    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    
+    // Determine what kind of file we just downloaded
+    if ([[requestURL pathExtension] isEqualToString:@"dist"]) {
+        //NSLog(@"Linking downloaded distribution file");
+        NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
+        [fetchObjects setEntity:[NSEntityDescription entityForName:@"SUDistribution" inManagedObjectContext:moc]];
+        [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"distributionURL == %@", [requestURL absoluteString]]];
+        NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
+        if (numFoundObjects != 0) {
+            SUDistributionMO *dist = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
+            dist.distributionIsCachedValue = YES;
+            dist.distributionCachedPath = path;
+            [[NSWorkspace sharedWorkspace] openFile:path];
+        } else {
+            NSLog(@"Error: Could not find distribution file with URL %@", [requestURL absoluteString]);
+        }
+        [fetchObjects release];
+    } else {
+        NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
+        [fetchObjects setEntity:[NSEntityDescription entityForName:@"SUPackage" inManagedObjectContext:moc]];
+        [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"packageURL == %@", [requestURL absoluteString]]];
+        NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
+        if (numFoundObjects != 0) {
+            SUPackageMO *package = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
+            package.packageIsCachedValue = YES;
+            package.packageCachedPath = path;
+            [[NSWorkspace sharedWorkspace] openFile:path];
+        } else {
+            NSLog(@"Error: Could not find package with URL %@", [requestURL absoluteString]);
+        }
+        [fetchObjects release];
+    }
+}
+
+
+- (void)download:(NSURLDownload *)download didFailWithError:(NSError *)error
+{
+    // Release the download.
+    [download release];
+    
+    // Inform the user.
+    NSLog(@"Download failed! Error - %@ %@",
+          [error localizedDescription],
+          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+}
+
+- (void)downloadDidFinish:(NSURLDownload *)download
+{
+    // Release the download.
+    [download release];
+    
+    // Do something with the data.
+    //NSLog(@"%@",@"downloadDidFinish");
+}
+
+
 
 
 

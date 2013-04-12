@@ -65,6 +65,8 @@
 		F5E07B5F170ACA910069993C /* SIPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5E07B5D170ACA910069993C /* SIPreferencesController.xib */; };
 		F5EE0D9716E5D9E1006AEA8B /* SIMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */; };
 		F5EE0D9816E5D9E1006AEA8B /* SIMainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */; };
+		F5F237201717F69500173700 /* _SUDistributionMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F2371F1717F69500173700 /* _SUDistributionMO.m */; };
+		F5F237231717F69D00173700 /* SUDistributionMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F237221717F69D00173700 /* SUDistributionMO.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +189,10 @@
 		F5EE0D9416E5D9E1006AEA8B /* SIMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIMainWindowController.h; path = "UI Controllers/SIMainWindowController.h"; sourceTree = "<group>"; };
 		F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIMainWindowController.m; path = "UI Controllers/SIMainWindowController.m"; sourceTree = "<group>"; };
 		F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIMainWindowController.xib; path = "UI Controllers/SIMainWindowController.xib"; sourceTree = "<group>"; };
+		F5F2371E1717F69500173700 /* _SUDistributionMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SUDistributionMO.h; sourceTree = "<group>"; };
+		F5F2371F1717F69500173700 /* _SUDistributionMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SUDistributionMO.m; sourceTree = "<group>"; };
+		F5F237211717F69D00173700 /* SUDistributionMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUDistributionMO.h; sourceTree = "<group>"; };
+		F5F237221717F69D00173700 /* SUDistributionMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUDistributionMO.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,6 +402,8 @@
 		F5E06E8E16E49CC9008B7831 /* MOHuman */ = {
 			isa = PBXGroup;
 			children = (
+				F5F237211717F69D00173700 /* SUDistributionMO.h */,
+				F5F237221717F69D00173700 /* SUDistributionMO.m */,
 				26B05AD11711E42E00B24A5A /* SUPackageMO.h */,
 				26B05AD21711E42E00B24A5A /* SUPackageMO.m */,
 				F501048416EA044100B345DE /* SourceListItemMO.h */,
@@ -413,6 +421,8 @@
 		F5E06E9516E49CC9008B7831 /* MOMachine */ = {
 			isa = PBXGroup;
 			children = (
+				F5F2371E1717F69500173700 /* _SUDistributionMO.h */,
+				F5F2371F1717F69500173700 /* _SUDistributionMO.m */,
 				26B05ACE1711E42100B24A5A /* _SUPackageMO.h */,
 				26B05ACF1711E42100B24A5A /* _SUPackageMO.m */,
 				F501048716EA044A00B345DE /* _SourceListItemMO.h */,
@@ -659,6 +669,8 @@
 				F5E07B5E170ACA910069993C /* SIPreferencesController.m in Sources */,
 				26B05AD01711E42100B24A5A /* _SUPackageMO.m in Sources */,
 				26B05AD31711E42E00B24A5A /* SUPackageMO.m in Sources */,
+				F5F237201717F69500173700 /* _SUDistributionMO.m in Sources */,
+				F5F237231717F69D00173700 /* SUDistributionMO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

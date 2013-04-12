@@ -10,4 +10,5 @@
 #import "SUCatalogMO.h"
 #import "SUProductMO.h"
 #import "SUPackageMO.h"
+#import "SUDistributionMO.h"
 #import "SourceListItemMO.h"

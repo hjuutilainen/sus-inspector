@@ -15,7 +15,7 @@
 
 @property (retain) SUProductMO *product;
 @property (retain) NSArray *catalogs;
-@property (assign) IBOutlet NSTableView *packagesTableView;
+//@property (assign) IBOutlet NSTableView *packagesTableView;
 @property (assign) IBOutlet NSScrollView *packagesScrollView;
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSTokenField *catalogsTokenField;
@@ -23,5 +23,8 @@
 @property (assign) IBOutlet NSTabView *tabView;
 @property (assign) IBOutlet WebView *descriptionWebView;
 @property (assign) IBOutlet NSView *tabContainerView;
+@property (assign) IBOutlet NSArrayController *distributionsArrayController;
+@property (assign) IBOutlet NSTableView *packagesTableView;
+@property (assign) IBOutlet NSTableView *distributionsTableView;
 
 @end

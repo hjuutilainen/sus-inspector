@@ -5,6 +5,8 @@
 
 
 extern const struct SUPackageMOAttributes {
+	 NSString *packageCachedPath;
+	 NSString *packageIsCached;
 	 NSString *packageMetadataURL;
 	 NSString *packageSize;
 	 NSString *packageURL;
@@ -23,6 +25,8 @@ extern const struct SUPackageMOFetchedProperties {
 
 
 
+
+
 @interface SUPackageMOID : NSManagedObjectID {}
 @end
 
@@ -31,6 +35,30 @@ extern const struct SUPackageMOFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (SUPackageMOID*)objectID;
+
+
+
+
+
+@property (nonatomic, retain) NSString* packageCachedPath;
+
+
+
+//- (BOOL)validatePackageCachedPath:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, retain) NSNumber* packageIsCached;
+
+
+
+@property BOOL packageIsCachedValue;
+- (BOOL)packageIsCachedValue;
+- (void)setPackageIsCachedValue:(BOOL)value_;
+
+//- (BOOL)validatePackageIsCached:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -85,6 +113,21 @@ extern const struct SUPackageMOFetchedProperties {
 @end
 
 @interface _SUPackageMO (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSString*)primitivePackageCachedPath;
+- (void)setPrimitivePackageCachedPath:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitivePackageIsCached;
+- (void)setPrimitivePackageIsCached:(NSNumber*)value;
+
+- (BOOL)primitivePackageIsCachedValue;
+- (void)setPrimitivePackageIsCachedValue:(BOOL)value_;
+
+
 
 
 - (NSString*)primitivePackageMetadataURL;

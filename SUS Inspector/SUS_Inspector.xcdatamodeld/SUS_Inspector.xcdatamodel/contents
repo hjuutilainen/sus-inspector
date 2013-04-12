@@ -38,7 +38,17 @@
         <relationship name="reposadoInstance" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ReposadoInstance" inverseName="catalogs" inverseEntity="ReposadoInstance" syncable="YES"/>
         <relationship name="sourceListItem" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SourceListItem" inverseName="catalogReference" inverseEntity="SourceListItem" syncable="YES"/>
     </entity>
+    <entity name="SUDistribution" representedClassName="SUDistributionMO" syncable="YES">
+        <attribute name="distributionCachedPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distributionFileContents" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distributionIsCached" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="distributionLanguage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distributionURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="product" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SUProduct" inverseName="distributions" inverseEntity="SUProduct" syncable="YES"/>
+    </entity>
     <entity name="SUPackage" representedClassName="SUPackageMO" syncable="YES">
+        <attribute name="packageCachedPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="packageIsCached" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="packageMetadataURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="packageSize" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="packageURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -53,13 +63,15 @@
         <attribute name="productTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productVersion" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUCatalog" inverseName="products" inverseEntity="SUCatalog" syncable="YES"/>
+        <relationship name="distributions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUDistribution" inverseName="product" inverseEntity="SUDistribution" syncable="YES"/>
         <relationship name="packages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SUPackage" inverseName="product" inverseEntity="SUPackage" syncable="YES"/>
     </entity>
     <elements>
         <element name="ReposadoInstance" positionX="-830" positionY="-72" width="128" height="209"/>
         <element name="SourceListItem" positionX="160" positionY="192" width="128" height="165"/>
         <element name="SUCatalog" positionX="-522" positionY="-81" width="128" height="225"/>
-        <element name="SUProduct" positionX="-234" positionY="-99" width="128" height="180"/>
-        <element name="SUPackage" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="SUPackage" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="SUProduct" positionX="-234" positionY="-99" width="128" height="195"/>
+        <element name="SUDistribution" positionX="160" positionY="192" width="128" height="135"/>
     </elements>
 </model>

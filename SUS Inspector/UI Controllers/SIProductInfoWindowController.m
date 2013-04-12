@@ -8,6 +8,7 @@
 
 #import "SIProductInfoWindowController.h"
 #import "DataModelHeaders.h"
+#import "SIOperationManager.h"
 #import "SISizeFormatter.h"
 
 @interface SIProductInfoWindowController ()
@@ -179,7 +180,20 @@
     [tabContainerView setAutoresizesSubviews:YES];
     [parentView addSubview:tabContainerView];
     
-    
+    /*
+     NSBox *separatorLine1 = [[[NSBox alloc] init] autorelease];
+     [separatorLine1 setBoxType:NSBoxSeparator];
+     [separatorLine1 setAutoresizingMask:NSViewWidthSizable];
+     [separatorLine1 setTranslatesAutoresizingMaskIntoConstraints:NO];
+     [parentView addSubview:separatorLine1];
+     */
+    /*
+    NSBox *separatorLine2 = [[[NSBox alloc] init] autorelease];
+    [separatorLine2 setBoxType:NSBoxSeparator];
+    [separatorLine2 setAutoresizingMask:NSViewWidthSizable];
+    [separatorLine2 setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [parentView addSubview:separatorLine2];
+    */
     
     
     /*
@@ -236,11 +250,7 @@
                                                          productReleasedLabel, productReleasedTextField,
                                                          productSizeLabel, productSizeTextField,
                                                          productCatalogsLabel, productCatalogsTokenField,
-                                                         //separatorLine1,
                                                          tabContainerView
-                                                         //packagesLabel, packagesScrollView,
-                                                         //separatorLine2,
-                                                         //webView
                                                          );
     
     
@@ -268,7 +278,7 @@
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productSizeLabel]-[productSizeTextField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[productCatalogsLabel]-[productCatalogsTokenField(>=20)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     //[parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[separatorLine1]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[tabContainerView(>=100)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[tabContainerView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     
     //[parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[packagesLabel]-[packagesScrollView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     //[parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[separatorLine2]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
@@ -281,8 +291,16 @@
     
     
     // Vertical layout
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(12)-[nameLabel]-(12)-[productIDLabel]-[productVersionLabel]-[productReleasedLabel]-[productSizeLabel]-[productCatalogsLabel]-(12)-[tabContainerView(>=100)]-|"//-[packagesLabel]-[separatorLine2]-[webView(>=200)]-|"
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(12)-[nameLabel]-(12)-[productIDLabel]-[productVersionLabel]-[productReleasedLabel]-[productSizeLabel]-[productCatalogsLabel]"
                                                                        options:NSLayoutFormatAlignAllLeading
+                                                                       metrics:nil
+                                                                         views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[productCatalogsLabel]-(20)-[tabContainerView(>=300)]"
+                                                                       options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                       metrics:nil
+                                                                         views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=10)-[tabContainerView(>=300)]-|"
+                                                                       options:NSLayoutFormatDirectionLeadingToTrailing
                                                                        metrics:nil
                                                                          views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[productIDTextField]-[productVersionTextField]-[productReleasedTextField]-[productSizeTextField]-[productCatalogsTokenField]-(>=20)-|"
@@ -309,8 +327,43 @@
     
     NSSortDescriptor *sortByFileName = [NSSortDescriptor sortDescriptorWithKey:@"packageFilename" ascending:YES selector:@selector(localizedStandardCompare:)];
     [self.packagesArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByFileName, nil]];
+    [self.packagesTableView setTarget:self];
+    [self.packagesTableView setDoubleAction:@selector(openPackageAction)];
     
-    [self.tabView setTabViewType:NSNoTabsNoBorder];
+    NSSortDescriptor *sortByLanguage = [NSSortDescriptor sortDescriptorWithKey:@"distributionLanguage" ascending:YES selector:@selector(localizedStandardCompare:)];
+    [self.distributionsArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByLanguage, nil]];
+    [self.distributionsTableView setTarget:self];
+    [self.distributionsTableView setDoubleAction:@selector(openDistributionAction)];
+    
+    [self.tabView setTabViewType:NSTopTabsBezelBorder];
+}
+
+- (void)openPackageAction
+{
+    // Get the selected distribution file
+    SUPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
+    
+    // Check if we have a cached copy
+    if (selectedPackage.packageIsCachedValue) {
+        [[NSWorkspace sharedWorkspace] openFile:selectedPackage.packageCachedPath];
+    } else {
+        NSURL *packageURL = [NSURL URLWithString:selectedPackage.packageURL];
+        [[SIOperationManager sharedManager] cachePackageWithURL:packageURL];
+    }
+}
+
+- (void)openDistributionAction
+{
+    // Get the selected distribution file
+    SUDistributionMO *selectedDist = [[self.distributionsArrayController selectedObjects] objectAtIndex:0];
+    
+    // Check if we have a cached copy
+    if (selectedDist.distributionIsCachedValue) {
+        [[NSWorkspace sharedWorkspace] openFile:selectedDist.distributionCachedPath];
+    } else {
+        NSURL *distURL = [NSURL URLWithString:selectedDist.distributionURL];
+        [[SIOperationManager sharedManager] cacheDistributionFileWithURL:distURL];
+    }
 }
 
 - (void)windowDidLoad
@@ -320,19 +373,16 @@
     
 }
 
+- (IBAction)didSelectSegment:sender
+{
+    [self.tabView selectTabViewItemAtIndex:[sender selectedSegment]];
+}
+
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
-    //[[self.descriptionWebView mainFrame] loadHTMLString:self.product.productDescription baseURL:nil];
-    /*
-    [[tabViewItem view] setNeedsDisplay:YES];
-    NSLog([self.descriptionWebView isHidden] ? @"Hidden: Yes" : @"Hidden: No");
-    NSLog(@"%@", NSStringFromRect([self.descriptionWebView bounds]));
-    [self.descriptionWebView setFrame:[[tabViewItem view] bounds]];
-    [self.descriptionWebView setNeedsUpdateConstraints:YES];
-    [self.descriptionWebView setNeedsDisplay:YES];
-    [self.descriptionWebView reload:self];
-    */
+    
 }
+
 
 - (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener
 {

@@ -19,7 +19,7 @@
 - (void)willEndOperations:(SIOperationManager *)operationManager;
 @end
 
-@interface SIOperationManager : NSObject <AMShellWrapperDelegate>
+@interface SIOperationManager : NSObject <AMShellWrapperDelegate, NSURLDownloadDelegate>
 
 @property (assign) id <SIOperationManagerDelegate> delegate;
 @property (retain) NSOperationQueue *operationQueue;
@@ -33,6 +33,8 @@
 - (void)setupSourceListItems;
 - (void)readReposadoInstanceContentsAsync:(ReposadoInstanceMO *)instance;
 - (void)runReposync:(ReposadoInstanceMO *)instance;
+- (void)cacheDistributionFileWithURL:(NSURL *)url;
+- (void)cachePackageWithURL:(NSURL *)url;
 
 @end
 
