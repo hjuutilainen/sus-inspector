@@ -34,7 +34,7 @@
 {
     [super windowDidLoad];
     
-    [self.window center];
+    //[self.window center];
     
     self.progressWindowController = [[[SIProgressWindowController alloc] initWithWindowNibName:@"SIProgressWindowController"] autorelease];
     self.productsViewController = [[[SIProductsViewController alloc] initWithNibName:@"SIProductsViewController" bundle:nil] autorelease];

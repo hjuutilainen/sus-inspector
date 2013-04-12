@@ -28,9 +28,11 @@
 
 - (void)openGetInfoWindow
 {
-    SUProductMO *selectedProduct = [[self.productsArrayController selectedObjects] objectAtIndex:0];
-    [self.productInfoWindowController setProduct:selectedProduct];
-    [self.productInfoWindowController showWindow:nil];
+    for (SUProductMO *aProduct in [self.productsArrayController selectedObjects]) {
+        SIProductInfoWindowController *newInfoWindow = [[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"];
+        [newInfoWindow setProduct:aProduct];
+        [newInfoWindow showWindow:nil];
+    }
 }
 
 - (IBAction)getInfoAction:(id)sender
@@ -40,9 +42,14 @@
 
 - (void)openPkginfoWindow
 {
-    SUProductMO *selectedProduct = [[self.productsArrayController selectedObjects] objectAtIndex:0];
-    [self.pkginfoWindowController setProduct:selectedProduct];
-    [self.pkginfoWindowController showWindow:nil];
+    if ([[self.productsArrayController selectedObjects] count] == 1) {
+        SUProductMO *selectedProduct = [[self.productsArrayController selectedObjects] objectAtIndex:0];
+        SIPkginfoWindowController *newPkginfoWindow = [[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"];
+        [newPkginfoWindow setProduct:selectedProduct];
+        [newPkginfoWindow showWindow:nil];
+    } else {
+        
+    }
 }
 
 - (IBAction)createPkginfoAction:(id)sender
@@ -60,8 +67,8 @@
     [self.productsTableView setTarget:self];
     [self.productsTableView setDoubleAction:@selector(openGetInfoWindow)];
     
-    self.productInfoWindowController = [[[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"] autorelease];
-    self.pkginfoWindowController = [[[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"] autorelease];
+    //self.productInfoWindowController = [[[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"] autorelease];
+    //self.pkginfoWindowController = [[[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"] autorelease];
 }
 
 @end

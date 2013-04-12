@@ -33,7 +33,6 @@
 
 - (void)showWindow:(id)sender
 {
-    [self.window center];
     [super showWindow:sender];
         
     [[self.descriptionWebView mainFrame] loadHTMLString:self.product.productDescription baseURL:nil];
@@ -321,7 +320,7 @@
 {
     [super awakeFromNib];
     
-    [self.window center];
+    //[self.window center];
     
     [self setupProductInfoView:[self.window contentView]];
     
@@ -370,7 +369,6 @@
 {
     [super windowDidLoad];
     [self.window setBackgroundColor:[NSColor whiteColor]];
-    
 }
 
 - (IBAction)didSelectSegment:sender
