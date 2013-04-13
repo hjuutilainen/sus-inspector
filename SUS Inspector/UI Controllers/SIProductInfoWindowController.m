@@ -344,7 +344,8 @@
     
     // Check if we have a cached copy
     if (selectedPackage.packageIsCachedValue) {
-        [[NSWorkspace sharedWorkspace] openFile:selectedPackage.packageCachedPath];
+        NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
+        [[NSWorkspace sharedWorkspace] openFile:selectedPackage.packageCachedPath withApplication:appPath];
     } else {
         NSURL *packageURL = [NSURL URLWithString:selectedPackage.packageURL];
         [[SIOperationManager sharedManager] cachePackageWithURL:packageURL];

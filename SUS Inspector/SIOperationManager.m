@@ -604,7 +604,9 @@ static dispatch_queue_t serialQueue;
             SUDistributionMO *dist = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
             dist.distributionIsCachedValue = YES;
             dist.distributionCachedPath = path;
-            [[NSWorkspace sharedWorkspace] openFile:path];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
+            [[NSWorkspace sharedWorkspace] openFile:path withApplication:appPath];
         } else {
             NSLog(@"Error: Could not find distribution file with URL %@", [requestURL absoluteString]);
         }

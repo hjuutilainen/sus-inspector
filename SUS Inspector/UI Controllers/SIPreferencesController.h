@@ -17,9 +17,11 @@
 @property (assign) IBOutlet NSView *advancedView;
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSTableView *catalogsTableView;
+@property (assign) IBOutlet NSPopUpButton *distApplicationsPopUpButton;
 
 @property (retain) NSToolbar *toolbar;
 @property (retain) NSMutableDictionary *items;
+@property (retain) NSArray *distApplications;
 
 - (void)switchViews:(NSToolbarItem *)item;
 

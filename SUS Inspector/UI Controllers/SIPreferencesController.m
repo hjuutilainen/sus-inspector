@@ -107,6 +107,61 @@
     [self.window center];
 	[self.window makeKeyAndOrderFront:self];
     [self switchViews:nil];
+    
+    /*
+    NSString *utiValue;
+    NSURL *url = [NSURL fileURLWithPath:myFilePath];
+    [url getResourceValue:&utiValue forKey:NSURLTypeIdentifierKey error:nil];
+    if (utiValue)
+    {
+        NSLog(@"UTI: %@", utiValue);
+    }
+    
+    NSString *fileUTIByExt = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
+                                                                       (CFStringRef)[myFilePath pathExtension],
+                                                                       NULL) autorelease];
+     //NSLog(@"Filetype UTI: %@", fileUTIByExt);
+    NSArray *allUTIsForExt = [(NSArray *)UTTypeCreateAllIdentifiersForTag(kUTTagClassFilenameExtension,
+                                                                          (CFStringRef)[myFilePath pathExtension], NULL) autorelease];
+    for (NSString *subUTI in allUTIsForExt) {
+        NSLog(@"Filetype UTI: %@", subUTI);
+    }
+     */
+    
+    NSString *distUTI = @"public.text";
+    [self.distApplicationsPopUpButton removeAllItems];
+    
+    NSArray *roleHandlers = [(NSArray *)LSCopyAllRoleHandlersForContentType((CFStringRef)distUTI, kLSRolesAll) autorelease];
+    NSMutableArray *appDicts = [[[NSMutableArray alloc] init] autorelease];
+    for (NSString *bundleIdentifier in roleHandlers) {
+        NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:bundleIdentifier];
+        NSString *name = [[NSFileManager defaultManager] displayNameAtPath:path];
+        NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:path];
+        [icon setSize:NSMakeSize(16, 16)];
+        NSDictionary *appDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 path, @"path",
+                                 name, @"name",
+                                 icon, @"icon", nil];
+        [appDicts addObject:appDict];
+    }
+    NSSortDescriptor *byTitle = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)];
+    for (NSDictionary *appDict in [appDicts sortedArrayUsingDescriptors:[NSArray arrayWithObject:byTitle]]) {
+        NSMenuItem *menuItem = [[[NSMenuItem alloc] init] autorelease];
+        menuItem.title = [appDict objectForKey:@"name"];
+        menuItem.image = [appDict objectForKey:@"icon"];
+        menuItem.representedObject = [appDict objectForKey:@"path"];
+        [[self.distApplicationsPopUpButton menu] addItem:menuItem];
+    }
+    
+    // Determine the default
+    NSString *defaultHandler = [(NSString *)LSCopyDefaultRoleHandlerForContentType((CFStringRef)distUTI, kLSRolesAll) autorelease];
+    NSString *defaultHandlerPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:defaultHandler];
+    NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
+    if (appPath == nil) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:defaultHandlerPath forKey:@"distFileViewerPath"];
+        [defaults synchronize];
+    }
 }
 
 - (void)switchViews:(NSToolbarItem *)item
