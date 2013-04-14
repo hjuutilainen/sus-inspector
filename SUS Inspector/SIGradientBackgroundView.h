@@ -1,5 +1,7 @@
 //
-//  Copyright (c) 2013 Hannes Juutilainen. All rights reserved.
+//  SIGradientBackgroundView.h
+//
+//  Created by Hannes Juutilainen on 21.1.2010.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -15,29 +17,24 @@
 //
 
 
-#import "SUProductMO.h"
+#import <Cocoa/Cocoa.h>
 
 
-@interface SUProductMO ()
+@interface SIGradientBackgroundView : NSView {
 
-// Private interface goes here.
-
-@end
-
-
-@implementation SUProductMO
-
-- (NSString *)statusDescription
-{
-    if (self.productIsDeprecatedValue)
-        return @"Deprecated";
-    else
-        return @"Active";
+	NSGradient *fillGradient;
+    NSColor *lineColor;
+	BOOL drawBottomLine;
+    BOOL drawTopLine;
+    BOOL drawLeftLine;
+    BOOL drawRightLine;
 }
 
-- (NSString *)productTitleWithVersion
-{
-    return [NSString stringWithFormat:@"%@ - Version %@", self.productTitle, self.productVersion];
-}
+@property BOOL drawBottomLine;
+@property BOOL drawTopLine;
+@property BOOL drawLeftLine;
+@property BOOL drawRightLine;
+@property (nonatomic, copy) NSGradient *fillGradient;
+@property (nonatomic, copy) NSColor *lineColor;
 
 @end

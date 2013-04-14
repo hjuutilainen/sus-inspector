@@ -41,7 +41,7 @@
 
 - (void)openGetInfoWindow
 {
-    for (SUProductMO *aProduct in [self.productsArrayController selectedObjects]) {
+    for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
         SIProductInfoWindowController *newInfoWindow = [[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"];
         [newInfoWindow setProduct:aProduct];
         [newInfoWindow showWindow:nil];
@@ -56,7 +56,7 @@
 - (void)openPkginfoWindow
 {
     if ([[self.productsArrayController selectedObjects] count] == 1) {
-        SUProductMO *selectedProduct = [[self.productsArrayController selectedObjects] objectAtIndex:0];
+        SIProductMO *selectedProduct = [[self.productsArrayController selectedObjects] objectAtIndex:0];
         SIPkginfoWindowController *newPkginfoWindow = [[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"];
         [newPkginfoWindow setProduct:selectedProduct];
         [newPkginfoWindow showWindow:nil];

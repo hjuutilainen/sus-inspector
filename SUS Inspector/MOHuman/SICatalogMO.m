@@ -15,18 +15,18 @@
 //
 
 
-#import "SUCatalogMO.h"
-#import "ReposadoInstanceMO.h"
+#import "SICatalogMO.h"
+#import "SIReposadoInstanceMO.h"
 
 
-@interface SUCatalogMO ()
+@interface SICatalogMO ()
 
 // Private interface goes here.
 
 @end
 
 
-@implementation SUCatalogMO
+@implementation SICatalogMO
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
 {

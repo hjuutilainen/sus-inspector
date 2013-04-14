@@ -15,21 +15,8 @@
 //
 
 
-#import "_ReposadoInstanceMO.h"
+#import "_SISourceListItemMO.h"
 
-@interface ReposadoInstanceMO : _ReposadoInstanceMO {}
-
-- (NSURL *)reposadoDataURL;
-- (NSURL *)reposadoMetadataURL;
-- (NSURL *)reposadoHtmlURL;
-- (NSURL *)reposadoCodeURL;
-- (NSURL *)reposadoBundleURL;
-- (NSURL *)reposyncURL;
-- (NSURL *)getLocalFileURLFromRemoteURL:(NSURL *)url;
-- (NSString *)getLocalFilePathFromRemoteURL:(NSURL *)url;
-- (NSString *)reposyncPath;
-- (NSURL *)productInfoURL;
-- (NSDictionary *)productInfoDictionary;
-- (BOOL)configureReposado;
-
+@interface SISourceListItemMO : _SISourceListItemMO {}
+// Custom logic goes here.
 @end

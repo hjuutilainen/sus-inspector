@@ -1,5 +1,5 @@
 //
-//  GradientBackgroundView.m
+//  SIGradientBackgroundView.m
 //
 //  Created by Hannes Juutilainen on 21.1.2010.
 //
@@ -17,10 +17,10 @@
 //
 
 
-#import "GradientBackgroundView.h"
+#import "SIGradientBackgroundView.h"
 
 
-@implementation GradientBackgroundView
+@implementation SIGradientBackgroundView
 @synthesize drawBottomLine;
 @synthesize drawTopLine;
 @synthesize drawLeftLine;

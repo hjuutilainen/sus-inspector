@@ -1,7 +1,5 @@
 //
-//  GradientBackgroundView.h
-//
-//  Created by Hannes Juutilainen on 21.1.2010.
+//  Copyright (c) 2013 Hannes Juutilainen. All rights reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -17,24 +15,27 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
+#import "SIPackageMO.h"
 
 
-@interface GradientBackgroundView : NSView {
+@interface SIPackageMO ()
 
-	NSGradient *fillGradient;
-    NSColor *lineColor;
-	BOOL drawBottomLine;
-    BOOL drawTopLine;
-    BOOL drawLeftLine;
-    BOOL drawRightLine;
+// Private interface goes here.
+
+@end
+
+
+@implementation SIPackageMO
+
+- (NSString *)packageFilename
+{
+    NSURL *asURL = [NSURL URLWithString:self.packageURL];
+    return [asURL lastPathComponent];
 }
 
-@property BOOL drawBottomLine;
-@property BOOL drawTopLine;
-@property BOOL drawLeftLine;
-@property BOOL drawRightLine;
-@property (nonatomic, copy) NSGradient *fillGradient;
-@property (nonatomic, copy) NSColor *lineColor;
+- (NSImage *)iconImage
+{
+    return [[NSWorkspace sharedWorkspace] iconForFileType:[self.packageURL pathExtension]];
+}
 
 @end

@@ -21,13 +21,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class SUProductMO;
+@class SIProductMO;
 
 @interface SIPkginfoWindowController : NSWindowController <NSTokenFieldDelegate>
 
 # pragma mark -
 # pragma mark Properties
-@property (retain) SUProductMO *product;
+@property (retain) SIProductMO *product;
 @property (retain) NSString *munki_name;
 @property (retain) NSString *munki_description;
 @property (retain) NSString *munki_display_name;

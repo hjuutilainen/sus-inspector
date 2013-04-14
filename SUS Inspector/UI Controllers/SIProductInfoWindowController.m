@@ -353,7 +353,7 @@
 - (void)openPackageAction
 {
     // Get the selected distribution file
-    SUPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
+    SIPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
     
     // Check if we have a cached copy
     if (selectedPackage.packageIsCachedValue) {
@@ -368,7 +368,7 @@
 - (void)openDistributionAction
 {
     // Get the selected distribution file
-    SUDistributionMO *selectedDist = [[self.distributionsArrayController selectedObjects] objectAtIndex:0];
+    SIDistributionMO *selectedDist = [[self.distributionsArrayController selectedObjects] objectAtIndex:0];
     
     // Check if we have a cached copy
     if (selectedDist.distributionIsCachedValue) {
@@ -410,7 +410,7 @@
 // Convert the Contact entity into a displayable string for the token
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject
 {
-    SUCatalogMO *catalog = (SUCatalogMO *)representedObject;
+    SICatalogMO *catalog = (SICatalogMO *)representedObject;
     return [NSString stringWithFormat:@"%@", catalog.catalogDisplayName];
 }
 

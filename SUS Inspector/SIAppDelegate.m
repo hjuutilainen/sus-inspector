@@ -46,7 +46,7 @@ NSString *defaultInstanceName = @"Default";
 }
 
 
-- (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(ReposadoInstanceMO *)object
+- (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(SIReposadoInstanceMO *)object
 {
     /*
      * This is a callback from Reposado configuration
@@ -68,7 +68,7 @@ NSString *defaultInstanceName = @"Default";
          * User cancelled the configuration.
          * Undo everything and delete the instance
          */
-        for (SUCatalogMO *aCatalog in object.catalogs) {
+        for (SICatalogMO *aCatalog in object.catalogs) {
             [self.managedObjectContext deleteObject:aCatalog];
         }
         [self.managedObjectContext deleteObject:object];
@@ -85,7 +85,7 @@ NSString *defaultInstanceName = @"Default";
     [operationManager runReposync:self.defaultReposadoInstance];
 }
 
-- (void)setupReposadoInstance:(ReposadoInstanceMO *)instance
+- (void)setupReposadoInstance:(SIReposadoInstanceMO *)instance
 {
     self.defaultReposadoInstance = instance;
     
@@ -103,8 +103,8 @@ NSString *defaultInstanceName = @"Default";
     
     // This is the directory where default reposado instance will be installed
     NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:defaultInstanceName];
-    ReposadoInstanceMO *instance = nil;
-    instance = [NSEntityDescription insertNewObjectForEntityForName:@"ReposadoInstance"
+    SIReposadoInstanceMO *instance = nil;
+    instance = [NSEntityDescription insertNewObjectForEntityForName:@"SIReposadoInstance"
                                              inManagedObjectContext:self.managedObjectContext];
     instance.reposadoInstallURL = localReposadoInstallURL;
     
@@ -113,7 +113,7 @@ NSString *defaultInstanceName = @"Default";
     NSString *defaultBaseURL = [defaults stringForKey:@"reposadoCatalogsBaseURL"];
     instance.reposadoCatalogsBaseURLString = defaultBaseURL;
     for (NSDictionary *defaultCatalog in [defaults arrayForKey:@"defaultCatalogs"]) {
-        SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:moc];
+        SICatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SICatalog" inManagedObjectContext:moc];
         NSString *defaultCatalogURL = [defaultCatalog objectForKey:@"catalogURL"];
         NSString *newURL = [defaultCatalogURL stringByReplacingOccurrencesOfString:@"http://swscan.apple.com"
                                                                         withString:defaultBaseURL];
@@ -134,7 +134,7 @@ NSString *defaultInstanceName = @"Default";
      * There should be also one!
      */
     NSManagedObjectContext *moc = [self managedObjectContext];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ReposadoInstance" inManagedObjectContext:moc];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"SIReposadoInstance" inManagedObjectContext:moc];
     NSFetchRequest *fetchForReposadoInstances = [[[NSFetchRequest alloc] init] autorelease];
     [fetchForReposadoInstances setEntity:entityDescription];
     NSUInteger instanceCount = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
@@ -148,7 +148,7 @@ NSString *defaultInstanceName = @"Default";
         if ([foundInstances count] > 1) {
             NSLog(@"WARNING: Multiple reposado instances found. Using the first one and it might not be the right thing to do...");
         }
-        ReposadoInstanceMO *instance = [foundInstances objectAtIndex:0];
+        SIReposadoInstanceMO *instance = [foundInstances objectAtIndex:0];
         self.defaultReposadoInstance = instance;
         if (instance.reposadoSetupCompleteValue) {
             /*

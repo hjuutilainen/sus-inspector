@@ -1,7 +1,5 @@
 //
-//  GradientButtonBarView.h
-//
-//  Created by Juutilainen Hannes on 28.4.2011.
+//  Copyright (c) 2013 Hannes Juutilainen. All rights reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -17,13 +15,8 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
-#import "GradientBackgroundView.h"
+#import "_SIDistributionMO.h"
 
-
-@interface GradientButtonBarView : GradientBackgroundView {
-@private
-    
-}
-
+@interface SIDistributionMO : _SIDistributionMO {}
+// Custom logic goes here.
 @end

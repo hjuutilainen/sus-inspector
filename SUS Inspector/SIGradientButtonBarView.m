@@ -1,5 +1,5 @@
 //
-//  GradientButtonBarView.m
+//  SIGradientButtonBarView.m
 //
 //  Created by Juutilainen Hannes on 28.4.2011.
 //
@@ -17,10 +17,10 @@
 //
 
 
-#import "GradientButtonBarView.h"
+#import "SIGradientButtonBarView.h"
 
 
-@implementation GradientButtonBarView
+@implementation SIGradientButtonBarView
 
 - (id)initWithFrame:(NSRect)frame
 {

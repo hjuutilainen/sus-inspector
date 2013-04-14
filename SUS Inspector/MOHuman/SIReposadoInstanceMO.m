@@ -15,17 +15,17 @@
 //
 
 
-#import "ReposadoInstanceMO.h"
+#import "SIReposadoInstanceMO.h"
 
 
-@interface ReposadoInstanceMO ()
+@interface SIReposadoInstanceMO ()
 
 // Private interface goes here.
 
 @end
 
 
-@implementation ReposadoInstanceMO
+@implementation SIReposadoInstanceMO
 
 - (NSURL *)reposadoDataURL
 {

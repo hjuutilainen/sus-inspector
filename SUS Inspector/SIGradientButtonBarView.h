@@ -1,5 +1,7 @@
 //
-//  Copyright (c) 2013 Hannes Juutilainen. All rights reserved.
+//  SIGradientButtonBarView.h
+//
+//  Created by Juutilainen Hannes on 28.4.2011.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -15,10 +17,13 @@
 //
 
 
-#import "_SUCatalogMO.h"
+#import <Cocoa/Cocoa.h>
+#import "SIGradientBackgroundView.h"
 
-@interface SUCatalogMO : _SUCatalogMO {}
 
-- (NSString *)catalogFilename;
+@interface SIGradientButtonBarView : SIGradientBackgroundView {
+@private
+    
+}
 
 @end

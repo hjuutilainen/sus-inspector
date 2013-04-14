@@ -18,9 +18,9 @@
 //  limitations under the License.
 //
 
-#import "ReposadoInstanceMO.h"
-#import "SUCatalogMO.h"
-#import "SUProductMO.h"
-#import "SUPackageMO.h"
-#import "SUDistributionMO.h"
-#import "SourceListItemMO.h"
+#import "SIReposadoInstanceMO.h"
+#import "SICatalogMO.h"
+#import "SIProductMO.h"
+#import "SIPackageMO.h"
+#import "SIDistributionMO.h"
+#import "SISourceListItemMO.h"

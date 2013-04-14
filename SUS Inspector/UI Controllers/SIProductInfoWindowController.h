@@ -22,11 +22,11 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
-@class SUProductMO;
+@class SIProductMO;
 
 @interface SIProductInfoWindowController : NSWindowController <NSTokenFieldDelegate, NSTabViewDelegate>
 
-@property (retain) SUProductMO *product;
+@property (retain) SIProductMO *product;
 @property (retain) NSArray *catalogs;
 //@property (assign) IBOutlet NSTableView *packagesTableView;
 @property (assign) IBOutlet NSScrollView *packagesScrollView;

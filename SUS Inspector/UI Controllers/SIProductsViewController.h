@@ -29,7 +29,7 @@
 
 @property (assign) IBOutlet NSArrayController *productsArrayController;
 @property (assign) IBOutlet NSTableView *productsTableView;
-@property (retain) SUCatalogMO *selectedCatalog;
+@property (retain) SICatalogMO *selectedCatalog;
 @property (retain) SIProductInfoWindowController *productInfoWindowController;
 @property (retain) SIPkginfoWindowController *pkginfoWindowController;
 

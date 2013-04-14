@@ -64,7 +64,7 @@
     [super dealloc];
 }
 
-- (NSModalSession)beginEditSessionWithObject:(ReposadoInstanceMO *)instance delegate:(id)modalDelegate
+- (NSModalSession)beginEditSessionWithObject:(SIReposadoInstanceMO *)instance delegate:(id)modalDelegate
 {
     self.reposadoInstance = instance;
     self.delegate = modalDelegate;
@@ -103,7 +103,7 @@
 {
     // Delete catalogs
     NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
-    for (SUCatalogMO *aCatalog in self.reposadoInstance.catalogs) {
+    for (SICatalogMO *aCatalog in self.reposadoInstance.catalogs) {
         [moc deleteObject:aCatalog];
     }
     
@@ -112,7 +112,7 @@
     NSString *defaultBaseURL = [defaults stringForKey:@"reposadoCatalogsBaseURL"];
     self.reposadoInstance.reposadoCatalogsBaseURLString = defaultBaseURL;
     for (NSDictionary *defaultCatalog in [defaults arrayForKey:@"defaultCatalogs"]) {
-        SUCatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SUCatalog" inManagedObjectContext:moc];
+        SICatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SICatalog" inManagedObjectContext:moc];
         NSString *defaultCatalogURL = [defaultCatalog objectForKey:@"catalogURL"];
         NSString *newURL = [defaultCatalogURL stringByReplacingOccurrencesOfString:@"http://swscan.apple.com"
                                                                         withString:defaultBaseURL];

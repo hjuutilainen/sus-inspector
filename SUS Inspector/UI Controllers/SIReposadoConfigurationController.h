@@ -26,7 +26,7 @@
 
 @protocol SIReposadoConfigurationControllerDelegate <NSObject>
 @optional
-- (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(ReposadoInstanceMO *)object;
+- (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(SIReposadoInstanceMO *)object;
 @end
 
 @interface SIReposadoConfigurationController : NSWindowController {
@@ -37,14 +37,14 @@
 
 @property (retain) id<SIReposadoConfigurationControllerDelegate> delegate;
 @property (retain) NSUndoManager *undoManager;
-@property (assign) ReposadoInstanceMO *reposadoInstance;
+@property (assign) SIReposadoInstanceMO *reposadoInstance;
 @property NSModalSession modalSession;
 @property (retain) NSString *customBaseURL;
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSObjectController *reposadoInstanceObjectController;
 @property (assign) IBOutlet NSTableView *catalogsTableView;
 
-- (NSModalSession)beginEditSessionWithObject:(ReposadoInstanceMO *)instance delegate:(id)modalDelegate;
+- (NSModalSession)beginEditSessionWithObject:(SIReposadoInstanceMO *)instance delegate:(id)modalDelegate;
 - (IBAction)saveAction:(id)sender;
 - (IBAction)cancelAction:(id)sender;
 - (IBAction)resetCatalogsToDefaultAction:(id)sender;

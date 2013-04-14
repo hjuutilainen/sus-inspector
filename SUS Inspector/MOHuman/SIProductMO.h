@@ -15,8 +15,8 @@
 //
 
 
-#import "_SourceListItemMO.h"
+#import "_SIProductMO.h"
 
-@interface SourceListItemMO : _SourceListItemMO {}
+@interface SIProductMO : _SIProductMO {}
 // Custom logic goes here.
 @end

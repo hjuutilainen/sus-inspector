@@ -25,7 +25,7 @@
 
 @class SIMainWindowController;
 @class SIPreferencesController;
-@class ReposadoInstanceMO;
+@class SIReposadoInstanceMO;
 
 @interface SIAppDelegate : NSObject <NSApplicationDelegate, SIOperationManagerDelegate, SIReposadoConfigurationControllerDelegate>
 
@@ -38,7 +38,7 @@
 
 @property (retain) SIMainWindowController *mainWindowController;
 @property (retain) SIPreferencesController *preferencesController;
-@property (retain) ReposadoInstanceMO *defaultReposadoInstance;
+@property (retain) SIReposadoInstanceMO *defaultReposadoInstance;
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSTreeController *sourceListTreeController;
 
@@ -53,6 +53,6 @@
 - (void)willEndOperations:(id)sender;
 
 // SIReposadoConfigurationController delegates
-- (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(ReposadoInstanceMO *)object;
+- (void)reposadoConfigurationDidFinish:(id)sender returnCode:(int)returnCode object:(SIReposadoInstanceMO *)object;
 
 @end

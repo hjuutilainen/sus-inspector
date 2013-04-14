@@ -1306,7 +1306,7 @@
 			<object class="NSTreeController" id="38144521">
 				<bool key="NSAutomaticallyPreparesContent">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy">
-					<string key="NSEntityName">SourceListItem</string>
+					<string key="NSEntityName">SISourceListItem</string>
 					<object class="NSComparisonPredicate" key="NSFetchPredicate">
 						<object class="NSKeyPathExpression" key="NSLeftExpression">
 							<int key="NSExpressionType">3</int>

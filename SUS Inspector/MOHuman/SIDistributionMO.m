@@ -15,8 +15,28 @@
 //
 
 
-#import "_SUPackageMO.h"
+#import "SIDistributionMO.h"
 
-@interface SUPackageMO : _SUPackageMO {}
-// Custom logic goes here.
+
+@interface SIDistributionMO ()
+
+// Private interface goes here.
+
+@end
+
+
+@implementation SIDistributionMO
+
+
+- (NSString *)distributionFilename
+{
+    NSURL *asURL = [NSURL URLWithString:self.distributionURL];
+    return [asURL lastPathComponent];
+}
+
+- (NSImage *)iconImage
+{
+    return [[NSWorkspace sharedWorkspace] iconForFileType:[self.distributionURL pathExtension]];
+}
+
 @end

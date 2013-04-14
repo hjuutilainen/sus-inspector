@@ -15,18 +15,8 @@
 //
 
 
-#import "SourceListItemMO.h"
+#import "_SIPackageMO.h"
 
-
-@interface SourceListItemMO ()
-
-// Private interface goes here.
-
-@end
-
-
-@implementation SourceListItemMO
-
+@interface SIPackageMO : _SIPackageMO {}
 // Custom logic goes here.
-
 @end

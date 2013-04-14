@@ -19,13 +19,17 @@
 		26201BCE16EE3C37003F6416 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26201BCD16EE3C37003F6416 /* UserDefaults.plist */; };
 		26201BD116EE4041003F6416 /* SIReposadoConfigurationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */; };
 		26201BD316EE405F003F6416 /* SIReposadoConfigurationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */; };
-		26B05AD01711E42100B24A5A /* _SUPackageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26B05ACF1711E42100B24A5A /* _SUPackageMO.m */; };
-		26B05AD31711E42E00B24A5A /* SUPackageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26B05AD21711E42E00B24A5A /* SUPackageMO.m */; };
+		26B05AD31711E42E00B24A5A /* SIPackageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26B05AD21711E42E00B24A5A /* SIPackageMO.m */; };
+		26F311FC1719A8E800ED6AC7 /* _SICatalogMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F11719A8E800ED6AC7 /* _SICatalogMO.m */; };
+		26F311FD1719A8E800ED6AC7 /* _SIDistributionMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F31719A8E800ED6AC7 /* _SIDistributionMO.m */; };
+		26F311FE1719A8E800ED6AC7 /* _SIPackageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F51719A8E800ED6AC7 /* _SIPackageMO.m */; };
+		26F311FF1719A8E800ED6AC7 /* _SIProductMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F71719A8E800ED6AC7 /* _SIProductMO.m */; };
+		26F312001719A8E800ED6AC7 /* _SIReposadoInstanceMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F91719A8E800ED6AC7 /* _SIReposadoInstanceMO.m */; };
+		26F312011719A8E800ED6AC7 /* _SISourceListItemMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311FB1719A8E800ED6AC7 /* _SISourceListItemMO.m */; };
 		D02F46BBA900C02FF0022F4B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0232CCEE9E4AC0981A6AAEE /* Localizable.strings */; };
 		F501048216E9DF0900B345DE /* SICatalogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048016E9DF0900B345DE /* SICatalogsViewController.m */; };
 		F501048316E9DF0900B345DE /* SICatalogsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F501048116E9DF0900B345DE /* SICatalogsViewController.xib */; };
-		F501048616EA044100B345DE /* SourceListItemMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048516EA044100B345DE /* SourceListItemMO.m */; };
-		F501048916EA044A00B345DE /* _SourceListItemMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048816EA044A00B345DE /* _SourceListItemMO.m */; };
+		F501048616EA044100B345DE /* SISourceListItemMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048516EA044100B345DE /* SISourceListItemMO.m */; };
 		F51F79AB16F8C421008BEA0D /* SIPkginfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F51F79A916F8C421008BEA0D /* SIPkginfoWindowController.m */; };
 		F51F79AC16F8C421008BEA0D /* SIPkginfoWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F51F79AA16F8C421008BEA0D /* SIPkginfoWindowController.xib */; };
 		F53BDE4416E874D300055BC3 /* SIOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE4316E874D300055BC3 /* SIOperationManager.m */; };
@@ -34,11 +38,11 @@
 		F53BDE5016E89BD200055BC3 /* SIProgressWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F53BDE4E16E89BD200055BC3 /* SIProgressWindowController.xib */; };
 		F53BDE5416E8A0CD00055BC3 /* SIProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5216E8A0CD00055BC3 /* SIProductsViewController.m */; };
 		F53BDE5516E8A0CD00055BC3 /* SIProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F53BDE5316E8A0CD00055BC3 /* SIProductsViewController.xib */; };
-		F53BDE5816E8A3C300055BC3 /* GradientBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5716E8A3C200055BC3 /* GradientBackgroundView.m */; };
+		F53BDE5816E8A3C300055BC3 /* SIGradientBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5716E8A3C200055BC3 /* SIGradientBackgroundView.m */; };
 		F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */; };
 		F58FF41316F7530500EF58B0 /* MIT-License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F58FF41016F7530500EF58B0 /* MIT-License.rtf */; };
 		F58FF41416F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */; };
-		F5C6643D16EF1994009802F2 /* GradientButtonBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C6643C16EF1994009802F2 /* GradientButtonBarView.m */; };
+		F5C6643D16EF1994009802F2 /* SIGradientButtonBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C6643C16EF1994009802F2 /* SIGradientButtonBarView.m */; };
 		F5D151A816EDED9C0072EE5F /* 293-database.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D151A616EDED9C0072EE5F /* 293-database.png */; };
 		F5D151A916EDED9C0072EE5F /* 293-database@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D151A716EDED9C0072EE5F /* 293-database@2x.png */; };
 		F5D151AC16EDEFB60072EE5F /* 179-notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D151AA16EDEFB60072EE5F /* 179-notepad.png */; };
@@ -54,19 +58,15 @@
 		F5E06E5F16E47400008B7831 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E06E3C16E473FF008B7831 /* Cocoa.framework */; };
 		F5E06E6716E47400008B7831 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5E06E6516E47400008B7831 /* InfoPlist.strings */; };
 		F5E06E6A16E47400008B7831 /* SUS_InspectorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E6916E47400008B7831 /* SUS_InspectorTests.m */; };
-		F5E06E9C16E49CC9008B7831 /* ReposadoInstanceMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9016E49CC9008B7831 /* ReposadoInstanceMO.m */; };
-		F5E06E9D16E49CC9008B7831 /* SUCatalogMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9216E49CC9008B7831 /* SUCatalogMO.m */; };
-		F5E06E9E16E49CC9008B7831 /* SUProductMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9416E49CC9008B7831 /* SUProductMO.m */; };
-		F5E06E9F16E49CC9008B7831 /* _ReposadoInstanceMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9716E49CC9008B7831 /* _ReposadoInstanceMO.m */; };
-		F5E06EA016E49CC9008B7831 /* _SUCatalogMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9916E49CC9008B7831 /* _SUCatalogMO.m */; };
-		F5E06EA116E49CC9008B7831 /* _SUProductMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9B16E49CC9008B7831 /* _SUProductMO.m */; };
+		F5E06E9C16E49CC9008B7831 /* SIReposadoInstanceMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9016E49CC9008B7831 /* SIReposadoInstanceMO.m */; };
+		F5E06E9D16E49CC9008B7831 /* SICatalogMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9216E49CC9008B7831 /* SICatalogMO.m */; };
+		F5E06E9E16E49CC9008B7831 /* SIProductMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06E9416E49CC9008B7831 /* SIProductMO.m */; };
 		F5E06EA716E4D8A1008B7831 /* SISizeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06EA616E4D8A1008B7831 /* SISizeFormatter.m */; };
 		F5E07B5E170ACA910069993C /* SIPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E07B5C170ACA910069993C /* SIPreferencesController.m */; };
 		F5E07B5F170ACA910069993C /* SIPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5E07B5D170ACA910069993C /* SIPreferencesController.xib */; };
 		F5EE0D9716E5D9E1006AEA8B /* SIMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */; };
 		F5EE0D9816E5D9E1006AEA8B /* SIMainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */; };
-		F5F237201717F69500173700 /* _SUDistributionMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F2371F1717F69500173700 /* _SUDistributionMO.m */; };
-		F5F237231717F69D00173700 /* SUDistributionMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F237221717F69D00173700 /* SUDistributionMO.m */; };
+		F5F237231717F69D00173700 /* SIDistributionMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F237221717F69D00173700 /* SIDistributionMO.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,18 +94,26 @@
 		26201BCF16EE4041003F6416 /* SIReposadoConfigurationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIReposadoConfigurationController.h; path = "UI Controllers/SIReposadoConfigurationController.h"; sourceTree = "<group>"; };
 		26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIReposadoConfigurationController.m; path = "UI Controllers/SIReposadoConfigurationController.m"; sourceTree = "<group>"; };
 		26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIReposadoConfigurationController.xib; path = "UI Controllers/SIReposadoConfigurationController.xib"; sourceTree = "<group>"; };
-		26B05ACE1711E42100B24A5A /* _SUPackageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SUPackageMO.h; sourceTree = "<group>"; };
-		26B05ACF1711E42100B24A5A /* _SUPackageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SUPackageMO.m; sourceTree = "<group>"; };
-		26B05AD11711E42E00B24A5A /* SUPackageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUPackageMO.h; sourceTree = "<group>"; };
-		26B05AD21711E42E00B24A5A /* SUPackageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUPackageMO.m; sourceTree = "<group>"; };
+		26B05AD11711E42E00B24A5A /* SIPackageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIPackageMO.h; sourceTree = "<group>"; };
+		26B05AD21711E42E00B24A5A /* SIPackageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIPackageMO.m; sourceTree = "<group>"; };
+		26F311F01719A8E800ED6AC7 /* _SICatalogMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SICatalogMO.h; sourceTree = "<group>"; };
+		26F311F11719A8E800ED6AC7 /* _SICatalogMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SICatalogMO.m; sourceTree = "<group>"; };
+		26F311F21719A8E800ED6AC7 /* _SIDistributionMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SIDistributionMO.h; sourceTree = "<group>"; };
+		26F311F31719A8E800ED6AC7 /* _SIDistributionMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SIDistributionMO.m; sourceTree = "<group>"; };
+		26F311F41719A8E800ED6AC7 /* _SIPackageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SIPackageMO.h; sourceTree = "<group>"; };
+		26F311F51719A8E800ED6AC7 /* _SIPackageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SIPackageMO.m; sourceTree = "<group>"; };
+		26F311F61719A8E800ED6AC7 /* _SIProductMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SIProductMO.h; sourceTree = "<group>"; };
+		26F311F71719A8E800ED6AC7 /* _SIProductMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SIProductMO.m; sourceTree = "<group>"; };
+		26F311F81719A8E800ED6AC7 /* _SIReposadoInstanceMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SIReposadoInstanceMO.h; sourceTree = "<group>"; };
+		26F311F91719A8E800ED6AC7 /* _SIReposadoInstanceMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SIReposadoInstanceMO.m; sourceTree = "<group>"; };
+		26F311FA1719A8E800ED6AC7 /* _SISourceListItemMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SISourceListItemMO.h; sourceTree = "<group>"; };
+		26F311FB1719A8E800ED6AC7 /* _SISourceListItemMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SISourceListItemMO.m; sourceTree = "<group>"; };
 		D0232CCEE9E4AC0981A6AAEE /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "UI Controllers/Localizable.strings"; sourceTree = "<group>"; };
 		F501047F16E9DF0900B345DE /* SICatalogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SICatalogsViewController.h; path = "UI Controllers/SICatalogsViewController.h"; sourceTree = "<group>"; };
 		F501048016E9DF0900B345DE /* SICatalogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SICatalogsViewController.m; path = "UI Controllers/SICatalogsViewController.m"; sourceTree = "<group>"; };
 		F501048116E9DF0900B345DE /* SICatalogsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SICatalogsViewController.xib; path = "UI Controllers/SICatalogsViewController.xib"; sourceTree = "<group>"; };
-		F501048416EA044100B345DE /* SourceListItemMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceListItemMO.h; sourceTree = "<group>"; };
-		F501048516EA044100B345DE /* SourceListItemMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListItemMO.m; sourceTree = "<group>"; };
-		F501048716EA044A00B345DE /* _SourceListItemMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SourceListItemMO.h; sourceTree = "<group>"; };
-		F501048816EA044A00B345DE /* _SourceListItemMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SourceListItemMO.m; sourceTree = "<group>"; };
+		F501048416EA044100B345DE /* SISourceListItemMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SISourceListItemMO.h; sourceTree = "<group>"; };
+		F501048516EA044100B345DE /* SISourceListItemMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SISourceListItemMO.m; sourceTree = "<group>"; };
 		F51F79A816F8C421008BEA0D /* SIPkginfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIPkginfoWindowController.h; path = "UI Controllers/SIPkginfoWindowController.h"; sourceTree = "<group>"; };
 		F51F79A916F8C421008BEA0D /* SIPkginfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIPkginfoWindowController.m; path = "UI Controllers/SIPkginfoWindowController.m"; sourceTree = "<group>"; };
 		F51F79AA16F8C421008BEA0D /* SIPkginfoWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIPkginfoWindowController.xib; path = "UI Controllers/SIPkginfoWindowController.xib"; sourceTree = "<group>"; };
@@ -119,15 +127,15 @@
 		F53BDE5116E8A0CD00055BC3 /* SIProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIProductsViewController.h; path = "UI Controllers/SIProductsViewController.h"; sourceTree = "<group>"; };
 		F53BDE5216E8A0CD00055BC3 /* SIProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIProductsViewController.m; path = "UI Controllers/SIProductsViewController.m"; sourceTree = "<group>"; };
 		F53BDE5316E8A0CD00055BC3 /* SIProductsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIProductsViewController.xib; path = "UI Controllers/SIProductsViewController.xib"; sourceTree = "<group>"; };
-		F53BDE5616E8A3C200055BC3 /* GradientBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientBackgroundView.h; sourceTree = "<group>"; };
-		F53BDE5716E8A3C200055BC3 /* GradientBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientBackgroundView.m; sourceTree = "<group>"; };
+		F53BDE5616E8A3C200055BC3 /* SIGradientBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIGradientBackgroundView.h; sourceTree = "<group>"; };
+		F53BDE5716E8A3C200055BC3 /* SIGradientBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIGradientBackgroundView.m; sourceTree = "<group>"; };
 		F53BDE5916E8B4C800055BC3 /* AMShellWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMShellWrapper.h; sourceTree = "<group>"; };
 		F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMShellWrapper.m; sourceTree = "<group>"; };
 		F58FF41016F7530500EF58B0 /* MIT-License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "MIT-License.rtf"; sourceTree = "<group>"; };
 		F58FF41116F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
 		F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
-		F5C6643B16EF1994009802F2 /* GradientButtonBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientButtonBarView.h; sourceTree = "<group>"; };
-		F5C6643C16EF1994009802F2 /* GradientButtonBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientButtonBarView.m; sourceTree = "<group>"; };
+		F5C6643B16EF1994009802F2 /* SIGradientButtonBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIGradientButtonBarView.h; sourceTree = "<group>"; };
+		F5C6643C16EF1994009802F2 /* SIGradientButtonBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIGradientButtonBarView.m; sourceTree = "<group>"; };
 		F5D151A616EDED9C0072EE5F /* 293-database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "293-database.png"; sourceTree = "<group>"; };
 		F5D151A716EDED9C0072EE5F /* 293-database@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "293-database@2x.png"; sourceTree = "<group>"; };
 		F5D151AA16EDEFB60072EE5F /* 179-notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "179-notepad.png"; sourceTree = "<group>"; };
@@ -168,18 +176,12 @@
 		F5E06E8516E479DB008B7831 /* reposado.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = reposado.jpg; sourceTree = "<group>"; };
 		F5E06E8616E479DB008B7831 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		F5E06E8716E479DB008B7831 /* setup.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = setup.py; sourceTree = "<group>"; };
-		F5E06E8F16E49CC9008B7831 /* ReposadoInstanceMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReposadoInstanceMO.h; sourceTree = "<group>"; };
-		F5E06E9016E49CC9008B7831 /* ReposadoInstanceMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReposadoInstanceMO.m; sourceTree = "<group>"; };
-		F5E06E9116E49CC9008B7831 /* SUCatalogMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUCatalogMO.h; sourceTree = "<group>"; };
-		F5E06E9216E49CC9008B7831 /* SUCatalogMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUCatalogMO.m; sourceTree = "<group>"; };
-		F5E06E9316E49CC9008B7831 /* SUProductMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUProductMO.h; sourceTree = "<group>"; };
-		F5E06E9416E49CC9008B7831 /* SUProductMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUProductMO.m; sourceTree = "<group>"; };
-		F5E06E9616E49CC9008B7831 /* _ReposadoInstanceMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ReposadoInstanceMO.h; sourceTree = "<group>"; };
-		F5E06E9716E49CC9008B7831 /* _ReposadoInstanceMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ReposadoInstanceMO.m; sourceTree = "<group>"; };
-		F5E06E9816E49CC9008B7831 /* _SUCatalogMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SUCatalogMO.h; sourceTree = "<group>"; };
-		F5E06E9916E49CC9008B7831 /* _SUCatalogMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SUCatalogMO.m; sourceTree = "<group>"; };
-		F5E06E9A16E49CC9008B7831 /* _SUProductMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SUProductMO.h; sourceTree = "<group>"; };
-		F5E06E9B16E49CC9008B7831 /* _SUProductMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SUProductMO.m; sourceTree = "<group>"; };
+		F5E06E8F16E49CC9008B7831 /* SIReposadoInstanceMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReposadoInstanceMO.h; sourceTree = "<group>"; };
+		F5E06E9016E49CC9008B7831 /* SIReposadoInstanceMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReposadoInstanceMO.m; sourceTree = "<group>"; };
+		F5E06E9116E49CC9008B7831 /* SICatalogMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SICatalogMO.h; sourceTree = "<group>"; };
+		F5E06E9216E49CC9008B7831 /* SICatalogMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICatalogMO.m; sourceTree = "<group>"; };
+		F5E06E9316E49CC9008B7831 /* SIProductMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIProductMO.h; sourceTree = "<group>"; };
+		F5E06E9416E49CC9008B7831 /* SIProductMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIProductMO.m; sourceTree = "<group>"; };
 		F5E06EA316E49CFD008B7831 /* DataModelHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModelHeaders.h; sourceTree = "<group>"; };
 		F5E06EA516E4D8A1008B7831 /* SISizeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SISizeFormatter.h; sourceTree = "<group>"; };
 		F5E06EA616E4D8A1008B7831 /* SISizeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SISizeFormatter.m; sourceTree = "<group>"; };
@@ -189,10 +191,8 @@
 		F5EE0D9416E5D9E1006AEA8B /* SIMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIMainWindowController.h; path = "UI Controllers/SIMainWindowController.h"; sourceTree = "<group>"; };
 		F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIMainWindowController.m; path = "UI Controllers/SIMainWindowController.m"; sourceTree = "<group>"; };
 		F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIMainWindowController.xib; path = "UI Controllers/SIMainWindowController.xib"; sourceTree = "<group>"; };
-		F5F2371E1717F69500173700 /* _SUDistributionMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SUDistributionMO.h; sourceTree = "<group>"; };
-		F5F2371F1717F69500173700 /* _SUDistributionMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SUDistributionMO.m; sourceTree = "<group>"; };
-		F5F237211717F69D00173700 /* SUDistributionMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUDistributionMO.h; sourceTree = "<group>"; };
-		F5F237221717F69D00173700 /* SUDistributionMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUDistributionMO.m; sourceTree = "<group>"; };
+		F5F237211717F69D00173700 /* SIDistributionMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDistributionMO.h; sourceTree = "<group>"; };
+		F5F237221717F69D00173700 /* SIDistributionMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIDistributionMO.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,18 +402,18 @@
 		F5E06E8E16E49CC9008B7831 /* MOHuman */ = {
 			isa = PBXGroup;
 			children = (
-				F5F237211717F69D00173700 /* SUDistributionMO.h */,
-				F5F237221717F69D00173700 /* SUDistributionMO.m */,
-				26B05AD11711E42E00B24A5A /* SUPackageMO.h */,
-				26B05AD21711E42E00B24A5A /* SUPackageMO.m */,
-				F501048416EA044100B345DE /* SourceListItemMO.h */,
-				F501048516EA044100B345DE /* SourceListItemMO.m */,
-				F5E06E8F16E49CC9008B7831 /* ReposadoInstanceMO.h */,
-				F5E06E9016E49CC9008B7831 /* ReposadoInstanceMO.m */,
-				F5E06E9116E49CC9008B7831 /* SUCatalogMO.h */,
-				F5E06E9216E49CC9008B7831 /* SUCatalogMO.m */,
-				F5E06E9316E49CC9008B7831 /* SUProductMO.h */,
-				F5E06E9416E49CC9008B7831 /* SUProductMO.m */,
+				F5F237211717F69D00173700 /* SIDistributionMO.h */,
+				F5F237221717F69D00173700 /* SIDistributionMO.m */,
+				26B05AD11711E42E00B24A5A /* SIPackageMO.h */,
+				26B05AD21711E42E00B24A5A /* SIPackageMO.m */,
+				F501048416EA044100B345DE /* SISourceListItemMO.h */,
+				F501048516EA044100B345DE /* SISourceListItemMO.m */,
+				F5E06E8F16E49CC9008B7831 /* SIReposadoInstanceMO.h */,
+				F5E06E9016E49CC9008B7831 /* SIReposadoInstanceMO.m */,
+				F5E06E9116E49CC9008B7831 /* SICatalogMO.h */,
+				F5E06E9216E49CC9008B7831 /* SICatalogMO.m */,
+				F5E06E9316E49CC9008B7831 /* SIProductMO.h */,
+				F5E06E9416E49CC9008B7831 /* SIProductMO.m */,
 			);
 			path = MOHuman;
 			sourceTree = "<group>";
@@ -421,18 +421,18 @@
 		F5E06E9516E49CC9008B7831 /* MOMachine */ = {
 			isa = PBXGroup;
 			children = (
-				F5F2371E1717F69500173700 /* _SUDistributionMO.h */,
-				F5F2371F1717F69500173700 /* _SUDistributionMO.m */,
-				26B05ACE1711E42100B24A5A /* _SUPackageMO.h */,
-				26B05ACF1711E42100B24A5A /* _SUPackageMO.m */,
-				F501048716EA044A00B345DE /* _SourceListItemMO.h */,
-				F501048816EA044A00B345DE /* _SourceListItemMO.m */,
-				F5E06E9616E49CC9008B7831 /* _ReposadoInstanceMO.h */,
-				F5E06E9716E49CC9008B7831 /* _ReposadoInstanceMO.m */,
-				F5E06E9816E49CC9008B7831 /* _SUCatalogMO.h */,
-				F5E06E9916E49CC9008B7831 /* _SUCatalogMO.m */,
-				F5E06E9A16E49CC9008B7831 /* _SUProductMO.h */,
-				F5E06E9B16E49CC9008B7831 /* _SUProductMO.m */,
+				26F311F01719A8E800ED6AC7 /* _SICatalogMO.h */,
+				26F311F11719A8E800ED6AC7 /* _SICatalogMO.m */,
+				26F311F21719A8E800ED6AC7 /* _SIDistributionMO.h */,
+				26F311F31719A8E800ED6AC7 /* _SIDistributionMO.m */,
+				26F311F41719A8E800ED6AC7 /* _SIPackageMO.h */,
+				26F311F51719A8E800ED6AC7 /* _SIPackageMO.m */,
+				26F311F61719A8E800ED6AC7 /* _SIProductMO.h */,
+				26F311F71719A8E800ED6AC7 /* _SIProductMO.m */,
+				26F311F81719A8E800ED6AC7 /* _SIReposadoInstanceMO.h */,
+				26F311F91719A8E800ED6AC7 /* _SIReposadoInstanceMO.m */,
+				26F311FA1719A8E800ED6AC7 /* _SISourceListItemMO.h */,
+				26F311FB1719A8E800ED6AC7 /* _SISourceListItemMO.m */,
 			);
 			path = MOMachine;
 			sourceTree = "<group>";
@@ -450,12 +450,12 @@
 		F5E06EA416E4D876008B7831 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				F5C6643B16EF1994009802F2 /* GradientButtonBarView.h */,
-				F5C6643C16EF1994009802F2 /* GradientButtonBarView.m */,
+				F5C6643B16EF1994009802F2 /* SIGradientButtonBarView.h */,
+				F5C6643C16EF1994009802F2 /* SIGradientButtonBarView.m */,
 				F53BDE5916E8B4C800055BC3 /* AMShellWrapper.h */,
 				F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */,
-				F53BDE5616E8A3C200055BC3 /* GradientBackgroundView.h */,
-				F53BDE5716E8A3C200055BC3 /* GradientBackgroundView.m */,
+				F53BDE5616E8A3C200055BC3 /* SIGradientBackgroundView.h */,
+				F53BDE5716E8A3C200055BC3 /* SIGradientBackgroundView.m */,
 				F53BDE4916E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.h */,
 				F53BDE4A16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m */,
 				F5E06EA516E4D8A1008B7831 /* SISizeFormatter.h */,
@@ -644,33 +644,33 @@
 				F5E06E4916E473FF008B7831 /* main.m in Sources */,
 				F5E06E5016E473FF008B7831 /* SIAppDelegate.m in Sources */,
 				F5E06E5616E473FF008B7831 /* SUS_Inspector.xcdatamodeld in Sources */,
-				F5E06E9C16E49CC9008B7831 /* ReposadoInstanceMO.m in Sources */,
-				F5E06E9D16E49CC9008B7831 /* SUCatalogMO.m in Sources */,
-				F5E06E9E16E49CC9008B7831 /* SUProductMO.m in Sources */,
-				F5E06E9F16E49CC9008B7831 /* _ReposadoInstanceMO.m in Sources */,
-				F5E06EA016E49CC9008B7831 /* _SUCatalogMO.m in Sources */,
-				F5E06EA116E49CC9008B7831 /* _SUProductMO.m in Sources */,
+				F5E06E9C16E49CC9008B7831 /* SIReposadoInstanceMO.m in Sources */,
+				F5E06E9D16E49CC9008B7831 /* SICatalogMO.m in Sources */,
+				F5E06E9E16E49CC9008B7831 /* SIProductMO.m in Sources */,
 				F5E06EA716E4D8A1008B7831 /* SISizeFormatter.m in Sources */,
 				F5EE0D9716E5D9E1006AEA8B /* SIMainWindowController.m in Sources */,
 				F53BDE4416E874D300055BC3 /* SIOperationManager.m in Sources */,
 				F53BDE4B16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m in Sources */,
 				F53BDE4F16E89BD200055BC3 /* SIProgressWindowController.m in Sources */,
 				F53BDE5416E8A0CD00055BC3 /* SIProductsViewController.m in Sources */,
-				F53BDE5816E8A3C300055BC3 /* GradientBackgroundView.m in Sources */,
+				F53BDE5816E8A3C300055BC3 /* SIGradientBackgroundView.m in Sources */,
 				F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */,
 				F501048216E9DF0900B345DE /* SICatalogsViewController.m in Sources */,
-				F501048616EA044100B345DE /* SourceListItemMO.m in Sources */,
-				F501048916EA044A00B345DE /* _SourceListItemMO.m in Sources */,
+				F501048616EA044100B345DE /* SISourceListItemMO.m in Sources */,
 				26201BD116EE4041003F6416 /* SIReposadoConfigurationController.m in Sources */,
-				F5C6643D16EF1994009802F2 /* GradientButtonBarView.m in Sources */,
+				F5C6643D16EF1994009802F2 /* SIGradientButtonBarView.m in Sources */,
 				F58FF41416F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				260775AE16F777AA0062F69C /* SIProductInfoWindowController.m in Sources */,
 				F51F79AB16F8C421008BEA0D /* SIPkginfoWindowController.m in Sources */,
 				F5E07B5E170ACA910069993C /* SIPreferencesController.m in Sources */,
-				26B05AD01711E42100B24A5A /* _SUPackageMO.m in Sources */,
-				26B05AD31711E42E00B24A5A /* SUPackageMO.m in Sources */,
-				F5F237201717F69500173700 /* _SUDistributionMO.m in Sources */,
-				F5F237231717F69D00173700 /* SUDistributionMO.m in Sources */,
+				26B05AD31711E42E00B24A5A /* SIPackageMO.m in Sources */,
+				F5F237231717F69D00173700 /* SIDistributionMO.m in Sources */,
+				26F311FC1719A8E800ED6AC7 /* _SICatalogMO.m in Sources */,
+				26F311FD1719A8E800ED6AC7 /* _SIDistributionMO.m in Sources */,
+				26F311FE1719A8E800ED6AC7 /* _SIPackageMO.m in Sources */,
+				26F311FF1719A8E800ED6AC7 /* _SIProductMO.m in Sources */,
+				26F312001719A8E800ED6AC7 /* _SIReposadoInstanceMO.m in Sources */,
+				26F312011719A8E800ED6AC7 /* _SISourceListItemMO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

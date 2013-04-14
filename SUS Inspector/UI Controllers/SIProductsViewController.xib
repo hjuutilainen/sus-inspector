@@ -168,7 +168,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="564173160"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<string key="NSClassName">GradientBackgroundView</string>
+						<string key="NSClassName">SIGradientBackgroundView</string>
 					</object>
 					<object class="NSScrollView" id="124599540">
 						<reference key="NSNextResponder" ref="1005"/>
@@ -501,7 +501,7 @@
 				<bool key="NSEditable">YES</bool>
 				<bool key="NSAutomaticallyPreparesContent">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy">
-					<string key="NSEntityName">SUProduct</string>
+					<string key="NSEntityName">SIProduct</string>
 				</object>
 				<bool key="_NSIsUsingManagedProxy">YES</bool>
 				<bool key="NSPreservesSelection">YES</bool>
@@ -1247,11 +1247,11 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
-					<string key="className">GradientBackgroundView</string>
+					<string key="className">SIGradientBackgroundView</string>
 					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/GradientBackgroundView.h</string>
+						<string key="minorKey">./Classes/SIGradientBackgroundView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
