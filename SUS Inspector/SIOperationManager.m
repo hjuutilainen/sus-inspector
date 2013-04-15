@@ -22,6 +22,7 @@
 #import "SIOperationManager.h"
 #import "NSManagedObjectContext+HJGCDExtensions.h"
 #import "SIAppDelegate.h"
+#import "SIPackageMetadataParser.h"
 
 @interface SIOperationManager () {
     // Private interface
@@ -635,28 +636,30 @@ static dispatch_queue_t serialQueue;
     }
 }
 
-- (void)cacheDistributionFileWithURL:(NSURL *)url
-{
-    NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
-                                                cachePolicy:NSURLRequestReturnCacheDataElseLoad
-                                            timeoutInterval:5.0];
-    
-    NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
-    if (!theDownload) {
-        NSLog(@"Error: Failed to initialize cacheDistributionFileWithURL %@", [url absoluteString]);
-    }
-}
 
-- (void)cachePackageWithURL:(NSURL *)url
+- (void)readXMLFromPackageMetadataFile:(SIPackageMetadataMO *)obj
 {
-    NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
-                                                cachePolicy:NSURLRequestReturnCacheDataElseLoad
-                                            timeoutInterval:5.0];
-    
-    NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
-    if (!theDownload) {
-        NSLog(@"Error: Failed to initialize cachePackageWithURL %@", [url absoluteString]);
+    /*
+    NSLog(@"readXMLFromPackageMetadataFile");
+    NSURL *furl = [NSURL fileURLWithPath:obj.objectCachedPath];
+    if (!furl) {
+        NSLog(@"Can't create an URL from file %@.", obj.objectCachedPath);
+        return;
     }
+    */
+    /*
+    NSLog(@"Reading path %@", obj.objectCachedPath);
+    NSError *error = nil;
+    NSString *testing = [NSString stringWithContentsOfFile:obj.objectCachedPath encoding:NSUTF8StringEncoding error:&error];
+    NSLog(@"Contents: %@", testing);
+    if (error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+    */
+    NSData *xmlData = [NSData dataWithContentsOfFile:obj.objectCachedPath];
+    SIPackageMetadataParser *parser = [[SIPackageMetadataParser alloc] init];
+    [parser parseData:xmlData];
+    
 }
 
 
@@ -680,60 +683,12 @@ static dispatch_queue_t serialQueue;
     NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
     if (numFoundObjects != 0) {
         id cachedObject = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
-        if ([cachedObject isKindOfClass:[SIDistributionMO class]]) {
-            // We downloaded a distribution file
-            SIDistributionMO *dist = (SIDistributionMO *)cachedObject;
-            dist.objectIsCachedValue = YES;
-            dist.objectCachedPath = path;
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
-            [[NSWorkspace sharedWorkspace] openFile:path withApplication:appPath];
-        } else if ([cachedObject isKindOfClass:[SIPackageMO class]]) {
-            // We downloaded a package
-            SIPackageMO *package = (SIPackageMO *)cachedObject;
-            package.objectIsCachedValue = YES;
-            package.objectCachedPath = path;
-            [[NSWorkspace sharedWorkspace] openFile:path];
-        }
+        [cachedObject setObjectIsCachedValue:YES];
+        [cachedObject setObjectCachedPath:path];
     } else {
         NSLog(@"Error: Could not find SIDownloadableObject with URL %@", [requestURL absoluteString]);
     }
     [fetchObjects release];
-    
-    /*
-    if ([[requestURL pathExtension] isEqualToString:@"dist"]) {
-        //NSLog(@"Linking downloaded distribution file");
-        NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
-        [fetchObjects setEntity:[NSEntityDescription entityForName:@"SIDistribution" inManagedObjectContext:moc]];
-        [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"distributionURL == %@", [requestURL absoluteString]]];
-        NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
-        if (numFoundObjects != 0) {
-            SIDistributionMO *dist = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
-            dist.distributionIsCachedValue = YES;
-            dist.distributionCachedPath = path;
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
-            [[NSWorkspace sharedWorkspace] openFile:path withApplication:appPath];
-        } else {
-            NSLog(@"Error: Could not find distribution file with URL %@", [requestURL absoluteString]);
-        }
-        [fetchObjects release];
-    } else {
-        NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
-        [fetchObjects setEntity:[NSEntityDescription entityForName:@"SIPackage" inManagedObjectContext:moc]];
-        [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"packageURL == %@", [requestURL absoluteString]]];
-        NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
-        if (numFoundObjects != 0) {
-            SIPackageMO *package = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
-            package.packageIsCachedValue = YES;
-            package.packageCachedPath = path;
-            [[NSWorkspace sharedWorkspace] openFile:path];
-        } else {
-            NSLog(@"Error: Could not find package with URL %@", [requestURL absoluteString]);
-        }
-        [fetchObjects release];
-    }
-     */
 }
 
 
@@ -750,6 +705,35 @@ static dispatch_queue_t serialQueue;
 
 - (void)downloadDidFinish:(NSURLDownload *)download
 {
+    NSURL *requestURL = [[download request] URL];
+    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    
+    // Determine what kind of file we just downloaded
+    NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
+    [fetchObjects setEntity:[NSEntityDescription entityForName:@"SIDownloadableObject" inManagedObjectContext:moc]];
+    [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"objectURL == %@", [requestURL absoluteString]]];
+    NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
+    if (numFoundObjects != 0) {
+        id cachedObject = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
+        
+        if ([cachedObject isKindOfClass:[SIDistributionMO class]]) {
+            // We downloaded a distribution file
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
+            [[NSWorkspace sharedWorkspace] openFile:[cachedObject objectCachedPath] withApplication:appPath];
+        } else if ([cachedObject isKindOfClass:[SIPackageMO class]]) {
+            // We downloaded a package
+            [[NSWorkspace sharedWorkspace] openFile:[cachedObject objectCachedPath]];
+        } else if ([cachedObject isKindOfClass:[SIPackageMetadataMO class]]) {
+            // We downloaded a package metadata file
+            NSLog(@"Finished downloading package metadata %@", [cachedObject objectCachedPath]);
+            [self readXMLFromPackageMetadataFile:cachedObject];
+        }
+    } else {
+        NSLog(@"Error: Could not find SIDownloadableObject with URL %@", [requestURL absoluteString]);
+    }
+    [fetchObjects release];
+    
     // Release the download.
     [download release];
     

@@ -24,7 +24,7 @@
 #import "AMShellWrapper.h"
 
 @class SIOperationManager;
-
+@class SIPackageMetadataParser;
 
 @protocol SIOperationManagerDelegate <NSObject>
 @optional
@@ -49,6 +49,7 @@
 - (void)cacheDownloadableObjectWithURL:(NSURL *)url;
 //- (void)cacheDistributionFileWithURL:(NSURL *)url;
 //- (void)cachePackageWithURL:(NSURL *)url;
+- (void)readXMLFromPackageMetadataFile:(SIPackageMetadataMO *)obj;
 - (void)readPackageMetadataFiles:(SIReposadoInstanceMO *)reposadoInstance;
 
 @end

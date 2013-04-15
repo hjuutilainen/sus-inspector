@@ -58,7 +58,19 @@
     NSArray *temp = [[self.product.catalogs allObjects] filteredArrayUsingPredicate:predicate];
     NSSortDescriptor *byOS = [NSSortDescriptor sortDescriptorWithKey:@"catalogOSVersion" ascending:NO selector:@selector(localizedStandardCompare:)];
     self.catalogs = [temp sortedArrayUsingDescriptors:[NSArray arrayWithObjects:byOS, nil]];
-
+    
+    for (SIPackageMO *aPackage in self.product.packages) {
+        SIPackageMetadataMO *pkm = aPackage.metadata;
+        if (!pkm.objectIsCachedValue) {
+            NSURL *packageURL = [NSURL URLWithString:pkm.objectURL];
+            [[SIOperationManager sharedManager] cacheDownloadableObjectWithURL:packageURL];
+        } else {
+            [[SIOperationManager sharedManager] readXMLFromPackageMetadataFile:pkm];
+        }
+    }
+    
+    // Check if we have a cached copy
+    
 }
 
 

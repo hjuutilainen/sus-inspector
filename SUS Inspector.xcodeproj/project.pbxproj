@@ -70,6 +70,7 @@
 		F5E559AA171C027000B285CF /* _SIServerMetadataMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E559A9171C027000B285CF /* _SIServerMetadataMO.m */; };
 		F5E559AD171C03F700B285CF /* SIPackageMetadataMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E559AC171C03F700B285CF /* SIPackageMetadataMO.m */; };
 		F5E559B0171C03FE00B285CF /* _SIPackageMetadataMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E559AF171C03FE00B285CF /* _SIPackageMetadataMO.m */; };
+		F5E559B3171C108300B285CF /* SIPackageMetadataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E559B2171C108300B285CF /* SIPackageMetadataParser.m */; };
 		F5EE0D9716E5D9E1006AEA8B /* SIMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */; };
 		F5EE0D9816E5D9E1006AEA8B /* SIMainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */; };
 		F5F237231717F69D00173700 /* SIDistributionMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F237221717F69D00173700 /* SIDistributionMO.m */; };
@@ -206,6 +207,8 @@
 		F5E559AC171C03F700B285CF /* SIPackageMetadataMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIPackageMetadataMO.m; sourceTree = "<group>"; };
 		F5E559AE171C03FE00B285CF /* _SIPackageMetadataMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SIPackageMetadataMO.h; sourceTree = "<group>"; };
 		F5E559AF171C03FE00B285CF /* _SIPackageMetadataMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SIPackageMetadataMO.m; sourceTree = "<group>"; };
+		F5E559B1171C108300B285CF /* SIPackageMetadataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIPackageMetadataParser.h; sourceTree = "<group>"; };
+		F5E559B2171C108300B285CF /* SIPackageMetadataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIPackageMetadataParser.m; sourceTree = "<group>"; };
 		F5EE0D9416E5D9E1006AEA8B /* SIMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIMainWindowController.h; path = "UI Controllers/SIMainWindowController.h"; sourceTree = "<group>"; };
 		F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIMainWindowController.m; path = "UI Controllers/SIMainWindowController.m"; sourceTree = "<group>"; };
 		F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIMainWindowController.xib; path = "UI Controllers/SIMainWindowController.xib"; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 				F5E06E4F16E473FF008B7831 /* SIAppDelegate.m */,
 				F53BDE4216E874D300055BC3 /* SIOperationManager.h */,
 				F53BDE4316E874D300055BC3 /* SIOperationManager.m */,
+				F5E559B1171C108300B285CF /* SIPackageMetadataParser.h */,
+				F5E559B2171C108300B285CF /* SIPackageMetadataParser.m */,
 				F5E06E5116E473FF008B7831 /* MainMenu.xib */,
 				F5E06E5416E473FF008B7831 /* SUS_Inspector.xcdatamodeld */,
 				F5E06E4316E473FF008B7831 /* Supporting Files */,
@@ -707,6 +712,7 @@
 				F5E559AA171C027000B285CF /* _SIServerMetadataMO.m in Sources */,
 				F5E559AD171C03F700B285CF /* SIPackageMetadataMO.m in Sources */,
 				F5E559B0171C03FE00B285CF /* _SIPackageMetadataMO.m in Sources */,
+				F5E559B3171C108300B285CF /* SIPackageMetadataParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

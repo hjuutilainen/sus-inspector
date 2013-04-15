@@ -42,7 +42,7 @@
         <attribute name="productSize" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="productTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productVersion" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SICatalog" inverseName="products" inverseEntity="SICatalog" syncable="YES"/>
+        <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SICatalog" inverseName="products" inverseEntity="SICatalog" syncable="YES"/>
         <relationship name="distributions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SIDistribution" inverseName="product" inverseEntity="SIDistribution" syncable="YES"/>
         <relationship name="packages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SIPackage" inverseName="product" inverseEntity="SIPackage" syncable="YES"/>
         <relationship name="serverMetadataFiles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SIServerMetadata" inverseName="product" inverseEntity="SIServerMetadata" syncable="YES"/>
