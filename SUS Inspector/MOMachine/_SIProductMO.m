@@ -17,6 +17,7 @@ const struct SIProductMORelationships SIProductMORelationships = {
 	.catalogs = @"catalogs",
 	.distributions = @"distributions",
 	.packages = @"packages",
+	.serverMetadataFiles = @"serverMetadataFiles",
 };
 
 const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
@@ -187,6 +188,19 @@ const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"packages"];
   
 	[self didAccessValueForKey:@"packages"];
+	return result;
+}
+	
+
+@dynamic serverMetadataFiles;
+
+	
+- (NSMutableSet*)serverMetadataFilesSet {
+	[self willAccessValueForKey:@"serverMetadataFiles"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"serverMetadataFiles"];
+  
+	[self didAccessValueForKey:@"serverMetadataFiles"];
 	return result;
 }
 	

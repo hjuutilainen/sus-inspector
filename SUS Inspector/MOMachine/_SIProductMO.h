@@ -18,6 +18,7 @@ extern const struct SIProductMORelationships {
 	 NSString *catalogs;
 	 NSString *distributions;
 	 NSString *packages;
+	 NSString *serverMetadataFiles;
 } SIProductMORelationships;
 
 extern const struct SIProductMOFetchedProperties {
@@ -26,6 +27,7 @@ extern const struct SIProductMOFetchedProperties {
 @class SICatalogMO;
 @class SIDistributionMO;
 @class SIPackageMO;
+@class SIServerMetadataMO;
 
 
 
@@ -147,6 +149,13 @@ extern const struct SIProductMOFetchedProperties {
 
 
 
+@property (nonatomic, retain) NSSet *serverMetadataFiles;
+
+- (NSMutableSet*)serverMetadataFilesSet;
+
+
+
+
 
 @end
 
@@ -166,6 +175,11 @@ extern const struct SIProductMOFetchedProperties {
 - (void)removePackages:(NSSet*)value_;
 - (void)addPackagesObject:(SIPackageMO*)value_;
 - (void)removePackagesObject:(SIPackageMO*)value_;
+
+- (void)addServerMetadataFiles:(NSSet*)value_;
+- (void)removeServerMetadataFiles:(NSSet*)value_;
+- (void)addServerMetadataFilesObject:(SIServerMetadataMO*)value_;
+- (void)removeServerMetadataFilesObject:(SIServerMetadataMO*)value_;
 
 @end
 
@@ -233,6 +247,11 @@ extern const struct SIProductMOFetchedProperties {
 
 - (NSMutableSet*)primitivePackages;
 - (void)setPrimitivePackages:(NSMutableSet*)value;
+
+
+
+- (NSMutableSet*)primitiveServerMetadataFiles;
+- (void)setPrimitiveServerMetadataFiles:(NSMutableSet*)value;
 
 
 @end

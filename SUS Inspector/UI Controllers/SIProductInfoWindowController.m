@@ -356,12 +356,12 @@
     SIPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
     
     // Check if we have a cached copy
-    if (selectedPackage.packageIsCachedValue) {
+    if (selectedPackage.objectIsCachedValue) {
         NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
-        [[NSWorkspace sharedWorkspace] openFile:selectedPackage.packageCachedPath withApplication:appPath];
+        [[NSWorkspace sharedWorkspace] openFile:selectedPackage.objectCachedPath withApplication:appPath];
     } else {
-        NSURL *packageURL = [NSURL URLWithString:selectedPackage.packageURL];
-        [[SIOperationManager sharedManager] cachePackageWithURL:packageURL];
+        NSURL *packageURL = [NSURL URLWithString:selectedPackage.objectURL];
+        [[SIOperationManager sharedManager] cacheDownloadableObjectWithURL:packageURL];
     }
 }
 
@@ -371,11 +371,11 @@
     SIDistributionMO *selectedDist = [[self.distributionsArrayController selectedObjects] objectAtIndex:0];
     
     // Check if we have a cached copy
-    if (selectedDist.distributionIsCachedValue) {
-        [[NSWorkspace sharedWorkspace] openFile:selectedDist.distributionCachedPath];
+    if (selectedDist.objectIsCachedValue) {
+        [[NSWorkspace sharedWorkspace] openFile:selectedDist.objectCachedPath];
     } else {
-        NSURL *distURL = [NSURL URLWithString:selectedDist.distributionURL];
-        [[SIOperationManager sharedManager] cacheDistributionFileWithURL:distURL];
+        NSURL *distURL = [NSURL URLWithString:selectedDist.objectURL];
+        [[SIOperationManager sharedManager] cacheDownloadableObjectWithURL:distURL];
     }
 }
 

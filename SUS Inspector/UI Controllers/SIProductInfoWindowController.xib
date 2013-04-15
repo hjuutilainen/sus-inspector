@@ -74,7 +74,7 @@
 			<object class="NSWindowTemplate" id="145606266">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{639, 811}, {480, 327}}</string>
+				<string key="NSWindowRect">{{0, 867}, {480, 327}}</string>
 				<int key="NSWTFlags">611845120</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -89,12 +89,13 @@
 					<reference key="NSNextKeyView"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1366, 746}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
+				<string key="NSFrameAutosaveName">productInfoWindow</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomView" id="431476263">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSTabView" id="423498902">
@@ -102,6 +103,8 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{-7, -10}, {608, 449}}</string>
 						<reference key="NSSuperview" ref="431476263"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="769335848"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<array class="NSMutableArray" key="NSTabViewItems">
 							<object class="NSTabViewItem" id="950122088">
@@ -304,7 +307,6 @@
 													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{1, 119}, {223, 15}}</string>
 													<reference key="NSSuperview" ref="625312526"/>
-													<reference key="NSNextKeyView" ref="423498902"/>
 													<string key="NSReuseIdentifierKey">_NS:60</string>
 													<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 													<int key="NSsFlags">1</int>
@@ -354,6 +356,7 @@
 															<array class="NSMutableArray" key="NSSubviews"/>
 															<string key="NSFrameSize">{552, 381}</string>
 															<reference key="NSSuperview" ref="300640067"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="815051098"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
@@ -415,6 +418,7 @@
 													</array>
 													<string key="NSFrame">{{1, 1}, {552, 381}}</string>
 													<reference key="NSSuperview" ref="687435890"/>
+													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="985673942"/>
 													<string key="NSReuseIdentifierKey">_NS:11</string>
 													<reference key="NSDocView" ref="985673942"/>
@@ -426,6 +430,7 @@
 													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{224, 17}, {15, 102}}</string>
 													<reference key="NSSuperview" ref="687435890"/>
+													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="716793753"/>
 													<string key="NSReuseIdentifierKey">_NS:58</string>
 													<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -438,6 +443,8 @@
 													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{1, 119}, {223, 15}}</string>
 													<reference key="NSSuperview" ref="687435890"/>
+													<reference key="NSWindow"/>
+													<reference key="NSNextKeyView"/>
 													<string key="NSReuseIdentifierKey">_NS:60</string>
 													<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 													<int key="NSsFlags">1</int>
@@ -448,6 +455,7 @@
 											</array>
 											<string key="NSFrame">{{17, 17}, {554, 383}}</string>
 											<reference key="NSSuperview" ref="769335848"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="300640067"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133682</int>
@@ -462,6 +470,7 @@
 									</array>
 									<string key="NSFrame">{{10, 33}, {588, 403}}</string>
 									<reference key="NSSuperview" ref="423498902"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="687435890"/>
 								</object>
 								<string key="NSLabel">Distributions</string>
@@ -479,6 +488,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{594, 433}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="423498902"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="NSClassName">NSView</string>
@@ -629,19 +640,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.packageURL</string>
+						<string key="label">value: arrangedObjects</string>
 						<reference key="source" ref="26268907"/>
 						<reference key="destination" ref="407465106"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="26268907"/>
 							<reference key="NSDestination" ref="407465106"/>
-							<string key="NSLabel">value: arrangedObjects.packageURL</string>
+							<string key="NSLabel">value: arrangedObjects</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.packageURL</string>
+							<string key="NSKeyPath">arrangedObjects</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">253</int>
+					<int key="connectionID">294</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -787,19 +798,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: objectValue.packageURL</string>
+						<string key="label">value: objectValue.objectURL</string>
 						<reference key="source" ref="109274116"/>
 						<reference key="destination" ref="12098339"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="109274116"/>
 							<reference key="NSDestination" ref="12098339"/>
-							<string key="NSLabel">value: objectValue.packageURL</string>
+							<string key="NSLabel">value: objectValue.objectURL</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">objectValue.packageURL</string>
+							<string key="NSKeyPath">objectValue.objectURL</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">250</int>
+					<int key="connectionID">295</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -914,19 +925,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: objectValue.distributionURL</string>
+						<string key="label">value: objectValue.objectURL</string>
 						<reference key="source" ref="715817922"/>
 						<reference key="destination" ref="815051098"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="715817922"/>
 							<reference key="NSDestination" ref="815051098"/>
-							<string key="NSLabel">value: objectValue.distributionURL</string>
+							<string key="NSLabel">value: objectValue.objectURL</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">objectValue.distributionURL</string>
+							<string key="NSKeyPath">objectValue.objectURL</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">288</int>
+					<int key="connectionID">296</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1311,8 +1322,8 @@
 				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="139.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="139.ibExternalFetchPredicateFormat"/>
-				<boolean value="NO" key="157.IBNSWindowAutoPositionCentersHorizontal"/>
-				<boolean value="NO" key="157.IBNSWindowAutoPositionCentersVertical"/>
+				<boolean value="YES" key="157.IBNSWindowAutoPositionCentersHorizontal"/>
+				<boolean value="YES" key="157.IBNSWindowAutoPositionCentersVertical"/>
 				<string key="157.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="157.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="158.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1376,7 +1387,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">292</int>
+			<int key="maxID">296</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

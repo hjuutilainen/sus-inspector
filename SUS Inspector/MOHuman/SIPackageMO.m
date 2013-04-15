@@ -29,13 +29,13 @@
 
 - (NSString *)packageFilename
 {
-    NSURL *asURL = [NSURL URLWithString:self.packageURL];
+    NSURL *asURL = [NSURL URLWithString:self.objectURL];
     return [asURL lastPathComponent];
 }
 
 - (NSImage *)iconImage
 {
-    return [[NSWorkspace sharedWorkspace] iconForFileType:[self.packageURL pathExtension]];
+    return [[NSWorkspace sharedWorkspace] iconForFileType:[self.objectURL pathExtension]];
 }
 
 @end

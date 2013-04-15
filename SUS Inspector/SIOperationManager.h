@@ -46,8 +46,10 @@
 - (void)setupSourceListItems;
 - (void)readReposadoInstanceContentsAsync:(SIReposadoInstanceMO *)instance;
 - (void)runReposync:(SIReposadoInstanceMO *)instance;
-- (void)cacheDistributionFileWithURL:(NSURL *)url;
-- (void)cachePackageWithURL:(NSURL *)url;
+- (void)cacheDownloadableObjectWithURL:(NSURL *)url;
+//- (void)cacheDistributionFileWithURL:(NSURL *)url;
+//- (void)cachePackageWithURL:(NSURL *)url;
+- (void)readPackageMetadataFiles:(SIReposadoInstanceMO *)reposadoInstance;
 
 @end
 

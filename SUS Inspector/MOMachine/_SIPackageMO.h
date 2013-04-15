@@ -2,27 +2,23 @@
 // Make changes to SIPackageMO.h instead.
 
 #import <CoreData/CoreData.h>
-
+#import "SIDownloadableObject.h"
 
 extern const struct SIPackageMOAttributes {
-	 NSString *packageCachedPath;
-	 NSString *packageIsCached;
 	 NSString *packageMetadataURL;
 	 NSString *packageSize;
-	 NSString *packageURL;
 } SIPackageMOAttributes;
 
 extern const struct SIPackageMORelationships {
+	 NSString *metadata;
 	 NSString *product;
 } SIPackageMORelationships;
 
 extern const struct SIPackageMOFetchedProperties {
 } SIPackageMOFetchedProperties;
 
+@class SIPackageMetadataMO;
 @class SIProductMO;
-
-
-
 
 
 
@@ -30,35 +26,11 @@ extern const struct SIPackageMOFetchedProperties {
 @interface SIPackageMOID : NSManagedObjectID {}
 @end
 
-@interface _SIPackageMO : NSManagedObject {}
+@interface _SIPackageMO : SIDownloadableObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (SIPackageMOID*)objectID;
-
-
-
-
-
-@property (nonatomic, retain) NSString* packageCachedPath;
-
-
-
-//- (BOOL)validatePackageCachedPath:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, retain) NSNumber* packageIsCached;
-
-
-
-@property BOOL packageIsCachedValue;
-- (BOOL)packageIsCachedValue;
-- (void)setPackageIsCachedValue:(BOOL)value_;
-
-//- (BOOL)validatePackageIsCached:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -88,12 +60,9 @@ extern const struct SIPackageMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* packageURL;
+@property (nonatomic, retain) SIPackageMetadataMO *metadata;
 
-
-
-//- (BOOL)validatePackageURL:(id*)value_ error:(NSError**)error_;
-
+//- (BOOL)validateMetadata:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -115,21 +84,6 @@ extern const struct SIPackageMOFetchedProperties {
 @interface _SIPackageMO (CoreDataGeneratedPrimitiveAccessors)
 
 
-- (NSString*)primitivePackageCachedPath;
-- (void)setPrimitivePackageCachedPath:(NSString*)value;
-
-
-
-
-- (NSNumber*)primitivePackageIsCached;
-- (void)setPrimitivePackageIsCached:(NSNumber*)value;
-
-- (BOOL)primitivePackageIsCachedValue;
-- (void)setPrimitivePackageIsCachedValue:(BOOL)value_;
-
-
-
-
 - (NSString*)primitivePackageMetadataURL;
 - (void)setPrimitivePackageMetadataURL:(NSString*)value;
 
@@ -145,10 +99,9 @@ extern const struct SIPackageMOFetchedProperties {
 
 
 
-- (NSString*)primitivePackageURL;
-- (void)setPrimitivePackageURL:(NSString*)value;
 
-
+- (SIPackageMetadataMO*)primitiveMetadata;
+- (void)setPrimitiveMetadata:(SIPackageMetadataMO*)value;
 
 
 

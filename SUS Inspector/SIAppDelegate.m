@@ -190,6 +190,8 @@ NSString *defaultInstanceName = @"Default";
      * Setup the initial source list items
      */
     [operationManager setupSourceListItems];
+    
+    
 }
 
 
@@ -206,6 +208,7 @@ NSString *defaultInstanceName = @"Default";
 {
     [self.mainWindowController hideProgressPanel];
     [[SIOperationManager sharedManager] setupSourceListItems];
+    [[SIOperationManager sharedManager] readPackageMetadataFiles:self.defaultReposadoInstance];
 }
 
 
@@ -276,7 +279,7 @@ NSString *defaultInstanceName = @"Default";
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"SUS_Inspector.storedata"];
     NSPersistentStoreCoordinator *coordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom] autorelease];
-    if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
+    if (![coordinator addPersistentStoreWithType:NSBinaryStoreType configuration:nil URL:url options:nil error:&error]) {
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }

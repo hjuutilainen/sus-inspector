@@ -2,14 +2,11 @@
 // Make changes to SIDistributionMO.h instead.
 
 #import <CoreData/CoreData.h>
-
+#import "SIDownloadableObject.h"
 
 extern const struct SIDistributionMOAttributes {
-	 NSString *distributionCachedPath;
 	 NSString *distributionFileContents;
-	 NSString *distributionIsCached;
 	 NSString *distributionLanguage;
-	 NSString *distributionURL;
 } SIDistributionMOAttributes;
 
 extern const struct SIDistributionMORelationships {
@@ -24,27 +21,14 @@ extern const struct SIDistributionMOFetchedProperties {
 
 
 
-
-
-
 @interface SIDistributionMOID : NSManagedObjectID {}
 @end
 
-@interface _SIDistributionMO : NSManagedObject {}
+@interface _SIDistributionMO : SIDownloadableObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (SIDistributionMOID*)objectID;
-
-
-
-
-
-@property (nonatomic, retain) NSString* distributionCachedPath;
-
-
-
-//- (BOOL)validateDistributionCachedPath:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -60,35 +44,11 @@ extern const struct SIDistributionMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* distributionIsCached;
-
-
-
-@property BOOL distributionIsCachedValue;
-- (BOOL)distributionIsCachedValue;
-- (void)setDistributionIsCachedValue:(BOOL)value_;
-
-//- (BOOL)validateDistributionIsCached:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 @property (nonatomic, retain) NSString* distributionLanguage;
 
 
 
 //- (BOOL)validateDistributionLanguage:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, retain) NSString* distributionURL;
-
-
-
-//- (BOOL)validateDistributionURL:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -111,35 +71,14 @@ extern const struct SIDistributionMOFetchedProperties {
 @interface _SIDistributionMO (CoreDataGeneratedPrimitiveAccessors)
 
 
-- (NSString*)primitiveDistributionCachedPath;
-- (void)setPrimitiveDistributionCachedPath:(NSString*)value;
-
-
-
-
 - (NSString*)primitiveDistributionFileContents;
 - (void)setPrimitiveDistributionFileContents:(NSString*)value;
 
 
 
 
-- (NSNumber*)primitiveDistributionIsCached;
-- (void)setPrimitiveDistributionIsCached:(NSNumber*)value;
-
-- (BOOL)primitiveDistributionIsCachedValue;
-- (void)setPrimitiveDistributionIsCachedValue:(BOOL)value_;
-
-
-
-
 - (NSString*)primitiveDistributionLanguage;
 - (void)setPrimitiveDistributionLanguage:(NSString*)value;
-
-
-
-
-- (NSString*)primitiveDistributionURL;
-- (void)setPrimitiveDistributionURL:(NSString*)value;
 
 
 

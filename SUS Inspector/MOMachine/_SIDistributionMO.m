@@ -4,11 +4,8 @@
 #import "_SIDistributionMO.h"
 
 const struct SIDistributionMOAttributes SIDistributionMOAttributes = {
-	.distributionCachedPath = @"distributionCachedPath",
 	.distributionFileContents = @"distributionFileContents",
-	.distributionIsCached = @"distributionIsCached",
 	.distributionLanguage = @"distributionLanguage",
-	.distributionURL = @"distributionURL",
 };
 
 const struct SIDistributionMORelationships SIDistributionMORelationships = {
@@ -44,21 +41,9 @@ const struct SIDistributionMOFetchedProperties SIDistributionMOFetchedProperties
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	if ([key isEqualToString:@"distributionIsCachedValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"distributionIsCached"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 
 	return keyPaths;
 }
-
-
-
-
-@dynamic distributionCachedPath;
-
-
 
 
 
@@ -70,40 +55,7 @@ const struct SIDistributionMOFetchedProperties SIDistributionMOFetchedProperties
 
 
 
-@dynamic distributionIsCached;
-
-
-
-- (BOOL)distributionIsCachedValue {
-	NSNumber *result = [self distributionIsCached];
-	return [result boolValue];
-}
-
-- (void)setDistributionIsCachedValue:(BOOL)value_ {
-	[self setDistributionIsCached:[NSNumber numberWithBool:value_]];
-}
-
-- (BOOL)primitiveDistributionIsCachedValue {
-	NSNumber *result = [self primitiveDistributionIsCached];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveDistributionIsCachedValue:(BOOL)value_ {
-	[self setPrimitiveDistributionIsCached:[NSNumber numberWithBool:value_]];
-}
-
-
-
-
-
 @dynamic distributionLanguage;
-
-
-
-
-
-
-@dynamic distributionURL;
 
 
 

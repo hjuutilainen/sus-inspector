@@ -94,6 +94,20 @@ static dispatch_queue_t serialQueue;
     });
 }
 
+- (SIPackageMetadataMO *)packageMetadataFileWithURLString:(NSString *)urlString managedObjectContext:(NSManagedObjectContext *)moc
+{
+    SIPackageMetadataMO *metadataFile = [NSEntityDescription insertNewObjectForEntityForName:@"SIPackageMetadata" inManagedObjectContext:moc];
+    metadataFile.objectURL = urlString;
+    return metadataFile;
+}
+
+- (SIServerMetadataMO *)serverMetadataFileWithURLString:(NSString *)urlString managedObjectContext:(NSManagedObjectContext *)moc
+{
+    SIServerMetadataMO *metadataFile = [NSEntityDescription insertNewObjectForEntityForName:@"SIServerMetadata" inManagedObjectContext:moc];
+    metadataFile.objectURL = urlString;
+    return metadataFile;
+}
+
 - (SIDistributionMO *)distributionWithURLString:(NSString *)urlString managedObjectContext:(NSManagedObjectContext *)moc
 {
     /*
@@ -112,7 +126,7 @@ static dispatch_queue_t serialQueue;
     return distributionFile;
      */
     SIDistributionMO *distributionFile = [NSEntityDescription insertNewObjectForEntityForName:@"SIDistribution" inManagedObjectContext:moc];
-    distributionFile.distributionURL = urlString;
+    distributionFile.objectURL = urlString;
     return distributionFile;
 }
 
@@ -134,7 +148,7 @@ static dispatch_queue_t serialQueue;
     return thePackage;
     */
     SIPackageMO *thePackage = [NSEntityDescription insertNewObjectForEntityForName:@"SIPackage" inManagedObjectContext:moc];
-    thePackage.packageURL = urlString;
+    thePackage.objectURL = urlString;
     return thePackage;
 }
 
@@ -271,6 +285,28 @@ static dispatch_queue_t serialQueue;
     });
 }
 
+
+- (void)readPackageMetadataFiles:(SIReposadoInstanceMO *)reposadoInstance
+{
+    // Fetch all Packages with metadataURL
+    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SIPackage" inManagedObjectContext:moc];
+    NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
+    NSPredicate *notDeprecated = [NSPredicate predicateWithFormat:@"metadata = nil"];
+    [fetchForCatalogs setPredicate:notDeprecated];
+    [fetchForCatalogs setEntity:catalogEntityDescr];
+    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchForCatalogs error:nil];
+    if (numFoundCatalogs != 0) {
+        NSLog(@"Found %li packages without metadataURL", (unsigned long)numFoundCatalogs);
+        NSArray *allCatalogs = [moc executeFetchRequest:fetchForCatalogs error:nil];
+        [allCatalogs enumerateObjectsUsingBlock:^(SIPackageMO *aPackage, NSUInteger idx, BOOL *stop) {
+            NSString *metadataURLString = aPackage.objectURL;
+            NSLog(@"%@", metadataURLString);
+        }];
+    }
+    [fetchForCatalogs release];
+}
+
 - (void)readReposadoInstanceContents:(SIReposadoInstanceMO *)blockInstance managedObjectContext:(NSManagedObjectContext *)threadSafeMoc
 {
     /*
@@ -372,23 +408,42 @@ static dispatch_queue_t serialQueue;
                 }
                 
                 /*
-                 * Parse packages
+                 * Parse the original CatalogEntry
                  */
                 NSDictionary *catalogEntry = [obj objectForKey:@"CatalogEntry"];
+                
+                // Packages
                 NSArray *packages = [catalogEntry objectForKey:@"Packages"];
                 for (NSDictionary *aPackage in packages) {
                     NSString *packageURL = [aPackage objectForKey:@"URL"];
                     NSNumber *size = [aPackage objectForKey:@"Size"];
-                    NSString *metadataURL = [aPackage objectForKey:@"MetadataURL"];
                     SIPackageMO *newPackage = [self packageWithURLString:packageURL managedObjectContext:threadSafeMoc];
                     newPackage.packageSize = size;
-                    newPackage.packageMetadataURL = metadataURL;
                     newPackage.product = newProduct;
-                    NSString *localPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
-                    if ([fileManager fileExistsAtPath:localPath]) {
-                        newPackage.packageIsCachedValue = YES;
-                        newPackage.packageCachedPath = localPath;
+                    NSString *packageLocalPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
+                    if ([fileManager fileExistsAtPath:packageLocalPath]) {
+                        newPackage.objectIsCachedValue = YES;
+                        newPackage.objectCachedPath = packageLocalPath;
                     }
+                    
+                    // Check if the package has a metadata URL
+                    NSString *metadataURL = [aPackage objectForKey:@"MetadataURL"];
+                    if (metadataURL) {
+                        SIPackageMetadataMO *newMetadataObject = [self packageMetadataFileWithURLString:metadataURL managedObjectContext:threadSafeMoc];
+                        newMetadataObject.package = newPackage;
+                        NSString *packageMetadataLocalPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:metadataURL]];
+                        if ([fileManager fileExistsAtPath:packageMetadataLocalPath]) {
+                            newMetadataObject.objectIsCachedValue = YES;
+                            newMetadataObject.objectCachedPath = packageMetadataLocalPath;
+                        }
+                    }
+                    
+                }
+                // ServerMetadata
+                NSString *serverMetadataURL = [catalogEntry objectForKey:@"ServerMetadataURL"];
+                if (serverMetadataURL) {
+                    SIServerMetadataMO *newMetadataObject = [self serverMetadataFileWithURLString:serverMetadataURL managedObjectContext:threadSafeMoc];
+                    newMetadataObject.product = newProduct;
                 }
                 
                 /*
@@ -401,8 +456,8 @@ static dispatch_queue_t serialQueue;
                     newDistribution.product = newProduct;
                     NSString *localPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:obj]];
                     if ([fileManager fileExistsAtPath:localPath]) {
-                        newDistribution.distributionIsCachedValue = YES;
-                        newDistribution.distributionCachedPath = localPath;
+                        newDistribution.objectIsCachedValue = YES;
+                        newDistribution.objectCachedPath = localPath;
                     }
                 }];
                 
@@ -568,6 +623,18 @@ static dispatch_queue_t serialQueue;
 # pragma mark -
 # pragma mark NSURLDownload methods
 
+- (void)cacheDownloadableObjectWithURL:(NSURL *)url
+{
+    NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
+                                                cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                            timeoutInterval:5.0];
+    
+    NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
+    if (!theDownload) {
+        NSLog(@"Error: Failed to initialize cacheDownloadableObjectWithURL %@", [url absoluteString]);
+    }
+}
+
 - (void)cacheDistributionFileWithURL:(NSURL *)url
 {
     NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
@@ -607,6 +674,33 @@ static dispatch_queue_t serialQueue;
     NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
     
     // Determine what kind of file we just downloaded
+    NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
+    [fetchObjects setEntity:[NSEntityDescription entityForName:@"SIDownloadableObject" inManagedObjectContext:moc]];
+    [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"objectURL == %@", [requestURL absoluteString]]];
+    NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
+    if (numFoundObjects != 0) {
+        id cachedObject = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
+        if ([cachedObject isKindOfClass:[SIDistributionMO class]]) {
+            // We downloaded a distribution file
+            SIDistributionMO *dist = (SIDistributionMO *)cachedObject;
+            dist.objectIsCachedValue = YES;
+            dist.objectCachedPath = path;
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
+            [[NSWorkspace sharedWorkspace] openFile:path withApplication:appPath];
+        } else if ([cachedObject isKindOfClass:[SIPackageMO class]]) {
+            // We downloaded a package
+            SIPackageMO *package = (SIPackageMO *)cachedObject;
+            package.objectIsCachedValue = YES;
+            package.objectCachedPath = path;
+            [[NSWorkspace sharedWorkspace] openFile:path];
+        }
+    } else {
+        NSLog(@"Error: Could not find SIDownloadableObject with URL %@", [requestURL absoluteString]);
+    }
+    [fetchObjects release];
+    
+    /*
     if ([[requestURL pathExtension] isEqualToString:@"dist"]) {
         //NSLog(@"Linking downloaded distribution file");
         NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
@@ -639,6 +733,7 @@ static dispatch_queue_t serialQueue;
         }
         [fetchObjects release];
     }
+     */
 }
 
 

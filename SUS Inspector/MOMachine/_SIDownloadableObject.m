@@ -1,0 +1,101 @@
+// DO NOT EDIT. This file is machine-generated and constantly overwritten.
+// Make changes to SIDownloadableObject.m instead.
+
+#import "_SIDownloadableObject.h"
+
+const struct SIDownloadableObjectAttributes SIDownloadableObjectAttributes = {
+	.objectCachedPath = @"objectCachedPath",
+	.objectIsCached = @"objectIsCached",
+	.objectURL = @"objectURL",
+};
+
+const struct SIDownloadableObjectRelationships SIDownloadableObjectRelationships = {
+};
+
+const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedProperties = {
+};
+
+@implementation SIDownloadableObjectID
+@end
+
+@implementation _SIDownloadableObject
+
++ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
+	NSParameterAssert(moc_);
+	return [NSEntityDescription insertNewObjectForEntityForName:@"SIDownloadableObject" inManagedObjectContext:moc_];
+}
+
++ (NSString*)entityName {
+	return @"SIDownloadableObject";
+}
+
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
+	NSParameterAssert(moc_);
+	return [NSEntityDescription entityForName:@"SIDownloadableObject" inManagedObjectContext:moc_];
+}
+
+- (SIDownloadableObjectID*)objectID {
+	return (SIDownloadableObjectID*)[super objectID];
+}
+
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
+	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+	
+	if ([key isEqualToString:@"objectIsCachedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"objectIsCached"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+
+	return keyPaths;
+}
+
+
+
+
+@dynamic objectCachedPath;
+
+
+
+
+
+
+@dynamic objectIsCached;
+
+
+
+- (BOOL)objectIsCachedValue {
+	NSNumber *result = [self objectIsCached];
+	return [result boolValue];
+}
+
+- (void)setObjectIsCachedValue:(BOOL)value_ {
+	[self setObjectIsCached:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveObjectIsCachedValue {
+	NSNumber *result = [self primitiveObjectIsCached];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveObjectIsCachedValue:(BOOL)value_ {
+	[self setPrimitiveObjectIsCached:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic objectURL;
+
+
+
+
+
+
+
+
+
+
+
+@end

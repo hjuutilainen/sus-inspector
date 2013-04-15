@@ -30,13 +30,13 @@
 
 - (NSString *)distributionFilename
 {
-    NSURL *asURL = [NSURL URLWithString:self.distributionURL];
+    NSURL *asURL = [NSURL URLWithString:self.objectURL];
     return [asURL lastPathComponent];
 }
 
 - (NSImage *)iconImage
 {
-    return [[NSWorkspace sharedWorkspace] iconForFileType:[self.distributionURL pathExtension]];
+    return [[NSWorkspace sharedWorkspace] iconForFileType:[self.objectURL pathExtension]];
 }
 
 @end
