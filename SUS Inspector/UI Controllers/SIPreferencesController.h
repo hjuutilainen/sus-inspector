@@ -31,6 +31,7 @@
 @property (assign) IBOutlet NSArrayController *catalogsArrayController;
 @property (assign) IBOutlet NSTableView *catalogsTableView;
 @property (assign) IBOutlet NSPopUpButton *distApplicationsPopUpButton;
+@property (assign) IBOutlet NSPopUpButton *languagesPopupButton;
 
 @property (retain) NSToolbar *toolbar;
 @property (retain) NSMutableDictionary *items;

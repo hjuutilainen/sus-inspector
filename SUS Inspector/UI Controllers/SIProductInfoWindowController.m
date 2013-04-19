@@ -69,6 +69,15 @@
         }
     }
     
+    for (SIDistributionMO *aDist in self.product.distributions) {
+        if (!aDist.objectIsCachedValue) {
+            //NSURL *url = [NSURL URLWithString:aDist.objectURL];
+            //[[SIOperationManager sharedManager] cacheDownloadableObjectWithURL:url];
+        } else {
+            [[SIOperationManager sharedManager] readXMLFromDistributionFile:aDist];
+        }
+    }
+    
     // Check if we have a cached copy
     
 }

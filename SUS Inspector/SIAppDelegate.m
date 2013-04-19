@@ -208,7 +208,7 @@ NSString *defaultInstanceName = @"Default";
 {
     [self.mainWindowController hideProgressPanel];
     [[SIOperationManager sharedManager] setupSourceListItems];
-    [[SIOperationManager sharedManager] readPackageMetadataFiles:self.defaultReposadoInstance];
+    //[[SIOperationManager sharedManager] readPackageMetadataFiles:self.defaultReposadoInstance];
 }
 
 

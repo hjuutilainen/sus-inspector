@@ -639,27 +639,17 @@ static dispatch_queue_t serialQueue;
 
 - (void)readXMLFromPackageMetadataFile:(SIPackageMetadataMO *)obj
 {
-    /*
-    NSLog(@"readXMLFromPackageMetadataFile");
-    NSURL *furl = [NSURL fileURLWithPath:obj.objectCachedPath];
-    if (!furl) {
-        NSLog(@"Can't create an URL from file %@.", obj.objectCachedPath);
-        return;
-    }
-    */
-    /*
-    NSLog(@"Reading path %@", obj.objectCachedPath);
-    NSError *error = nil;
-    NSString *testing = [NSString stringWithContentsOfFile:obj.objectCachedPath encoding:NSUTF8StringEncoding error:&error];
-    NSLog(@"Contents: %@", testing);
-    if (error) {
-        NSLog(@"%@", [error localizedDescription]);
-    }
-    */
     NSData *xmlData = [NSData dataWithContentsOfFile:obj.objectCachedPath];
     SIPackageMetadataParser *parser = [[SIPackageMetadataParser alloc] init];
     [parser parseData:xmlData];
     
+}
+
+- (void)readXMLFromDistributionFile:(SIDistributionMO *)obj
+{
+    NSData *xmlData = [NSData dataWithContentsOfFile:obj.objectCachedPath];
+    SIPackageMetadataParser *parser = [[SIPackageMetadataParser alloc] init];
+    [parser parseData:xmlData];
 }
 
 

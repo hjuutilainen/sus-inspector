@@ -138,6 +138,11 @@ static NSSet *interestingKeys;
     //[textInProgress appendString:string];
 }
 
+- (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
+{
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
 /*
  
 - (void)parser:(NSXMLParser *)parser foundExternalEntityDeclarationWithName:(NSString *)entityName publicID:(NSString *)publicID systemID:(NSString *)systemID
@@ -160,10 +165,7 @@ static NSSet *interestingKeys;
     NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
-- (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
-{
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-}
+
 
 - (void)parser:(NSXMLParser *)parser foundComment:(NSString *)comment
 {

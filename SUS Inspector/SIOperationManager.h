@@ -50,6 +50,7 @@
 //- (void)cacheDistributionFileWithURL:(NSURL *)url;
 //- (void)cachePackageWithURL:(NSURL *)url;
 - (void)readXMLFromPackageMetadataFile:(SIPackageMetadataMO *)obj;
+- (void)readXMLFromDistributionFile:(SIDistributionMO *)obj;
 - (void)readPackageMetadataFiles:(SIReposadoInstanceMO *)reposadoInstance;
 
 @end
