@@ -24,6 +24,7 @@
 
 @class SIProductInfoWindowController;
 @class SIPkginfoWindowController;
+@class SIPkginfoMultipleWindowController;
 
 @interface SIProductsViewController : NSViewController
 

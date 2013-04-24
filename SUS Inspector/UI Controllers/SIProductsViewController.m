@@ -22,6 +22,7 @@
 #import "SIProductsViewController.h"
 #import "SIProductInfoWindowController.h"
 #import "SIPkginfoWindowController.h"
+#import "SIPkginfoMultipleWindowController.h"
 
 @interface SIProductsViewController ()
 
@@ -61,7 +62,9 @@
         [newPkginfoWindow setProduct:selectedProduct];
         [newPkginfoWindow showWindow:nil];
     } else {
-        
+        SIPkginfoMultipleWindowController *newInfoWindow = [[SIPkginfoMultipleWindowController alloc] initWithWindowNibName:@"SIPkginfoMultipleWindowController"];
+        //[newInfoWindow setProduct:aProduct];
+        [newInfoWindow showWindow:nil];
     }
 }
 
