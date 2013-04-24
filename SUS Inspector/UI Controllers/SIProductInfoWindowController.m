@@ -59,6 +59,8 @@
     NSSortDescriptor *byOS = [NSSortDescriptor sortDescriptorWithKey:@"catalogOSVersion" ascending:NO selector:@selector(localizedStandardCompare:)];
     self.catalogs = [temp sortedArrayUsingDescriptors:[NSArray arrayWithObjects:byOS, nil]];
     
+    [[SIOperationManager sharedManager] updateCachedStatusForProduct:self.product];
+    
     for (SIPackageMO *aPackage in self.product.packages) {
         SIPackageMetadataMO *pkm = aPackage.metadata;
         if (!pkm.objectIsCachedValue) {

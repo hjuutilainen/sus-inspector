@@ -6,6 +6,7 @@
 const struct SIDownloadableObjectAttributes SIDownloadableObjectAttributes = {
 	.objectCachedPath = @"objectCachedPath",
 	.objectIsCached = @"objectIsCached",
+	.objectIsDownloading = @"objectIsDownloading",
 	.objectURL = @"objectURL",
 };
 
@@ -46,6 +47,11 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"objectIsDownloadingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"objectIsDownloading"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
@@ -80,6 +86,32 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 
 - (void)setPrimitiveObjectIsCachedValue:(BOOL)value_ {
 	[self setPrimitiveObjectIsCached:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic objectIsDownloading;
+
+
+
+- (BOOL)objectIsDownloadingValue {
+	NSNumber *result = [self objectIsDownloading];
+	return [result boolValue];
+}
+
+- (void)setObjectIsDownloadingValue:(BOOL)value_ {
+	[self setObjectIsDownloading:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveObjectIsDownloadingValue {
+	NSNumber *result = [self primitiveObjectIsDownloading];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveObjectIsDownloadingValue:(BOOL)value_ {
+	[self setPrimitiveObjectIsDownloading:[NSNumber numberWithBool:value_]];
 }
 
 

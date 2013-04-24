@@ -7,6 +7,7 @@
 extern const struct SIDownloadableObjectAttributes {
 	 NSString *objectCachedPath;
 	 NSString *objectIsCached;
+	 NSString *objectIsDownloading;
 	 NSString *objectURL;
 } SIDownloadableObjectAttributes;
 
@@ -15,6 +16,7 @@ extern const struct SIDownloadableObjectRelationships {
 
 extern const struct SIDownloadableObjectFetchedProperties {
 } SIDownloadableObjectFetchedProperties;
+
 
 
 
@@ -58,6 +60,20 @@ extern const struct SIDownloadableObjectFetchedProperties {
 
 
 
+@property (nonatomic, retain) NSNumber* objectIsDownloading;
+
+
+
+@property BOOL objectIsDownloadingValue;
+- (BOOL)objectIsDownloadingValue;
+- (void)setObjectIsDownloadingValue:(BOOL)value_;
+
+//- (BOOL)validateObjectIsDownloading:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, retain) NSString* objectURL;
 
 
@@ -89,6 +105,15 @@ extern const struct SIDownloadableObjectFetchedProperties {
 
 - (BOOL)primitiveObjectIsCachedValue;
 - (void)setPrimitiveObjectIsCachedValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveObjectIsDownloading;
+- (void)setPrimitiveObjectIsDownloading:(NSNumber*)value;
+
+- (BOOL)primitiveObjectIsDownloadingValue;
+- (void)setPrimitiveObjectIsDownloadingValue:(BOOL)value_;
 
 
 

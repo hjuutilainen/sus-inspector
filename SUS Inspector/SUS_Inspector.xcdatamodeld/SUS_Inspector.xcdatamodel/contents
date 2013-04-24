@@ -22,6 +22,7 @@
     <entity name="SIDownloadableObject" representedClassName="SIDownloadableObject" syncable="YES">
         <attribute name="objectCachedPath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objectIsCached" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="objectIsDownloading" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="objectURL" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="SIPackage" representedClassName="SIPackageMO" parentEntity="SIDownloadableObject" syncable="YES">
@@ -78,12 +79,12 @@
     <elements>
         <element name="SICatalog" positionX="-522" positionY="-81" width="128" height="225"/>
         <element name="SIDistribution" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="SIDownloadableObject" positionX="160" positionY="192" width="128" height="105"/>
         <element name="SIPackage" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="SIPackageMetadata" positionX="160" positionY="192" width="128" height="75"/>
         <element name="SIProduct" positionX="-234" positionY="-99" width="128" height="210"/>
         <element name="SIReposadoInstance" positionX="-830" positionY="-72" width="128" height="209"/>
-        <element name="SISourceListItem" positionX="160" positionY="192" width="128" height="165"/>
-        <element name="SIDownloadableObject" positionX="160" positionY="192" width="128" height="90"/>
         <element name="SIServerMetadata" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="SIPackageMetadata" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="SISourceListItem" positionX="160" positionY="192" width="128" height="165"/>
     </elements>
 </model>

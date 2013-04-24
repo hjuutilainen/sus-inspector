@@ -16,6 +16,7 @@
 
 
 #import "SIPackageMO.h"
+#import "SIOperationManager.h"
 
 
 @interface SIPackageMO ()
@@ -27,6 +28,20 @@
 
 @implementation SIPackageMO
 
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
+{
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+	
+	// Define keys that depend on
+    if ([key isEqualToString:@"objectActionTitle"])
+    {
+        NSSet *affectingKeys = [NSSet setWithObjects:@"objectIsCached", @"objectIsDownloading", nil];
+        keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKeys];
+    }
+	
+    return keyPaths;
+}
+
 - (NSString *)packageFilename
 {
     NSURL *asURL = [NSURL URLWithString:self.objectURL];
@@ -36,6 +51,32 @@
 - (NSImage *)iconImage
 {
     return [[NSWorkspace sharedWorkspace] iconForFileType:[self.objectURL pathExtension]];
+}
+
+- (void)performObjectAction
+{
+    if (self.objectIsCachedValue) {
+        if (self.objectCachedPath) {
+            [[NSWorkspace sharedWorkspace] selectFile:self.objectCachedPath inFileViewerRootedAtPath:@""];
+        }
+    } else if (!self.objectIsDownloadingValue) {
+        NSURL *packageURL = [NSURL URLWithString:self.objectURL];
+        self.objectIsDownloadingValue = YES;
+        [[SIOperationManager sharedManager] cacheDownloadableObjectWithURL:packageURL];
+    } else {
+        NSLog(@"Package is not cached and is downloading. This action should have been disabled...");
+    }
+}
+
+- (NSString *)objectActionTitle
+{
+    if (self.objectIsCachedValue) {
+        return NSLocalizedString(@"Reveal", nil);
+    } else if (self.objectIsDownloadingValue) {
+        return NSLocalizedString(@"Downloading...", nil);
+    } else {
+        return NSLocalizedString(@"Download", nil);
+    }
 }
 
 @end
