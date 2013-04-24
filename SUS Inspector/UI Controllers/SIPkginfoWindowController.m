@@ -395,7 +395,7 @@
     [displayNameField bind:@"value" toObject:self withKeyPath:@"munki_display_name" options:textFieldOptions];
     
     /*
-     Display name field
+     Version field
      */
     id versionLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Version", nil) identifier:@"versionLabel" superView:parentView];
     id versionField = [self addTextFieldWithidentifier:@"versionField" superView:parentView];
