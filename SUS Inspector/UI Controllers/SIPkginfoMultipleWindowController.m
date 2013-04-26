@@ -42,8 +42,6 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
 - (NSButton *)addPushButtonWithTitle:(NSString *)title identifier:(NSString *)identifier superView:(NSView *)superview
@@ -136,6 +134,8 @@
     NSDictionary *textFieldOptions = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSContinuouslyUpdatesValueBindingOption, nil];
     NSFont *boldTitleFont = [NSFont boldSystemFontOfSize:13.0];
     
+    NSMutableDictionary *views = [[[NSMutableDictionary alloc] init] autorelease];
+    
     /*
      Display name field
      */
@@ -144,13 +144,16 @@
     [displayNameButton setFont:boldTitleFont];
     [displayNameButton bind:@"value" toObject:self withKeyPath:@"includeDisplayName" options:nil];
     
-    NSButton *overrideDisplayNameButton = [self addCheckBoxWithTitle:NSLocalizedString(@"Override Display Name:", nil) identifier:@"overrideDisplayNameButton" superView:parentView];
+    NSButton *overrideDisplayNameButton = [self addCheckBoxWithTitle:NSLocalizedString(@"Override:", nil) identifier:@"overrideDisplayNameButton" superView:parentView];
     [overrideDisplayNameButton bind:@"value" toObject:self withKeyPath:@"overrideDisplayName" options:nil];
     [overrideDisplayNameButton bind:@"enabled" toObject:self withKeyPath:@"includeDisplayName" options:nil];
     
     NSTextField *displayNameField = [self addTextFieldWithidentifier:@"displayNameField" superView:parentView];
     [displayNameField bind:@"value" toObject:self withKeyPath:@"displayName" options:textFieldOptions];
     [displayNameField bind:@"enabled" toObject:self withKeyPath:@"overrideDisplayName" options:nil];
+    
+    NSDictionary *displayNameViews = NSDictionaryOfVariableBindings(displayNameButton, overrideDisplayNameButton, displayNameField);
+    [views addEntriesFromDictionary:displayNameViews];
     
     /*
      Version field
@@ -160,7 +163,7 @@
     [versionButton setFont:boldTitleFont];
     [versionButton bind:@"value" toObject:self withKeyPath:@"includeOriginalVersion" options:nil];
     
-    NSButton *overrideVersionButton = [self addCheckBoxWithTitle:NSLocalizedString(@"Override Version:", nil) identifier:@"overrideVersionButton" superView:parentView];
+    NSButton *overrideVersionButton = [self addCheckBoxWithTitle:NSLocalizedString(@"Override:", nil) identifier:@"overrideVersionButton" superView:parentView];
     [overrideVersionButton bind:@"value" toObject:self withKeyPath:@"overrideVersion" options:nil];
     [overrideVersionButton bind:@"enabled" toObject:self withKeyPath:@"includeOriginalVersion" options:nil];
     
@@ -168,6 +171,8 @@
     [versionField bind:@"value" toObject:self withKeyPath:@"version" options:textFieldOptions];
     [versionField bind:@"enabled" toObject:self withKeyPath:@"overrideVersion" options:nil];
     
+    NSDictionary *versionViews = NSDictionaryOfVariableBindings(versionButton, overrideVersionButton, versionField);
+    [views addEntriesFromDictionary:versionViews];
     
     /*
      Catalogs token field
@@ -180,15 +185,71 @@
     [parentView addSubview:catalogsTokenField];
     [catalogsTokenField bind:@"value" toObject:self withKeyPath:@"munki_catalogs" options:textFieldOptions];
     
+    NSDictionary *catalogViews = NSDictionaryOfVariableBindings(catalogsLabel, catalogsTokenField);
+    [views addEntriesFromDictionary:catalogViews];
+    
     /*
      Restart action
      */
+    NSButton *restartActionButton = [self addCheckBoxWithTitle:NSLocalizedString(@"Restart Action", nil) identifier:@"restartActionButton" superView:parentView];
+    [restartActionButton setFont:boldTitleFont];
+    [restartActionButton bind:@"value" toObject:self withKeyPath:@"overrideRestartAction" options:nil];
+    NSComboBox *restartActionField = [self addComboBoxWithidentifier:@"restartActionField" superView:parentView];
+    [restartActionField bind:@"value" toObject:self withKeyPath:@"restartAction" options:textFieldOptions];
+    [restartActionField bind:@"enabled" toObject:self withKeyPath:@"overrideRestartAction" options:nil];
+    [restartActionField bind:@"contentValues" toObject:self withKeyPath:@"restartActionTemplates" options:nil];
+    
+    NSDictionary *restartActionViews = NSDictionaryOfVariableBindings(restartActionButton, restartActionField);
+    [views addEntriesFromDictionary:restartActionViews];
     
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(displayNameButton, overrideDisplayNameButton, displayNameField,
-                                                         versionButton, overrideVersionButton, versionField,
-                                                         catalogsLabel, catalogsTokenField);
     
+    /*
+     Unattended install label and check box
+     */
+    NSButton *unattendedButton = [self addCheckBoxWithTitle:NSLocalizedString(@"Unattended Install", nil) identifier:@"unattendedButton" superView:parentView];
+    [unattendedButton setFont:boldTitleFont];
+    [unattendedButton bind:@"value" toObject:self withKeyPath:@"includeUnattendedInstall" options:nil];
+    
+    NSDictionary *unattendedViews = NSDictionaryOfVariableBindings(unattendedButton);
+    [views addEntriesFromDictionary:unattendedViews];
+    
+    /*
+     Force install after date
+     */
+    NSButton *forceAfterButton = [self addCheckBoxWithTitle:NSLocalizedString(@"Force After", nil) identifier:@"forceAfterButton" superView:parentView];
+    [forceAfterButton setFont:boldTitleFont];
+    [forceAfterButton bind:@"value" toObject:self withKeyPath:@"includeForceInstallAfterDate" options:nil];
+    
+    NSDatePicker *forceAfterDatePicker = [[[NSDatePicker alloc] init] autorelease];
+    [forceAfterDatePicker setIdentifier:@"forceAfterDatePicker"];
+    [forceAfterDatePicker setDatePickerStyle:NSTextFieldAndStepperDatePickerStyle];
+    [forceAfterDatePicker setDatePickerElements:( NSYearMonthDayDatePickerElementFlag | NSHourMinuteDatePickerElementFlag)];
+    [[forceAfterDatePicker cell] setControlSize:NSRegularControlSize];
+    [forceAfterDatePicker setBordered:YES];
+    [forceAfterDatePicker setBezeled:YES];
+    [forceAfterDatePicker setDrawsBackground:YES];
+    [forceAfterDatePicker setFont:[NSFont systemFontOfSize:13.0]];
+    [forceAfterDatePicker setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
+    [forceAfterDatePicker setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    /*
+     Set the force_install_after_date date picker to use UTC
+     */
+    NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    [gregorian setTimeZone:timeZoneUTC];
+    [forceAfterDatePicker setCalendar:gregorian];
+    [forceAfterDatePicker setTimeZone:timeZoneUTC];
+    
+    [forceAfterDatePicker bind:@"value" toObject:self withKeyPath:@"forceInstallAfterDate" options:textFieldOptions];
+    [forceAfterDatePicker bind:@"enabled" toObject:self withKeyPath:@"includeForceInstallAfterDate" options:nil];
+    [parentView addSubview:forceAfterDatePicker];
+    
+    NSDictionary *forceAfterDateViews = NSDictionaryOfVariableBindings(forceAfterButton, forceAfterDatePicker);
+    [views addEntriesFromDictionary:forceAfterDateViews];
+    
+        
     /*
      Create a correct key view loop
      */
@@ -228,8 +289,17 @@
     // Horizontal layout for catalogs
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[catalogsLabel]-[catalogsTokenField(>=100)]-(>=20)-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     
+    // Horizontal layout for restart action
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[restartActionButton]-[restartActionField(>=100)]-(>=20)-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+    
+    // Horizontal layout for unattended install
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[unattendedButton]-(>=20)-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+    
+    // Horizontal layout for force install after date
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[forceAfterButton]-[forceAfterDatePicker]-(>=20)-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    
     // Vertical layout
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[displayNameButton]-[displayNameField]-[versionButton]-[versionField]-(20)-[catalogsTokenField]-(>=20)-|"
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[displayNameButton]-[displayNameField]-[versionButton]-[versionField]-(20)-[catalogsTokenField]-(20)-[restartActionButton]-(20)-[unattendedButton]-(20)-[forceAfterButton]-(>=20)-|"
                                                                        options:0
                                                                        metrics:nil
                                                                          views:views]];
@@ -239,7 +309,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
+    [self.window setBackgroundColor:[NSColor whiteColor]];
     [self.window center];
     
     NSView *contentView = [[self window] contentView];

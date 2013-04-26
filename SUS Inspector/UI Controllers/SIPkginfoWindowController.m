@@ -58,7 +58,6 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    [self.window setBackgroundColor:[NSColor whiteColor]];
 }
 
 
@@ -610,7 +609,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
+    [self.window setBackgroundColor:[NSColor whiteColor]];
     [self.window center];
     
     [self.window bind:@"title" toObject:self withKeyPath:@"product.productTitleWithVersion" options:nil];
