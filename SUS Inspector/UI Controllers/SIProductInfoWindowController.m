@@ -365,7 +365,7 @@
     [self.packagesTableView setTarget:self];
     [self.packagesTableView setDoubleAction:@selector(openPackageAction)];
     
-    NSSortDescriptor *sortByLanguage = [NSSortDescriptor sortDescriptorWithKey:@"distributionLanguage" ascending:YES selector:@selector(localizedStandardCompare:)];
+    NSSortDescriptor *sortByLanguage = [NSSortDescriptor sortDescriptorWithKey:@"distributionLanguageDisplayName" ascending:YES selector:@selector(localizedStandardCompare:)];
     [self.distributionsArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByLanguage, nil]];
     [self.distributionsTableView setTarget:self];
     [self.distributionsTableView setDoubleAction:@selector(openDistributionAction)];

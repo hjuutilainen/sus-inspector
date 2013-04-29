@@ -191,6 +191,7 @@ static dispatch_queue_t serialQueue;
 
 - (SICatalogMO *)catalogWithURL:(NSString *)catalogURL managedObjectContext:(NSManagedObjectContext *)moc
 {
+    /*
     SICatalogMO *theCatalog = nil;
     NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
     [fetchProducts setEntity:[NSEntityDescription entityForName:@"SICatalog" inManagedObjectContext:moc]];
@@ -203,6 +204,11 @@ static dispatch_queue_t serialQueue;
         theCatalog = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
     }
     [fetchProducts release];
+    return theCatalog;
+    */
+    SICatalogMO *theCatalog = nil;
+    theCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SICatalog" inManagedObjectContext:moc];
+    theCatalog.catalogURL = catalogURL;
     return theCatalog;
 }
 
@@ -232,8 +238,9 @@ static dispatch_queue_t serialQueue;
         smartItem.isGroupItemValue = YES;
         smartItem.sortIndexValue = 0;
         
-        NSImage *instanceImage = [NSImage imageNamed:@"104-index-cards"];
-        [instanceImage setTemplate:YES];        
+        //NSImage *instanceImage = [NSImage imageNamed:@"104-index-cards"];
+        NSImage *instanceImage = [NSImage imageNamed:NSImageNameFolderSmart];
+        //[instanceImage setTemplate:YES];
         
         SISourceListItemMO *allProductsItem = [self sourceListItemWithTitle:@"All Products" managedObjectContext:threadSafeMoc];
         allProductsItem.iconImage = instanceImage;
@@ -272,8 +279,11 @@ static dispatch_queue_t serialQueue;
             NSArray *allCatalogs = [threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil];
             [allCatalogs enumerateObjectsUsingBlock:^(SICatalogMO *catalog, NSUInteger idx, BOOL *stop) {
                 SISourceListItemMO *catalogItem = [self sourceListItemWithTitle:catalog.catalogDisplayName managedObjectContext:threadSafeMoc];
-                NSImage *catalogImage = [NSImage imageNamed:@"96-book"];
-                [catalogImage setTemplate:YES];
+                NSImage *catalogImage = [NSImage imageNamed:NSImageNameFolder];
+                
+                //NSImage *catalogImage = [NSImage imageNamed:@"96-book"];
+                //[catalogImage setTemplate:YES];
+                
                 catalogItem.iconImage = catalogImage;
                 catalogItem.parent = catalogsGroupItem;
                 catalogItem.catalogReference = catalog;
@@ -317,11 +327,11 @@ static dispatch_queue_t serialQueue;
         
         NSString *packageLocalPath = [[[NSApp delegate] defaultReposadoInstance] getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
         if ([fileManager fileExistsAtPath:packageLocalPath]) {
-            NSLog(@"Exists %@",packageLocalPath);
+            NSLog(@"Exists %@", packageLocalPath);
             aPackage.objectIsCachedValue = YES;
             aPackage.objectCachedPath = packageLocalPath;
         } else {
-            NSLog(@"Doesn't exist %@",packageLocalPath);
+            NSLog(@"Doesn't exist %@", packageLocalPath);
             aPackage.objectIsCachedValue = NO;
             aPackage.objectCachedPath = nil;
         }
@@ -386,10 +396,20 @@ static dispatch_queue_t serialQueue;
         
         
         NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:blockInstance.productInfoURL];
-        
+        __block NSInteger num = 0;
+        __block NSUInteger productCount = [productInfo count];
         self.currentOperationTitle = [NSString stringWithFormat:@"Reading product information for %li products...", (unsigned long)[productInfo count]];
         [productInfo enumerateKeysAndObjectsWithOptions:0 usingBlock:^(NSString *key, id obj, BOOL *stop) {
-            self.currentOperationDescription = [NSString stringWithFormat:@"%@ %@", key, [obj objectForKey:@"title"]];
+            /*
+            if ((num % 5) == 0) {
+                //NSLog(@"%ld", (long)num);
+                self.currentOperationDescription = [NSString stringWithFormat:@"Product %li/%li: %@ %@", (unsigned long)num, (unsigned long)productCount, key, [obj objectForKey:@"title"]];
+            }
+            */
+            num++;
+            //self.currentOperationDescription = [NSString stringWithFormat:@"Product %li/%li: %@ %@", (unsigned long)num, (unsigned long)productCount, key, [obj objectForKey:@"title"]];
+            self.currentOperationDescription = [NSString stringWithFormat:@"Reading product %li/%li (%@)", (unsigned long)num, (unsigned long)productCount, key];
+            
             /*
              * Create product objects
              */
@@ -418,6 +438,7 @@ static dispatch_queue_t serialQueue;
                 newProduct.productSize = [NSNumber numberWithInteger:[sizeAsString integerValue]];
                 newProduct.productVersion = [obj objectForKey:@"version"];
                 [newProduct addCatalogsObject:allCatalog];
+                
                 
                 /*
                  * Parse catalogs
@@ -456,22 +477,26 @@ static dispatch_queue_t serialQueue;
                     SIPackageMO *newPackage = [self packageWithURLString:packageURL managedObjectContext:threadSafeMoc];
                     newPackage.packageSize = size;
                     newPackage.product = newProduct;
-                    NSString *packageLocalPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
-                    if ([fileManager fileExistsAtPath:packageLocalPath]) {
-                        newPackage.objectIsCachedValue = YES;
-                        newPackage.objectCachedPath = packageLocalPath;
-                    }
+                    /*
+                     NSString *packageLocalPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
+                     if ([fileManager fileExistsAtPath:packageLocalPath]) {
+                     newPackage.objectIsCachedValue = YES;
+                     newPackage.objectCachedPath = packageLocalPath;
+                     }
+                     */
                     
                     // Check if the package has a metadata URL
                     NSString *metadataURL = [aPackage objectForKey:@"MetadataURL"];
                     if (metadataURL) {
                         SIPackageMetadataMO *newMetadataObject = [self packageMetadataFileWithURLString:metadataURL managedObjectContext:threadSafeMoc];
                         newMetadataObject.package = newPackage;
-                        NSString *packageMetadataLocalPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:metadataURL]];
-                        if ([fileManager fileExistsAtPath:packageMetadataLocalPath]) {
-                            newMetadataObject.objectIsCachedValue = YES;
-                            newMetadataObject.objectCachedPath = packageMetadataLocalPath;
-                        }
+                        /*
+                         NSString *packageMetadataLocalPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:metadataURL]];
+                         if ([fileManager fileExistsAtPath:packageMetadataLocalPath]) {
+                         newMetadataObject.objectIsCachedValue = YES;
+                         newMetadataObject.objectCachedPath = packageMetadataLocalPath;
+                         }
+                         */
                     }
                     
                 }
@@ -488,14 +513,27 @@ static dispatch_queue_t serialQueue;
                 NSDictionary *distributions = [catalogEntry objectForKey:@"Distributions"];
                 [distributions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                     SIDistributionMO *newDistribution = [self distributionWithURLString:(NSString *)obj managedObjectContext:threadSafeMoc];
-                    newDistribution.distributionLanguage = key;
                     newDistribution.product = newProduct;
-                    NSString *localPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:obj]];
-                    if ([fileManager fileExistsAtPath:localPath]) {
-                        newDistribution.objectIsCachedValue = YES;
-                        newDistribution.objectCachedPath = localPath;
+                    
+                    // Determine the distribution language
+                    newDistribution.distributionLanguage = key;
+                    NSString *displayName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:key];
+                    if (displayName) {
+                        newDistribution.distributionLanguageDisplayName = displayName;
+                    } else {
+                        newDistribution.distributionLanguageDisplayName = key;
                     }
+                    
+                    // Check if this file has been cached
+                    /*
+                     NSString *localPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:obj]];
+                     if ([fileManager fileExistsAtPath:localPath]) {
+                     newDistribution.objectIsCachedValue = YES;
+                     newDistribution.objectCachedPath = localPath;
+                     }
+                     */
                 }];
+
                 
             } else {
                 NSLog(@"Invalid product %@. Skipped...", key);

@@ -6,6 +6,7 @@
 const struct SIDistributionMOAttributes SIDistributionMOAttributes = {
 	.distributionFileContents = @"distributionFileContents",
 	.distributionLanguage = @"distributionLanguage",
+	.distributionLanguageDisplayName = @"distributionLanguageDisplayName",
 };
 
 const struct SIDistributionMORelationships SIDistributionMORelationships = {
@@ -56,6 +57,13 @@ const struct SIDistributionMOFetchedProperties SIDistributionMOFetchedProperties
 
 
 @dynamic distributionLanguage;
+
+
+
+
+
+
+@dynamic distributionLanguageDisplayName;
 
 
 

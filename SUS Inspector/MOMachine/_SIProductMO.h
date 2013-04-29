@@ -8,6 +8,7 @@ extern const struct SIProductMOAttributes {
 	 NSString *productDescription;
 	 NSString *productID;
 	 NSString *productIsDeprecated;
+	 NSString *productIsNew;
 	 NSString *productPostDate;
 	 NSString *productSize;
 	 NSString *productTitle;
@@ -28,6 +29,7 @@ extern const struct SIProductMOFetchedProperties {
 @class SIDistributionMO;
 @class SIPackageMO;
 @class SIServerMetadataMO;
+
 
 
 
@@ -79,6 +81,20 @@ extern const struct SIProductMOFetchedProperties {
 - (void)setProductIsDeprecatedValue:(BOOL)value_;
 
 //- (BOOL)validateProductIsDeprecated:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, retain) NSNumber* productIsNew;
+
+
+
+@property BOOL productIsNewValue;
+- (BOOL)productIsNewValue;
+- (void)setProductIsNewValue:(BOOL)value_;
+
+//- (BOOL)validateProductIsNew:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -203,6 +219,15 @@ extern const struct SIProductMOFetchedProperties {
 
 - (BOOL)primitiveProductIsDeprecatedValue;
 - (void)setPrimitiveProductIsDeprecatedValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveProductIsNew;
+- (void)setPrimitiveProductIsNew:(NSNumber*)value;
+
+- (BOOL)primitiveProductIsNewValue;
+- (void)setPrimitiveProductIsNewValue:(BOOL)value_;
 
 
 

@@ -7,6 +7,7 @@
 extern const struct SIDistributionMOAttributes {
 	 NSString *distributionFileContents;
 	 NSString *distributionLanguage;
+	 NSString *distributionLanguageDisplayName;
 } SIDistributionMOAttributes;
 
 extern const struct SIDistributionMORelationships {
@@ -17,6 +18,7 @@ extern const struct SIDistributionMOFetchedProperties {
 } SIDistributionMOFetchedProperties;
 
 @class SIProductMO;
+
 
 
 
@@ -54,6 +56,16 @@ extern const struct SIDistributionMOFetchedProperties {
 
 
 
+@property (nonatomic, retain) NSString* distributionLanguageDisplayName;
+
+
+
+//- (BOOL)validateDistributionLanguageDisplayName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, retain) SIProductMO *product;
 
 //- (BOOL)validateProduct:(id*)value_ error:(NSError**)error_;
@@ -79,6 +91,12 @@ extern const struct SIDistributionMOFetchedProperties {
 
 - (NSString*)primitiveDistributionLanguage;
 - (void)setPrimitiveDistributionLanguage:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveDistributionLanguageDisplayName;
+- (void)setPrimitiveDistributionLanguageDisplayName:(NSString*)value;
 
 
 
