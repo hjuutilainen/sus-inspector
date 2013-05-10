@@ -112,19 +112,19 @@ static dispatch_queue_t serialQueue;
 - (SIDistributionMO *)distributionWithURLString:(NSString *)urlString managedObjectContext:(NSManagedObjectContext *)moc
 {
     /*
-    SIDistributionMO *distributionFile = nil;
-    NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
-    [fetchObjects setEntity:[NSEntityDescription entityForName:@"SIDistribution" inManagedObjectContext:moc]];
-    [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"distributionURL == %@", urlString]];
-    NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
-    if (numFoundObjects == 0) {
-        distributionFile = [NSEntityDescription insertNewObjectForEntityForName:@"SIDistribution" inManagedObjectContext:moc];
-        distributionFile.distributionURL = urlString;
-    } else {
-        distributionFile = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
-    }
-    [fetchObjects release];
-    return distributionFile;
+     SIDistributionMO *distributionFile = nil;
+     NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
+     [fetchObjects setEntity:[NSEntityDescription entityForName:@"SIDistribution" inManagedObjectContext:moc]];
+     [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"distributionURL == %@", urlString]];
+     NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
+     if (numFoundObjects == 0) {
+     distributionFile = [NSEntityDescription insertNewObjectForEntityForName:@"SIDistribution" inManagedObjectContext:moc];
+     distributionFile.distributionURL = urlString;
+     } else {
+     distributionFile = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
+     }
+     [fetchObjects release];
+     return distributionFile;
      */
     SIDistributionMO *distributionFile = [NSEntityDescription insertNewObjectForEntityForName:@"SIDistribution" inManagedObjectContext:moc];
     distributionFile.objectURL = urlString;
@@ -134,20 +134,20 @@ static dispatch_queue_t serialQueue;
 - (SIPackageMO *)packageWithURLString:(NSString *)urlString managedObjectContext:(NSManagedObjectContext *)moc
 {
     /*
-    SIPackageMO *thePackage = nil;
-    NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
-    [fetchObjects setEntity:[NSEntityDescription entityForName:@"SIPackage" inManagedObjectContext:moc]];
-    [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"packageURL == %@", urlString]];
-    NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
-    if (numFoundObjects == 0) {
-        thePackage = [NSEntityDescription insertNewObjectForEntityForName:@"SIPackage" inManagedObjectContext:moc];
-        thePackage.packageURL = urlString;
-    } else {
-        thePackage = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
-    }
-    [fetchObjects release];
-    return thePackage;
-    */
+     SIPackageMO *thePackage = nil;
+     NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
+     [fetchObjects setEntity:[NSEntityDescription entityForName:@"SIPackage" inManagedObjectContext:moc]];
+     [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"packageURL == %@", urlString]];
+     NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
+     if (numFoundObjects == 0) {
+     thePackage = [NSEntityDescription insertNewObjectForEntityForName:@"SIPackage" inManagedObjectContext:moc];
+     thePackage.packageURL = urlString;
+     } else {
+     thePackage = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
+     }
+     [fetchObjects release];
+     return thePackage;
+     */
     SIPackageMO *thePackage = [NSEntityDescription insertNewObjectForEntityForName:@"SIPackage" inManagedObjectContext:moc];
     thePackage.objectURL = urlString;
     return thePackage;
@@ -156,20 +156,20 @@ static dispatch_queue_t serialQueue;
 - (SIProductMO *)productWithID:(NSString *)productID managedObjectContext:(NSManagedObjectContext *)moc
 {
     /*
-    SIProductMO *theProduct = nil;
-    NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
-    [fetchProducts setEntity:[NSEntityDescription entityForName:@"SIProduct" inManagedObjectContext:moc]];
-    [fetchProducts setPredicate:[NSPredicate predicateWithFormat:@"productID == %@", productID]];
-    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchProducts error:nil];
-    if (numFoundCatalogs == 0) {
-        theProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SIProduct" inManagedObjectContext:moc];
-        theProduct.productID = productID;
-    } else {
-        theProduct = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
-    }
-    [fetchProducts release];
-    return theProduct;
-    */
+     SIProductMO *theProduct = nil;
+     NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
+     [fetchProducts setEntity:[NSEntityDescription entityForName:@"SIProduct" inManagedObjectContext:moc]];
+     [fetchProducts setPredicate:[NSPredicate predicateWithFormat:@"productID == %@", productID]];
+     NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchProducts error:nil];
+     if (numFoundCatalogs == 0) {
+     theProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SIProduct" inManagedObjectContext:moc];
+     theProduct.productID = productID;
+     } else {
+     theProduct = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
+     }
+     [fetchProducts release];
+     return theProduct;
+     */
     SIProductMO *theProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SIProduct" inManagedObjectContext:moc];
     theProduct.productID = productID;
     return theProduct;
@@ -191,7 +191,7 @@ static dispatch_queue_t serialQueue;
 
 - (SICatalogMO *)catalogWithURL:(NSString *)catalogURL managedObjectContext:(NSManagedObjectContext *)moc
 {
-    /*
+    
     SICatalogMO *theCatalog = nil;
     NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
     [fetchProducts setEntity:[NSEntityDescription entityForName:@"SICatalog" inManagedObjectContext:moc]];
@@ -205,11 +205,13 @@ static dispatch_queue_t serialQueue;
     }
     [fetchProducts release];
     return theCatalog;
-    */
-    SICatalogMO *theCatalog = nil;
-    theCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SICatalog" inManagedObjectContext:moc];
-    theCatalog.catalogURL = catalogURL;
-    return theCatalog;
+    
+    /*
+     SICatalogMO *theCatalog = nil;
+     theCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SICatalog" inManagedObjectContext:moc];
+     theCatalog.catalogURL = catalogURL;
+     return theCatalog;
+     */
 }
 
 - (SISourceListItemMO *)sourceListItemWithTitle:(NSString *)title managedObjectContext:(NSManagedObjectContext *)moc
@@ -381,7 +383,7 @@ static dispatch_queue_t serialQueue;
         
         blockInstance.productInfoModificationDate = modificationDate;
         blockInstance.productInfoCreationDate = creationDate;
-                
+        
         // Delete some objects that we're going to rescan anyway
         NSArray *entitiesToClear = [NSArray arrayWithObjects:@"SIProduct", @"SIPackage", @"SIDistribution", nil];
         [entitiesToClear enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
@@ -401,11 +403,11 @@ static dispatch_queue_t serialQueue;
         self.currentOperationTitle = [NSString stringWithFormat:@"Reading product information for %li products...", (unsigned long)[productInfo count]];
         [productInfo enumerateKeysAndObjectsWithOptions:0 usingBlock:^(NSString *key, id obj, BOOL *stop) {
             /*
-            if ((num % 5) == 0) {
-                //NSLog(@"%ld", (long)num);
-                self.currentOperationDescription = [NSString stringWithFormat:@"Product %li/%li: %@ %@", (unsigned long)num, (unsigned long)productCount, key, [obj objectForKey:@"title"]];
-            }
-            */
+             if ((num % 5) == 0) {
+             //NSLog(@"%ld", (long)num);
+             self.currentOperationDescription = [NSString stringWithFormat:@"Product %li/%li: %@ %@", (unsigned long)num, (unsigned long)productCount, key, [obj objectForKey:@"title"]];
+             }
+             */
             num++;
             //self.currentOperationDescription = [NSString stringWithFormat:@"Product %li/%li: %@ %@", (unsigned long)num, (unsigned long)productCount, key, [obj objectForKey:@"title"]];
             self.currentOperationDescription = [NSString stringWithFormat:@"Reading product %li/%li (%@)", (unsigned long)num, (unsigned long)productCount, key];
@@ -477,26 +479,26 @@ static dispatch_queue_t serialQueue;
                     SIPackageMO *newPackage = [self packageWithURLString:packageURL managedObjectContext:threadSafeMoc];
                     newPackage.packageSize = size;
                     newPackage.product = newProduct;
-                    /*
-                     NSString *packageLocalPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
-                     if ([fileManager fileExistsAtPath:packageLocalPath]) {
-                     newPackage.objectIsCachedValue = YES;
-                     newPackage.objectCachedPath = packageLocalPath;
-                     }
-                     */
+                    
+                    NSString *packageLocalPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
+                    if ([fileManager fileExistsAtPath:packageLocalPath]) {
+                        newPackage.objectIsCachedValue = YES;
+                        newPackage.objectCachedPath = packageLocalPath;
+                    }
+                    
                     
                     // Check if the package has a metadata URL
                     NSString *metadataURL = [aPackage objectForKey:@"MetadataURL"];
                     if (metadataURL) {
                         SIPackageMetadataMO *newMetadataObject = [self packageMetadataFileWithURLString:metadataURL managedObjectContext:threadSafeMoc];
                         newMetadataObject.package = newPackage;
-                        /*
-                         NSString *packageMetadataLocalPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:metadataURL]];
-                         if ([fileManager fileExistsAtPath:packageMetadataLocalPath]) {
-                         newMetadataObject.objectIsCachedValue = YES;
-                         newMetadataObject.objectCachedPath = packageMetadataLocalPath;
-                         }
-                         */
+                        
+                        NSString *packageMetadataLocalPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:metadataURL]];
+                        if ([fileManager fileExistsAtPath:packageMetadataLocalPath]) {
+                            newMetadataObject.objectIsCachedValue = YES;
+                            newMetadataObject.objectCachedPath = packageMetadataLocalPath;
+                        }
+                        
                     }
                     
                 }
@@ -525,15 +527,15 @@ static dispatch_queue_t serialQueue;
                     }
                     
                     // Check if this file has been cached
-                    /*
-                     NSString *localPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:obj]];
-                     if ([fileManager fileExistsAtPath:localPath]) {
-                     newDistribution.objectIsCachedValue = YES;
-                     newDistribution.objectCachedPath = localPath;
-                     }
-                     */
+                    
+                    NSString *localPath = [blockInstance getLocalFilePathFromRemoteURL:[NSURL URLWithString:obj]];
+                    if ([fileManager fileExistsAtPath:localPath]) {
+                        newDistribution.objectIsCachedValue = YES;
+                        newDistribution.objectCachedPath = localPath;
+                    }
+                    
                 }];
-
+                
                 
             } else {
                 NSLog(@"Invalid product %@. Skipped...", key);
@@ -563,14 +565,14 @@ static dispatch_queue_t serialQueue;
         [self willEndOperations];
         
         /*
-        [parentMoc performBlockWithPrivateQueueConcurrency:^(NSManagedObjectContext *threadSafeMoc) {
-            // Get the reposado instance in this managed object context
-            SIReposadoInstanceMO *blockInstance = (SIReposadoInstanceMO *)[threadSafeMoc objectWithID:instanceID];
-            [self readReposadoInstanceContents:blockInstance managedObjectContext:threadSafeMoc];
-        } completionBlock:^{
-            self.currentOperationTitle = @"Saving...";
-            [self willEndOperations];
-        }];
+         [parentMoc performBlockWithPrivateQueueConcurrency:^(NSManagedObjectContext *threadSafeMoc) {
+         // Get the reposado instance in this managed object context
+         SIReposadoInstanceMO *blockInstance = (SIReposadoInstanceMO *)[threadSafeMoc objectWithID:instanceID];
+         [self readReposadoInstanceContents:blockInstance managedObjectContext:threadSafeMoc];
+         } completionBlock:^{
+         self.currentOperationTitle = @"Saving...";
+         [self willEndOperations];
+         }];
          */
     });
 }
@@ -663,14 +665,14 @@ static dispatch_queue_t serialQueue;
 - (void)processFinished:(AMShellWrapper *)wrapper withTerminationStatus:(int)resultCode
 {
     /*
-	[self write:[NSString stringWithFormat:@"\rcommand finished. Result code: %i\r", resultCode]];
-	[self setShellWrapper:nil];
-	[textOutlet scrollRangeToVisible:NSMakeRange([[textOutlet string] length], 0)];
-	[errorOutlet scrollRangeToVisible:NSMakeRange([[errorOutlet string] length], 0)];
-	[runButton setEnabled:YES];
-	[progressIndicator stopAnimation:self];
-	[runButton setTitle:@"Execute"];
-	[runButton setAction:@selector(printBanner:)];
+     [self write:[NSString stringWithFormat:@"\rcommand finished. Result code: %i\r", resultCode]];
+     [self setShellWrapper:nil];
+     [textOutlet scrollRangeToVisible:NSMakeRange([[textOutlet string] length], 0)];
+     [errorOutlet scrollRangeToVisible:NSMakeRange([[errorOutlet string] length], 0)];
+     [runButton setEnabled:YES];
+     [progressIndicator stopAnimation:self];
+     [runButton setTitle:@"Execute"];
+     [runButton setAction:@selector(printBanner:)];
      */
     
     [self readReposadoInstanceContentsAsync:[[NSApp delegate] defaultReposadoInstance]];
@@ -680,14 +682,14 @@ static dispatch_queue_t serialQueue;
 - (void)processLaunchException:(NSException *)exception
 {
     /*
-	[self write:[NSString stringWithFormat:@"\rcaught %@ while executing command\r", [exception name]]];
-	[textOutlet scrollRangeToVisible:NSMakeRange([[textOutlet string] length], 0)];
-	[errorOutlet scrollRangeToVisible:NSMakeRange([[errorOutlet string] length], 0)];
-	[runButton setEnabled:YES];
-	[progressIndicator stopAnimation:self];
-	[runButton setTitle:@"Execute"];
-	[runButton setAction:@selector(printBanner:)];
-	[self setShellWrapper:nil];
+     [self write:[NSString stringWithFormat:@"\rcaught %@ while executing command\r", [exception name]]];
+     [textOutlet scrollRangeToVisible:NSMakeRange([[textOutlet string] length], 0)];
+     [errorOutlet scrollRangeToVisible:NSMakeRange([[errorOutlet string] length], 0)];
+     [runButton setEnabled:YES];
+     [progressIndicator stopAnimation:self];
+     [runButton setTitle:@"Execute"];
+     [runButton setAction:@selector(printBanner:)];
+     [self setShellWrapper:nil];
      */
     [self willEndOperations];
 }
