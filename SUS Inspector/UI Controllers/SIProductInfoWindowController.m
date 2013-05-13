@@ -375,15 +375,16 @@
 
 - (void)openPackageAction
 {
-    // Get the selected distribution file
+    // Get the selected package
     SIPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
     
     // Check if we have a cached copy
     if (selectedPackage.objectIsCachedValue) {
-        NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
-        [[NSWorkspace sharedWorkspace] openFile:selectedPackage.objectCachedPath withApplication:appPath];
+        [[NSWorkspace sharedWorkspace] selectFile:selectedPackage.objectCachedPath inFileViewerRootedAtPath:@""];
+        
     } else {
         NSURL *packageURL = [NSURL URLWithString:selectedPackage.objectURL];
+        [selectedPackage setPerformPostDownloadActionValue:NO];
         [[SIOperationManager sharedManager] cacheDownloadableObjectWithURL:packageURL];
     }
 }
@@ -395,9 +396,11 @@
     
     // Check if we have a cached copy
     if (selectedDist.objectIsCachedValue) {
-        [[NSWorkspace sharedWorkspace] openFile:selectedDist.objectCachedPath];
+        NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
+        [[NSWorkspace sharedWorkspace] openFile:selectedDist.objectCachedPath withApplication:appPath];
     } else {
         NSURL *distURL = [NSURL URLWithString:selectedDist.objectURL];
+        [selectedDist setPerformPostDownloadActionValue:YES];
         [[SIOperationManager sharedManager] cacheDownloadableObjectWithURL:distURL];
     }
 }

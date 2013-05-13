@@ -25,6 +25,7 @@
         <attribute name="objectIsCached" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="objectIsDownloading" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="objectURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="performPostDownloadAction" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
     </entity>
     <entity name="SIPackage" representedClassName="SIPackageMO" parentEntity="SIDownloadableObject" syncable="YES">
         <attribute name="packageMetadataURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -81,7 +82,7 @@
     <elements>
         <element name="SICatalog" positionX="-522" positionY="-81" width="128" height="225"/>
         <element name="SIDistribution" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="SIDownloadableObject" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="SIDownloadableObject" positionX="160" positionY="192" width="128" height="120"/>
         <element name="SIPackage" positionX="160" positionY="192" width="128" height="105"/>
         <element name="SIPackageMetadata" positionX="160" positionY="192" width="128" height="75"/>
         <element name="SIProduct" positionX="-234" positionY="-99" width="128" height="225"/>

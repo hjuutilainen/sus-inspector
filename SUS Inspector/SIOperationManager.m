@@ -783,14 +783,20 @@ static dispatch_queue_t serialQueue;
         [cachedObject setObjectIsCachedValue:YES];
         [cachedObject setObjectIsDownloadingValue:NO];
         
+        BOOL shouldPostProcess = [cachedObject performPostDownloadActionValue];
+        
         if ([cachedObject isKindOfClass:[SIDistributionMO class]]) {
             // We downloaded a distribution file
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
-            [[NSWorkspace sharedWorkspace] openFile:[cachedObject objectCachedPath] withApplication:appPath];
+            if (shouldPostProcess) {
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
+                [[NSWorkspace sharedWorkspace] openFile:[cachedObject objectCachedPath] withApplication:appPath];
+            }
         } else if ([cachedObject isKindOfClass:[SIPackageMO class]]) {
             // We downloaded a package
-            //[[NSWorkspace sharedWorkspace] openFile:[cachedObject objectCachedPath]];
+            if (shouldPostProcess) {
+                [[NSWorkspace sharedWorkspace] selectFile:[cachedObject objectCachedPath] inFileViewerRootedAtPath:@""];
+            }
             
         } else if ([cachedObject isKindOfClass:[SIPackageMetadataMO class]]) {
             // We downloaded a package metadata file
@@ -804,9 +810,6 @@ static dispatch_queue_t serialQueue;
     
     // Release the download.
     [download release];
-    
-    // Do something with the data.
-    //NSLog(@"%@",@"downloadDidFinish");
 }
 
 

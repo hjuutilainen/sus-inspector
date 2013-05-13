@@ -26,15 +26,22 @@
 @class SIPkginfoWindowController;
 @class SIPkginfoMultipleWindowController;
 
-@interface SIProductsViewController : NSViewController
+@interface SIProductsViewController : NSViewController <NSMenuDelegate> {
+    
+}
 
 @property (assign) IBOutlet NSArrayController *productsArrayController;
 @property (assign) IBOutlet NSTableView *productsTableView;
 @property (retain) SICatalogMO *selectedCatalog;
 @property (retain) SIProductInfoWindowController *productInfoWindowController;
 @property (retain) SIPkginfoWindowController *pkginfoWindowController;
+@property (assign) IBOutlet NSMenu *productsListMenu;
+@property (assign) IBOutlet NSMenu *distributionFilesMenu;
+@property (assign) IBOutlet NSMenu *packagesMenu;
 
 - (IBAction)getInfoAction:(id)sender;
 - (IBAction)createPkginfoAction:(id)sender;
+- (IBAction)copyProductIDAction:(id)sender;
+- (IBAction)copyTitleAction:(id)sender;
 
 @end

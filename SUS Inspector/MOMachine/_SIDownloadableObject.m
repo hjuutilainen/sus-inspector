@@ -8,6 +8,7 @@ const struct SIDownloadableObjectAttributes SIDownloadableObjectAttributes = {
 	.objectIsCached = @"objectIsCached",
 	.objectIsDownloading = @"objectIsDownloading",
 	.objectURL = @"objectURL",
+	.performPostDownloadAction = @"performPostDownloadAction",
 };
 
 const struct SIDownloadableObjectRelationships SIDownloadableObjectRelationships = {
@@ -49,6 +50,11 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 	}
 	if ([key isEqualToString:@"objectIsDownloadingValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"objectIsDownloading"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"performPostDownloadActionValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"performPostDownloadAction"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -120,6 +126,32 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 
 @dynamic objectURL;
 
+
+
+
+
+
+@dynamic performPostDownloadAction;
+
+
+
+- (BOOL)performPostDownloadActionValue {
+	NSNumber *result = [self performPostDownloadAction];
+	return [result boolValue];
+}
+
+- (void)setPerformPostDownloadActionValue:(BOOL)value_ {
+	[self setPerformPostDownloadAction:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitivePerformPostDownloadActionValue {
+	NSNumber *result = [self primitivePerformPostDownloadAction];
+	return [result boolValue];
+}
+
+- (void)setPrimitivePerformPostDownloadActionValue:(BOOL)value_ {
+	[self setPrimitivePerformPostDownloadAction:[NSNumber numberWithBool:value_]];
+}
 
 
 

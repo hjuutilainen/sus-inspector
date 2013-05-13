@@ -42,6 +42,8 @@
 		F53BDE5516E8A0CD00055BC3 /* SIProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F53BDE5316E8A0CD00055BC3 /* SIProductsViewController.xib */; };
 		F53BDE5816E8A3C300055BC3 /* SIGradientBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5716E8A3C200055BC3 /* SIGradientBackgroundView.m */; };
 		F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */; };
+		F559596D1740C1CC0077140B /* SITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F559596C1740C1CC0077140B /* SITableView.m */; };
+		F5595973174113E00077140B /* SUS Inspector.icns in Resources */ = {isa = PBXBuildFile; fileRef = F5595972174113E00077140B /* SUS Inspector.icns */; };
 		F58FF41316F7530500EF58B0 /* MIT-License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F58FF41016F7530500EF58B0 /* MIT-License.rtf */; };
 		F58FF41416F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */; };
 		F5C6643D16EF1994009802F2 /* SIGradientButtonBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C6643C16EF1994009802F2 /* SIGradientButtonBarView.m */; };
@@ -143,6 +145,9 @@
 		F53BDE5716E8A3C200055BC3 /* SIGradientBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIGradientBackgroundView.m; sourceTree = "<group>"; };
 		F53BDE5916E8B4C800055BC3 /* AMShellWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMShellWrapper.h; sourceTree = "<group>"; };
 		F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMShellWrapper.m; sourceTree = "<group>"; };
+		F559596B1740C1CC0077140B /* SITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SITableView.h; path = "View Subclasses/SITableView.h"; sourceTree = "<group>"; };
+		F559596C1740C1CC0077140B /* SITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SITableView.m; path = "View Subclasses/SITableView.m"; sourceTree = "<group>"; };
+		F5595972174113E00077140B /* SUS Inspector.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "SUS Inspector.icns"; sourceTree = "<group>"; };
 		F58FF41016F7530500EF58B0 /* MIT-License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "MIT-License.rtf"; sourceTree = "<group>"; };
 		F58FF41116F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
 		F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
@@ -349,6 +354,7 @@
 				F5E06E4A16E473FF008B7831 /* SUS Inspector-Prefix.pch */,
 				F5E06E4B16E473FF008B7831 /* Credits.rtf */,
 				26201BCD16EE3C37003F6416 /* UserDefaults.plist */,
+				F5595972174113E00077140B /* SUS Inspector.icns */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -535,6 +541,8 @@
 				F5E07B5B170ACA910069993C /* SIPreferencesController.h */,
 				F5E07B5C170ACA910069993C /* SIPreferencesController.m */,
 				F5E07B5D170ACA910069993C /* SIPreferencesController.xib */,
+				F559596B1740C1CC0077140B /* SITableView.h */,
+				F559596C1740C1CC0077140B /* SITableView.m */,
 			);
 			name = "UI Controllers";
 			sourceTree = "<group>";
@@ -637,6 +645,7 @@
 				D02F46BBA900C02FF0022F4B /* Localizable.strings in Resources */,
 				F5E07B5F170ACA910069993C /* SIPreferencesController.xib in Resources */,
 				F50EFBF21727E6BD00B38233 /* SIPkginfoMultipleWindowController.xib in Resources */,
+				F5595973174113E00077140B /* SUS Inspector.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,6 +732,7 @@
 				F5E559B0171C03FE00B285CF /* _SIPackageMetadataMO.m in Sources */,
 				F5E559B3171C108300B285CF /* SIPackageMetadataParser.m in Sources */,
 				F50EFBF11727E6BD00B38233 /* SIPkginfoMultipleWindowController.m in Sources */,
+				F559596D1740C1CC0077140B /* SITableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@ extern const struct SIDownloadableObjectAttributes {
 	 NSString *objectIsCached;
 	 NSString *objectIsDownloading;
 	 NSString *objectURL;
+	 NSString *performPostDownloadAction;
 } SIDownloadableObjectAttributes;
 
 extern const struct SIDownloadableObjectRelationships {
@@ -16,6 +17,7 @@ extern const struct SIDownloadableObjectRelationships {
 
 extern const struct SIDownloadableObjectFetchedProperties {
 } SIDownloadableObjectFetchedProperties;
+
 
 
 
@@ -84,6 +86,20 @@ extern const struct SIDownloadableObjectFetchedProperties {
 
 
 
+@property (nonatomic, retain) NSNumber* performPostDownloadAction;
+
+
+
+@property BOOL performPostDownloadActionValue;
+- (BOOL)performPostDownloadActionValue;
+- (void)setPerformPostDownloadActionValue:(BOOL)value_;
+
+//- (BOOL)validatePerformPostDownloadAction:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 
 @end
 
@@ -120,6 +136,15 @@ extern const struct SIDownloadableObjectFetchedProperties {
 
 - (NSString*)primitiveObjectURL;
 - (void)setPrimitiveObjectURL:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitivePerformPostDownloadAction;
+- (void)setPrimitivePerformPostDownloadAction:(NSNumber*)value;
+
+- (BOOL)primitivePerformPostDownloadActionValue;
+- (void)setPrimitivePerformPostDownloadActionValue:(BOOL)value_;
 
 
 

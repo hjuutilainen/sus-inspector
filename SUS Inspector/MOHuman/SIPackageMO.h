@@ -18,5 +18,8 @@
 #import "_SIPackageMO.h"
 
 @interface SIPackageMO : _SIPackageMO {}
-// Custom logic goes here.
+
+- (NSString *)packageFilename;
+- (NSImage *)iconImage;
+
 @end
