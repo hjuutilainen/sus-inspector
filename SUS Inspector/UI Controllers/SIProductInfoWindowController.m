@@ -22,6 +22,7 @@
 #import "SIProductInfoWindowController.h"
 #import "DataModelHeaders.h"
 #import "SIOperationManager.h"
+#import "SIPackageOperator.h"
 #import "SISizeFormatter.h"
 
 @interface SIProductInfoWindowController ()
@@ -82,6 +83,24 @@
     
     // Check if we have a cached copy
     
+}
+
+- (IBAction)expandSelectedPackagesAction:(id)sender
+{
+    SIPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
+    [[SIPackageOperator sharedOperator] expandPackage:selectedPackage];
+}
+
+- (IBAction)extractOriginalsFromSelectedPackagesAction:(id)sender
+{
+    SIPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
+    [[SIPackageOperator sharedOperator] copyPackage:selectedPackage];
+}
+
+- (IBAction)extractPayloadFromSelectedPackagesAction:(id)sender
+{
+    SIPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
+    [[SIPackageOperator sharedOperator] extractPackagePayload:selectedPackage];
 }
 
 

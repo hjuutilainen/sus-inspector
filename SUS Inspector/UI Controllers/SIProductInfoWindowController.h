@@ -24,7 +24,9 @@
 
 @class SIProductMO;
 
-@interface SIProductInfoWindowController : NSWindowController <NSTokenFieldDelegate, NSTabViewDelegate>
+@interface SIProductInfoWindowController : NSWindowController <NSTokenFieldDelegate, NSTabViewDelegate> {
+    
+}
 
 @property (retain) SIProductMO *product;
 @property (retain) NSArray *catalogs;
@@ -39,5 +41,9 @@
 @property (assign) IBOutlet NSArrayController *distributionsArrayController;
 @property (assign) IBOutlet NSTableView *packagesTableView;
 @property (assign) IBOutlet NSTableView *distributionsTableView;
+
+- (IBAction)expandSelectedPackagesAction:(id)sender;
+- (IBAction)extractOriginalsFromSelectedPackagesAction:(id)sender;
+- (IBAction)extractPayloadFromSelectedPackagesAction:(id)sender;
 
 @end

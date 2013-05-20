@@ -54,6 +54,9 @@
 - (void)readXMLFromDistributionFile:(SIDistributionMO *)obj;
 - (void)readPackageMetadataFiles:(SIReposadoInstanceMO *)reposadoInstance;
 
+- (void)willStartOperations;
+- (void)willEndOperations;
+
 @end
 
 
