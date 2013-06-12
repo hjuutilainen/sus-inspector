@@ -148,8 +148,30 @@
     }
 }
 
+- (NSString *)fileTypeString:(NSString *)aPath
+{
+    NSString *fileType = nil;
+    NSTask *task = [[[NSTask alloc] init] autorelease];
+	NSPipe *outpipe = [NSPipe pipe];
+    NSFileHandle *filehandle = [outpipe fileHandleForReading];
+	[task setLaunchPath:@"/usr/bin/file"];
+    NSArray *paxArgs = [NSArray arrayWithObjects:@"--brief", aPath, nil];
+    [task setArguments:paxArgs];
+    [task setStandardOutput:outpipe];
+    
+    [task launch];
+    [task waitUntilExit];
+    
+    NSData *makepkginfoTaskData = [filehandle readDataToEndOfFile];
+    NSString *output = [[[NSString alloc] initWithData:makepkginfoTaskData encoding:NSUTF8StringEncoding] autorelease];
+    fileType = [NSString stringWithString:output];
+    return fileType;
+}
+
 - (BOOL)extractPackagePayload:(SIPackageMO *)aPackage
-{    
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
     NSURL *userChosenOutputURL = [self chooseFolder];
     if (!userChosenOutputURL) {
         return FALSE;
@@ -166,7 +188,10 @@
     NSString *tempFileName = [NSString stringWithFormat:@"%@-temporary-expand", aPackage.packageFilename];
     NSString *expandTemp = [[[self cacheURL] path] stringByAppendingPathComponent:tempFileName];
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
+    // Clear existing cached files
+    [fileManager removeItemAtPath:expandTemp error:nil];
+    
+    
     NSString *sourcePath = aPackage.objectCachedPath;
     if (![fileManager fileExistsAtPath:sourcePath]) {
         return FALSE;
@@ -183,6 +208,9 @@
         [self willEndOperation];
         return FALSE;
     }
+    
+    NSString *fileType = [self fileTypeString:payloadPath];
+    NSLog(@"fileType: %@", fileType);
     
     [SIOperationManager sharedManager].currentOperationTitle = [NSString stringWithFormat:@"Extracting package payload..."];
     
@@ -208,9 +236,22 @@
     [paxTask setCurrentDirectoryPath:outputPath];
     
     [gunzipTask launch];
+    
+    /*
+    int gunzipStatus = [gunzipTask terminationStatus];
+    if (gunzipStatus != 0) {
+        // Remove temporary files
+        [SIOperationManager sharedManager].currentOperationTitle = [NSString stringWithFormat:@"Cleaning temporary files..."];
+        [fileManager removeItemAtPath:expandTemp error:nil];
+        [self willEndOperation];
+        NSLog(@"gunzip failed");
+        return FALSE;
+    }
+     */
+    
     [paxTask launch];
     [paxTask waitUntilExit];
-    int status = [paxTask terminationStatus];    
+    int paxStatus = [paxTask terminationStatus];
     
     // Remove temporary files
     [SIOperationManager sharedManager].currentOperationTitle = [NSString stringWithFormat:@"Cleaning temporary files..."];
@@ -218,7 +259,7 @@
     
     [self willEndOperation];
     
-    if (status == 0) {
+    if (paxStatus == 0) {
         return TRUE;
     } else {
         NSLog(@"extractPackagePayload failed");
