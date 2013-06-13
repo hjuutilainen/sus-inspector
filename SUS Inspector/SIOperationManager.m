@@ -281,10 +281,10 @@ static dispatch_queue_t serialQueue;
             NSArray *allCatalogs = [threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil];
             [allCatalogs enumerateObjectsUsingBlock:^(SICatalogMO *catalog, NSUInteger idx, BOOL *stop) {
                 SISourceListItemMO *catalogItem = [self sourceListItemWithTitle:catalog.catalogDisplayName managedObjectContext:threadSafeMoc];
-                NSImage *catalogImage = [NSImage imageNamed:NSImageNameFolder];
+                //NSImage *catalogImage = [NSImage imageNamed:NSImageNameMultipleDocuments];
                 
-                //NSImage *catalogImage = [NSImage imageNamed:@"96-book"];
-                //[catalogImage setTemplate:YES];
+                NSImage *catalogImage = [NSImage imageNamed:@"96-book"];
+                [catalogImage setTemplate:YES];
                 
                 catalogItem.iconImage = catalogImage;
                 catalogItem.parent = catalogsGroupItem;
