@@ -40,6 +40,7 @@
 @property (retain) NSDate *munki_force_install_after_date;
 @property (retain) NSNumber *munki_force_install_after_date_enabled;
 @property (readonly, retain) NSString *pkginfo;
+@property (readonly, retain) NSDictionary *pkginfoDict;
 
 # pragma mark -
 # pragma mark IBOutlets

@@ -29,6 +29,7 @@
 @implementation SIPkginfoWindowController
 
 @dynamic pkginfo;
+@dynamic pkginfoDict;
 
 - (NSURL *)showSavePanelForPkginfo:(NSString *)fileName
 {
@@ -191,6 +192,12 @@
     [self.window close];
 }
 
+- (void)sendToMunkiAdminAction:(id)sender
+{
+    NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];
+    [dnc postNotificationName:@"SUSInspectorPostedSharedPkginfo" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.pkginfoDict, @"pkginfo", nil]];
+}
+
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
 {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
@@ -218,7 +225,7 @@
     return keyPaths;
 }
 
-- (NSString *)pkginfo
+- (NSDictionary *)pkginfoDict
 {
     /*
      Create a pkginfo representation of current values.
@@ -245,12 +252,18 @@
     if ([self.munki_unattended_install boolValue]) {
         [dict setValue:(id)kCFBooleanTrue forKey:@"unattended_install"];
     }
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+- (NSString *)pkginfo
+{
+    
     
     /*
      Create a string representation of the dictionary
      */
     NSError *error;
-	id plist = [NSPropertyListSerialization dataWithPropertyList:dict
+	id plist = [NSPropertyListSerialization dataWithPropertyList:self.pkginfoDict
                                                           format:NSPropertyListXMLFormat_v1_0
                                                          options:NSPropertyListImmutable
                                                            error:&error];
@@ -634,12 +647,22 @@
     NSButton *cancelButton = [self addPushButtonWithTitle:NSLocalizedString(@"Cancel", nil) identifier:@"cancelButton" superView:contentView];
     [cancelButton setAction:@selector(cancelSavePkginfoAction:)];
     [cancelButton setKeyEquivalent:@"\e"]; // escape
+    NSButton *sendToMunkiAdminButton = [self addPushButtonWithTitle:NSLocalizedString(@"Send to MunkiAdmin...", nil) identifier:@"sendToMunkiAdminButton" superView:contentView];
+    [sendToMunkiAdminButton setAction:@selector(sendToMunkiAdminAction:)];
+    
+    // Check if MunkiAdmin is installed
+    NSString *munkiAdminPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"fi.obsolete.MunkiAdmin"];
+    if (munkiAdminPath) {
+        [sendToMunkiAdminButton setEnabled:YES];
+    } else {
+        [sendToMunkiAdminButton setEnabled:NO];
+    }
     
     /*
      Window layout
      */
-    NSDictionary *topLevelComponents = NSDictionaryOfVariableBindings(splitView, savePkginfoButton, cancelButton);
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[cancelButton]-[savePkginfoButton]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
+    NSDictionary *topLevelComponents = NSDictionaryOfVariableBindings(splitView, savePkginfoButton, cancelButton, sendToMunkiAdminButton);
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[sendToMunkiAdminButton]-[cancelButton]-[savePkginfoButton]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[splitView]-(20)-[savePkginfoButton]-|" options:0 metrics:nil views:topLevelComponents]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[splitView]|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
     
