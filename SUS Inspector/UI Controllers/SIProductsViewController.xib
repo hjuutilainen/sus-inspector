@@ -107,7 +107,7 @@
 									<int key="NSCellFlags">342884416</int>
 									<int key="NSCellFlags2">268436544</int>
 									<string key="NSContents"/>
-									<object class="NSFont" key="NSSupport" id="1040101228">
+									<object class="NSFont" key="NSSupport">
 										<string key="NSName">LucidaGrande</string>
 										<double key="NSSize">13</double>
 										<int key="NSfFlags">1044</int>
@@ -233,7 +233,11 @@
 													<int key="NSCellFlags">337641536</int>
 													<int key="NSCellFlags2">2048</int>
 													<string key="NSContents">Text Cell</string>
-													<reference key="NSSupport" ref="1040101228"/>
+													<object class="NSFont" key="NSSupport" id="1007695190">
+														<string key="NSName">LucidaGrande</string>
+														<double key="NSSize">12</double>
+														<int key="NSfFlags">16</int>
+													</object>
 													<reference key="NSControlView" ref="792767998"/>
 													<object class="NSColor" key="NSBackgroundColor" id="200983255">
 														<int key="NSColorSpace">6</int>
@@ -268,7 +272,7 @@
 													<int key="NSCellFlags">337641536</int>
 													<int key="NSCellFlags2">2048</int>
 													<string key="NSContents">Version</string>
-													<reference key="NSSupport" ref="1040101228"/>
+													<reference key="NSSupport" ref="1007695190"/>
 													<string key="NSPlaceholderString">10.5.8 v1.1</string>
 													<reference key="NSControlView" ref="792767998"/>
 													<reference key="NSBackgroundColor" ref="200983255"/>
@@ -294,7 +298,7 @@
 													<int key="NSCellFlags">337641536</int>
 													<int key="NSCellFlags2">-2147481600</int>
 													<string key="NSContents">Text Cell</string>
-													<reference key="NSSupport" ref="1040101228"/>
+													<reference key="NSSupport" ref="1007695190"/>
 													<object class="NSDateFormatter" key="NSFormatter" id="291256324">
 														<dictionary class="NSMutableDictionary" key="NS.attributes">
 															<integer value="1" key="dateStyle"/>
@@ -328,7 +332,7 @@
 													<int key="NSCellFlags">337641536</int>
 													<int key="NSCellFlags2">2048</int>
 													<string key="NSContents">Text Cell</string>
-													<reference key="NSSupport" ref="1040101228"/>
+													<reference key="NSSupport" ref="1007695190"/>
 													<object class="IBCustomFormatter" key="NSFormatter" id="385965522"/>
 													<reference key="NSControlView" ref="792767998"/>
 													<reference key="NSBackgroundColor" ref="200983255"/>
@@ -354,7 +358,7 @@
 													<int key="NSCellFlags">337641536</int>
 													<int key="NSCellFlags2">2048</int>
 													<string key="NSContents">Text Cell</string>
-													<reference key="NSSupport" ref="1040101228"/>
+													<reference key="NSSupport" ref="1007695190"/>
 													<reference key="NSControlView" ref="792767998"/>
 													<reference key="NSBackgroundColor" ref="200983255"/>
 													<object class="NSColor" key="NSTextColor">
@@ -387,7 +391,7 @@
 													<int key="NSCellFlags">874512448</int>
 													<int key="NSCellFlags2">2048</int>
 													<string key="NSContents">Text Cell</string>
-													<reference key="NSSupport" ref="1040101228"/>
+													<reference key="NSSupport" ref="1007695190"/>
 													<reference key="NSControlView" ref="792767998"/>
 													<reference key="NSBackgroundColor" ref="200983255"/>
 													<reference key="NSTextColor" ref="395778886"/>
@@ -409,7 +413,7 @@
 												<bytes key="NSWhite">MC41AA</bytes>
 											</object>
 										</object>
-										<double key="NSRowHeight">20</double>
+										<double key="NSRowHeight">17</double>
 										<int key="NSTvFlags">-633339904</int>
 										<reference key="NSDelegate"/>
 										<reference key="NSDataSource"/>
@@ -419,7 +423,6 @@
 										<bool key="NSAllowsTypeSelect">YES</bool>
 										<int key="NSTableViewDraggingDestinationStyle">0</int>
 										<int key="NSTableViewGroupRowStyle">1</int>
-										<int key="NSTableViewRowSizeStyle">1</int>
 									</object>
 								</array>
 								<string key="NSFrame">{{1, 17}, {914, 414}}</string>
@@ -485,7 +488,7 @@
 						<reference key="NSHScroller" ref="973444808"/>
 						<reference key="NSContentView" ref="762036787"/>
 						<reference key="NSHeaderClipView" ref="778590303"/>
-						<bytes key="NSScrollAmts">QSAAAEEgAABBsAAAQbAAAA</bytes>
+						<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 						<double key="NSMinMagnification">0.25</double>
 						<double key="NSMaxMagnification">4</double>
 						<double key="NSMagnification">1</double>
