@@ -23,14 +23,45 @@
 
 @implementation SISizeFormatter
 
+- (NSString *)manualStringFromBytes:(id)anObject
+{
+    float bytes = [anObject floatValue];
+    NSArray *suffix = [NSArray arrayWithObjects:@"B", @"KB", @"MB", @"GB", @"TB", nil];
+	int i = 0;
+	while(bytes > 1024)
+	{
+		bytes = bytes/1024.0;
+		i++;
+	}
+    
+    NSNumberFormatter* formatter = [[[NSNumberFormatter alloc] init] autorelease];
+    [formatter setMaximumFractionDigits:1];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle]; // Uses localized number formats.
+    [formatter setAlwaysShowsDecimalSeparator:NO];
+    
+    NSString *sizeInUnits = [formatter stringFromNumber:[NSNumber numberWithFloat:bytes]];
+    
+    return [NSString stringWithFormat:@"%@ %@", sizeInUnits, [suffix objectAtIndex:i]];
+}
+
 - (NSString *)stringForObjectValue:(id)anObject {
     if (![anObject isKindOfClass:[NSNumber class]]) {
         return nil;
     }
     
-    long long convertedValue = [anObject longLongValue];
-    return [NSByteCountFormatter stringFromByteCount:convertedValue countStyle:NSByteCountFormatterCountStyleFile];
-    
+    if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_6) {
+        /* On a 10.6.x or earlier system */
+        return [self manualStringFromBytes:anObject];
+        
+    } else if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_7) {
+        /* On a 10.7 - 10.7.x system */
+        return [self manualStringFromBytes:anObject];
+        
+    } else {
+        /* Mountain Lion or later system */
+        long long convertedValue = [anObject longLongValue];
+        return [NSByteCountFormatter stringFromByteCount:convertedValue countStyle:NSByteCountFormatterCountStyleFile];
+    }
 }
 
 - (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString  **)error {
