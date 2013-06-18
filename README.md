@@ -1,4 +1,5 @@
-# INTRODUCTION
+INTRODUCTION
+------------
 
 SUS Inspector is an utility app for viewing detailed information about Apple's Software Update Service. It sets up a local [Reposado](https://github.com/wdas/reposado) installation to replicate catalogs and then parses them for viewing.
 
@@ -10,11 +11,15 @@ To do this, modify the base URL before launching SUS Inspector for the first tim
 
 Or edit the URL's manually on the first run setup window.
 
-# REQUIREMENTS
+
+REQUIREMENTS
+------------
 
 SUS Inspector requires OS X 10.7 or later
 
-# INSTALLATION
+
+INSTALLATION
+------------
 
 At the moment, the only way to run SUS Inspector is to build from source:
 
@@ -26,7 +31,9 @@ Building requires:
 * Xcode 4.6 or later
 * Optional: [mogenerator + Xmo'd](http://github.com/rentzsch/mogenerator)
 
-# THANKS
+
+THANKS
+------
 
 * Greg Neagle for his [Reposado](https://github.com/wdas/reposado)
 * Jonathan Rentzsch for his [mogenerator](http://github.com/rentzsch/mogenerator)
@@ -36,6 +43,8 @@ Building requires:
 * SUS Inspector uses icons created by:
     * [Glyphish Pro](http://www.glyphish.com)
 
-# LICENSE
+
+LICENSE
+-------
 
 SUS Inspector itself is licensed under the Apache License, Version 2.0. The included [Reposado](https://github.com/wdas/reposado) is licensed under the new BSD license.
