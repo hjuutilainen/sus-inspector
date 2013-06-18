@@ -109,7 +109,7 @@
     
     // Set default catalogs
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *defaultBaseURL = [defaults stringForKey:@"reposadoCatalogsBaseURL"];
+    NSString *defaultBaseURL = [defaults stringForKey:@"baseURL"];
     self.reposadoInstance.reposadoCatalogsBaseURLString = defaultBaseURL;
     for (NSDictionary *defaultCatalog in [defaults arrayForKey:@"defaultCatalogs"]) {
         SICatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SICatalog" inManagedObjectContext:moc];

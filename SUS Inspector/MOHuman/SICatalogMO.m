@@ -66,7 +66,7 @@
     if (![self.reposadoInstance.reposadoCatalogsBaseURLString isEqualToString:@""]) {
         parentBaseString = self.reposadoInstance.reposadoCatalogsBaseURLString;
     } else {
-        parentBaseString = [[NSUserDefaults standardUserDefaults] stringForKey:@"reposadoCatalogsBaseURL"];
+        parentBaseString = [[NSUserDefaults standardUserDefaults] stringForKey:@"baseURL"];
     }
     
     //NSURL *parentBase = [NSURL URLWithString:parentBaseString];

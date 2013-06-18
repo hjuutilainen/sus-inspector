@@ -28,7 +28,7 @@
 			<string>testing</string>
 		</dict>
 	</array>
-	<key>reposadoCatalogsBaseURL</key>
+	<key>baseURL</key>
 	<string>http://swscan.apple.com</string>
 	<key>defaultCatalogs</key>
 	<array>
