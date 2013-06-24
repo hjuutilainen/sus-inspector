@@ -17,7 +17,23 @@ Or edit the URL's manually on the first run setup window.
 * Selecting multiple products and choosing 'Create pkginfo for Munki...' opens a non-functional window. Creating a pkginfo for single product works as expected.
 * There's no way to cancel an active package download.
 * The 'Extract Package Payload...' from product info window works only for newer gzip compressed payloads.
-* 
+* Catalogs can't be modified after the initial setup.
+* Preferences need major UI work
+
+
+### RESETTING AND UNINSTALLING
+
+Removing SUS Inspector's database file effectively resets the application and causes the first run setup window to reappear. This database file is in SQLite format and can be found in:
+
+	~/Library/Application Support/SUS Inspector/SUS_Inspector.storedata
+
+By default, all Reposado generated data is kept separate from the application and the default location is in:
+
+	~/Library/Application Support/SUS Inspector/Default/
+
+Completely removing SUS Inspector and Reposado data can be done by removing the whole SUS Inspector directory:
+
+	~/Library/Application Support/SUS Inspector/
 
 
 ## REQUIREMENTS
