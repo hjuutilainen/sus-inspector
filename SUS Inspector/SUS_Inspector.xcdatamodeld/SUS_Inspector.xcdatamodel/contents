@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="SICatalog" representedClassName="SICatalogMO" syncable="YES">
         <attribute name="allowRemove" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="catalogDescription" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,7 +20,7 @@
         <attribute name="distributionLanguageDisplayName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="product" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="distributions" inverseEntity="SIProduct" syncable="YES"/>
     </entity>
-    <entity name="SIDownloadableObject" representedClassName="SIDownloadableObject" syncable="YES">
+    <entity name="SIDownloadableObject" representedClassName="SIDownloadableObject" isAbstract="YES" syncable="YES">
         <attribute name="objectCachedPath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objectIsCached" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="objectIsDownloading" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -30,7 +30,7 @@
     <entity name="SIPackage" representedClassName="SIPackageMO" parentEntity="SIDownloadableObject" syncable="YES">
         <attribute name="packageMetadataURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="packageSize" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIPackageMetadata" inverseName="package" inverseEntity="SIPackageMetadata" syncable="YES"/>
+        <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="SIPackageMetadata" inverseName="package" inverseEntity="SIPackageMetadata" syncable="YES"/>
         <relationship name="product" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="packages" inverseEntity="SIProduct" syncable="YES"/>
     </entity>
     <entity name="SIPackageMetadata" representedClassName="SIPackageMetadataMO" parentEntity="SIDownloadableObject" syncable="YES">

@@ -63,7 +63,7 @@ NSString *defaultInstanceName = @"Default";
         SIOperationManager *operationManager = [SIOperationManager sharedManager];
         [operationManager setupSourceListItems];
         [operationManager runReposync:self.defaultReposadoInstance];
-    } else if (returnCode == NSOKButton) {
+    } else if (returnCode == NSCancelButton) {
         /*
          * User cancelled the configuration.
          * Undo everything and delete the instance
@@ -77,9 +77,33 @@ NSString *defaultInstanceName = @"Default";
     }
 }
 
+- (IBAction)forceReadRepoAction:(id)sender
+{
+    [self deleteAllObjectsForEntityName:@"SIProduct"];
+    
+    SIOperationManager *operationManager = [SIOperationManager sharedManager];
+    operationManager.delegate = self;
+    [operationManager readReposadoInstanceContentsAsync:self.defaultReposadoInstance force:YES];
+}
+
+
+- (void)deleteAllObjectsForEntityName:(NSString *)entity
+{
+    NSManagedObjectContext *moc = self.managedObjectContext;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:entity inManagedObjectContext:moc]];
+    NSArray *foundObjects = [moc executeFetchRequest:fetchRequest error:nil];
+    [foundObjects enumerateObjectsWithOptions:0 usingBlock:^(id anObject, NSUInteger idx, BOOL *stop) {
+        [moc deleteObject:anObject];
+    }];
+    [fetchRequest release];
+    [moc processPendingChanges];
+}
 
 - (IBAction)reposyncAction:(id)sender
 {
+    [self deleteAllObjectsForEntityName:@"SIProduct"];
+    
     SIOperationManager *operationManager = [SIOperationManager sharedManager];
     operationManager.delegate = self;
     [operationManager runReposync:self.defaultReposadoInstance];
@@ -154,7 +178,7 @@ NSString *defaultInstanceName = @"Default";
             /*
              * The instance has gone through setup
              */
-            [[SIOperationManager sharedManager] readReposadoInstanceContentsAsync:instance];
+            [[SIOperationManager sharedManager] readReposadoInstanceContentsAsync:instance force:NO];
         } else {
             /*
              * User has probably cancelled the setup so
@@ -279,9 +303,22 @@ NSString *defaultInstanceName = @"Default";
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"SUS_Inspector.storedata"];
     NSPersistentStoreCoordinator *coordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom] autorelease];
-    if (![coordinator addPersistentStoreWithType:NSBinaryStoreType configuration:nil URL:url options:nil error:&error]) {
-        [[NSApplication sharedApplication] presentError:error];
-        return nil;
+    if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
+        
+        // Try to remove the store file
+        NSFileManager *fm = [NSFileManager defaultManager];
+        if ([fm fileExistsAtPath:[url path]]) {
+            NSLog(@"Removing persistent store %@", [url path]);
+            [fm removeItemAtURL:url error:nil];
+            if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
+                [[NSApplication sharedApplication] presentError:error];
+                return nil;
+            }
+        } else {
+            [[NSApplication sharedApplication] presentError:error];
+            return nil;
+        }
+        
     }
     _persistentStoreCoordinator = [coordinator retain];
     

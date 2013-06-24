@@ -137,20 +137,22 @@ static dispatch_queue_t serialQueue;
      SIPackageMO *thePackage = nil;
      NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
      [fetchObjects setEntity:[NSEntityDescription entityForName:@"SIPackage" inManagedObjectContext:moc]];
-     [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"packageURL == %@", urlString]];
+     [fetchObjects setPredicate:[NSPredicate predicateWithFormat:@"objectURL == %@", urlString]];
      NSUInteger numFoundObjects = [moc countForFetchRequest:fetchObjects error:nil];
      if (numFoundObjects == 0) {
      thePackage = [NSEntityDescription insertNewObjectForEntityForName:@"SIPackage" inManagedObjectContext:moc];
-     thePackage.packageURL = urlString;
+     thePackage.objectURL = urlString;
      } else {
      thePackage = [[moc executeFetchRequest:fetchObjects error:nil] objectAtIndex:0];
      }
      [fetchObjects release];
      return thePackage;
      */
+    
     SIPackageMO *thePackage = [NSEntityDescription insertNewObjectForEntityForName:@"SIPackage" inManagedObjectContext:moc];
     thePackage.objectURL = urlString;
     return thePackage;
+     
 }
 
 - (SIProductMO *)productWithID:(NSString *)productID managedObjectContext:(NSManagedObjectContext *)moc
@@ -162,14 +164,17 @@ static dispatch_queue_t serialQueue;
      [fetchProducts setPredicate:[NSPredicate predicateWithFormat:@"productID == %@", productID]];
      NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchProducts error:nil];
      if (numFoundCatalogs == 0) {
-     theProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SIProduct" inManagedObjectContext:moc];
-     theProduct.productID = productID;
+         theProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SIProduct" inManagedObjectContext:moc];
+         theProduct.productID = productID;
+     } else if (numFoundCatalogs == NSNotFound) {
+         theProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SIProduct" inManagedObjectContext:moc];
+         theProduct.productID = productID;
      } else {
-     theProduct = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
+         theProduct = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
      }
      [fetchProducts release];
      return theProduct;
-     */
+    */
     SIProductMO *theProduct = [NSEntityDescription insertNewObjectForEntityForName:@"SIProduct" inManagedObjectContext:moc];
     theProduct.productID = productID;
     return theProduct;
@@ -355,7 +360,7 @@ static dispatch_queue_t serialQueue;
     }
 }
 
-- (void)readReposadoInstanceContents:(SIReposadoInstanceMO *)blockInstance managedObjectContext:(NSManagedObjectContext *)threadSafeMoc
+- (void)readReposadoInstanceContents:(SIReposadoInstanceMO *)blockInstance force:(BOOL)force managedObjectContext:(NSManagedObjectContext *)threadSafeMoc
 {
     /*
      * Check the created/modified dates
@@ -375,7 +380,7 @@ static dispatch_queue_t serialQueue;
                        (![creationDate isEqualToDate:blockInstance.productInfoCreationDate])
                        ) ? TRUE : FALSE;
     
-    if (readNeeded)
+    if (readNeeded || force)
     {
         NSLog(@"Reading %@", [blockInstance.productInfoURL path]);
         
@@ -383,18 +388,6 @@ static dispatch_queue_t serialQueue;
         
         blockInstance.productInfoModificationDate = modificationDate;
         blockInstance.productInfoCreationDate = creationDate;
-        
-        // Delete some objects that we're going to rescan anyway
-        NSArray *entitiesToClear = [NSArray arrayWithObjects:@"SIProduct", @"SIPackage", @"SIDistribution", nil];
-        [entitiesToClear enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-            [fetchRequest setEntity:[NSEntityDescription entityForName:obj inManagedObjectContext:threadSafeMoc]];
-            NSArray *foundObjects = [threadSafeMoc executeFetchRequest:fetchRequest error:nil];
-            for (id anObject in foundObjects) {
-                [threadSafeMoc deleteObject:anObject];
-            }
-            [fetchRequest release];
-        }];
         
         
         NSDictionary *productInfo = [NSDictionary dictionaryWithContentsOfURL:blockInstance.productInfoURL];
@@ -445,6 +438,7 @@ static dispatch_queue_t serialQueue;
                 /*
                  * Parse catalogs
                  */
+                
                 NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
                 if ([appleCatalogs count] == 0) {
                     newProduct.productIsDeprecatedValue = YES;
@@ -546,7 +540,7 @@ static dispatch_queue_t serialQueue;
 }
 
 
-- (void)readReposadoInstanceContentsAsync:(SIReposadoInstanceMO *)instance
+- (void)readReposadoInstanceContentsAsync:(SIReposadoInstanceMO *)instance force:(BOOL)force
 {
     __block NSManagedObjectID *instanceID = instance.objectID;
     
@@ -556,13 +550,22 @@ static dispatch_queue_t serialQueue;
     dispatch_async(queue, ^{
         NSManagedObjectContext *parentMoc = [[NSApp delegate] managedObjectContext];
         
+        NSDate *startTime = [NSDate date];
+        
+        
+        NSLog(@"Context has %li objects registered (before read)", (unsigned long)[[parentMoc registeredObjects] count]);
         [parentMoc performBlockWithPrivateQueueConcurrencyAndWait:^(NSManagedObjectContext *threadSafeMoc) {
             // Get the reposado instance in this managed object context
             SIReposadoInstanceMO *blockInstance = (SIReposadoInstanceMO *)[threadSafeMoc objectWithID:instanceID];
-            [self readReposadoInstanceContents:blockInstance managedObjectContext:threadSafeMoc];
+            [self readReposadoInstanceContents:blockInstance force:force managedObjectContext:threadSafeMoc];
             self.currentOperationTitle = @"Saving...";
         }];
+        NSLog(@"Context has %li objects registered (after read)", (unsigned long)[[parentMoc registeredObjects] count]);
+        NSDate *now = [NSDate date];
+        NSLog(@"readReposadoInstanceContents took %lf (ms)", [now timeIntervalSinceDate:startTime] * 1000.0);
+        
         [self willEndOperations];
+        
         
         /*
          [parentMoc performBlockWithPrivateQueueConcurrency:^(NSManagedObjectContext *threadSafeMoc) {
@@ -675,7 +678,7 @@ static dispatch_queue_t serialQueue;
      [runButton setAction:@selector(printBanner:)];
      */
     
-    [self readReposadoInstanceContentsAsync:[[NSApp delegate] defaultReposadoInstance]];
+    [self readReposadoInstanceContentsAsync:[[NSApp delegate] defaultReposadoInstance] force:NO];
     //[self willEndOperations];
 }
 

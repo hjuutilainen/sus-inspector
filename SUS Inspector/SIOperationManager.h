@@ -44,7 +44,7 @@
 
 + (SIOperationManager *)sharedManager;
 - (void)setupSourceListItems;
-- (void)readReposadoInstanceContentsAsync:(SIReposadoInstanceMO *)instance;
+- (void)readReposadoInstanceContentsAsync:(SIReposadoInstanceMO *)instance force:(BOOL)force;
 - (void)runReposync:(SIReposadoInstanceMO *)instance;
 - (void)updateCachedStatusForProduct:(SIProductMO *)product;
 - (void)cacheDownloadableObjectWithURL:(NSURL *)url;
