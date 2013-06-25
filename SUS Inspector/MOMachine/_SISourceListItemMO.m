@@ -7,6 +7,7 @@ const struct SISourceListItemMOAttributes SISourceListItemMOAttributes = {
 	.iconImage = @"iconImage",
 	.iconName = @"iconName",
 	.isGroupItem = @"isGroupItem",
+	.productFilterPredicate = @"productFilterPredicate",
 	.sortIndex = @"sortIndex",
 	.title = @"title",
 };
@@ -98,6 +99,13 @@ const struct SISourceListItemMOFetchedProperties SISourceListItemMOFetchedProper
 - (void)setPrimitiveIsGroupItemValue:(BOOL)value_ {
 	[self setPrimitiveIsGroupItem:[NSNumber numberWithBool:value_]];
 }
+
+
+
+
+
+@dynamic productFilterPredicate;
+
 
 
 

@@ -241,43 +241,74 @@ static dispatch_queue_t serialQueue;
     NSManagedObjectContext *parentMoc = [[NSApp delegate] managedObjectContext];
     [parentMoc performBlockWithPrivateQueueConcurrencyAndWait:^(NSManagedObjectContext *threadSafeMoc) {
         
-        SISourceListItemMO *smartItem = [self sourceListItemWithTitle:@"PRODUCTS" managedObjectContext:threadSafeMoc];
-        smartItem.isGroupItemValue = YES;
-        smartItem.sortIndexValue = 0;
+        /*
+         The PRODUCTS group item
+         */
+        SISourceListItemMO *productsGroupItem = [self sourceListItemWithTitle:@"PRODUCTS" managedObjectContext:threadSafeMoc];
+        productsGroupItem.isGroupItemValue = YES;
+        productsGroupItem.sortIndexValue = 0;
         
-        //NSImage *instanceImage = [NSImage imageNamed:@"104-index-cards"];
         NSImage *instanceImage = [NSImage imageNamed:NSImageNameFolderSmart];
-        //[instanceImage setTemplate:YES];
         
+        
+        /*
+         All Products item
+         */
         SISourceListItemMO *allProductsItem = [self sourceListItemWithTitle:@"All Products" managedObjectContext:threadSafeMoc];
         allProductsItem.iconImage = instanceImage;
-        allProductsItem.parent = smartItem;
+        allProductsItem.parent = productsGroupItem;
         allProductsItem.sortIndexValue = 0;
-        SICatalogMO *allCatalog = [self catalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
-        allCatalog.catalogDisplayName = @"All Products";
-        allProductsItem.catalogReference = allCatalog;
         
+        allProductsItem.productFilterPredicate = [NSPredicate predicateWithValue:TRUE];
+        
+        /*
+         Deprecated Products item
+         */
         SISourceListItemMO *deprecatedProductsItem = [self sourceListItemWithTitle:@"Deprecated Products" managedObjectContext:threadSafeMoc];
         deprecatedProductsItem.iconImage = instanceImage;
-        deprecatedProductsItem.parent = smartItem;
+        deprecatedProductsItem.parent = productsGroupItem;
         deprecatedProductsItem.sortIndexValue = 1;
-        SICatalogMO *deprecatedCatalog = [self catalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
-        deprecatedCatalog.catalogDisplayName = @"Deprecated Products";
-        deprecatedProductsItem.catalogReference = deprecatedCatalog;
+        
+        NSPredicate *deprecatedPredicate = [NSPredicate predicateWithFormat:@"productIsDeprecated == TRUE"];
+        deprecatedProductsItem.productFilterPredicate = deprecatedPredicate;
+        
+        /*
+         Last 30 Days item
+         */
+        SISourceListItemMO *thisWeekProductsItem = [self sourceListItemWithTitle:@"Last 30 Days" managedObjectContext:threadSafeMoc];
+        thisWeekProductsItem.iconImage = instanceImage;
+        thisWeekProductsItem.parent = productsGroupItem;
+        thisWeekProductsItem.sortIndexValue = 2;
+         
+        NSDate *now = [NSDate date];
+        NSDateComponents *dayComponent = [[[NSDateComponents alloc] init] autorelease];
+        dayComponent.day = -30;
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        NSDate *sevenDaysAgo = [theCalendar dateByAddingComponents:dayComponent toDate:now options:0];
+        NSPredicate *thisWeekPredicate = [NSPredicate predicateWithFormat:@"productPostDate >= %@", sevenDaysAgo];
+        thisWeekProductsItem.productFilterPredicate = thisWeekPredicate;
         
         
+        /*
+         The CATALOGS group item
+         */
         SISourceListItemMO *catalogsGroupItem = [self sourceListItemWithTitle:@"CATALOGS" managedObjectContext:threadSafeMoc];
         catalogsGroupItem.isGroupItemValue = YES;
         catalogsGroupItem.sortIndexValue = 1;
         
-        // Fetch all catalogs
+        /*
+         Fetch all catalogs and create source list items
+         */
         NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SICatalog" inManagedObjectContext:threadSafeMoc];
         NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
-        NSPredicate *notDeprecated = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/deprecated"];
-        NSPredicate *notAll = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/all"];
+        
+        // Special source list items do not have associated catalogs anymore
+        //NSPredicate *notDeprecated = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/deprecated"];
+        //NSPredicate *notAll = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/all"];
+        
         NSPredicate *isActive = [NSPredicate predicateWithFormat:@"isActive == TRUE"];
         NSPredicate *instanceSetupComplete = [NSPredicate predicateWithFormat:@"reposadoInstance.reposadoSetupComplete == TRUE"];
-        NSArray *subPredicates = [NSArray arrayWithObjects:notAll, notDeprecated, isActive, instanceSetupComplete, nil];
+        NSArray *subPredicates = [NSArray arrayWithObjects:isActive, instanceSetupComplete, nil];
         NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
         [fetchForCatalogs setPredicate:predicate];
         [fetchForCatalogs setEntity:catalogEntityDescr];
@@ -294,6 +325,22 @@ static dispatch_queue_t serialQueue;
                 catalogItem.iconImage = catalogImage;
                 catalogItem.parent = catalogsGroupItem;
                 catalogItem.catalogReference = catalog;
+                
+                /*
+                 Special predicate to filter the products array
+                 */
+                NSPredicate *catalogPredicate = [NSPredicate predicateWithFormat:@"SUBQUERY(catalogs, $aCatalog, $aCatalog.catalogURL CONTAINS %@).@count != 0", catalog.catalogURL];
+                // And yes, this doesn't work -> NSPredicate *catalogPredicate = [NSPredicate predicateWithFormat:@"ANY catalogs.catalogURL CONTAINS %@", catalog.catalogURL];
+                catalogItem.productFilterPredicate = catalogPredicate;
+                
+                /*
+                NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
+                [fetchForCatalogs setPredicate:catalogPredicate];
+                [fetchForCatalogs setEntity:[NSEntityDescription entityForName:@"SIProduct" inManagedObjectContext:threadSafeMoc]];
+                NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
+                NSLog(@"%@ --- %li", [catalogPredicate description], (unsigned long)numFoundCatalogs);
+                 */
+                
             }];
         }
         [fetchForCatalogs release];
@@ -370,12 +417,14 @@ static dispatch_queue_t serialQueue;
     NSDate *modificationDate = [urlResourceValues objectForKey:NSURLContentModificationDateKey];
     NSDate *creationDate = [urlResourceValues objectForKey:NSURLCreationDateKey];
     
+    /*
     __block SICatalogMO *allCatalog = [self catalogWithURL:@"/all" managedObjectContext:threadSafeMoc];
     allCatalog.catalogTitle = @"All products";
     
     __block SICatalogMO *deprecatedCatalog = [self catalogWithURL:@"/deprecated" managedObjectContext:threadSafeMoc];
     deprecatedCatalog.catalogTitle = @"Deprecated products";
-    
+    */
+     
     BOOL readNeeded = ((![modificationDate isEqualToDate:blockInstance.productInfoModificationDate]) ||
                        (![creationDate isEqualToDate:blockInstance.productInfoCreationDate])
                        ) ? TRUE : FALSE;
@@ -403,7 +452,10 @@ static dispatch_queue_t serialQueue;
              */
             num++;
             //self.currentOperationDescription = [NSString stringWithFormat:@"Product %li/%li: %@ %@", (unsigned long)num, (unsigned long)productCount, key, [obj objectForKey:@"title"]];
-            self.currentOperationDescription = [NSString stringWithFormat:@"Reading product %li/%li (%@)", (unsigned long)num, (unsigned long)productCount, key];
+            //self.currentOperationDescription = [NSString stringWithFormat:@"Reading product %li/%li (%@)", (unsigned long)num, (unsigned long)productCount, key];
+            float percentage = ((float)num / (float)productCount) * 100.0;
+            
+            self.currentOperationDescription = [NSString stringWithFormat:@"Reading products: (%1.0f%% done)", percentage];
             
             /*
              * Create product objects
@@ -432,7 +484,7 @@ static dispatch_queue_t serialQueue;
                 NSString *sizeAsString = [obj objectForKey:@"size"];
                 newProduct.productSize = [NSNumber numberWithInteger:[sizeAsString integerValue]];
                 newProduct.productVersion = [obj objectForKey:@"version"];
-                [newProduct addCatalogsObject:allCatalog];
+                //[newProduct addCatalogsObject:allCatalog];
                 
                 
                 /*
@@ -442,7 +494,7 @@ static dispatch_queue_t serialQueue;
                 NSArray *appleCatalogs = [obj objectForKey:@"AppleCatalogs"];
                 if ([appleCatalogs count] == 0) {
                     newProduct.productIsDeprecatedValue = YES;
-                    [newProduct addCatalogsObject:deprecatedCatalog];
+                    //[newProduct addCatalogsObject:deprecatedCatalog];
                 }
                 for (NSString *aCatalogString in appleCatalogs) {
                     NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SICatalog" inManagedObjectContext:threadSafeMoc];

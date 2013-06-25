@@ -8,6 +8,7 @@ extern const struct SISourceListItemMOAttributes {
 	 NSString *iconImage;
 	 NSString *iconName;
 	 NSString *isGroupItem;
+	 NSString *productFilterPredicate;
 	 NSString *sortIndex;
 	 NSString *title;
 } SISourceListItemMOAttributes;
@@ -28,6 +29,7 @@ extern const struct SISourceListItemMOFetchedProperties {
 @class NSObject;
 
 
+@class NSObject;
 
 
 
@@ -73,6 +75,16 @@ extern const struct SISourceListItemMOFetchedProperties {
 - (void)setIsGroupItemValue:(BOOL)value_;
 
 //- (BOOL)validateIsGroupItem:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, retain) id productFilterPredicate;
+
+
+
+//- (BOOL)validateProductFilterPredicate:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -155,6 +167,12 @@ extern const struct SISourceListItemMOFetchedProperties {
 
 - (BOOL)primitiveIsGroupItemValue;
 - (void)setPrimitiveIsGroupItemValue:(BOOL)value_;
+
+
+
+
+- (id)primitiveProductFilterPredicate;
+- (void)setPrimitiveProductFilterPredicate:(id)value;
 
 
 

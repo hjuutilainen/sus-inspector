@@ -123,7 +123,8 @@
     NSArray *selectedSourceListItems = [self.catalogsViewController.sourceListTreeController selectedObjects];
     if ([selectedSourceListItems count] > 0) {
         SISourceListItemMO *selectedItem = [selectedSourceListItems objectAtIndex:0];
-        [self.productsViewController setSelectedCatalog:selectedItem.catalogReference];
+        NSPredicate *productFilter = selectedItem.productFilterPredicate;
+        [self.productsViewController setProductsMainFilterPredicate:productFilter];
     }
 }
 

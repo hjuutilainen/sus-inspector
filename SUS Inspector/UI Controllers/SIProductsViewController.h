@@ -31,6 +31,7 @@
 }
 
 @property (assign) IBOutlet NSArrayController *productsArrayController;
+@property (retain) NSPredicate *productsMainFilterPredicate;
 @property (assign) IBOutlet NSTableView *productsTableView;
 @property (retain) SICatalogMO *selectedCatalog;
 @property (retain) SIProductInfoWindowController *productInfoWindowController;

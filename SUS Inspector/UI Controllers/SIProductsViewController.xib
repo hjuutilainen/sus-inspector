@@ -510,6 +510,7 @@
 				<bool key="NSPreservesSelection">YES</bool>
 				<bool key="NSSelectsInsertedObjects">YES</bool>
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
+				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 				<bool key="NSAutomaticallyRearrangesObjects">YES</bool>
 			</object>
 			<object class="NSMenu" id="818342587">
@@ -939,19 +940,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentSet: selectedCatalog.products</string>
+						<string key="label">filterPredicate: productsMainFilterPredicate</string>
 						<reference key="source" ref="606501647"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="606501647"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">contentSet: selectedCatalog.products</string>
-							<string key="NSBinding">contentSet</string>
-							<string key="NSKeyPath">selectedCatalog.products</string>
+							<string key="NSLabel">filterPredicate: productsMainFilterPredicate</string>
+							<string key="NSBinding">filterPredicate</string>
+							<string key="NSKeyPath">productsMainFilterPredicate</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">185</int>
+					<int key="connectionID">221</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1350,7 +1351,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">220</int>
+			<int key="maxID">221</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -73,6 +73,7 @@
         <attribute name="iconImage" optional="YES" transient="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="iconName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isGroupItem" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="productFilterPredicate" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="sortIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="catalogReference" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SICatalog" inverseName="sourceListItem" inverseEntity="SICatalog" syncable="YES"/>
@@ -88,6 +89,6 @@
         <element name="SIProduct" positionX="-234" positionY="-99" width="128" height="225"/>
         <element name="SIReposadoInstance" positionX="-830" positionY="-72" width="128" height="209"/>
         <element name="SIServerMetadata" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="SISourceListItem" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="SISourceListItem" positionX="160" positionY="192" width="128" height="180"/>
     </elements>
 </model>
