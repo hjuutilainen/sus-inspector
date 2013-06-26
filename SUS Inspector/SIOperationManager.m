@@ -236,114 +236,166 @@ static dispatch_queue_t serialQueue;
     return theCatalog;
 }
 
+- (void)createProductsSectionWithIndex:(NSUInteger)index managedObjectContext:(NSManagedObjectContext *)moc
+{
+    NSImage *iconFolderSmart = [NSImage imageNamed:NSImageNameFolderSmart];
+    
+    /*
+     The PRODUCTS group item
+     */
+    SISourceListItemMO *productsGroupItem = [self sourceListItemWithTitle:@"PRODUCTS" managedObjectContext:moc];
+    productsGroupItem.isGroupItemValue = YES;
+    productsGroupItem.sortIndexValue = index;
+    
+    /*
+     All Products item
+     */
+    SISourceListItemMO *allProductsItem = [self sourceListItemWithTitle:@"All Products" managedObjectContext:moc];
+    allProductsItem.iconImage = iconFolderSmart;
+    allProductsItem.parent = productsGroupItem;
+    allProductsItem.sortIndexValue = 0;
+    
+    allProductsItem.productFilterPredicate = [NSPredicate predicateWithValue:TRUE];
+    
+    /*
+     Deprecated Products item
+     */
+    SISourceListItemMO *deprecatedProductsItem = [self sourceListItemWithTitle:@"Deprecated Products" managedObjectContext:moc];
+    deprecatedProductsItem.iconImage = iconFolderSmart;
+    deprecatedProductsItem.parent = productsGroupItem;
+    deprecatedProductsItem.sortIndexValue = 1;
+    
+    NSPredicate *deprecatedPredicate = [NSPredicate predicateWithFormat:@"productIsDeprecated == TRUE"];
+    deprecatedProductsItem.productFilterPredicate = deprecatedPredicate;
+    
+    /*
+     Last 30 Days item
+     */
+    SISourceListItemMO *thisWeekProductsItem = [self sourceListItemWithTitle:@"Last 30 Days" managedObjectContext:moc];
+    thisWeekProductsItem.iconImage = iconFolderSmart;
+    thisWeekProductsItem.parent = productsGroupItem;
+    thisWeekProductsItem.sortIndexValue = 2;
+    
+    NSDate *now = [NSDate date];
+    NSDateComponents *dayComponent = [[[NSDateComponents alloc] init] autorelease];
+    dayComponent.day = -30;
+    NSDate *thirtyDaysAgo = [[NSCalendar currentCalendar] dateByAddingComponents:dayComponent toDate:now options:0];
+    NSPredicate *thirtyDaysAgoPredicate = [NSPredicate predicateWithFormat:@"productPostDate >= %@", thirtyDaysAgo];
+    thisWeekProductsItem.productFilterPredicate = thirtyDaysAgoPredicate;
+    
+}
+
+
+- (void)createProductGroupsSectionWithIndex:(NSUInteger)index managedObjectContext:(NSManagedObjectContext *)moc
+{
+    NSImage *iconFolderSmart = [NSImage imageNamed:NSImageNameFolderSmart];
+    
+    /*
+     The PRODUCT GROUPS item
+     */
+    SISourceListItemMO *productGroupsGroupItem = [self sourceListItemWithTitle:@"PRODUCT GROUPS" managedObjectContext:moc];
+    productGroupsGroupItem.isGroupItemValue = YES;
+    productGroupsGroupItem.sortIndexValue = index;
+    
+    
+    /*
+     iLife item
+     */
+    SISourceListItemMO *iLifeItem = [self sourceListItemWithTitle:@"iLife" managedObjectContext:moc];
+    iLifeItem.iconImage = iconFolderSmart;
+    iLifeItem.parent = productGroupsGroupItem;
+    iLifeItem.sortIndexValue = 0;
+    
+    NSPredicate *iMoviePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"iMovie\""];
+    NSPredicate *iPhotoPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"iPhoto\""];
+    NSPredicate *garageBandPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"GarageBand\""];
+    NSPredicate *iDVDPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"iDVD\""];
+    
+    NSArray *iLifePredicates = [NSArray arrayWithObjects:iMoviePredicate, iPhotoPredicate, garageBandPredicate, iDVDPredicate, nil];
+    NSPredicate *iLifePredicate = [NSCompoundPredicate orPredicateWithSubpredicates:iLifePredicates];
+    
+    iLifeItem.productFilterPredicate = iLifePredicate;
+    
+    
+    /*
+     iWork item
+     */
+    SISourceListItemMO *iWorkItem = [self sourceListItemWithTitle:@"iWork" managedObjectContext:moc];
+    iWorkItem.iconImage = iconFolderSmart;
+    iWorkItem.parent = productGroupsGroupItem;
+    iWorkItem.sortIndexValue = 1;
+    
+    NSPredicate *pagesPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Pages\""];
+    NSPredicate *numbersPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Numbers\""];
+    NSPredicate *keynotePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Keynote\""];
+    
+    NSArray *iWorkPredicates = [NSArray arrayWithObjects:pagesPredicate, numbersPredicate, keynotePredicate, nil];
+    NSPredicate *iWorkPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:iWorkPredicates];
+    
+    iWorkItem.productFilterPredicate = iWorkPredicate;
+
+}
+
+
+- (void)createCatalogsSectionWithIndex:(NSUInteger)index managedObjectContext:(NSManagedObjectContext *)moc
+{
+    /*
+     The CATALOGS group item
+     */
+    SISourceListItemMO *catalogsGroupItem = [self sourceListItemWithTitle:@"CATALOGS" managedObjectContext:moc];
+    catalogsGroupItem.isGroupItemValue = YES;
+    catalogsGroupItem.sortIndexValue = index;
+    
+    /*
+     Fetch all catalogs and create source list items
+     */
+    NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SICatalog" inManagedObjectContext:moc];
+    NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
+    
+    // Special source list items do not have associated catalogs anymore
+    //NSPredicate *notDeprecated = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/deprecated"];
+    //NSPredicate *notAll = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/all"];
+    
+    NSPredicate *isActive = [NSPredicate predicateWithFormat:@"isActive == TRUE"];
+    NSPredicate *instanceSetupComplete = [NSPredicate predicateWithFormat:@"reposadoInstance.reposadoSetupComplete == TRUE"];
+    NSArray *subPredicates = [NSArray arrayWithObjects:isActive, instanceSetupComplete, nil];
+    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
+    [fetchForCatalogs setPredicate:predicate];
+    [fetchForCatalogs setEntity:catalogEntityDescr];
+    NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchForCatalogs error:nil];
+    if (numFoundCatalogs != 0) {
+        NSArray *allCatalogs = [moc executeFetchRequest:fetchForCatalogs error:nil];
+        [allCatalogs enumerateObjectsUsingBlock:^(SICatalogMO *catalog, NSUInteger idx, BOOL *stop) {
+            SISourceListItemMO *catalogItem = [self sourceListItemWithTitle:catalog.catalogDisplayName managedObjectContext:moc];
+            
+            NSImage *catalogImage = [NSImage imageNamed:@"96-book"];
+            [catalogImage setTemplate:YES];
+            
+            catalogItem.iconImage = catalogImage;
+            catalogItem.parent = catalogsGroupItem;
+            catalogItem.catalogReference = catalog;
+            
+            /*
+             Special predicate to filter the products array
+             */
+            NSPredicate *catalogPredicate = [NSPredicate predicateWithFormat:@"SUBQUERY(catalogs, $aCatalog, $aCatalog.catalogURL CONTAINS %@).@count != 0", catalog.catalogURL];
+            // And yes, this doesn't work -> NSPredicate *catalogPredicate = [NSPredicate predicateWithFormat:@"ANY catalogs.catalogURL CONTAINS %@", catalog.catalogURL];
+            catalogItem.productFilterPredicate = catalogPredicate;
+            
+        }];
+    }
+    [fetchForCatalogs release];
+}
+
 - (void)setupSourceListItems
 {
     NSManagedObjectContext *parentMoc = [[NSApp delegate] managedObjectContext];
     [parentMoc performBlockWithPrivateQueueConcurrencyAndWait:^(NSManagedObjectContext *threadSafeMoc) {
         
-        /*
-         The PRODUCTS group item
-         */
-        SISourceListItemMO *productsGroupItem = [self sourceListItemWithTitle:@"PRODUCTS" managedObjectContext:threadSafeMoc];
-        productsGroupItem.isGroupItemValue = YES;
-        productsGroupItem.sortIndexValue = 0;
+        [self createProductsSectionWithIndex:0 managedObjectContext:threadSafeMoc];
+        [self createProductGroupsSectionWithIndex:1 managedObjectContext:threadSafeMoc];
+        [self createCatalogsSectionWithIndex:2 managedObjectContext:threadSafeMoc];
         
-        NSImage *instanceImage = [NSImage imageNamed:NSImageNameFolderSmart];
-        
-        
-        /*
-         All Products item
-         */
-        SISourceListItemMO *allProductsItem = [self sourceListItemWithTitle:@"All Products" managedObjectContext:threadSafeMoc];
-        allProductsItem.iconImage = instanceImage;
-        allProductsItem.parent = productsGroupItem;
-        allProductsItem.sortIndexValue = 0;
-        
-        allProductsItem.productFilterPredicate = [NSPredicate predicateWithValue:TRUE];
-        
-        /*
-         Deprecated Products item
-         */
-        SISourceListItemMO *deprecatedProductsItem = [self sourceListItemWithTitle:@"Deprecated Products" managedObjectContext:threadSafeMoc];
-        deprecatedProductsItem.iconImage = instanceImage;
-        deprecatedProductsItem.parent = productsGroupItem;
-        deprecatedProductsItem.sortIndexValue = 1;
-        
-        NSPredicate *deprecatedPredicate = [NSPredicate predicateWithFormat:@"productIsDeprecated == TRUE"];
-        deprecatedProductsItem.productFilterPredicate = deprecatedPredicate;
-        
-        /*
-         Last 30 Days item
-         */
-        SISourceListItemMO *thisWeekProductsItem = [self sourceListItemWithTitle:@"Last 30 Days" managedObjectContext:threadSafeMoc];
-        thisWeekProductsItem.iconImage = instanceImage;
-        thisWeekProductsItem.parent = productsGroupItem;
-        thisWeekProductsItem.sortIndexValue = 2;
-         
-        NSDate *now = [NSDate date];
-        NSDateComponents *dayComponent = [[[NSDateComponents alloc] init] autorelease];
-        dayComponent.day = -30;
-        NSCalendar *theCalendar = [NSCalendar currentCalendar];
-        NSDate *sevenDaysAgo = [theCalendar dateByAddingComponents:dayComponent toDate:now options:0];
-        NSPredicate *thisWeekPredicate = [NSPredicate predicateWithFormat:@"productPostDate >= %@", sevenDaysAgo];
-        thisWeekProductsItem.productFilterPredicate = thisWeekPredicate;
-        
-        
-        /*
-         The CATALOGS group item
-         */
-        SISourceListItemMO *catalogsGroupItem = [self sourceListItemWithTitle:@"CATALOGS" managedObjectContext:threadSafeMoc];
-        catalogsGroupItem.isGroupItemValue = YES;
-        catalogsGroupItem.sortIndexValue = 1;
-        
-        /*
-         Fetch all catalogs and create source list items
-         */
-        NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SICatalog" inManagedObjectContext:threadSafeMoc];
-        NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
-        
-        // Special source list items do not have associated catalogs anymore
-        //NSPredicate *notDeprecated = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/deprecated"];
-        //NSPredicate *notAll = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/all"];
-        
-        NSPredicate *isActive = [NSPredicate predicateWithFormat:@"isActive == TRUE"];
-        NSPredicate *instanceSetupComplete = [NSPredicate predicateWithFormat:@"reposadoInstance.reposadoSetupComplete == TRUE"];
-        NSArray *subPredicates = [NSArray arrayWithObjects:isActive, instanceSetupComplete, nil];
-        NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
-        [fetchForCatalogs setPredicate:predicate];
-        [fetchForCatalogs setEntity:catalogEntityDescr];
-        NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
-        if (numFoundCatalogs != 0) {
-            NSArray *allCatalogs = [threadSafeMoc executeFetchRequest:fetchForCatalogs error:nil];
-            [allCatalogs enumerateObjectsUsingBlock:^(SICatalogMO *catalog, NSUInteger idx, BOOL *stop) {
-                SISourceListItemMO *catalogItem = [self sourceListItemWithTitle:catalog.catalogDisplayName managedObjectContext:threadSafeMoc];
-                //NSImage *catalogImage = [NSImage imageNamed:NSImageNameMultipleDocuments];
-                
-                NSImage *catalogImage = [NSImage imageNamed:@"96-book"];
-                [catalogImage setTemplate:YES];
-                
-                catalogItem.iconImage = catalogImage;
-                catalogItem.parent = catalogsGroupItem;
-                catalogItem.catalogReference = catalog;
-                
-                /*
-                 Special predicate to filter the products array
-                 */
-                NSPredicate *catalogPredicate = [NSPredicate predicateWithFormat:@"SUBQUERY(catalogs, $aCatalog, $aCatalog.catalogURL CONTAINS %@).@count != 0", catalog.catalogURL];
-                // And yes, this doesn't work -> NSPredicate *catalogPredicate = [NSPredicate predicateWithFormat:@"ANY catalogs.catalogURL CONTAINS %@", catalog.catalogURL];
-                catalogItem.productFilterPredicate = catalogPredicate;
-                
-                /*
-                NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
-                [fetchForCatalogs setPredicate:catalogPredicate];
-                [fetchForCatalogs setEntity:[NSEntityDescription entityForName:@"SIProduct" inManagedObjectContext:threadSafeMoc]];
-                NSUInteger numFoundCatalogs = [threadSafeMoc countForFetchRequest:fetchForCatalogs error:nil];
-                NSLog(@"%@ --- %li", [catalogPredicate description], (unsigned long)numFoundCatalogs);
-                 */
-                
-            }];
-        }
-        [fetchForCatalogs release];
     }];
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SIDidSetupSourceListItems" object:nil];
