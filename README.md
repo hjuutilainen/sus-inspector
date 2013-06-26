@@ -15,7 +15,9 @@ Or edit the URL's manually on the first run setup window.
 
 
 * Selecting multiple products and choosing 'Create pkginfo for Munki...' opens a non-functional window. Creating a pkginfo for single product works as expected.
+* Blocking applications for pkginfo files are not yet supported
 * There's no way to cancel an active package download.
+* There's no way to cancel an active repo_sync.
 * The 'Extract Package Payload...' from product info window works only for newer gzip compressed payloads.
 * Catalogs can't be modified after the initial setup.
 * Preferences need major UI work
