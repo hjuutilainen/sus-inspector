@@ -52,9 +52,10 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSourceList) name:@"SIDidSetupSourceListItems" object:nil];
     
-    NSSortDescriptor *sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"sortIndex" ascending:YES selector:@selector(compare:)];
+    NSSortDescriptor *sortByIndex = [NSSortDescriptor sortDescriptorWithKey:@"sortIndex" ascending:YES selector:@selector(compare:)];
     NSSortDescriptor *sortByOSVersion = [NSSortDescriptor sortDescriptorWithKey:@"catalogReference.catalogOSVersion" ascending:NO selector:@selector(compare:)];
-    [self.sourceListTreeController setSortDescriptors:[NSArray arrayWithObjects:sortByTitle, sortByOSVersion, nil]];
+    NSSortDescriptor *sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)];
+    [self.sourceListTreeController setSortDescriptors:[NSArray arrayWithObjects:sortByIndex, sortByOSVersion, sortByTitle, nil]];
     
     // The basic recipe for a sidebar. Note that the selectionHighlightStyle is set to NSTableViewSelectionHighlightStyleSourceList in the nib
     [self.sourceListOutlineView sizeLastColumnToFit];
