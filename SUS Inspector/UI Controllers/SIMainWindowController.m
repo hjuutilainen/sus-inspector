@@ -43,6 +43,12 @@
 }
 
 
+- (IBAction)focusToSearchFieldAction:(id)sender
+{
+    [[self.productsViewController searchField] becomeFirstResponder];
+}
+
+
 - (void)windowDidLoad
 {
     [super windowDidLoad];

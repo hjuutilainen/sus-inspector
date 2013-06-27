@@ -40,4 +40,6 @@
 - (void)showProgressPanelAttachedToWindow:(NSWindow *)aWindow;
 - (void)hideProgressPanel;
 
+- (IBAction)focusToSearchFieldAction:(id)sender;
+
 @end
