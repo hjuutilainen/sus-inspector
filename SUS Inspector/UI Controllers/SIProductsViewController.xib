@@ -302,6 +302,7 @@
 													<object class="NSDateFormatter" key="NSFormatter" id="291256324">
 														<dictionary class="NSMutableDictionary" key="NS.attributes">
 															<integer value="1" key="dateStyle"/>
+															<boolean value="YES" key="doesRelativeDateFormatting"/>
 															<integer value="1040" key="formatterBehavior"/>
 															<integer value="0" key="timeStyle"/>
 														</dictionary>
@@ -967,7 +968,7 @@
 						<string key="label">predicate: searchFieldPredicate</string>
 						<reference key="source" ref="473316609"/>
 						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector" id="64356000">
+						<object class="NSNibBindingConnector" key="connector" id="95609343">
 							<reference key="NSSource" ref="473316609"/>
 							<reference key="NSDestination" ref="1001"/>
 							<string key="NSLabel">predicate: searchFieldPredicate</string>
@@ -987,7 +988,7 @@
 						<string key="label">predicate2: searchFieldPredicate</string>
 						<reference key="source" ref="473316609"/>
 						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector" id="947007583">
+						<object class="NSNibBindingConnector" key="connector" id="241926830">
 							<reference key="NSSource" ref="473316609"/>
 							<reference key="NSDestination" ref="1001"/>
 							<string key="NSLabel">predicate2: searchFieldPredicate</string>
@@ -997,7 +998,7 @@
 								<string key="NSDisplayName">Title</string>
 								<string key="NSPredicateFormat">productTitle contains[cd] $value</string>
 							</dictionary>
-							<reference key="NSPreviousConnector" ref="64356000"/>
+							<reference key="NSPreviousConnector" ref="95609343"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
@@ -1018,7 +1019,7 @@
 								<string key="NSDisplayName">Description</string>
 								<string key="NSPredicateFormat">productDescription contains[cd] $value</string>
 							</dictionary>
-							<reference key="NSPreviousConnector" ref="947007583"/>
+							<reference key="NSPreviousConnector" ref="241926830"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
