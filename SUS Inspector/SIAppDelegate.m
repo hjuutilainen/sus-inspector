@@ -225,12 +225,27 @@ NSString *defaultInstanceName = @"Default";
 - (void)willStartOperations:(id)sender
 {
     SIOperationManager *om = [SIOperationManager sharedManager];
+    
+    /*
+     If we're currently running a package operation, attach the progress
+     sheet to the current key window
+     */
     if (om.currentOperationType == SIOperationTypePackageOperation) {
         NSWindow *keyWindow = [NSApp keyWindow];
         [self.mainWindowController showProgressPanelAttachedToWindow:keyWindow];
-    } else if (om.currentOperationType == SIOperationTypeRepoSync) {
+    }
+    
+    /*
+     If we're running a repo_sync, attach the progress sheet to main window
+     */
+    else if (om.currentOperationType == SIOperationTypeRepoSync) {
         [self.mainWindowController showProgressPanel];
-    } else {
+    }
+    
+    /*
+     Default is to attach to the main window
+     */
+    else {
         [self.mainWindowController showProgressPanel];
     }
 }
