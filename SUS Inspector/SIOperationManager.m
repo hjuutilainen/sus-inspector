@@ -289,6 +289,7 @@ static dispatch_queue_t serialQueue;
 - (void)createProductGroupsSectionWithIndex:(NSUInteger)index managedObjectContext:(NSManagedObjectContext *)moc
 {
     NSImage *iconFolderSmart = [NSImage imageNamed:NSImageNameFolderSmart];
+    NSPredicate *notDeprecatedPredicate = [NSPredicate predicateWithFormat:@"productIsDeprecated == FALSE"];
     
     /*
      The PRODUCT GROUPS item
@@ -297,14 +298,56 @@ static dispatch_queue_t serialQueue;
     productGroupsGroupItem.isGroupItemValue = YES;
     productGroupsGroupItem.sortIndexValue = index;
     
+    /*
+     Java Updates item
+     */
+    SISourceListItemMO *javaItem = [self sourceListItemWithTitle:@"Java Updates" managedObjectContext:moc];
+    javaItem.iconImage = iconFolderSmart;
+    javaItem.parent = productGroupsGroupItem;
+    
+    NSPredicate *javaInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Java\""];
+    
+    NSArray *javaPredicates = [NSArray arrayWithObjects:javaInTitlePredicate, nil];
+    NSPredicate *javaCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:javaPredicates];
+    NSPredicate *javaFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, javaCompoundPredicate, nil]];
+    
+    javaItem.productFilterPredicate = javaFinalPredicate;
     
     /*
-     iLife item
+     Firmware Updates item
      */
-    SISourceListItemMO *iLifeItem = [self sourceListItemWithTitle:@"iLife" managedObjectContext:moc];
+    SISourceListItemMO *firmwareItem = [self sourceListItemWithTitle:@"Firmware Updates" managedObjectContext:moc];
+    firmwareItem.iconImage = iconFolderSmart;
+    firmwareItem.parent = productGroupsGroupItem;
+    
+    NSPredicate *firmwareInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Firmware\""];
+    NSArray *firmwarePredicates = [NSArray arrayWithObjects:firmwareInTitlePredicate, nil];
+    NSPredicate *firmwareCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:firmwarePredicates];
+    NSPredicate *firmwareFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, firmwareCompoundPredicate, nil]];
+    
+    firmwareItem.productFilterPredicate = firmwareFinalPredicate;
+    
+    /*
+     OS Updates item
+     */
+    SISourceListItemMO *osItem = [self sourceListItemWithTitle:@"OS Updates" managedObjectContext:moc];
+    osItem.iconImage = iconFolderSmart;
+    osItem.parent = productGroupsGroupItem;
+    
+    NSPredicate *osxupdateInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"OS X Update\""];
+    NSPredicate *osxserverInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"OS X Server Update\""];
+    NSArray *osPredicates = [NSArray arrayWithObjects:osxupdateInTitlePredicate, osxserverInTitlePredicate, nil];
+    NSPredicate *osCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:osPredicates];
+    NSPredicate *osFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, osCompoundPredicate, nil]];
+    
+    osItem.productFilterPredicate = osFinalPredicate;
+    
+    /*
+     iLife Updates item
+     */
+    SISourceListItemMO *iLifeItem = [self sourceListItemWithTitle:@"iLife Updates" managedObjectContext:moc];
     iLifeItem.iconImage = iconFolderSmart;
     iLifeItem.parent = productGroupsGroupItem;
-    iLifeItem.sortIndexValue = 0;
     
     NSPredicate *iMoviePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"iMovie\""];
     NSPredicate *iPhotoPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"iPhoto\""];
@@ -312,18 +355,18 @@ static dispatch_queue_t serialQueue;
     NSPredicate *iDVDPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"iDVD\""];
     
     NSArray *iLifePredicates = [NSArray arrayWithObjects:iMoviePredicate, iPhotoPredicate, garageBandPredicate, iDVDPredicate, nil];
-    NSPredicate *iLifePredicate = [NSCompoundPredicate orPredicateWithSubpredicates:iLifePredicates];
+    NSPredicate *iLifeCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:iLifePredicates];
+    NSPredicate *iLifeFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, iLifeCompoundPredicate, nil]];
     
-    iLifeItem.productFilterPredicate = iLifePredicate;
+    iLifeItem.productFilterPredicate = iLifeFinalPredicate;
     
     
     /*
-     iWork item
+     iWork Updates item
      */
-    SISourceListItemMO *iWorkItem = [self sourceListItemWithTitle:@"iWork" managedObjectContext:moc];
+    SISourceListItemMO *iWorkItem = [self sourceListItemWithTitle:@"iWork Updates" managedObjectContext:moc];
     iWorkItem.iconImage = iconFolderSmart;
     iWorkItem.parent = productGroupsGroupItem;
-    iWorkItem.sortIndexValue = 1;
     
     NSPredicate *pagesPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Pages\""];
     NSPredicate *numbersPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Numbers\""];
