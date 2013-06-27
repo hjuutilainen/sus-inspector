@@ -41,6 +41,33 @@
     return self;
 }
 
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
+{
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+	
+    /*
+     Update the mainCompoundPredicate everytime the subcomponents are updated
+     */
+    if ([key isEqualToString:@"mainCompoundPredicate"])
+    {
+        NSSet *affectingKeys = [NSSet setWithObjects:@"productsMainFilterPredicate", @"searchFieldPredicate", nil];
+        keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKeys];
+    }
+	
+    return keyPaths;
+}
+
+
+- (NSPredicate *)mainCompoundPredicate
+{
+    /*
+     Combine the selected source list item predicate and the possible search field predicate
+     */
+    return [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:self.productsMainFilterPredicate, self.searchFieldPredicate, nil]];
+}
+
+
 - (void)openGetInfoWindow
 {
     for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {

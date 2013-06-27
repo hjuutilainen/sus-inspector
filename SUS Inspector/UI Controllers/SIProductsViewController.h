@@ -30,8 +30,11 @@
     
 }
 
+@property (assign) IBOutlet NSSearchField *searchField;
 @property (assign) IBOutlet NSArrayController *productsArrayController;
 @property (retain) NSPredicate *productsMainFilterPredicate;
+@property (readonly, retain) NSPredicate *mainCompoundPredicate;
+@property (retain) NSPredicate *searchFieldPredicate;
 @property (assign) IBOutlet NSTableView *productsTableView;
 @property (retain) SICatalogMO *selectedCatalog;
 @property (retain) SIProductInfoWindowController *productInfoWindowController;
