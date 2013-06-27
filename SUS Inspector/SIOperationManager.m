@@ -357,6 +357,20 @@ static dispatch_queue_t serialQueue;
     securityItem.productFilterPredicate = securityFinalPredicate;
     
     /*
+     Printer Drivers item
+     */
+    SISourceListItemMO *printerItem = [self sourceListItemWithTitle:@"Printers" managedObjectContext:moc];
+    printerItem.iconImage = iconFolderSmart;
+    printerItem.parent = productGroupsGroupItem;
+    
+    NSPredicate *printerInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Printer\""];
+    NSArray *printerPredicates = [NSArray arrayWithObjects:printerInTitlePredicate, nil];
+    NSPredicate *printerCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:printerPredicates];
+    NSPredicate *printerFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, printerCompoundPredicate, nil]];
+    
+    printerItem.productFilterPredicate = printerFinalPredicate;
+    
+    /*
      Pro Apps
      */
     SISourceListItemMO *proAppsItem = [self sourceListItemWithTitle:@"Pro Applications" managedObjectContext:moc];
