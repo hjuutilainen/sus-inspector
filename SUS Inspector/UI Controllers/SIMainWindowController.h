@@ -37,6 +37,7 @@
 @property (assign) IBOutlet NSSplitView *mainSplitView;
 
 - (void)showProgressPanel;
+- (void)showProgressPanelAttachedToWindow:(NSWindow *)aWindow;
 - (void)hideProgressPanel;
 
 @end

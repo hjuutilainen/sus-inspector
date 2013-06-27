@@ -34,7 +34,15 @@
 
 @interface SIOperationManager : NSObject <AMShellWrapperDelegate, NSURLDownloadDelegate>
 
+typedef enum {
+    SIOperationTypeGeneric,
+    SIOperationTypeRepoSync,
+    SIOperationTypeReadLocalFiles,
+    SIOperationTypePackageOperation,
+} SIOperationType;
+
 @property (assign) id <SIOperationManagerDelegate> delegate;
+@property SIOperationType currentOperationType;
 @property (retain) NSOperationQueue *operationQueue;
 @property (retain) NSString *currentOperationTitle;
 @property (retain) NSString *currentOperationDescription;

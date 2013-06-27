@@ -649,6 +649,7 @@ static dispatch_queue_t serialQueue;
     __block NSManagedObjectID *instanceID = instance.objectID;
     
     self.currentOperationTitle = @"Reading product information...";
+    self.currentOperationType = SIOperationTypeReadLocalFiles;
     [self willStartOperations];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
@@ -763,6 +764,7 @@ static dispatch_queue_t serialQueue;
 // when a process is launched.
 - (void)processStarted:(AMShellWrapper *)wrapper
 {
+    self.currentOperationType = SIOperationTypeRepoSync;
 	[self willStartOperations];
     self.currentOperationTitle = @"Refreshing catalogs...";
 }

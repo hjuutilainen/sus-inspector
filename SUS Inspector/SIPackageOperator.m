@@ -69,6 +69,7 @@
 
 - (void)willStartOperation
 {
+    [[SIOperationManager sharedManager] setCurrentOperationType:SIOperationTypePackageOperation];
     [[SIOperationManager sharedManager] willStartOperations];
 }
 

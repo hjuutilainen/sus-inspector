@@ -72,9 +72,15 @@
 
 - (void)showProgressPanel
 {
+    [self showProgressPanelAttachedToWindow:self.window];
+}
+
+- (void)showProgressPanelAttachedToWindow:(NSWindow *)aWindow
+{
     [NSApp beginSheet:self.progressWindowController.window
-       modalForWindow:self.window modalDelegate:nil
+       modalForWindow:aWindow modalDelegate:nil
        didEndSelector:nil contextInfo:nil];
+    
     [self.progressWindowController.progressIndicator setIndeterminate:YES];
     [self.progressWindowController.progressIndicator startAnimation:self];
 }

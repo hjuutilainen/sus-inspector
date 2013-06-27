@@ -220,11 +220,19 @@ NSString *defaultInstanceName = @"Default";
 
 
 # pragma mark -
-# pragma mark SIOprationManager delegate
+# pragma mark SIOperationManager delegate
 
 - (void)willStartOperations:(id)sender
 {
-    [self.mainWindowController showProgressPanel];
+    SIOperationManager *om = [SIOperationManager sharedManager];
+    if (om.currentOperationType == SIOperationTypePackageOperation) {
+        NSWindow *keyWindow = [NSApp keyWindow];
+        [self.mainWindowController showProgressPanelAttachedToWindow:keyWindow];
+    } else if (om.currentOperationType == SIOperationTypeRepoSync) {
+        [self.mainWindowController showProgressPanel];
+    } else {
+        [self.mainWindowController showProgressPanel];
+    }
 }
 
 
