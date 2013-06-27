@@ -301,7 +301,7 @@ static dispatch_queue_t serialQueue;
     /*
      Java Updates item
      */
-    SISourceListItemMO *javaItem = [self sourceListItemWithTitle:@"Java Updates" managedObjectContext:moc];
+    SISourceListItemMO *javaItem = [self sourceListItemWithTitle:@"Java" managedObjectContext:moc];
     javaItem.iconImage = iconFolderSmart;
     javaItem.parent = productGroupsGroupItem;
     
@@ -316,7 +316,7 @@ static dispatch_queue_t serialQueue;
     /*
      Firmware Updates item
      */
-    SISourceListItemMO *firmwareItem = [self sourceListItemWithTitle:@"Firmware Updates" managedObjectContext:moc];
+    SISourceListItemMO *firmwareItem = [self sourceListItemWithTitle:@"Firmware" managedObjectContext:moc];
     firmwareItem.iconImage = iconFolderSmart;
     firmwareItem.parent = productGroupsGroupItem;
     
@@ -330,7 +330,7 @@ static dispatch_queue_t serialQueue;
     /*
      OS Updates item
      */
-    SISourceListItemMO *osItem = [self sourceListItemWithTitle:@"OS Updates" managedObjectContext:moc];
+    SISourceListItemMO *osItem = [self sourceListItemWithTitle:@"System Updates" managedObjectContext:moc];
     osItem.iconImage = iconFolderSmart;
     osItem.parent = productGroupsGroupItem;
     
@@ -341,6 +341,20 @@ static dispatch_queue_t serialQueue;
     NSPredicate *osFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, osCompoundPredicate, nil]];
     
     osItem.productFilterPredicate = osFinalPredicate;
+    
+    /*
+     Security Updates item
+     */
+    SISourceListItemMO *securityItem = [self sourceListItemWithTitle:@"Security Updates" managedObjectContext:moc];
+    securityItem.iconImage = iconFolderSmart;
+    securityItem.parent = productGroupsGroupItem;
+    
+    NSPredicate *securityInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Security Update\""];
+    NSArray *securityPredicates = [NSArray arrayWithObjects:securityInTitlePredicate, nil];
+    NSPredicate *securityCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:securityPredicates];
+    NSPredicate *securityFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, securityCompoundPredicate, nil]];
+    
+    securityItem.productFilterPredicate = securityFinalPredicate;
     
     /*
      Pro Apps
@@ -371,7 +385,7 @@ static dispatch_queue_t serialQueue;
     /*
      iLife Updates item
      */
-    SISourceListItemMO *iLifeItem = [self sourceListItemWithTitle:@"iLife Updates" managedObjectContext:moc];
+    SISourceListItemMO *iLifeItem = [self sourceListItemWithTitle:@"iLife" managedObjectContext:moc];
     iLifeItem.iconImage = iconFolderSmart;
     iLifeItem.parent = productGroupsGroupItem;
     
@@ -391,7 +405,7 @@ static dispatch_queue_t serialQueue;
     /*
      iWork Updates item
      */
-    SISourceListItemMO *iWorkItem = [self sourceListItemWithTitle:@"iWork Updates" managedObjectContext:moc];
+    SISourceListItemMO *iWorkItem = [self sourceListItemWithTitle:@"iWork" managedObjectContext:moc];
     iWorkItem.iconImage = iconFolderSmart;
     iWorkItem.parent = productGroupsGroupItem;
     
