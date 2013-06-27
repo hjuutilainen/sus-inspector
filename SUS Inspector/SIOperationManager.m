@@ -705,9 +705,9 @@ static dispatch_queue_t serialQueue;
 }
 
 
-// ============================================================
-// conforming to the AMShellWrapperDelegate protocol:
-// ============================================================
+
+# pragma mark -
+# pragma mark AMShellWrapperDelegate methods
 
 - (NSString *)cleanReposadoMessage:(NSString *)message
 {
