@@ -343,18 +343,45 @@ static dispatch_queue_t serialQueue;
     osItem.productFilterPredicate = osFinalPredicate;
     
     /*
+     Pro Apps
+     */
+    SISourceListItemMO *proAppsItem = [self sourceListItemWithTitle:@"Pro Applications" managedObjectContext:moc];
+    proAppsItem.iconImage = iconFolderSmart;
+    proAppsItem.parent = productGroupsGroupItem;
+    
+    NSPredicate *proAppsInTitlePredicate = [NSPredicate predicateWithFormat:
+                                            @"productTitle contains[cd] \"Pro Applications\" OR \
+                                            productTitle contains[cd] \"ProApps\""];
+    NSPredicate *apertureInTitlePredicate = [NSPredicate predicateWithFormat:
+                                             @"productTitle contains[cd] \"Aperture\""];
+    NSPredicate *logicComponentsInTitlePredicate = [NSPredicate predicateWithFormat:
+                                          @"productTitle contains[cd] \"Logic\" OR \
+                                          productTitle contains[cd] \"Mainstage\" OR \
+                                          productTitle contains[cd] \"Waveburner\" OR \
+                                          productTitle contains[cd] \"Soundtrack\""];
+    NSPredicate *finalCutInTitlePredicate = [NSPredicate predicateWithFormat:
+                                             @"productTitle contains[cd] \"Final Cut\""];
+    
+    NSArray *proAppsPredicates = [NSArray arrayWithObjects:proAppsInTitlePredicate, apertureInTitlePredicate, logicComponentsInTitlePredicate, finalCutInTitlePredicate, nil];
+    NSPredicate *proAppsCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:proAppsPredicates];
+    NSPredicate *proAppsFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, proAppsCompoundPredicate, nil]];
+    
+    proAppsItem.productFilterPredicate = proAppsFinalPredicate;
+    
+    /*
      iLife Updates item
      */
     SISourceListItemMO *iLifeItem = [self sourceListItemWithTitle:@"iLife Updates" managedObjectContext:moc];
     iLifeItem.iconImage = iconFolderSmart;
     iLifeItem.parent = productGroupsGroupItem;
     
+    NSPredicate *iLifeInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"iLife\""];
     NSPredicate *iMoviePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"iMovie\""];
     NSPredicate *iPhotoPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"iPhoto\""];
     NSPredicate *garageBandPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"GarageBand\""];
     NSPredicate *iDVDPredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"iDVD\""];
     
-    NSArray *iLifePredicates = [NSArray arrayWithObjects:iMoviePredicate, iPhotoPredicate, garageBandPredicate, iDVDPredicate, nil];
+    NSArray *iLifePredicates = [NSArray arrayWithObjects:iLifeInTitlePredicate, iMoviePredicate, iPhotoPredicate, garageBandPredicate, iDVDPredicate, nil];
     NSPredicate *iLifeCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:iLifePredicates];
     NSPredicate *iLifeFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, iLifeCompoundPredicate, nil]];
     
