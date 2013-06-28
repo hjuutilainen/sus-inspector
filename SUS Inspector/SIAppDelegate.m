@@ -127,6 +127,30 @@ NSString *defaultInstanceName = @"Default";
     
     // This is the directory where default reposado instance will be installed
     NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:defaultInstanceName];
+    
+    NSError *error = nil;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDictionary *properties = [localReposadoInstallURL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
+    if (!properties) {
+        BOOL ok = NO;
+        if ([error code] == NSFileReadNoSuchFileError) {
+            ok = [fileManager createDirectoryAtPath:[localReposadoInstallURL path] withIntermediateDirectories:YES attributes:nil error:&error];
+        }
+    } else {
+        if (![properties[NSURLIsDirectoryKey] boolValue]) {
+            // Customize and localize this error.
+            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store Reposado data, found a file (%@).", [localReposadoInstallURL path]];
+            
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
+            error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];
+            
+            [[NSApplication sharedApplication] presentError:error];
+            return;
+        }
+    }
+    
+    
     SIReposadoInstanceMO *instance = nil;
     instance = [NSEntityDescription insertNewObjectForEntityForName:@"SIReposadoInstance"
                                              inManagedObjectContext:self.managedObjectContext];
