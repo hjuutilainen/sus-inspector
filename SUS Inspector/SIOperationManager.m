@@ -299,6 +299,13 @@ static dispatch_queue_t serialQueue;
     productGroupsGroupItem.sortIndexValue = index;
     
     /*
+     Remove all child items in this section
+     */
+    [productGroupsGroupItem.children enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        [moc deleteObject:obj];
+    }];
+    
+    /*
      Java Updates item
      */
     SISourceListItemMO *javaItem = [self sourceListItemWithTitle:@"Java" managedObjectContext:moc];
