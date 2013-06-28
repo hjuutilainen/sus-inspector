@@ -909,7 +909,7 @@ static dispatch_queue_t serialQueue;
 - (void)updateCatalogURLStatusAsync:(NSURL *)catalogURL
 {
     /*
-     Create the request setting HTTPMethod to "HEAD" causes
+     Create the request. Setting HTTPMethod to "HEAD" causes
      the request to only download the headers
      */
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:catalogURL];
