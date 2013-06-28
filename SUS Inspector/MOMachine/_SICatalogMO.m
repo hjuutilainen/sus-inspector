@@ -11,7 +11,10 @@ const struct SICatalogMOAttributes SICatalogMOAttributes = {
 	.catalogOSVersion = @"catalogOSVersion",
 	.catalogTitle = @"catalogTitle",
 	.catalogURL = @"catalogURL",
+	.catalogURLCheckPending = @"catalogURLCheckPending",
 	.catalogURLFromInstanceDefaultURL = @"catalogURLFromInstanceDefaultURL",
+	.catalogURLIsValid = @"catalogURLIsValid",
+	.catalogURLStatusCode = @"catalogURLStatusCode",
 	.isActive = @"isActive",
 };
 
@@ -52,6 +55,21 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 	
 	if ([key isEqualToString:@"allowRemoveValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"allowRemove"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"catalogURLCheckPendingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"catalogURLCheckPending"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"catalogURLIsValidValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"catalogURLIsValid"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"catalogURLStatusCodeValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"catalogURLStatusCode"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -135,8 +153,86 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 
 
 
+@dynamic catalogURLCheckPending;
+
+
+
+- (BOOL)catalogURLCheckPendingValue {
+	NSNumber *result = [self catalogURLCheckPending];
+	return [result boolValue];
+}
+
+- (void)setCatalogURLCheckPendingValue:(BOOL)value_ {
+	[self setCatalogURLCheckPending:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveCatalogURLCheckPendingValue {
+	NSNumber *result = [self primitiveCatalogURLCheckPending];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveCatalogURLCheckPendingValue:(BOOL)value_ {
+	[self setPrimitiveCatalogURLCheckPending:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
 @dynamic catalogURLFromInstanceDefaultURL;
 
+
+
+
+
+
+@dynamic catalogURLIsValid;
+
+
+
+- (BOOL)catalogURLIsValidValue {
+	NSNumber *result = [self catalogURLIsValid];
+	return [result boolValue];
+}
+
+- (void)setCatalogURLIsValidValue:(BOOL)value_ {
+	[self setCatalogURLIsValid:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveCatalogURLIsValidValue {
+	NSNumber *result = [self primitiveCatalogURLIsValid];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveCatalogURLIsValidValue:(BOOL)value_ {
+	[self setPrimitiveCatalogURLIsValid:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic catalogURLStatusCode;
+
+
+
+- (int32_t)catalogURLStatusCodeValue {
+	NSNumber *result = [self catalogURLStatusCode];
+	return [result intValue];
+}
+
+- (void)setCatalogURLStatusCodeValue:(int32_t)value_ {
+	[self setCatalogURLStatusCode:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveCatalogURLStatusCodeValue {
+	NSNumber *result = [self primitiveCatalogURLStatusCode];
+	return [result intValue];
+}
+
+- (void)setPrimitiveCatalogURLStatusCodeValue:(int32_t)value_ {
+	[self setPrimitiveCatalogURLStatusCode:[NSNumber numberWithInt:value_]];
+}
 
 
 

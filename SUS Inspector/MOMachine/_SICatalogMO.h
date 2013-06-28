@@ -12,7 +12,10 @@ extern const struct SICatalogMOAttributes {
 	 NSString *catalogOSVersion;
 	 NSString *catalogTitle;
 	 NSString *catalogURL;
+	 NSString *catalogURLCheckPending;
 	 NSString *catalogURLFromInstanceDefaultURL;
+	 NSString *catalogURLIsValid;
+	 NSString *catalogURLStatusCode;
 	 NSString *isActive;
 } SICatalogMOAttributes;
 
@@ -33,6 +36,9 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 @class NSObject;
+
+
+
 
 
 
@@ -126,11 +132,53 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
+@property (nonatomic, retain) NSNumber* catalogURLCheckPending;
+
+
+
+@property BOOL catalogURLCheckPendingValue;
+- (BOOL)catalogURLCheckPendingValue;
+- (void)setCatalogURLCheckPendingValue:(BOOL)value_;
+
+//- (BOOL)validateCatalogURLCheckPending:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, retain) NSString* catalogURLFromInstanceDefaultURL;
 
 
 
 //- (BOOL)validateCatalogURLFromInstanceDefaultURL:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, retain) NSNumber* catalogURLIsValid;
+
+
+
+@property BOOL catalogURLIsValidValue;
+- (BOOL)catalogURLIsValidValue;
+- (void)setCatalogURLIsValidValue:(BOOL)value_;
+
+//- (BOOL)validateCatalogURLIsValid:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, retain) NSNumber* catalogURLStatusCode;
+
+
+
+@property int32_t catalogURLStatusCodeValue;
+- (int32_t)catalogURLStatusCodeValue;
+- (void)setCatalogURLStatusCodeValue:(int32_t)value_;
+
+//- (BOOL)validateCatalogURLStatusCode:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -231,8 +279,35 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
+- (NSNumber*)primitiveCatalogURLCheckPending;
+- (void)setPrimitiveCatalogURLCheckPending:(NSNumber*)value;
+
+- (BOOL)primitiveCatalogURLCheckPendingValue;
+- (void)setPrimitiveCatalogURLCheckPendingValue:(BOOL)value_;
+
+
+
+
 - (NSString*)primitiveCatalogURLFromInstanceDefaultURL;
 - (void)setPrimitiveCatalogURLFromInstanceDefaultURL:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveCatalogURLIsValid;
+- (void)setPrimitiveCatalogURLIsValid:(NSNumber*)value;
+
+- (BOOL)primitiveCatalogURLIsValidValue;
+- (void)setPrimitiveCatalogURLIsValidValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveCatalogURLStatusCode;
+- (void)setPrimitiveCatalogURLStatusCode:(NSNumber*)value;
+
+- (int32_t)primitiveCatalogURLStatusCodeValue;
+- (void)setPrimitiveCatalogURLStatusCodeValue:(int32_t)value_;
 
 
 

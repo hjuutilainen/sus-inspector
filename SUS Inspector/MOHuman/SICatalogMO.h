@@ -19,6 +19,7 @@
 
 @interface SICatalogMO : _SICatalogMO {}
 
+- (void)triggerCatalogURLCheck;
 - (NSString *)catalogFilename;
 
 @end

@@ -55,6 +55,8 @@ typedef enum {
 - (void)readReposadoInstanceContentsAsync:(SIReposadoInstanceMO *)instance force:(BOOL)force;
 - (void)runReposync:(SIReposadoInstanceMO *)instance;
 - (void)updateCachedStatusForProduct:(SIProductMO *)product;
+- (void)updateCatalogURLStatusAsync:(NSURL *)catalogURL;
+- (void)updateCatalogURLStatus:(SICatalogMO *)catalog;
 - (void)cacheDownloadableObjectWithURL:(NSURL *)url;
 //- (void)cacheDistributionFileWithURL:(NSURL *)url;
 //- (void)cachePackageWithURL:(NSURL *)url;

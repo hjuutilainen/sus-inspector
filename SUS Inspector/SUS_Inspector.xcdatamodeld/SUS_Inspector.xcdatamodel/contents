@@ -8,7 +8,10 @@
         <attribute name="catalogOSVersion" optional="YES" attributeType="String" defaultValueString="10.999" syncable="YES"/>
         <attribute name="catalogTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="catalogURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="catalogURLCheckPending" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="catalogURLFromInstanceDefaultURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="catalogURLIsValid" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="catalogURLStatusCode" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="catalogs" inverseEntity="SIProduct" syncable="YES"/>
         <relationship name="reposadoInstance" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIReposadoInstance" inverseName="catalogs" inverseEntity="SIReposadoInstance" syncable="YES"/>
@@ -81,7 +84,7 @@
         <relationship name="parent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SISourceListItem" inverseName="children" inverseEntity="SISourceListItem" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SICatalog" positionX="-522" positionY="-81" width="128" height="225"/>
+        <element name="SICatalog" positionX="-522" positionY="-81" width="128" height="270"/>
         <element name="SIDistribution" positionX="160" positionY="192" width="128" height="105"/>
         <element name="SIDownloadableObject" positionX="160" positionY="192" width="128" height="120"/>
         <element name="SIPackage" positionX="160" positionY="192" width="128" height="105"/>

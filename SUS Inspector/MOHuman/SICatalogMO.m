@@ -17,6 +17,7 @@
 
 #import "SICatalogMO.h"
 #import "SIReposadoInstanceMO.h"
+#import "SIOperationManager.h"
 
 
 @interface SICatalogMO ()
@@ -38,8 +39,47 @@
         NSSet *affectingKeys = [NSSet setWithObjects:@"reposadoInstance.reposadoCatalogsBaseURLString", nil];
         keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKeys];
     }
+    else if ([key isEqualToString:@"statusImage"])
+    {
+        NSSet *affectingKeys = [NSSet setWithObjects:@"catalogURLIsValid", @"catalogURLCheckPending", nil];
+        keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKeys];
+    }
 	
     return keyPaths;
+}
+
+
+- (void)awakeFromInsert
+{
+    
+}
+
+- (void)setCatalogURL:(NSString *)catalogURL
+{
+    [self willChangeValueForKey:@"catalogURL"];
+    [self setPrimitiveValue:catalogURL forKey:@"catalogURL"];
+    [self didChangeValueForKey:@"catalogURL"];
+    
+    [self triggerCatalogURLCheck];
+}
+
+- (void)triggerCatalogURLCheck
+{
+    self.catalogURLCheckPendingValue = YES;
+    [[SIOperationManager sharedManager] updateCatalogURLStatus:self];
+}
+
+- (NSImage *)statusImage
+{
+    if (self.catalogURLCheckPendingValue) {
+        return [NSImage imageNamed:NSImageNameStatusPartiallyAvailable];
+    }
+    
+    if (self.catalogURLIsValidValue) {
+        return [NSImage imageNamed:NSImageNameStatusAvailable];
+    } else {
+        return [NSImage imageNamed:NSImageNameStatusUnavailable];
+    }
 }
 
 - (NSString *)title

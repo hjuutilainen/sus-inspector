@@ -906,6 +906,81 @@ static dispatch_queue_t serialQueue;
 # pragma mark -
 # pragma mark NSURLDownload methods
 
+- (void)updateCatalogURLStatusAsync:(NSURL *)catalogURL
+{
+    /*
+     Create the request setting HTTPMethod to "HEAD" causes
+     the request to only download the headers
+     */
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:catalogURL];
+    [request setHTTPMethod:@"HEAD"];
+    [request setValue:@"SUSInspector/1.0" forHTTPHeaderField:@"User-Agent"];
+    [request setTimeoutInterval:5.0];
+    [request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+    
+    /*
+     Process the request
+     */
+    [NSURLConnection sendAsynchronousRequest:request queue:self.operationQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        /*
+         Create a thread safe context
+         */
+        NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+        [moc performBlockWithPrivateQueueConcurrency:^(NSManagedObjectContext *threadSafeMoc) {
+            
+            /*
+             Look up the Catalog object which this URL references
+             */
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            [fetchRequest setEntity:[NSEntityDescription entityForName:@"SICatalog" inManagedObjectContext:threadSafeMoc]];
+            [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"catalogURL == %@", [catalogURL absoluteString]]];
+            NSUInteger numFoundObjects = [threadSafeMoc countForFetchRequest:fetchRequest error:nil];
+            if (numFoundObjects != NSNotFound) {
+                SICatalogMO *fetchedCatalog = [[threadSafeMoc executeFetchRequest:fetchRequest error:nil] objectAtIndex:0];
+                if (response) {
+                    
+                    // Cast the response to a NSHTTPURLResponse to get a status code
+                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                    NSInteger status = [httpResponse statusCode];
+                    fetchedCatalog.catalogURLStatusCode = [NSNumber numberWithInteger:status];
+                    
+                    /*
+                     4xx are client errors, 5xx are server errors.
+                     http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+                     
+                     Treat anything below 400 as successful, we're not that picky at this point...
+                     */
+                    fetchedCatalog.catalogURLIsValidValue = (status >= 400) ? NO : YES;
+                    
+                }
+                
+                // Response is nil
+                else {
+                    fetchedCatalog.catalogURLIsValidValue = NO;
+                }
+                
+                // We got an error
+                if (error) {
+                    fetchedCatalog.catalogURLIsValidValue = NO;
+                }
+                
+                fetchedCatalog.catalogURLCheckPendingValue = NO;
+            } else {
+                NSLog(@"Got response for %@ but found 0 matching catalogs. Ignoring...", [catalogURL absoluteString]);
+            }
+            [fetchRequest release];
+            
+        }];
+        
+    }];
+}
+
+- (void)updateCatalogURLStatus:(SICatalogMO *)catalog
+{
+    [self updateCatalogURLStatusAsync:[NSURL URLWithString:catalog.catalogURL]];
+}
+
 - (void)cacheDownloadableObjectWithURL:(NSURL *)url
 {
     NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
