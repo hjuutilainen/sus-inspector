@@ -40,7 +40,7 @@ Completely removing SUS Inspector and Reposado data can be done by removing the 
 
 ## REQUIREMENTS
 
-SUS Inspector requires OS X 10.7 or later
+SUS Inspector requires OS X 10.8 or later.
 
 
 ## INSTALLATION
