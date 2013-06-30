@@ -170,12 +170,34 @@
     self.munki_description = nil;
 }
 
+- (NSString *)filenameTemplate
+{
+    /*
+     Suggest a sensible filename based on:
+     - Display Name
+     - Product ID
+     - Version
+     */
+    NSString *whiteSpaceReplacement = @"-";
+    NSString *joinWithString = @"-";
+    
+    NSArray *nameComponents = @[self.munki_display_name, self.munki_version, self.munki_name];
+    NSMutableArray *processedComponents = [NSMutableArray new];
+    for (NSString *component in nameComponents) {
+        NSString *newValue = [component stringByReplacingOccurrencesOfString:@" " withString:whiteSpaceReplacement];
+        [processedComponents addObject:newValue];
+    }
+    NSString *newName = [processedComponents componentsJoinedByString:joinWithString];
+    return newName;
+    
+}
+
 - (void)savePkginfoAction:(id)sender
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *fileExtension = [defaults stringForKey:@"pkginfoDefaultFileExtension"];
     
-    NSString *filenameTemplate = [NSString stringWithFormat:@"%@ %@ %@", self.munki_display_name, self.munki_version, self.munki_name];
+    NSString *filenameTemplate = [self filenameTemplate];
     NSString *filenameWithExtension = [NSString stringWithFormat:@"%@%@", filenameTemplate, fileExtension];
     
     NSURL *saveURL = [self showSavePanelForPkginfo:filenameWithExtension];
