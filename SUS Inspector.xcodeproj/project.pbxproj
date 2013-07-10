@@ -34,6 +34,7 @@
 		F50EFBF21727E6BD00B38233 /* SIPkginfoMultipleWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F50EFBF01727E6BD00B38233 /* SIPkginfoMultipleWindowController.xib */; };
 		F51F79AB16F8C421008BEA0D /* SIPkginfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F51F79A916F8C421008BEA0D /* SIPkginfoWindowController.m */; };
 		F51F79AC16F8C421008BEA0D /* SIPkginfoWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F51F79AA16F8C421008BEA0D /* SIPkginfoWindowController.xib */; };
+		F52601BA178D4C3900DBC6E4 /* SIReposadoImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F52601B9178D4C3900DBC6E4 /* SIReposadoImportOperation.m */; };
 		F53BDE4416E874D300055BC3 /* SIOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE4316E874D300055BC3 /* SIOperationManager.m */; };
 		F53BDE4B16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE4A16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m */; };
 		F53BDE4F16E89BD200055BC3 /* SIProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE4D16E89BD100055BC3 /* SIProgressWindowController.m */; };
@@ -132,6 +133,8 @@
 		F51F79A816F8C421008BEA0D /* SIPkginfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIPkginfoWindowController.h; path = "UI Controllers/SIPkginfoWindowController.h"; sourceTree = "<group>"; };
 		F51F79A916F8C421008BEA0D /* SIPkginfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIPkginfoWindowController.m; path = "UI Controllers/SIPkginfoWindowController.m"; sourceTree = "<group>"; };
 		F51F79AA16F8C421008BEA0D /* SIPkginfoWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIPkginfoWindowController.xib; path = "UI Controllers/SIPkginfoWindowController.xib"; sourceTree = "<group>"; };
+		F52601B8178D4C3900DBC6E4 /* SIReposadoImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReposadoImportOperation.h; sourceTree = "<group>"; };
+		F52601B9178D4C3900DBC6E4 /* SIReposadoImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReposadoImportOperation.m; sourceTree = "<group>"; };
 		F53BDE4216E874D300055BC3 /* SIOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIOperationManager.h; sourceTree = "<group>"; };
 		F53BDE4316E874D300055BC3 /* SIOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIOperationManager.m; sourceTree = "<group>"; };
 		F53BDE4916E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+HJGCDExtensions.h"; sourceTree = "<group>"; };
@@ -254,8 +257,10 @@
 		F53BDE4516E875AE00055BC3 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				F52601B8178D4C3900DBC6E4 /* SIReposadoImportOperation.h */,
+				F52601B9178D4C3900DBC6E4 /* SIReposadoImportOperation.m */,
 			);
-			name = Operations;
+			path = Operations;
 			sourceTree = "<group>";
 		};
 		F58FF40F16F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell */ = {
@@ -739,6 +744,7 @@
 				F50EFBF11727E6BD00B38233 /* SIPkginfoMultipleWindowController.m in Sources */,
 				F559596D1740C1CC0077140B /* SITableView.m in Sources */,
 				F59340C3174A11F0003BBCEC /* SIPackageOperator.m in Sources */,
+				F52601BA178D4C3900DBC6E4 /* SIReposadoImportOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

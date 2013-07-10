@@ -231,6 +231,10 @@ NSString *defaultInstanceName = @"Default";
 
 - (void)awakeFromNib
 {
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+         [self.managedObjectContext mergeChangesFromContextDidSaveNotification:note];
+     }];
+    
     SIOperationManager *operationManager = [SIOperationManager sharedManager];
     operationManager.delegate = self;
     
