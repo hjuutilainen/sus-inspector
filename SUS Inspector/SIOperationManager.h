@@ -51,6 +51,7 @@ typedef enum {
 
 
 + (SIOperationManager *)sharedManager;
+- (void)setupSourceListGroupItems;
 - (void)setupSourceListItems;
 - (void)readReposadoInstanceContentsAsync:(SIReposadoInstanceMO *)instance force:(BOOL)force;
 - (void)runReposync:(SIReposadoInstanceMO *)instance;

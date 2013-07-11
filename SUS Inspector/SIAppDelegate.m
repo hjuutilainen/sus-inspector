@@ -61,7 +61,7 @@ NSString *defaultInstanceName = @"Default";
         [self.defaultReposadoInstance configureReposado];
         self.defaultReposadoInstance.reposadoSetupCompleteValue = YES;
         SIOperationManager *operationManager = [SIOperationManager sharedManager];
-        [operationManager setupSourceListItems];
+        //[operationManager setupSourceListItems];
         [operationManager runReposync:self.defaultReposadoInstance];
     } else if (returnCode == NSCancelButton) {
         /*
@@ -72,8 +72,8 @@ NSString *defaultInstanceName = @"Default";
             [self.managedObjectContext deleteObject:aCatalog];
         }
         [self.managedObjectContext deleteObject:object];
-        SIOperationManager *operationManager = [SIOperationManager sharedManager];
-        [operationManager setupSourceListItems];
+        //SIOperationManager *operationManager = [SIOperationManager sharedManager];
+        //[operationManager setupCatalogSourceListSection];
     }
 }
 
@@ -223,6 +223,14 @@ NSString *defaultInstanceName = @"Default";
     
     self.preferencesController = [[[SIPreferencesController alloc] initWithWindowNibName:@"SIPreferencesController"] autorelease];
     
+    SIOperationManager *operationManager = [SIOperationManager sharedManager];
+    operationManager.delegate = self;
+    
+    /*
+     * Setup the initial source list items
+     */
+    [operationManager setupSourceListGroupItems];
+    
     /*
      * We need one configured Reposado instance
      */
@@ -234,16 +242,6 @@ NSString *defaultInstanceName = @"Default";
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
          [self.managedObjectContext mergeChangesFromContextDidSaveNotification:note];
      }];
-    
-    SIOperationManager *operationManager = [SIOperationManager sharedManager];
-    operationManager.delegate = self;
-    
-    /*
-     * Setup the initial source list items
-     */
-    [operationManager setupSourceListItems];
-    
-    
 }
 
 
@@ -283,6 +281,12 @@ NSString *defaultInstanceName = @"Default";
 {
     [self.mainWindowController hideProgressPanel];
     [[SIOperationManager sharedManager] setupSourceListItems];
+    /*
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SIDidSetupSourceListItems" object:nil];
+    }];
+     */
+    
     //[[SIOperationManager sharedManager] readPackageMetadataFiles:self.defaultReposadoInstance];
 }
 

@@ -350,15 +350,8 @@ static dispatch_queue_t serialQueue;
     NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SICatalog" inManagedObjectContext:moc];
     NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
     
-    // Special source list items do not have associated catalogs anymore
-    //NSPredicate *notDeprecated = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/deprecated"];
-    //NSPredicate *notAll = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/all"];
-    
     NSPredicate *isActive = [NSPredicate predicateWithFormat:@"isActive == TRUE"];
-    NSPredicate *instanceSetupComplete = [NSPredicate predicateWithFormat:@"reposadoInstance.reposadoSetupComplete == TRUE"];
-    NSArray *subPredicates = [NSArray arrayWithObjects:isActive, instanceSetupComplete, nil];
-    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
-    [fetchForCatalogs setPredicate:predicate];
+    [fetchForCatalogs setPredicate:isActive];
     [fetchForCatalogs setEntity:catalogEntityDescr];
     NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchForCatalogs error:nil];
     if (numFoundCatalogs != 0) {
@@ -386,8 +379,38 @@ static dispatch_queue_t serialQueue;
 }
 
 
+- (void)setupSourceListGroupItems
+{
+    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    
+    /*
+     The PRODUCTS group item
+     */
+    SISourceListItemMO *productsGroupItem = [self sourceListItemWithTitle:@"PRODUCTS" managedObjectContext:moc];
+    productsGroupItem.isGroupItemValue = YES;
+    productsGroupItem.sortIndexValue = 0;
+    
+    /*
+     The PRODUCT GROUPS item
+     */
+    SISourceListItemMO *productGroupsGroupItem = [self sourceListItemWithTitle:@"PRODUCT GROUPS" managedObjectContext:moc];
+    productGroupsGroupItem.isGroupItemValue = YES;
+    productGroupsGroupItem.sortIndexValue = 1;
+    
+    /*
+     The CATALOGS group item
+     */
+    SISourceListItemMO *catalogsGroupItem = [self sourceListItemWithTitle:@"CATALOGS" managedObjectContext:moc];
+    catalogsGroupItem.isGroupItemValue = YES;
+    catalogsGroupItem.sortIndexValue = 2;
+}
+
 - (void)setupSourceListItems
 {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SIWillStartSetupSourceListItems" object:nil];
+    }];
+    
     NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
     [self createProductsSectionWithIndex:0 managedObjectContext:moc];
     [self createProductGroupsSectionWithIndex:1 managedObjectContext:moc];
@@ -491,6 +514,8 @@ static dispatch_queue_t serialQueue;
 
 - (void)runReposync:(SIReposadoInstanceMO *)instance
 {
+    [self willStartOperations];
+    
     self.currentCatalogs = [self allCatalogs];
     NSArray *arguments = [NSArray arrayWithObjects:instance.reposyncPath, nil];
     AMShellWrapper *wrapper = [[[AMShellWrapper alloc] initWithInputPipe:nil
@@ -568,7 +593,6 @@ static dispatch_queue_t serialQueue;
 - (void)processStarted:(AMShellWrapper *)wrapper
 {
     self.currentOperationType = SIOperationTypeRepoSync;
-	[self willStartOperations];
     self.currentOperationTitle = @"Refreshing catalogs...";
 }
 

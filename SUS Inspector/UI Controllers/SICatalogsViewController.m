@@ -32,21 +32,36 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Initialization code here.
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableAllBindings) name:@"SIWillStartSetupSourceListItems" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSourceList) name:@"SIDidSetupSourceListItems" object:nil];
     }
     
     return self;
 }
 
+
+- (void)enableAllBindings
+{
+    [self.sourceListTreeController setManagedObjectContext:[[NSApp delegate] managedObjectContext]];
+    [self.sourceListTreeController setEntityName:@"SISourceListItem"];
+    if ([self.sourceListTreeController fetchWithRequest:nil merge:YES error:nil]) {
+        [self.sourceListTreeController setAutomaticallyPreparesContent:YES];
+        [self.sourceListOutlineView expandItem:nil expandChildren:YES];
+        NSUInteger defaultIndexes[] = {0,0};
+        [self.sourceListTreeController commitEditing];
+        [self.sourceListTreeController setSelectionIndexPath:[NSIndexPath indexPathWithIndexes:defaultIndexes length:2]];
+    }
+}
+
+- (void)disableAllBindings
+{
+    [self.sourceListTreeController setManagedObjectContext:nil];
+}
+
+
 - (void)updateSourceList
 {
-    // Expand all items in the source list
-    [self.sourceListOutlineView expandItem:nil expandChildren:YES];
-    
-    // Make sure the "All Products" item is selected
-    NSUInteger defaultIndexes[] = {0,0};
-    [self.sourceListTreeController setSelectionIndexPath:[NSIndexPath indexPathWithIndexes:defaultIndexes length:2]];
+    [self enableAllBindings];
 }
 
 - (void)awakeFromNib
