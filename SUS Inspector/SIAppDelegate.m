@@ -22,6 +22,7 @@
 #import "SIAppDelegate.h"
 #import "SIMainWindowController.h"
 #import "SIPreferencesController.h"
+#import "SIReposadoConstants.h"
 
 @implementation SIAppDelegate
 
@@ -202,6 +203,21 @@ NSString *defaultInstanceName = @"Default";
             /*
              * The instance has gone through setup
              */
+            
+            // Check Reposado version
+            NSDictionary *infoDict = instance.reposadoBundleInfoDictionary;
+            NSDate *instanceDate = [infoDict objectForKey:@"commitDate"];
+            NSDate *bundledReposadoCommitDate = [NSDate dateWithString:kReposadoCurrentCommitDateString];
+            if ([bundledReposadoCommitDate compare:instanceDate] == NSOrderedDescending) {
+                NSLog(@"Installed Reposado should be updated...");
+                [instance updateReposado];
+                
+            } else if ([bundledReposadoCommitDate compare:instanceDate] == NSOrderedAscending) {
+                NSLog(@"Installed Reposado is newer than the bundled one. Hmm...");
+            } else {
+                NSLog(@"Installed Reposado is up-to-date...");
+            }
+            
             [[SIOperationManager sharedManager] readReposadoInstanceContentsAsync:instance force:NO];
         } else {
             /*

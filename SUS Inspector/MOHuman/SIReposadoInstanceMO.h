@@ -24,12 +24,16 @@
 - (NSURL *)reposadoHtmlURL;
 - (NSURL *)reposadoCodeURL;
 - (NSURL *)reposadoBundleURL;
+- (NSURL *)reposadoBundleDistributionURL;
+- (NSDictionary *)reposadoBundleInfoDictionary;
+- (NSURL *)reposadoBundleInfoDictionaryURL;
 - (NSURL *)reposyncURL;
 - (NSURL *)getLocalFileURLFromRemoteURL:(NSURL *)url;
 - (NSString *)getLocalFilePathFromRemoteURL:(NSURL *)url;
 - (NSString *)reposyncPath;
 - (NSURL *)productInfoURL;
 - (NSDictionary *)productInfoDictionary;
+- (BOOL)updateReposado;
 - (BOOL)configureReposado;
 
 @end

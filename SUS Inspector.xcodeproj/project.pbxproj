@@ -130,6 +130,7 @@
 		F50EFBEE1727E6BD00B38233 /* SIPkginfoMultipleWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIPkginfoMultipleWindowController.h; path = "UI Controllers/SIPkginfoMultipleWindowController.h"; sourceTree = "<group>"; };
 		F50EFBEF1727E6BD00B38233 /* SIPkginfoMultipleWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIPkginfoMultipleWindowController.m; path = "UI Controllers/SIPkginfoMultipleWindowController.m"; sourceTree = "<group>"; };
 		F50EFBF01727E6BD00B38233 /* SIPkginfoMultipleWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIPkginfoMultipleWindowController.xib; path = "UI Controllers/SIPkginfoMultipleWindowController.xib"; sourceTree = "<group>"; };
+		F513A711178EA78E00BDD222 /* SIReposadoConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReposadoConstants.h; sourceTree = "<group>"; };
 		F51F79A816F8C421008BEA0D /* SIPkginfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIPkginfoWindowController.h; path = "UI Controllers/SIPkginfoWindowController.h"; sourceTree = "<group>"; };
 		F51F79A916F8C421008BEA0D /* SIPkginfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIPkginfoWindowController.m; path = "UI Controllers/SIPkginfoWindowController.m"; sourceTree = "<group>"; };
 		F51F79AA16F8C421008BEA0D /* SIPkginfoWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIPkginfoWindowController.xib; path = "UI Controllers/SIPkginfoWindowController.xib"; sourceTree = "<group>"; };
@@ -516,6 +517,7 @@
 				F53BDE4A16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m */,
 				F5E06EA516E4D8A1008B7831 /* SISizeFormatter.h */,
 				F5E06EA616E4D8A1008B7831 /* SISizeFormatter.m */,
+				F513A711178EA78E00BDD222 /* SIReposadoConstants.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";

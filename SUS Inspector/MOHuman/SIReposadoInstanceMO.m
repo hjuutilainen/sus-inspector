@@ -16,6 +16,7 @@
 
 
 #import "SIReposadoInstanceMO.h"
+#import "SIReposadoConstants.h"
 
 
 @interface SIReposadoInstanceMO ()
@@ -45,6 +46,24 @@
 - (NSURL *)reposadoBundleURL
 {
     return [(NSURL *)self.reposadoInstallURL URLByAppendingPathComponent:@"reposado.bundle"];
+}
+
+- (NSURL *)reposadoBundleDistributionURL
+{
+    NSString *mainBundlePath = [[NSBundle mainBundle] bundlePath];
+    NSString *bundledReposado = [mainBundlePath stringByAppendingString:@"/Contents/Resources/reposado.bundle"];
+    NSURL *bundledReposadoURL = [NSURL fileURLWithPath:bundledReposado isDirectory:YES];
+    return bundledReposadoURL;
+}
+
+- (NSDictionary *)reposadoBundleInfoDictionary
+{
+    return [NSDictionary dictionaryWithContentsOfURL:self.reposadoBundleInfoDictionaryURL];
+}
+
+- (NSURL *)reposadoBundleInfoDictionaryURL
+{
+    return [(NSURL *)self.reposadoBundleURL URLByAppendingPathComponent:@"Info.plist"];
 }
 
 - (NSURL *)reposadoCodeURL
@@ -88,7 +107,7 @@
     return [NSDictionary dictionaryWithContentsOfURL:[self productInfoURL]];
 }
 
-- (BOOL)copyReposadoBundleFiles
+- (BOOL)copyReposadoBundleFilesWithForce:(BOOL)force
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
@@ -107,16 +126,13 @@
     if (![fileManager fileExistsAtPath:[reposadoCommonURL path]]) reposadoInstalled = NO;
     
     // Install if needed
-    if (!reposadoInstalled) {
+    if (!reposadoInstalled || force) {
         NSLog(@"Installing local reposado to %@", [self.reposadoBundleURL path]);
         if ([fileManager fileExistsAtPath:[self.reposadoBundleURL path]]) {
             [fileManager removeItemAtURL:self.reposadoBundleURL error:nil];
         }
-        NSString *mainBundleURL = [[NSBundle mainBundle] bundlePath];
-        NSString *bundledReposado = [mainBundleURL stringByAppendingString:@"/Contents/Resources/reposado.bundle"];
-        NSURL *bundledReposadoURL = [NSURL fileURLWithPath:bundledReposado isDirectory:YES];
         NSError *error = nil;
-        if ([fileManager copyItemAtURL:bundledReposadoURL toURL:self.reposadoBundleURL error:&error]) {
+        if ([fileManager copyItemAtURL:self.reposadoBundleDistributionURL toURL:self.reposadoBundleURL error:&error]) {
             return YES;
         } else {
             NSLog(@"%@", [error description]);
@@ -144,12 +160,35 @@
     return reposadoPrefs;
 }
 
+- (BOOL)writeReposadoBundleInfoDictionary
+{
+    NSDate *bundledReposadoCommitDate = [NSDate dateWithString:kReposadoCurrentCommitDateString];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMdd.HHmmss"];
+    NSString *versionStringFromDate = [formatter stringFromDate:bundledReposadoCommitDate];
+    [formatter release];
+    NSString *bundledReposadoCommitHash = kReposadoCurrentCommitHash;
+    NSDictionary *newInfoDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       versionStringFromDate,       @"commitVersion",
+                                       bundledReposadoCommitDate,   @"commitDate",
+                                       bundledReposadoCommitHash,   @"commitHash",
+                                       nil];
+    return [newInfoDictionary writeToURL:self.reposadoBundleInfoDictionaryURL atomically:YES];
+}
 
 - (BOOL)writeReposadoPreferences
 {
     NSDictionary *prefs = [self preferencesAsDictionary];
     NSURL *preferencesURL = [self.reposadoCodeURL URLByAppendingPathComponent:@"preferences.plist"];
     return [prefs writeToURL:preferencesURL atomically:YES];
+}
+
+- (BOOL)updateReposado
+{
+    if (![self copyReposadoBundleFilesWithForce:YES]) return NO;
+    if (![self writeReposadoPreferences]) return NO;
+    if (![self writeReposadoBundleInfoDictionary]) return NO;
+    return YES;
 }
 
 - (BOOL)configureReposado
@@ -170,8 +209,9 @@
     
     self.reposadoTitle = [self.reposadoInstallURL lastPathComponent];
     
-    [self copyReposadoBundleFiles];
-    [self writeReposadoPreferences];
+    if (![self copyReposadoBundleFilesWithForce:NO]) return NO;
+    if (![self writeReposadoPreferences]) return NO;
+    if (![self writeReposadoBundleInfoDictionary]) return NO;
     return YES;
 }
 
