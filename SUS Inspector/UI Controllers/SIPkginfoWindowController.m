@@ -21,6 +21,7 @@
 
 #import "SIPkginfoWindowController.h"
 #import "DataModelHeaders.h"
+#import "SIMunkiAdminBridge.h"
 
 @interface SIPkginfoWindowController ()
 
@@ -215,9 +216,20 @@
 }
 
 - (void)sendToMunkiAdminAction:(id)sender
-{
+{    
+    /*
+     TODO: This should be moved to SIMunkiAdminBridge
+     */
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *fileExtension = [defaults stringForKey:@"pkginfoDefaultFileExtension"];
+    NSString *filenameTemplate = [self filenameTemplate];
+    NSString *filenameWithExtension = [NSString stringWithFormat:@"%@%@", filenameTemplate, fileExtension];
+    NSArray *pkginfoArray = @[[NSDictionary dictionaryWithObjectsAndKeys:self.pkginfoDict, @"pkginfo", filenameWithExtension, @"filename", nil]];
+    NSDictionary *pkginfoPayload = [NSDictionary dictionaryWithObject:pkginfoArray forKey:@"payloadDictionaries"];
+    
     NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];
-    [dnc postNotificationName:@"SUSInspectorPostedSharedPkginfo" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.pkginfoDict, @"pkginfo", nil]];
+    [dnc postNotificationName:@"SUSInspectorPostedSharedPkginfo" object:nil userInfo:pkginfoPayload];
 }
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key

@@ -629,6 +629,14 @@
 						<reference key="NSOnImage" ref="421570438"/>
 						<reference key="NSMixedImage" ref="18656534"/>
 					</object>
+					<object class="NSMenuItem" id="45753109">
+						<reference key="NSMenu" ref="818342587"/>
+						<string key="NSTitle">Send to MunkiAdmin...</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="421570438"/>
+						<reference key="NSMixedImage" ref="18656534"/>
+					</object>
 				</array>
 				<bool key="NSNoAutoenable">YES</bool>
 			</object>
@@ -722,6 +730,14 @@
 						<reference key="destination" ref="473316609"/>
 					</object>
 					<int key="connectionID">222</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">sendToMunkiAdminAction:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="45753109"/>
+					</object>
+					<int key="connectionID">239</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1268,6 +1284,7 @@
 							<reference ref="258492822"/>
 							<reference ref="296961923"/>
 							<reference ref="378980628"/>
+							<reference ref="45753109"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1348,6 +1365,11 @@
 						<reference key="object" ref="899345701"/>
 						<reference key="parent" ref="1023095691"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">238</int>
+						<reference key="object" ref="45753109"/>
+						<reference key="parent" ref="818342587"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1387,6 +1409,7 @@
 				<string key="216.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="217.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="218.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="238.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1402,7 +1425,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">237</int>
+			<int key="maxID">239</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1422,6 +1445,7 @@
 						<string key="copyTitleAction:">id</string>
 						<string key="createPkginfoAction:">id</string>
 						<string key="getInfoAction:">id</string>
+						<string key="sendToMunkiAdminAction:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="copyProductIDAction:">
@@ -1438,6 +1462,10 @@
 						</object>
 						<object class="IBActionInfo" key="getInfoAction:">
 							<string key="name">getInfoAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="sendToMunkiAdminAction:">
+							<string key="name">sendToMunkiAdminAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

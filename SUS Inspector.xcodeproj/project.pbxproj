@@ -45,6 +45,7 @@
 		F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */; };
 		F559596D1740C1CC0077140B /* SITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F559596C1740C1CC0077140B /* SITableView.m */; };
 		F5595973174113E00077140B /* SUS Inspector.icns in Resources */ = {isa = PBXBuildFile; fileRef = F5595972174113E00077140B /* SUS Inspector.icns */; };
+		F55EA4DC178FF2C80015717E /* SIMunkiAdminBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F55EA4DB178FF2C80015717E /* SIMunkiAdminBridge.m */; };
 		F58FF41316F7530500EF58B0 /* MIT-License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F58FF41016F7530500EF58B0 /* MIT-License.rtf */; };
 		F58FF41416F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */; };
 		F59340C3174A11F0003BBCEC /* SIPackageOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = F59340C2174A11F0003BBCEC /* SIPackageOperator.m */; };
@@ -153,6 +154,8 @@
 		F559596B1740C1CC0077140B /* SITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SITableView.h; path = "View Subclasses/SITableView.h"; sourceTree = "<group>"; };
 		F559596C1740C1CC0077140B /* SITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SITableView.m; path = "View Subclasses/SITableView.m"; sourceTree = "<group>"; };
 		F5595972174113E00077140B /* SUS Inspector.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "SUS Inspector.icns"; sourceTree = "<group>"; };
+		F55EA4DA178FF2C80015717E /* SIMunkiAdminBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMunkiAdminBridge.h; sourceTree = "<group>"; };
+		F55EA4DB178FF2C80015717E /* SIMunkiAdminBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMunkiAdminBridge.m; sourceTree = "<group>"; };
 		F58FF41016F7530500EF58B0 /* MIT-License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "MIT-License.rtf"; sourceTree = "<group>"; };
 		F58FF41116F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
 		F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
@@ -343,6 +346,8 @@
 				F5E06E4F16E473FF008B7831 /* SIAppDelegate.m */,
 				F53BDE4216E874D300055BC3 /* SIOperationManager.h */,
 				F53BDE4316E874D300055BC3 /* SIOperationManager.m */,
+				F55EA4DA178FF2C80015717E /* SIMunkiAdminBridge.h */,
+				F55EA4DB178FF2C80015717E /* SIMunkiAdminBridge.m */,
 				F59340C1174A11F0003BBCEC /* SIPackageOperator.h */,
 				F59340C2174A11F0003BBCEC /* SIPackageOperator.m */,
 				F5E559B1171C108300B285CF /* SIPackageMetadataParser.h */,
@@ -747,6 +752,7 @@
 				F559596D1740C1CC0077140B /* SITableView.m in Sources */,
 				F59340C3174A11F0003BBCEC /* SIPackageOperator.m in Sources */,
 				F52601BA178D4C3900DBC6E4 /* SIReposadoImportOperation.m in Sources */,
+				F55EA4DC178FF2C80015717E /* SIMunkiAdminBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

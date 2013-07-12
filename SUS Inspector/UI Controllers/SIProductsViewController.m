@@ -24,6 +24,7 @@
 #import "SIPkginfoWindowController.h"
 #import "SIPkginfoMultipleWindowController.h"
 #import "SIOperationManager.h"
+#import "SIMunkiAdminBridge.h"
 
 @interface SIProductsViewController ()
 
@@ -137,6 +138,15 @@
 - (IBAction)createPkginfoAction:(id)sender
 {
     [self openPkginfoWindow];
+}
+
+- (IBAction)sendToMunkiAdminAction:(id)sender
+{
+    NSMutableArray *productsToSend = [NSMutableArray new];
+    for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
+        [productsToSend addObject:aProduct];
+    }
+    [[SIMunkiAdminBridge sharedBridge] sendProducts:[NSArray arrayWithArray:productsToSend]];
 }
 
 - (void)distributionFilesMenuAction:(id)sender

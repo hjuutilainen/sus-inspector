@@ -1,4 +1,8 @@
 //
+//  SIMunkiAdminBridge.h
+//  SUS Inspector
+//
+//  Created by Juutilainen Hannes on 12.7.2013.
 //  Copyright (c) 2013 Hannes Juutilainen. All rights reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +19,14 @@
 //
 
 
-#import "_SIProductMO.h"
+#import <Foundation/Foundation.h>
+#import "DataModelHeaders.h"
 
-@interface SIProductMO : _SIProductMO {}
+@interface SIMunkiAdminBridge : NSObject
 
-@property (readonly) NSString *pkginfo;
-@property (readonly) NSString *pkginfoFilename;
-@property (readonly) NSDictionary *pkginfoDictionary;
++ (SIMunkiAdminBridge *)sharedBridge;
+- (void)sendPkginfos:(NSArray *)pkginfoArray;
+- (void)sendProducts:(NSArray *)productArray;
+//- (NSDictionary *)pkginfoDictionaryFromProduct:(SIProductMO *)aProduct;
 
 @end
