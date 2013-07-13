@@ -38,9 +38,6 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
-NSString *defaultInstanceName = @"Default";
-
-
 - (IBAction)openPreferencesAction:sender
 {
 	[self.preferencesController showWindow:self];
@@ -127,7 +124,7 @@ NSString *defaultInstanceName = @"Default";
     NSManagedObjectContext *moc = [self managedObjectContext];
     
     // This is the directory where default reposado instance will be installed
-    NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:defaultInstanceName];
+    NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:kReposadoDefaultInstanceName];
     
     NSError *error = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];

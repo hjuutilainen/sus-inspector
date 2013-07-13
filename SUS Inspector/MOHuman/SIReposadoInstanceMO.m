@@ -30,30 +30,28 @@
 
 - (NSURL *)reposadoDataURL
 {
-    return [(NSURL *)self.reposadoInstallURL URLByAppendingPathComponent:@"data"];
+    return [(NSURL *)self.reposadoInstallURL URLByAppendingPathComponent:kReposadoDataDirectoryName];
 }
 
 - (NSURL *)reposadoHtmlURL
 {
-    return [self.reposadoDataURL URLByAppendingPathComponent:@"html"];
+    return [self.reposadoDataURL URLByAppendingPathComponent:kReposadoHtmlDirectoryName];
 }
 
 - (NSURL *)reposadoMetadataURL
 {
-    return [self.reposadoDataURL URLByAppendingPathComponent:@"metadata"];
+    return [self.reposadoDataURL URLByAppendingPathComponent:kReposadoMetadataDirectoryName];
 }
 
 - (NSURL *)reposadoBundleURL
 {
-    return [(NSURL *)self.reposadoInstallURL URLByAppendingPathComponent:@"reposado.bundle"];
+    return [(NSURL *)self.reposadoInstallURL URLByAppendingPathComponent:kReposadoBundleName];
 }
 
 - (NSURL *)reposadoBundleDistributionURL
 {
-    NSString *mainBundlePath = [[NSBundle mainBundle] bundlePath];
-    NSString *bundledReposado = [mainBundlePath stringByAppendingString:@"/Contents/Resources/reposado.bundle"];
-    NSURL *bundledReposadoURL = [NSURL fileURLWithPath:bundledReposado isDirectory:YES];
-    return bundledReposadoURL;
+    NSURL *mainResourceURL = [[NSBundle mainBundle] resourceURL];
+    return [mainResourceURL URLByAppendingPathComponent:kReposadoBundleName];
 }
 
 - (NSDictionary *)reposadoBundleInfoDictionary
@@ -63,12 +61,12 @@
 
 - (NSURL *)reposadoBundleInfoDictionaryURL
 {
-    return [(NSURL *)self.reposadoBundleURL URLByAppendingPathComponent:@"Info.plist"];
+    return [self.reposadoBundleURL URLByAppendingPathComponent:@"Info.plist"];
 }
 
 - (NSURL *)reposadoCodeURL
 {
-    return [self.reposadoBundleURL URLByAppendingPathComponent:@"code"];
+    return [self.reposadoBundleURL URLByAppendingPathComponent:kReposadoCodeDirectoryName];
 }
 
 - (NSURL *)reposyncURL
@@ -97,9 +95,7 @@
 
 - (NSURL *)productInfoURL
 {
-    NSURL *returnURL = [[self reposadoDataURL] URLByAppendingPathComponent:@"metadata" isDirectory:YES];
-    returnURL = [returnURL URLByAppendingPathComponent:@"ProductInfo.plist" isDirectory:NO];
-    return returnURL;
+    return [self.reposadoMetadataURL URLByAppendingPathComponent:@"ProductInfo.plist" isDirectory:NO];
 }
 
 - (NSDictionary *)productInfoDictionary

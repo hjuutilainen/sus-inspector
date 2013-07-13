@@ -22,7 +22,31 @@
 #ifndef SUS_Inspector_SIReposadoConstants_h
 #define SUS_Inspector_SIReposadoConstants_h
 
+/*
+ The version check is based on these
+ */
 #define kReposadoCurrentCommitDateString @"2013-04-15 11:42:46 -0700"
 #define kReposadoCurrentCommitHash @"1bcf4f0175210b4e1fadde207da2bf72fbdbe15f"
+
+
+/*
+ Reposado internal directory structure:
+ 
+ kReposadoDefaultInstanceName
+    |-- kReposadoDataDirectoryName
+    |       |-- kReposadoHtmlDirectoryName
+    |       |-- kReposadoDataDirectoryName
+    |-- kReposadoBundleName
+            |-- kReposadoCodeDirectoryName
+ 
+ */
+#define kReposadoDefaultInstanceName    @"Default"
+
+#define kReposadoDataDirectoryName      @"data"
+#define kReposadoMetadataDirectoryName  @"metadata"
+#define kReposadoHtmlDirectoryName      @"html"
+
+#define kReposadoBundleName             @"reposado.bundle"
+#define kReposadoCodeDirectoryName      @"code"
 
 #endif
