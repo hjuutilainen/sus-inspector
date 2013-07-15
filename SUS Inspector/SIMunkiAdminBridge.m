@@ -66,15 +66,56 @@ static dispatch_queue_t serialQueue;
     return self;
 }
 
+# pragma mark -
+# pragma mark Sending pkginfos to MunkiAdmin
+
+/*
+ Communication with MunkiAdmin is done using NSDistributedNotificationCenter.
+ Pkginfo items are wrapped in the 'userInfo' object.
+ This object has to be a NSDictionary so the following format is expected by MunkiAdmin:
+ 
+ <dict>
+     <key>payloadDictionaries</key>
+     <array>
+         <dict>
+             <key>filename</key>
+             <string>pkginfo1.plist</string>
+             <key>pkginfo</key>
+             <dict>
+             <!-- The actual pkginfo -->
+             </dict>
+         </dict>
+         <dict>
+             <key>filename</key>
+             <string>pkginfo2.plist</string>
+             <key>pkginfo</key>
+             <dict>
+             <!-- The actual pkginfo -->
+             </dict>
+         </dict>
+     </array>
+ </dict>
+ 
+ 
+ */
 
 - (void)sendPkginfos:(NSArray *)pkginfoArray
 {
-    //NSMutableArray *arrayToSend = [NSMutableArray new];
+    NSMutableArray *arrayToSend = [NSMutableArray new];
     [pkginfoArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary *infoDict = [NSMutableDictionary new];
-        [infoDict setObject:obj forKey:@"pkginfo"];
+        if ([obj objectForKey:@"pkginfo"])
+            [infoDict setObject:[obj objectForKey:@"pkginfo"] forKey:@"pkginfo"];
+        if ([obj objectForKey:@"filename"])
+            [infoDict setObject:[obj objectForKey:@"filename"] forKey:@"filename"];
         
+        [arrayToSend addObject:infoDict];
     }];
+    
+    NSArray *immutablePkginfos = [NSArray arrayWithArray:arrayToSend];
+    
+    NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];
+    [dnc postNotificationName:@"SUSInspectorPostedSharedPkginfo" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:immutablePkginfos, @"payloadDictionaries", nil]];
 }
 
 - (void)sendProducts:(NSArray *)productArray
