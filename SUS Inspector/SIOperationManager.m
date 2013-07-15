@@ -565,7 +565,7 @@ static dispatch_queue_t serialQueue;
                                                                  withString:@"Downloading"];
     }
     
-    return cleanedString;
+    return [cleanedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 - (void)write:(NSString *)string
