@@ -157,7 +157,6 @@
 							<string key="NSFrame">{{551, 13}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="495737042">
@@ -702,7 +701,6 @@
 											</array>
 											<reference key="NSMenuFont" ref="539447481"/>
 										</object>
-										<int key="NSSelectedIndex">-1</int>
 										<bool key="NSPullDown">YES</bool>
 										<int key="NSPreferredEdge">1</int>
 										<bool key="NSUsesItemFromMenu">YES</bool>
@@ -848,6 +846,14 @@
 						<reference key="destination" ref="150208276"/>
 					</object>
 					<int key="connectionID">353</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">chooseLocationAction:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="692111627"/>
+					</object>
+					<int key="connectionID">358</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1411,7 +1417,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">357</int>
+			<int key="maxID">358</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1444,12 +1450,17 @@
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="cancelAction:">id</string>
+						<string key="chooseLocationAction:">id</string>
 						<string key="resetCatalogsToDefaultAction:">id</string>
 						<string key="saveAction:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="cancelAction:">
 							<string key="name">cancelAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="chooseLocationAction:">
+							<string key="name">chooseLocationAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="resetCatalogsToDefaultAction:">

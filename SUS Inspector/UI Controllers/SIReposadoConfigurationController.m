@@ -21,6 +21,7 @@
 
 #import "SIReposadoConfigurationController.h"
 #import "SIAppDelegate.h"
+#import "SIReposadoConstants.h"
 
 @interface SIReposadoConfigurationController ()
 
@@ -121,6 +122,38 @@
         newCatalog.catalogOSVersion = [defaultCatalog objectForKey:@"catalogOSVersion"];
         newCatalog.isActiveValue = YES;
         [self.reposadoInstance addCatalogsObject:newCatalog];
+    }
+}
+
+- (NSURL *)showSavePanel:(NSString *)fileName
+{
+	NSSavePanel *savePanel = [NSSavePanel savePanel];
+	savePanel.nameFieldStringValue = fileName;
+    savePanel.title = @"Change Reposado Location";
+	if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+	{
+		return [savePanel URL];
+	} else {
+		return nil;
+	}
+}
+
+- (IBAction)chooseLocationAction:(id)sender
+{
+    NSURL *newLocation = [self showSavePanel:kReposadoDefaultInstanceName];
+    if (newLocation) {
+        NSURL *oldLocation = self.reposadoInstance.reposadoInstallURL;
+        NSArray *oldContents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:oldLocation includingPropertiesForKeys:nil options:0 error:nil];
+        if ([oldContents count] == 0) {
+            // Remove the old directory because it's empty
+            [[NSFileManager defaultManager] removeItemAtURL:oldLocation error:nil];
+        }
+        
+        [[NSApp delegate] createDirectoriesForReposadoAtURL:newLocation];
+        
+        self.reposadoInstance.reposadoInstallURL = newLocation;
+        
+        [[[NSApp delegate] managedObjectContext] save:nil];
     }
 }
 

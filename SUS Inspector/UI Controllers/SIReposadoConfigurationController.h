@@ -48,6 +48,7 @@
 - (IBAction)saveAction:(id)sender;
 - (IBAction)cancelAction:(id)sender;
 - (IBAction)resetCatalogsToDefaultAction:(id)sender;
+- (IBAction)chooseLocationAction:(id)sender;
 
 - (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row __unused;
 @end

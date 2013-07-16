@@ -43,10 +43,9 @@
 @property (assign) IBOutlet NSTreeController *sourceListTreeController;
 
 - (IBAction)saveAction:(id)sender;
-
 - (IBAction)reposyncAction:(id)sender;
-
 - (IBAction)openPreferencesAction:(id)sender;
+- (BOOL)createDirectoriesForReposadoAtURL:(NSURL *)url;
 
 // SIOperationManager delegates
 - (void)willStartOperations:(id)sender;

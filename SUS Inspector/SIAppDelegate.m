@@ -119,35 +119,45 @@
 }
 
 
-- (void)createDefaultReposadoInstance
+- (BOOL)createDirectoriesForReposadoAtURL:(NSURL *)url
 {
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    
-    // This is the directory where default reposado instance will be installed
-    NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:kReposadoDefaultInstanceName];
-    
     NSError *error = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSDictionary *properties = [localReposadoInstallURL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
+    NSDictionary *properties = [url resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
     if (!properties) {
         BOOL ok = NO;
         if ([error code] == NSFileReadNoSuchFileError) {
-            ok = [fileManager createDirectoryAtPath:[localReposadoInstallURL path] withIntermediateDirectories:YES attributes:nil error:&error];
+            ok = [fileManager createDirectoryAtPath:[url path] withIntermediateDirectories:YES attributes:nil error:&error];
+        }
+        if (!ok) {
+            [[NSApplication sharedApplication] presentError:error];
+            return NO;
         }
     } else {
         if (![properties[NSURLIsDirectoryKey] boolValue]) {
             // Customize and localize this error.
-            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store Reposado data, found a file (%@).", [localReposadoInstallURL path]];
+            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store Reposado data, found a file (%@).", [url path]];
             
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
             error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];
             
             [[NSApplication sharedApplication] presentError:error];
-            return;
+            return NO;
         }
     }
+    return YES;
+}
+
+- (void)createDefaultReposadoInstance
+{
+    NSManagedObjectContext *moc = [self managedObjectContext];
     
+    // This is the directory where default reposado instance will be installed
+    NSURL *localReposadoInstallURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:kReposadoDefaultInstanceName];
+    if (![self createDirectoriesForReposadoAtURL:localReposadoInstallURL]) {
+        return;
+    }
     
     SIReposadoInstanceMO *instance = nil;
     instance = [NSEntityDescription insertNewObjectForEntityForName:@"SIReposadoInstance"

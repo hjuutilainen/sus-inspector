@@ -40,7 +40,7 @@
             |-- kReposadoCodeDirectoryName
  
  */
-#define kReposadoDefaultInstanceName    @"Default"
+#define kReposadoDefaultInstanceName    @"Reposado"
 
 #define kReposadoDataDirectoryName      @"data"
 #define kReposadoMetadataDirectoryName  @"metadata"
