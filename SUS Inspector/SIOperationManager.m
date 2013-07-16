@@ -359,7 +359,7 @@ static dispatch_queue_t serialQueue;
         [allCatalogs enumerateObjectsUsingBlock:^(SICatalogMO *catalog, NSUInteger idx, BOOL *stop) {
             SISourceListItemMO *catalogItem = [self sourceListItemWithTitle:catalog.catalogDisplayName managedObjectContext:moc];
             
-            NSImage *catalogImage = [NSImage imageNamed:@"96-book"];
+            NSImage *catalogImage = [NSImage imageNamed:@"catalogTemplate"];
             [catalogImage setTemplate:YES];
             
             catalogItem.iconImage = catalogImage;
@@ -481,6 +481,19 @@ static dispatch_queue_t serialQueue;
     }
 }
 
+- (void)deleteAllObjectsForEntityName:(NSString *)entity
+{
+    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:entity inManagedObjectContext:moc]];
+    NSArray *foundObjects = [moc executeFetchRequest:fetchRequest error:nil];
+    [foundObjects enumerateObjectsWithOptions:0 usingBlock:^(id anObject, NSUInteger idx, BOOL *stop) {
+        [moc deleteObject:anObject];
+    }];
+    [fetchRequest release];
+    [moc processPendingChanges];
+}
+
 
 - (void)readReposadoInstanceContentsAsync:(SIReposadoInstanceMO *)instance force:(BOOL)force
 {
@@ -515,6 +528,8 @@ static dispatch_queue_t serialQueue;
 - (void)runReposync:(SIReposadoInstanceMO *)instance
 {
     [self willStartOperations];
+    
+    [self deleteAllObjectsForEntityName:@"SIProduct"];
     
     self.currentCatalogs = [self allCatalogs];
     NSArray *arguments = [NSArray arrayWithObjects:instance.reposyncPath, nil];

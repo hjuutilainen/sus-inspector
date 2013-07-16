@@ -185,7 +185,7 @@
 										<string key="NSFrameSize">{914, 414}</string>
 										<reference key="NSSuperview" ref="762036787"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="33004187"/>
+										<reference key="NSNextKeyView" ref="778590303"/>
 										<string key="NSReuseIdentifierKey">_NS:13</string>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -455,7 +455,6 @@
 								<string key="NSFrame">{{1, 585}, {880, 16}}</string>
 								<reference key="NSSuperview" ref="124599540"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:60</string>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								<int key="NSsFlags">1</int>
@@ -482,7 +481,7 @@
 						<string key="NSFrame">{{-1, -1}, {916, 432}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="778590303"/>
+						<reference key="NSNextKeyView" ref="762036787"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSsFlags">133682</int>
 						<reference key="NSVScroller" ref="33004187"/>
@@ -1445,7 +1444,6 @@
 						<string key="copyTitleAction:">id</string>
 						<string key="createPkginfoAction:">id</string>
 						<string key="getInfoAction:">id</string>
-						<string key="sendToMunkiAdminAction:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="copyProductIDAction:">
@@ -1462,10 +1460,6 @@
 						</object>
 						<object class="IBActionInfo" key="getInfoAction:">
 							<string key="name">getInfoAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="sendToMunkiAdminAction:">
-							<string key="name">sendToMunkiAdminAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

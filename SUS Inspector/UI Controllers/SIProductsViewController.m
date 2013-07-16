@@ -140,13 +140,18 @@
     [self openPkginfoWindow];
 }
 
-- (IBAction)sendToMunkiAdminAction:(id)sender
+- (void)sendSelectedItemsToMunkiAdmin
 {
     NSMutableArray *productsToSend = [NSMutableArray new];
     for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
         [productsToSend addObject:aProduct];
     }
     [[SIMunkiAdminBridge sharedBridge] sendProducts:[NSArray arrayWithArray:productsToSend]];
+}
+
+- (IBAction)sendToMunkiAdminAction:(id)sender
+{
+    [self sendSelectedItemsToMunkiAdmin];
 }
 
 - (void)distributionFilesMenuAction:(id)sender

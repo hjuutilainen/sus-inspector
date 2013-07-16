@@ -25,6 +25,8 @@
 #import "SICatalogsViewController.h"
 #import "SIReposadoConfigurationController.h"
 #import "DataModelHeaders.h"
+#import "SIOperationManager.h"
+#import "SIAppDelegate.h"
 
 @interface SIMainWindowController ()
 
@@ -46,6 +48,28 @@
 - (IBAction)focusToSearchFieldAction:(id)sender
 {
     [[self.productsViewController searchField] becomeFirstResponder];
+}
+
+- (IBAction)getInfoAction:(id)sender
+{
+    [self.productsViewController openGetInfoWindow];
+}
+
+- (IBAction)reposyncAction:(id)sender
+{
+    SIOperationManager *operationManager = [SIOperationManager sharedManager];
+    operationManager.delegate = [NSApp delegate];
+    [operationManager runReposync:[[NSApp delegate] defaultReposadoInstance]];
+}
+
+- (IBAction)createPkginfoAction:(id)sender
+{
+    [self.productsViewController openPkginfoWindow];
+}
+
+- (IBAction)sendToMunkiAdminAction:(id)sender
+{
+    [self.productsViewController sendSelectedItemsToMunkiAdmin];
 }
 
 

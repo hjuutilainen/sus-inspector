@@ -61,6 +61,7 @@ typedef enum {
 - (void)cacheDownloadableObjectWithURL:(NSURL *)url;
 //- (void)cacheDistributionFileWithURL:(NSURL *)url;
 //- (void)cachePackageWithURL:(NSURL *)url;
+- (void)deleteAllObjectsForEntityName:(NSString *)entity;
 - (void)readXMLFromPackageMetadataFile:(SIPackageMetadataMO *)obj;
 - (void)readXMLFromDistributionFile:(SIDistributionMO *)obj;
 - (void)readPackageMetadataFiles:(SIReposadoInstanceMO *)reposadoInstance;

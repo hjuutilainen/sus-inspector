@@ -47,5 +47,8 @@
 - (IBAction)createPkginfoAction:(id)sender;
 - (IBAction)copyProductIDAction:(id)sender;
 - (IBAction)copyTitleAction:(id)sender;
+- (void)openGetInfoWindow;
+- (void)openPkginfoWindow;
+- (void)sendSelectedItemsToMunkiAdmin;
 
 @end

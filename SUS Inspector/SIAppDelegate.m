@@ -99,9 +99,7 @@
 }
 
 - (IBAction)reposyncAction:(id)sender
-{
-    [self deleteAllObjectsForEntityName:@"SIProduct"];
-    
+{    
     SIOperationManager *operationManager = [SIOperationManager sharedManager];
     operationManager.delegate = self;
     [operationManager runReposync:self.defaultReposadoInstance];

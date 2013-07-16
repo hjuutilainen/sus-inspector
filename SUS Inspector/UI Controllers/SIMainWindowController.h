@@ -41,5 +41,9 @@
 - (void)hideProgressPanel;
 
 - (IBAction)focusToSearchFieldAction:(id)sender;
+- (IBAction)getInfoAction:(id)sender;
+- (IBAction)reposyncAction:(id)sender;
+- (IBAction)createPkginfoAction:(id)sender;
+- (IBAction)sendToMunkiAdminAction:(id)sender;
 
 @end
