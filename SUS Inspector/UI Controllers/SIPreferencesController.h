@@ -32,10 +32,12 @@
 @property (assign) IBOutlet NSTableView *catalogsTableView;
 @property (assign) IBOutlet NSPopUpButton *distApplicationsPopUpButton;
 @property (assign) IBOutlet NSPopUpButton *languagesPopupButton;
+@property (assign) IBOutlet NSComboBox *languageComboBox;
 
 @property (retain) NSToolbar *toolbar;
 @property (retain) NSMutableDictionary *items;
 @property (retain) NSArray *distApplications;
+@property (retain) NSArray *languageIDs;
 
 - (void)switchViews:(NSToolbarItem *)item;
 

@@ -35,6 +35,43 @@
         return @"Active";
 }
 
+- (SIDistributionMO *)preferredDistribution
+{
+    /*
+     Get the preferred language code from preferences
+     */
+    NSString *preferredLanguage = [[NSUserDefaults standardUserDefaults] stringForKey:@"preferredLanguageForDistFiles"];
+    
+    /*
+     Get a display representation for the language code
+     */
+    NSString *preferredLangdisplayName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:preferredLanguage];
+    
+    /*
+     Check if this product has a distribution in the preferred language
+     */
+    NSPredicate *prefLangPredicate = [NSPredicate predicateWithFormat:@"(distributionLanguage == %@) OR (distributionLanguageDisplayName == %@)", preferredLanguage, preferredLangdisplayName];
+    NSSet *matchingLangs = [self.distributions filteredSetUsingPredicate:prefLangPredicate];
+    if ([matchingLangs count] == 1) {
+        return [matchingLangs anyObject];
+    }
+    
+    /*
+     Did not find a dist in the preferred language, try English
+     */
+    else if ([matchingLangs count] == 0) {
+        NSPredicate *englishPredicate = [NSPredicate predicateWithFormat:@"(distributionLanguage == %@) OR (distributionLanguageDisplayName == %@)", @"en", @"English"];
+        NSSet *englishLangs = [self.distributions filteredSetUsingPredicate:englishPredicate];
+        return [englishLangs anyObject];
+    }
+    
+    else {
+        NSLog(@"Found multiple dist files for a lang code. This shouldn't happen...");
+        
+    }
+    return nil;
+}
+
 - (NSString *)pkginfoFilename
 {
     /*

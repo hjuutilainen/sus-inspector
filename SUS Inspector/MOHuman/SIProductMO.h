@@ -23,4 +23,6 @@
 @property (readonly) NSString *pkginfoFilename;
 @property (readonly) NSDictionary *pkginfoDictionary;
 
+- (SIDistributionMO *)preferredDistribution;
+
 @end

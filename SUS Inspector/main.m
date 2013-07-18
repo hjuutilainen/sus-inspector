@@ -28,11 +28,17 @@ int main(int argc, char *argv[])
 	NSDictionary *userDefaultsValuesDict;
 	
 	// load the default values for the user defaults
-	userDefaultsValuesPath=[[NSBundle mainBundle] pathForResource:@"UserDefaults" ofType:@"plist"];
-	userDefaultsValuesDict=[NSDictionary dictionaryWithContentsOfFile:userDefaultsValuesPath];
+	userDefaultsValuesPath = [[NSBundle mainBundle] pathForResource:@"UserDefaults" ofType:@"plist"];
+	userDefaultsValuesDict = [NSDictionary dictionaryWithContentsOfFile:userDefaultsValuesPath];
 	
 	// set them in the standard user defaults
 	[[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsValuesDict];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
+    NSString *currentLanguage = [languages objectAtIndex:0];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"preferredLanguageForDistFiles": currentLanguage}];
+    
 	[pool release];
     
     return NSApplicationMain(argc, (const char **)argv);

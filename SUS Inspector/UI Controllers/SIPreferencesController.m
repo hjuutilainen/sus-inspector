@@ -145,40 +145,22 @@
 {
     [self.languagesPopupButton removeAllItems];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
-    NSString *currentLanguage = [languages objectAtIndex:0];
+    NSArray *languages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
+    //NSString *currentLanguage = [languages objectAtIndex:0];
     
     NSMutableArray *langDicts = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *mutableLanguageIDs = [NSMutableArray new];
     for (NSString *aLanguage in languages) {
         NSString *displayName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:aLanguage];
         NSDictionary *langDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                  aLanguage, @"languageID",
                                  displayName, @"displayName",
                                  nil];
+        [mutableLanguageIDs addObject:aLanguage];
         [langDicts addObject:langDict];
     }
-    
-    
-    for (NSDictionary *aLanguageDict in langDicts) {
-        NSMenuItem *langItem = [[[NSMenuItem alloc] init] autorelease];
-        langItem.title = [aLanguageDict objectForKey:@"displayName"];
-        langItem.representedObject = [aLanguageDict objectForKey:@"languageID"];
-        [[self.languagesPopupButton menu] addItem:langItem];
-    }
-    
-    NSString *preferredLanguage = [[NSUserDefaults standardUserDefaults] stringForKey:@"preferredLanguage"];
-    if (preferredLanguage == nil) {
-        [[NSUserDefaults standardUserDefaults] setObject:currentLanguage forKey:@"preferredLanguage"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    /*
-    
-    NSLog(@"Current language: %@", currentLanguage);
-    NSString *identifier = [[NSLocale currentLocale] localeIdentifier];
-    NSString *displayName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:identifier];
-    NSLog(@"Current language: %@", displayName);
-     */
+    [self.languageComboBox setCompletes:YES];
+    self.languageIDs = [NSArray arrayWithArray:mutableLanguageIDs];
 }
 
 - (void)awakeFromNib
