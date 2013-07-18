@@ -80,7 +80,13 @@
 
 - (IBAction)getInfoAction:(id)sender
 {
-    [self openGetInfoWindow];
+    /*
+     Only open the info window if user double clicked a row
+     */
+    NSInteger clickedRow = [self.productsTableView clickedRow];
+    if (clickedRow >= 0) {
+        [self openGetInfoWindow];
+    }
 }
 
 - (IBAction)copyProductIDAction:(id)sender
@@ -232,7 +238,7 @@
     [self.productsArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByDate, sortByTitle, sortByID, nil]];
     
     [self.productsTableView setTarget:self];
-    [self.productsTableView setDoubleAction:@selector(openGetInfoWindow)];
+    [self.productsTableView setDoubleAction:@selector(getInfoAction:)];
     
     [self.productsListMenu setDelegate:self];
     
