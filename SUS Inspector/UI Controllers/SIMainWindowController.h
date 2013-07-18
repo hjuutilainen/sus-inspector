@@ -25,8 +25,9 @@
 @class SIProductsViewController;
 @class SICatalogsViewController;
 @class SIReposadoConfigurationController;
+@class SIToolbarItem;
 
-@interface SIMainWindowController : NSWindowController <NSSplitViewDelegate>
+@interface SIMainWindowController : NSWindowController <NSSplitViewDelegate, NSToolbarDelegate>
 
 @property (retain) SIProgressWindowController *progressWindowController;
 @property (retain) SIProductsViewController *productsViewController;
@@ -39,6 +40,7 @@
 - (void)showProgressPanel;
 - (void)showProgressPanelAttachedToWindow:(NSWindow *)aWindow;
 - (void)hideProgressPanel;
+- (BOOL)validateToolbarItem:(SIToolbarItem *)item;
 
 - (IBAction)focusToSearchFieldAction:(id)sender;
 - (IBAction)getInfoAction:(id)sender;

@@ -27,6 +27,7 @@
 #import "DataModelHeaders.h"
 #import "SIOperationManager.h"
 #import "SIAppDelegate.h"
+#import "SIToolbarItem.h"
 
 @interface SIMainWindowController ()
 
@@ -44,6 +45,23 @@
     return self;
 }
 
+- (BOOL)validateToolbarItem:(SIToolbarItem *)item
+{
+    /*
+     The refresh button should be always enabled
+     */
+    if ([[item itemIdentifier] isEqualToString:@"toolbarButtonRefreshCatalogs"]) {
+        return YES;
+    }
+    
+    /*
+     Check if a product is selected and enable accordingly
+     */
+    if ([[self.productsViewController.productsArrayController selectedObjects] count] != 0)
+        return YES;
+    else
+        return NO;
+}
 
 - (IBAction)focusToSearchFieldAction:(id)sender
 {
