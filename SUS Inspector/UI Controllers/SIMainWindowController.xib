@@ -67,14 +67,15 @@
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">6A50E281-B68F-438E-B273-66C1739ECA53</characters>
 							</object>
-							<string key="NSToolbarItemLabel">Product Info</string>
+							<string key="NSToolbarItemLabel">Info</string>
 							<string key="NSToolbarItemPaletteLabel">Product Info</string>
-							<nil key="NSToolbarItemToolTip"/>
+							<string key="NSToolbarItemToolTip">Open product info window</string>
 							<object class="NSButton" key="NSToolbarItemView" id="906300412">
 								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{21, 14}, {32, 25}}</string>
 								<reference key="NSSuperview"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:22</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="175245566">
@@ -118,12 +119,13 @@
 							</object>
 							<string key="NSToolbarItemLabel">Share</string>
 							<string key="NSToolbarItemPaletteLabel">Share</string>
-							<nil key="NSToolbarItemToolTip"/>
+							<string key="NSToolbarItemToolTip">Share product</string>
 							<object class="NSPopUpButton" key="NSToolbarItemView" id="630621647">
 								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{3, 14}, {32, 25}}</string>
 								<reference key="NSSuperview"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="201440192">
@@ -216,12 +218,13 @@
 							</object>
 							<string key="NSToolbarItemLabel">Refresh</string>
 							<string key="NSToolbarItemPaletteLabel">Refresh</string>
-							<nil key="NSToolbarItemToolTip"/>
+							<string key="NSToolbarItemToolTip">Refresh all catalogs and products</string>
 							<object class="NSButton" key="NSToolbarItemView" id="762905289">
 								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{8, 14}, {32, 25}}</string>
 								<reference key="NSSuperview"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:22</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="589141492">
@@ -245,6 +248,52 @@
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 							</object>
 							<reference key="NSToolbarItemImage" ref="978747628"/>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{32, 25}</string>
+							<string key="NSToolbarItemMaxSize">{32, 25}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">0</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
+						<object class="NSToolbarItem" key="B798E606-7AFC-4424-AF45-ACCF1F818B00" id="298317454">
+							<object class="NSMutableString" key="NSToolbarItemIdentifier">
+								<characters key="NS.bytes">B798E606-7AFC-4424-AF45-ACCF1F818B00</characters>
+							</object>
+							<string key="NSToolbarItemLabel">Distribution</string>
+							<string key="NSToolbarItemPaletteLabel">Distribution</string>
+							<string key="NSToolbarItemToolTip">View the default distribution file</string>
+							<object class="NSButton" key="NSToolbarItemView" id="794929595">
+								<reference key="NSNextResponder"/>
+								<int key="NSvFlags">268</int>
+								<string key="NSFrame">{{20, 14}, {32, 25}}</string>
+								<reference key="NSSuperview"/>
+								<reference key="NSNextKeyView"/>
+								<string key="NSReuseIdentifierKey">_NS:22</string>
+								<bool key="NSEnabled">YES</bool>
+								<object class="NSButtonCell" key="NSCell" id="905141612">
+									<int key="NSCellFlags">-2080374784</int>
+									<int key="NSCellFlags2">134217728</int>
+									<string key="NSContents">Round Textured</string>
+									<reference key="NSSupport" ref="68174250"/>
+									<string key="NSCellIdentifier">_NS:22</string>
+									<reference key="NSControlView" ref="794929595"/>
+									<int key="NSButtonFlags">-2033958912</int>
+									<int key="NSButtonFlags2">163</int>
+									<object class="NSCustomResource" key="NSNormalImage" id="433150967">
+										<string key="NSClassName">NSImage</string>
+										<string key="NSResourceName">documentTemplate</string>
+									</object>
+									<string key="NSAlternateContents"/>
+									<string key="NSKeyEquivalent"/>
+									<int key="NSPeriodicDelay">400</int>
+									<int key="NSPeriodicInterval">75</int>
+								</object>
+								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+							</object>
+							<reference key="NSToolbarItemImage" ref="433150967"/>
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
 							<string key="NSToolbarItemMinSize">{32, 25}</string>
@@ -310,18 +359,19 @@
 							</object>
 						</object>
 					</dictionary>
-					<array key="NSToolbarIBAllowedItems">
+					<array class="NSMutableArray" key="NSToolbarIBAllowedItems">
 						<reference ref="994998780"/>
-						<reference ref="296218093"/>
+						<reference ref="298317454"/>
 						<reference ref="784994447"/>
+						<reference ref="296218093"/>
 						<reference ref="227444999"/>
 						<reference ref="262363826"/>
 					</array>
-					<array key="NSToolbarIBDefaultItems">
+					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<reference ref="994998780"/>
-						<reference ref="296218093"/>
-						<reference ref="262363826"/>
+						<reference ref="298317454"/>
 						<reference ref="784994447"/>
+						<reference ref="262363826"/>
 					</array>
 					<array key="NSToolbarIBSelectableItems" id="0"/>
 				</object>
@@ -351,6 +401,7 @@
 									<string key="NSFrame">{{213, 0}, {857, 569}}</string>
 									<reference key="NSSuperview" ref="800024404"/>
 									<reference key="NSWindow"/>
+									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:13</string>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -370,7 +421,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="800024404"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{700, 415}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">Main Window</string>
@@ -442,6 +493,14 @@
 						<reference key="destination" ref="845810910"/>
 					</object>
 					<int key="connectionID">63</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openPreferredDistributionAction:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="298317454"/>
+					</object>
+					<int key="connectionID">75</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -531,6 +590,7 @@
 							<reference ref="994998780"/>
 							<reference ref="784994447"/>
 							<reference ref="296218093"/>
+							<reference ref="298317454"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
@@ -635,6 +695,27 @@
 						<reference key="object" ref="589141492"/>
 						<reference key="parent" ref="762905289"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">74</int>
+						<reference key="object" ref="298317454"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="794929595"/>
+						</array>
+						<reference key="parent" ref="496580380"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">72</int>
+						<reference key="object" ref="794929595"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="905141612"/>
+						</array>
+						<reference key="parent" ref="298317454"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">73</int>
+						<reference key="object" ref="905141612"/>
+						<reference key="parent" ref="794929595"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -672,12 +753,17 @@
 				<string key="53.designableToolbarItemIdentifier">toolbarButtonRefreshCatalogs</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="74.CustomClassName">SIToolbarItem</string>
+				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="74.designableToolbarItemIdentifier">toolbarButtonOpenDistribution</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">71</int>
+			<int key="maxID">75</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -688,6 +774,7 @@
 						<string key="createPkginfoAction:">id</string>
 						<string key="focusToSearchFieldAction:">id</string>
 						<string key="getInfoAction:">id</string>
+						<string key="openPreferredDistributionAction:">id</string>
 						<string key="reposyncAction:">id</string>
 						<string key="sendToMunkiAdminAction:">id</string>
 					</dictionary>
@@ -702,6 +789,10 @@
 						</object>
 						<object class="IBActionInfo" key="getInfoAction:">
 							<string key="name">getInfoAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openPreferredDistributionAction:">
+							<string key="name">openPreferredDistributionAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="reposyncAction:">
@@ -754,6 +845,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSMenuCheckmark">{11, 11}</string>
 			<string key="NSMenuMixedState">{10, 3}</string>
+			<string key="documentTemplate">{128, 128}</string>
 			<string key="infoTemplate">{128, 128}</string>
 			<string key="refreshTemplate">{128, 128}</string>
 			<string key="shareTemplate">{128, 128}</string>

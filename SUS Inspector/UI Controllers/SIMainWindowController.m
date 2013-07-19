@@ -63,6 +63,11 @@
         return NO;
 }
 
+- (IBAction)openPreferredDistributionAction:(id)sender
+{
+    [self.productsViewController openPreferredDistributionForSelectedProducts];
+}
+
 - (IBAction)focusToSearchFieldAction:(id)sender
 {
     [[self.productsViewController searchField] becomeFirstResponder];

@@ -42,6 +42,7 @@
 - (void)hideProgressPanel;
 - (BOOL)validateToolbarItem:(SIToolbarItem *)item;
 
+- (IBAction)openPreferredDistributionAction:(id)sender;
 - (IBAction)focusToSearchFieldAction:(id)sender;
 - (IBAction)getInfoAction:(id)sender;
 - (IBAction)reposyncAction:(id)sender;

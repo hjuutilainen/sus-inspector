@@ -127,6 +127,27 @@
     }
 }
 
+- (void)openDistributionFile:(SIDistributionMO *)aDist
+{
+    // Check if we have a cached copy
+    if (aDist.objectIsCachedValue) {
+        NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
+        [[NSWorkspace sharedWorkspace] openFile:aDist.objectCachedPath withApplication:appPath];
+    } else {
+        NSURL *distURL = [NSURL URLWithString:aDist.objectURL];
+        [aDist setPerformPostDownloadActionValue:YES];
+        [[SIOperationManager sharedManager] cacheDownloadableObjectWithURL:distURL];
+    }
+}
+
+- (void)openPreferredDistributionForSelectedProducts
+{
+    for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
+        SIDistributionMO *preferred = aProduct.preferredDistribution;
+        [self openDistributionFile:preferred];
+    }
+}
+
 - (void)openPkginfoWindow
 {
     if ([[self.productsArrayController selectedObjects] count] == 1) {
@@ -162,15 +183,8 @@
 
 - (void)distributionFilesMenuAction:(id)sender
 {
-    SIDistributionMO *aDist = [sender representedObject];
-    // Check if we have a cached copy
-    if (aDist.objectIsCachedValue) {
-        NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
-        [[NSWorkspace sharedWorkspace] openFile:aDist.objectCachedPath withApplication:appPath];
-    } else {
-        NSURL *distURL = [NSURL URLWithString:aDist.objectURL];
-        [aDist setPerformPostDownloadActionValue:YES];
-        [[SIOperationManager sharedManager] cacheDownloadableObjectWithURL:distURL];
+    if ([[sender representedObject] isKindOfClass:[SIDistributionMO class]]) {
+        [self openDistributionFile:[sender representedObject]];
     }
 }
 

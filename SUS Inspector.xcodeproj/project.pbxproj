@@ -19,6 +19,8 @@
 		26201BCE16EE3C37003F6416 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26201BCD16EE3C37003F6416 /* UserDefaults.plist */; };
 		26201BD116EE4041003F6416 /* SIReposadoConfigurationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */; };
 		26201BD316EE405F003F6416 /* SIReposadoConfigurationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */; };
+		26AB3DF3179936D2007AE12F /* documentTemplate.icns in Resources */ = {isa = PBXBuildFile; fileRef = 26AB3DF2179936D2007AE12F /* documentTemplate.icns */; };
+		26AB3DF517993B53007AE12F /* catalogTemplate.icns in Resources */ = {isa = PBXBuildFile; fileRef = 26AB3DF417993B53007AE12F /* catalogTemplate.icns */; };
 		26B05AD31711E42E00B24A5A /* SIPackageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26B05AD21711E42E00B24A5A /* SIPackageMO.m */; };
 		26F311FC1719A8E800ED6AC7 /* _SICatalogMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F11719A8E800ED6AC7 /* _SICatalogMO.m */; };
 		26F311FD1719A8E800ED6AC7 /* _SIDistributionMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F31719A8E800ED6AC7 /* _SIDistributionMO.m */; };
@@ -76,7 +78,6 @@
 		F5E2F72317954A6F00C4FEEE /* infoTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E2F71F17954A6F00C4FEEE /* infoTemplate@2x.png */; };
 		F5E2F72417954A6F00C4FEEE /* shareTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E2F72017954A6F00C4FEEE /* shareTemplate.png */; };
 		F5E2F72517954A6F00C4FEEE /* shareTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E2F72117954A6F00C4FEEE /* shareTemplate@2x.png */; };
-		F5E2F737179564C900C4FEEE /* catalogTemplate.icns in Resources */ = {isa = PBXBuildFile; fileRef = F5E2F736179564C900C4FEEE /* catalogTemplate.icns */; };
 		F5E2F7391795670E00C4FEEE /* refreshTemplate.icns in Resources */ = {isa = PBXBuildFile; fileRef = F5E2F7381795670E00C4FEEE /* refreshTemplate.icns */; };
 		F5E559A1171BFD3000B285CF /* SIDownloadableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E559A0171BFD3000B285CF /* SIDownloadableObject.m */; };
 		F5E559A4171BFD3900B285CF /* _SIDownloadableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E559A3171BFD3900B285CF /* _SIDownloadableObject.m */; };
@@ -115,6 +116,8 @@
 		26201BCF16EE4041003F6416 /* SIReposadoConfigurationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIReposadoConfigurationController.h; path = "UI Controllers/SIReposadoConfigurationController.h"; sourceTree = "<group>"; };
 		26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIReposadoConfigurationController.m; path = "UI Controllers/SIReposadoConfigurationController.m"; sourceTree = "<group>"; };
 		26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIReposadoConfigurationController.xib; path = "UI Controllers/SIReposadoConfigurationController.xib"; sourceTree = "<group>"; };
+		26AB3DF2179936D2007AE12F /* documentTemplate.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = documentTemplate.icns; sourceTree = "<group>"; };
+		26AB3DF417993B53007AE12F /* catalogTemplate.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = catalogTemplate.icns; sourceTree = "<group>"; };
 		26B05AD11711E42E00B24A5A /* SIPackageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIPackageMO.h; sourceTree = "<group>"; };
 		26B05AD21711E42E00B24A5A /* SIPackageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIPackageMO.m; sourceTree = "<group>"; };
 		26F311F01719A8E800ED6AC7 /* _SICatalogMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SICatalogMO.h; sourceTree = "<group>"; };
@@ -228,7 +231,6 @@
 		F5E2F71F17954A6F00C4FEEE /* infoTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "infoTemplate@2x.png"; sourceTree = "<group>"; };
 		F5E2F72017954A6F00C4FEEE /* shareTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareTemplate.png; sourceTree = "<group>"; };
 		F5E2F72117954A6F00C4FEEE /* shareTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shareTemplate@2x.png"; sourceTree = "<group>"; };
-		F5E2F736179564C900C4FEEE /* catalogTemplate.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = catalogTemplate.icns; sourceTree = "<group>"; };
 		F5E2F7381795670E00C4FEEE /* refreshTemplate.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = refreshTemplate.icns; sourceTree = "<group>"; };
 		F5E5599F171BFD3000B285CF /* SIDownloadableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDownloadableObject.h; sourceTree = "<group>"; };
 		F5E559A0171BFD3000B285CF /* SIDownloadableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIDownloadableObject.m; sourceTree = "<group>"; };
@@ -295,8 +297,9 @@
 		F5D151A516EDED8B0072EE5F /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				26AB3DF417993B53007AE12F /* catalogTemplate.icns */,
+				26AB3DF2179936D2007AE12F /* documentTemplate.icns */,
 				F5E2F7381795670E00C4FEEE /* refreshTemplate.icns */,
-				F5E2F736179564C900C4FEEE /* catalogTemplate.icns */,
 				F5E2F71E17954A6F00C4FEEE /* infoTemplate.png */,
 				F5E2F71F17954A6F00C4FEEE /* infoTemplate@2x.png */,
 				F5E2F72017954A6F00C4FEEE /* shareTemplate.png */,
@@ -690,8 +693,9 @@
 				F5E2F72317954A6F00C4FEEE /* infoTemplate@2x.png in Resources */,
 				F5E2F72417954A6F00C4FEEE /* shareTemplate.png in Resources */,
 				F5E2F72517954A6F00C4FEEE /* shareTemplate@2x.png in Resources */,
-				F5E2F737179564C900C4FEEE /* catalogTemplate.icns in Resources */,
 				F5E2F7391795670E00C4FEEE /* refreshTemplate.icns in Resources */,
+				26AB3DF3179936D2007AE12F /* documentTemplate.icns in Resources */,
+				26AB3DF517993B53007AE12F /* catalogTemplate.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

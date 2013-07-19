@@ -50,5 +50,6 @@
 - (void)openGetInfoWindow;
 - (void)openPkginfoWindow;
 - (void)sendSelectedItemsToMunkiAdmin;
+- (void)openPreferredDistributionForSelectedProducts;
 
 @end
