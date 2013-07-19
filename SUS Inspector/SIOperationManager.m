@@ -585,8 +585,9 @@ static dispatch_queue_t serialQueue;
 
 - (void)write:(NSString *)string
 {
-    if (![string isEqualToString:@""]) {
-        self.currentOperationDescription = [self cleanReposadoMessage:string];
+    NSString *cleanedMessage = [self cleanReposadoMessage:string];
+    if (![cleanedMessage isEqualToString:@""]) {
+        self.currentOperationDescription = cleanedMessage;
     }
 }
 
