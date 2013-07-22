@@ -39,6 +39,7 @@
 @property (retain) SICatalogMO *selectedCatalog;
 @property (retain) SIProductInfoWindowController *productInfoWindowController;
 @property (retain) SIPkginfoWindowController *pkginfoWindowController;
+@property (retain) SIPkginfoMultipleWindowController *multiplePkginfoController;
 @property (assign) IBOutlet NSMenu *productsListMenu;
 @property (assign) IBOutlet NSMenu *distributionFilesMenu;
 @property (assign) IBOutlet NSMenu *packagesMenu;

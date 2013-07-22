@@ -156,9 +156,8 @@
         [newPkginfoWindow setProduct:selectedProduct];
         [newPkginfoWindow showWindow:nil];
     } else {
-        SIPkginfoMultipleWindowController *newInfoWindow = [[SIPkginfoMultipleWindowController alloc] initWithWindowNibName:@"SIPkginfoMultipleWindowController"];
-        //[newInfoWindow setProduct:aProduct];
-        [newInfoWindow showWindow:nil];
+        [self.multiplePkginfoController setProducts:[self.productsArrayController selectedObjects]];
+        [self.multiplePkginfoController showWindow:nil];
     }
 }
 
@@ -258,6 +257,9 @@
     
     //self.productInfoWindowController = [[[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"] autorelease];
     //self.pkginfoWindowController = [[[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"] autorelease];
+    
+    self.multiplePkginfoController = [[[SIPkginfoMultipleWindowController alloc] initWithWindowNibName:@"SIPkginfoMultipleWindowController"] autorelease];
+    (void)[self.multiplePkginfoController window];
 }
 
 @end

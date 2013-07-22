@@ -394,7 +394,7 @@
     [pkginfoScrollView setBorderType:NSNoBorder];
     [pkginfoScrollView setHasVerticalScroller:YES];
     [pkginfoScrollView setHasHorizontalScroller:YES];
-    [pkginfoScrollView setAutohidesScrollers:NO];
+    [pkginfoScrollView setAutohidesScrollers:YES];
     [pkginfoScrollView setAutoresizesSubviews:YES];
     [pkginfoScrollView setDocumentView:pkginfoTextView];
     [parentView addSubview:pkginfoScrollView];
@@ -527,7 +527,7 @@
     [descriptionScroll setBorderType:NSBezelBorder];
     [descriptionScroll setHasVerticalScroller:YES];
     [descriptionScroll setHasHorizontalScroller:NO];
-    [descriptionScroll setAutohidesScrollers:NO];
+    [descriptionScroll setAutohidesScrollers:YES];
     
     NSTextView *descriptionTextView = [[[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, contentSize.width, contentSize.height)] autorelease];
     [descriptionTextView setIdentifier:@"descriptionTextView"];

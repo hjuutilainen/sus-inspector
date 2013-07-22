@@ -23,7 +23,7 @@
 
 @class SIProductMO;
 
-@interface SIPkginfoMultipleWindowController : NSWindowController <NSTokenFieldDelegate>
+@interface SIPkginfoMultipleWindowController : NSWindowController <NSTokenFieldDelegate, NSOpenSavePanelDelegate>
 
 # pragma mark -
 # pragma mark Properties
@@ -39,10 +39,11 @@
 @property (retain) NSNumber *includeOriginalDescription;
 @property (retain) NSNumber *includeOriginalDescriptionType;
 
-@property (retain) NSNumber *overrideRestartAction;
+@property (retain) NSNumber *includeRestartAction;
 @property (retain) NSString *restartAction;
 @property (retain) NSArray *restartActionTemplates;
 
+@property (retain) NSNumber *includeCatalogs;
 @property (retain) NSArray *munki_catalogs;
 
 @property (retain) NSNumber *includeUnattendedInstall;
@@ -50,6 +51,7 @@
 @property (retain) NSNumber *includeForceInstallAfterDate;
 @property (retain) NSDate *forceInstallAfterDate;
 
+@property (retain) NSNumber *includeBlockingApplications;
 @property (retain) NSArray *munki_blocking_applications;
 
 @property (readonly, retain) NSArray *pkginfos;
@@ -59,5 +61,7 @@
 # pragma mark IBOutlets
 @property (assign) IBOutlet NSArrayController *productsArrayController;
 @property (assign) IBOutlet NSTokenField *catalogsTokenField;
+@property (assign) IBOutlet NSTokenField *blockingAppsTokenField;
+@property (assign) IBOutlet NSDatePicker *forceAfterDatePicker;
 
 @end
