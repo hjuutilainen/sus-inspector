@@ -290,8 +290,6 @@
 
 - (NSString *)pkginfo
 {
-    
-    
     /*
      Create a string representation of the dictionary
      */
@@ -302,6 +300,94 @@
                                                            error:&error];
     NSString *returnString = [[[NSString alloc] initWithData:plist encoding:NSUTF8StringEncoding] autorelease];
     return returnString;
+}
+
+- (NSString *)munkiCommandArgumentString
+{
+    NSMutableArray *args = [NSMutableArray new];
+    
+    /*
+     pkginfo type and name
+     */
+    [args addObject:[NSString stringWithFormat:@"--apple-update %@", self.munki_name]];
+    
+    /*
+     display_name
+     */
+    if (self.munki_display_name) [args addObject:[NSString stringWithFormat:@"--displayname \"%@\"", self.munki_display_name]];
+    
+    /*
+     version
+     */
+    if (self.munki_version) [args addObject:[NSString stringWithFormat:@"--pkgvers \"%@\"", self.munki_version]];
+    
+    /*
+     description
+     */
+    // TODO: Description should be written to a file
+    //if (self.munki_description) [args addObject:[NSString stringWithFormat:@"--description \"%@\"", self.munki_description]];
+    
+    /*
+     unattended_install
+     */
+    if ([self.munki_unattended_install boolValue]) {
+        [args addObject:@"--unattended_install"];
+    }
+    
+    /*
+     catalogs
+     */
+    if ([self.munki_catalogs count] > 0) {
+        for (NSString *aCatalog in self.munki_catalogs) {
+            [args addObject:[NSString stringWithFormat:@"--catalog \"%@\"", aCatalog]];
+        }
+    }
+    
+    /*
+     RestartAction
+     */
+    if (self.munki_RestartAction) [args addObject:[NSString stringWithFormat:@"--RestartAction \"%@\"", self.munki_RestartAction]];
+    
+    /*
+     force_install_after_date
+     */
+    if ([self.munki_force_install_after_date_enabled boolValue]) {
+        
+        // Create a custom formatter
+        NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+        NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+        [formatter setTimeZone:timeZoneUTC];
+        NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+        [formatter setCalendar:gregorian];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        
+        // Get a string representation from the date object
+        NSString *versionStringFromDate = [formatter stringFromDate:self.munki_force_install_after_date];
+        [args addObject:[NSString stringWithFormat:@"--force_install_after_date \"%@\"", versionStringFromDate]];
+    }
+    
+    /*
+     blocking_applications
+     */
+    if ([self.munki_blocking_applications count] > 0) {
+        for (NSString *aBlockingApp in self.munki_blocking_applications) {
+            [args addObject:[NSString stringWithFormat:@"--blocking_application \"%@\"", aBlockingApp]];
+        }
+    }
+    
+    if ([args count] > 0) {
+        return [args componentsJoinedByString:@" "];
+    } else {
+        return nil;
+    }
+}
+
+- (void)copyMunkiCommandArguments:(id)sender
+{
+    NSString *args = [self munkiCommandArgumentString];
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    [pasteboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
+    [pasteboard setString:args forType:NSStringPboardType];
 }
 
 
@@ -696,6 +782,8 @@
     [cancelButton setKeyEquivalent:@"\e"]; // escape
     NSButton *sendToMunkiAdminButton = [self addPushButtonWithTitle:NSLocalizedString(@"Send to MunkiAdmin...", nil) identifier:@"sendToMunkiAdminButton" superView:contentView];
     [sendToMunkiAdminButton setAction:@selector(sendToMunkiAdminAction:)];
+    NSButton *copyArgsButton = [self addPushButtonWithTitle:NSLocalizedString(@"Copy Args", nil) identifier:@"copyArgsButton" superView:contentView];
+    [copyArgsButton setAction:@selector(copyMunkiCommandArguments:)];
     
     // Check if MunkiAdmin is installed
     SIMunkiAdminBridge *maBridge = [SIMunkiAdminBridge sharedBridge];
@@ -715,8 +803,8 @@
     /*
      Window layout
      */
-    NSDictionary *topLevelComponents = NSDictionaryOfVariableBindings(splitView, savePkginfoButton, cancelButton, sendToMunkiAdminButton);
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[sendToMunkiAdminButton]-[cancelButton]-[savePkginfoButton]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
+    NSDictionary *topLevelComponents = NSDictionaryOfVariableBindings(splitView, savePkginfoButton, cancelButton, sendToMunkiAdminButton, copyArgsButton);
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[sendToMunkiAdminButton]-[copyArgsButton]-[cancelButton]-[savePkginfoButton]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[splitView]-(20)-[savePkginfoButton]-|" options:0 metrics:nil views:topLevelComponents]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[splitView]|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
     
