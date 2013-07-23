@@ -27,7 +27,7 @@
 @class SIReposadoConfigurationController;
 @class SIToolbarItem;
 
-@interface SIMainWindowController : NSWindowController <NSSplitViewDelegate, NSToolbarDelegate>
+@interface SIMainWindowController : NSWindowController <NSSplitViewDelegate, NSToolbarDelegate, NSMenuDelegate>
 
 @property (retain) SIProgressWindowController *progressWindowController;
 @property (retain) SIProductsViewController *productsViewController;
@@ -36,6 +36,8 @@
 @property (assign) IBOutlet NSView *leftView;
 @property (assign) IBOutlet NSView *rightView;
 @property (assign) IBOutlet NSSplitView *mainSplitView;
+@property (assign) IBOutlet NSMenuItem *sendToMunkiAdminMenuItem;
+@property (assign) IBOutlet NSMenu *shareMenu;
 
 - (void)showProgressPanel;
 - (void)showProgressPanelAttachedToWindow:(NSWindow *)aWindow;

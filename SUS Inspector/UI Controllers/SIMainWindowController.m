@@ -28,6 +28,7 @@
 #import "SIOperationManager.h"
 #import "SIAppDelegate.h"
 #import "SIToolbarItem.h"
+#import "SIMunkiAdminBridge.h"
 
 @interface SIMainWindowController ()
 
@@ -107,9 +108,9 @@
     self.catalogsViewController = [[[SICatalogsViewController alloc] initWithNibName:@"SICatalogsViewController" bundle:nil] autorelease];
     self.catalogsViewController.delegate = self;
     self.reposadoConfigurationController = [[[SIReposadoConfigurationController alloc] initWithWindowNibName:@"SIReposadoConfigurationController"] autorelease];
-    //[self.reposadoConfigurationController showWindow:self];
     
     [self.mainSplitView setDelegate:self];
+    [self.shareMenu setDelegate:self];
     
     [self.rightView addSubview:self.productsViewController.view];
     [[self.productsViewController view] setFrame:[self.rightView frame]];
@@ -144,6 +145,19 @@
     [NSApp endSheet:self.progressWindowController.window];
     [self.progressWindowController.window close];
     [self.progressWindowController.progressIndicator stopAnimation:self];
+}
+
+
+#pragma mark -
+#pragma mark NSMenu delegates
+
+- (void)menuWillOpen:(NSMenu *)menu
+{
+    if (menu == self.shareMenu) {
+        SIMunkiAdminBridge *maBridge = [SIMunkiAdminBridge sharedBridge];
+        [self.sendToMunkiAdminMenuItem setHidden:![maBridge munkiAdminInstalled]];
+        [self.sendToMunkiAdminMenuItem setEnabled:[maBridge munkiAdminRunning]];
+    }
 }
 
 

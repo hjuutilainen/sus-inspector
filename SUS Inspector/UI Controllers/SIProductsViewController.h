@@ -43,6 +43,7 @@
 @property (assign) IBOutlet NSMenu *productsListMenu;
 @property (assign) IBOutlet NSMenu *distributionFilesMenu;
 @property (assign) IBOutlet NSMenu *packagesMenu;
+@property (assign) IBOutlet NSMenuItem *sendToMunkiAdminMenuItem;
 
 - (IBAction)getInfoAction:(id)sender;
 - (IBAction)createPkginfoAction:(id)sender;

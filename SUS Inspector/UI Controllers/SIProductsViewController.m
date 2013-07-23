@@ -205,42 +205,50 @@
 
 - (void)menuWillOpen:(NSMenu *)menu
 {
-    [self.distributionFilesMenu removeAllItems];
-    [self.distributionFilesMenu setAutoenablesItems:NO];
-    SIProductMO *selectedProduct = [[self.productsArrayController selectedObjects] objectAtIndex:0];
-    NSSortDescriptor *sortByLanguage = [NSSortDescriptor sortDescriptorWithKey:@"distributionLanguageDisplayName" ascending:YES selector:@selector(localizedStandardCompare:)];
-    NSArray *sortedDistributions = [selectedProduct.distributions sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortByLanguage]];
-    [sortedDistributions enumerateObjectsWithOptions:0 usingBlock:^(SIDistributionMO *obj, NSUInteger idx, BOOL *stop) {
-        NSString *language = obj.distributionLanguageDisplayName;
-        NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:language action:@selector(distributionFilesMenuAction:) keyEquivalent:@""] autorelease];
-        [item setTarget:self];
-        [item setRepresentedObject:obj];        
-        [self.distributionFilesMenu addItem:item];
-    }];
-    
-    [self.packagesMenu removeAllItems];
-    [self.packagesMenu setAutoenablesItems:NO];
-    NSSortDescriptor *sortByFileName = [NSSortDescriptor sortDescriptorWithKey:@"packageFilename" ascending:YES selector:@selector(localizedStandardCompare:)];
-    NSArray *sortedPackages = [selectedProduct.packages sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortByFileName]];
-    [sortedPackages enumerateObjectsWithOptions:0 usingBlock:^(SIPackageMO *obj, NSUInteger idx, BOOL *stop) {
-        NSString *title;
-        /*
-        if (obj.objectIsCachedValue) {
-            title = [NSString stringWithFormat:@"Show %@ in Finder", [obj packageFilename]];
-        } else {
-            title = [NSString stringWithFormat:@"Download %@ and Show in Finder", [obj packageFilename]];
-        }
-        */
-        title = [NSString stringWithFormat:@"%@", [obj packageFilename]];
+    if (menu == self.productsListMenu) {
         
-        NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:title action:@selector(packagesMenuAction:) keyEquivalent:@""] autorelease];
-        [item setTarget:self];
-        [item setRepresentedObject:obj];
-        NSImage *icon = [obj iconImage];
-        [icon setSize:NSMakeSize(16.0, 16.0)];
-        [item setImage:icon];
-        [self.packagesMenu addItem:item];
-    }];
+        SIMunkiAdminBridge *maBridge = [SIMunkiAdminBridge sharedBridge];
+        
+        [self.sendToMunkiAdminMenuItem setHidden:![maBridge munkiAdminInstalled]];
+        [self.sendToMunkiAdminMenuItem setEnabled:[maBridge munkiAdminRunning]];
+        
+        [self.distributionFilesMenu removeAllItems];
+        [self.distributionFilesMenu setAutoenablesItems:NO];
+        SIProductMO *selectedProduct = [[self.productsArrayController selectedObjects] objectAtIndex:0];
+        NSSortDescriptor *sortByLanguage = [NSSortDescriptor sortDescriptorWithKey:@"distributionLanguageDisplayName" ascending:YES selector:@selector(localizedStandardCompare:)];
+        NSArray *sortedDistributions = [selectedProduct.distributions sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortByLanguage]];
+        [sortedDistributions enumerateObjectsWithOptions:0 usingBlock:^(SIDistributionMO *obj, NSUInteger idx, BOOL *stop) {
+            NSString *language = obj.distributionLanguageDisplayName;
+            NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:language action:@selector(distributionFilesMenuAction:) keyEquivalent:@""] autorelease];
+            [item setTarget:self];
+            [item setRepresentedObject:obj];
+            [self.distributionFilesMenu addItem:item];
+        }];
+        
+        [self.packagesMenu removeAllItems];
+        [self.packagesMenu setAutoenablesItems:NO];
+        NSSortDescriptor *sortByFileName = [NSSortDescriptor sortDescriptorWithKey:@"packageFilename" ascending:YES selector:@selector(localizedStandardCompare:)];
+        NSArray *sortedPackages = [selectedProduct.packages sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortByFileName]];
+        [sortedPackages enumerateObjectsWithOptions:0 usingBlock:^(SIPackageMO *obj, NSUInteger idx, BOOL *stop) {
+            NSString *title;
+            /*
+             if (obj.objectIsCachedValue) {
+             title = [NSString stringWithFormat:@"Show %@ in Finder", [obj packageFilename]];
+             } else {
+             title = [NSString stringWithFormat:@"Download %@ and Show in Finder", [obj packageFilename]];
+             }
+             */
+            title = [NSString stringWithFormat:@"%@", [obj packageFilename]];
+            
+            NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:title action:@selector(packagesMenuAction:) keyEquivalent:@""] autorelease];
+            [item setTarget:self];
+            [item setRepresentedObject:obj];
+            NSImage *icon = [obj iconImage];
+            [icon setSize:NSMakeSize(16.0, 16.0)];
+            [item setImage:icon];
+            [self.packagesMenu addItem:item];
+        }];
+    }
 }
 
 - (void)awakeFromNib
