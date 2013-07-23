@@ -49,6 +49,7 @@
 @property (assign) IBOutlet NSSplitView *splitView;
 @property (assign) IBOutlet NSPopUpButton *descriptionPopupButton;
 @property (assign) IBOutlet NSTokenField *catalogsTokenField;
+@property (assign) IBOutlet NSTokenField *blockingAppsTokenField;
 
 # pragma mark -
 # pragma mark IBActions

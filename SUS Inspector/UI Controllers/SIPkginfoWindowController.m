@@ -242,6 +242,7 @@
                                 @"munki_display_name",
                                 @"munki_version",
                                 @"munki_catalogs",
+                                @"munki_blocking_applications",
                                 @"munki_description",
                                 @"munki_RestartAction",
                                 @"munki_force_install_after_date_enabled",
@@ -266,6 +267,9 @@
     if (self.munki_display_name) [dict setObject:self.munki_display_name forKey:@"display_name"];
     if (self.munki_version) [dict setObject:self.munki_version forKey:@"version"];
     if (self.munki_description) [dict setObject:self.munki_description forKey:@"description"];
+    if ([self.munki_blocking_applications count] > 0) {
+        [dict setObject:self.munki_blocking_applications forKey:@"blocking_applications"];
+    }
     if ([self.munki_catalogs count] > 0) {
         [dict setObject:self.munki_catalogs forKey:@"catalogs"];
     }
@@ -454,6 +458,17 @@
     [catalogsTokenField bind:@"value" toObject:self withKeyPath:@"munki_catalogs" options:textFieldOptions];
     
     /*
+     Blocking applications token field
+     */
+    id blockingAppsLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Blocking Apps", nil) identifier:@"blockingAppsLabel" superView:parentView];
+    NSTokenField *blockingAppsTokenField = self.blockingAppsTokenField;
+    [blockingAppsTokenField setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
+    [blockingAppsTokenField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [blockingAppsTokenField setDelegate:self];
+    [parentView addSubview:blockingAppsTokenField];
+    [blockingAppsTokenField bind:@"value" toObject:self withKeyPath:@"munki_blocking_applications" options:textFieldOptions];
+    
+    /*
      Restart Action field
      */
     id restartActionLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Restart Action", nil) identifier:@"restartActionLabel" superView:parentView];
@@ -563,6 +578,7 @@
                                                          displayNameLabel, displayNameField,
                                                          versionLabel, versionField,
                                                          catalogsLabel, catalogsTokenField,
+                                                         blockingAppsLabel, blockingAppsTokenField,
                                                          restartActionField, restartActionLabel,
                                                          unattendedLabel, unattendedButton,
                                                          forceAfterLabel, forceAfterCheckBox, forceAfterDatePicker,
@@ -574,7 +590,8 @@
     [self.window setInitialFirstResponder:displayNameField];
     [displayNameField setNextKeyView:versionField];
     [versionField setNextKeyView:catalogsTokenField];
-    [catalogsTokenField setNextKeyView:restartActionField];
+    [catalogsTokenField setNextKeyView:blockingAppsTokenField];
+    [blockingAppsTokenField setNextKeyView:restartActionField];
     [restartActionField setNextKeyView:descriptionTextView];
     [descriptionTextView setNextKeyView:displayNameField];
     
@@ -588,6 +605,7 @@
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[displayNameLabel]-[displayNameField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[versionLabel]-[versionField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[catalogsLabel]-[catalogsTokenField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[blockingAppsLabel]-[blockingAppsTokenField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[restartActionLabel]-[restartActionField(>=20)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
     
     [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[forceAfterLabel]-[forceAfterCheckBox]-[forceAfterDatePicker(>=20)]-[unattendedButton]-|" options:0 metrics:nil views:views]];
@@ -636,7 +654,7 @@
     
     
     // Vertical layout
-    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[nameField]-[displayNameField]-[versionField]-[catalogsTokenField]-[restartActionField]-(16)-[forceAfterCheckBox]-(16)-[descriptionScroll(>=200)]"
+    [parentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[nameField]-[displayNameField]-[versionField]-[catalogsTokenField]-[blockingAppsTokenField]-[restartActionField]-(16)-[forceAfterCheckBox]-(16)-[descriptionScroll(>=200)]"
                                                                         options:NSLayoutFormatAlignAllLeading
                                                                         metrics:nil
                                                                           views:views]];
