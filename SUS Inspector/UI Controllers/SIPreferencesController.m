@@ -149,7 +149,7 @@
     //NSString *currentLanguage = [languages objectAtIndex:0];
     
     NSMutableArray *langDicts = [[[NSMutableArray alloc] init] autorelease];
-    NSMutableArray *mutableLanguageIDs = [NSMutableArray new];
+    NSMutableArray *mutableLanguageIDs = [[[NSMutableArray alloc] init] autorelease];
     for (NSString *aLanguage in languages) {
         NSString *displayName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:aLanguage];
         NSDictionary *langDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -165,7 +165,7 @@
 
 - (void)awakeFromNib
 {
-    self.items = [[NSMutableDictionary alloc] init];
+    self.items = [[[NSMutableDictionary alloc] init] autorelease];
     
 	NSToolbarItem *generalItem = [self toolbarItemWithIdentifier:@"General"];
     [generalItem setToolTip:NSLocalizedString(@"General preference options.", nil)];
