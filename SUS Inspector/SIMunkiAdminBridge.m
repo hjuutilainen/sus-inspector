@@ -23,6 +23,8 @@
 
 @implementation SIMunkiAdminBridge
 
+#define kMunkiAdminBundleID @"fi.obsolete.MunkiAdmin"
+
 static SIMunkiAdminBridge *sharedBridge = nil;
 static dispatch_queue_t serialQueue;
 
@@ -64,6 +66,20 @@ static dispatch_queue_t serialQueue;
     
     self = obj;
     return self;
+}
+
+- (BOOL)munkiAdminInstalled
+{
+    NSString *munkiAdminPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:kMunkiAdminBundleID];
+    if (munkiAdminPath == nil) return NO;
+    else return YES;
+}
+
+- (BOOL)munkiAdminRunning
+{
+    NSArray *runningApps = [NSRunningApplication runningApplicationsWithBundleIdentifier:kMunkiAdminBundleID];
+    if ([runningApps count] == 0) return NO;
+    else return YES;
 }
 
 # pragma mark -

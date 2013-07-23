@@ -698,8 +698,15 @@
     [sendToMunkiAdminButton setAction:@selector(sendToMunkiAdminAction:)];
     
     // Check if MunkiAdmin is installed
-    NSString *munkiAdminPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"fi.obsolete.MunkiAdmin"];
-    if (munkiAdminPath) {
+    SIMunkiAdminBridge *maBridge = [SIMunkiAdminBridge sharedBridge];
+    if ([maBridge munkiAdminInstalled]) {
+        [sendToMunkiAdminButton setHidden:NO];
+    } else {
+        [sendToMunkiAdminButton setHidden:YES];
+    }
+    
+    // Check if MunkiAdmin is running
+    if ([maBridge munkiAdminRunning]) {
         [sendToMunkiAdminButton setEnabled:YES];
     } else {
         [sendToMunkiAdminButton setEnabled:NO];

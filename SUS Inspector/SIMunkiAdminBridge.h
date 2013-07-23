@@ -25,6 +25,8 @@
 @interface SIMunkiAdminBridge : NSObject
 
 + (SIMunkiAdminBridge *)sharedBridge;
+- (BOOL)munkiAdminInstalled;
+- (BOOL)munkiAdminRunning;
 - (void)sendPkginfos:(NSArray *)pkginfoArray;
 - (void)sendProducts:(NSArray *)productArray;
 //- (NSDictionary *)pkginfoDictionaryFromProduct:(SIProductMO *)aProduct;
