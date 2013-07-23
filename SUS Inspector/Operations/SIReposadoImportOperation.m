@@ -41,7 +41,7 @@ static const int ImportBatchSize = 50;
 - (id)initWithReposadoInstanceID:(SIReposadoInstanceMOID *)instanceID force:(BOOL)force
 {
 	if ((self = [super init])) {
-		self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+		self.context = [[[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType] autorelease];
         self.context.persistentStoreCoordinator = [[NSApp delegate] persistentStoreCoordinator];
         self.context.undoManager = nil;
         self.reposadoInstance = (SIReposadoInstanceMO *)[self.context objectWithID:instanceID];
