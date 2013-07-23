@@ -36,7 +36,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Initialization code here.
+        self.pkginfoWindowControllers = [[NSMutableArray new] autorelease];
+        self.productInfoWindowControllers = [[NSMutableArray new] autorelease];
     }
     
     return self;
@@ -72,7 +73,9 @@
 - (void)openGetInfoWindow
 {
     for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
-        SIProductInfoWindowController *newInfoWindow = [[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"];
+        SIProductInfoWindowController *newInfoWindow = [[[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"] autorelease];
+        newInfoWindow.delegate = self;
+        [self.productInfoWindowControllers addObject:newInfoWindow];
         [newInfoWindow setProduct:aProduct];
         [newInfoWindow showWindow:nil];
     }
@@ -95,7 +98,7 @@
     NSArray *pb_types = [NSArray arrayWithObjects:NSStringPboardType, nil];
     [pb declareTypes:pb_types owner:nil];
     
-    NSMutableArray *productIDStrings = [NSMutableArray new];
+    NSMutableArray *productIDStrings = [[[NSMutableArray alloc] init] autorelease];
     for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
         [productIDStrings addObject:aProduct.productID];
     }
@@ -114,7 +117,7 @@
     NSArray *pb_types = [NSArray arrayWithObjects:NSStringPboardType, nil];
     [pb declareTypes:pb_types owner:nil];
     
-    NSMutableArray *productIDStrings = [NSMutableArray new];
+    NSMutableArray *productIDStrings = [[[NSMutableArray alloc] init] autorelease];
     for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
         [productIDStrings addObject:aProduct.productTitle];
     }
@@ -148,13 +151,14 @@
     }
 }
 
+
 - (void)openPkginfoWindow
 {
     if ([[self.productsArrayController selectedObjects] count] == 1) {
         SIProductMO *selectedProduct = [[self.productsArrayController selectedObjects] objectAtIndex:0];
-        SIPkginfoWindowController *newPkginfoWindow = [[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"];
-        [newPkginfoWindow setProduct:selectedProduct];
-        [newPkginfoWindow showWindow:nil];
+        SIPkginfoWindowController *controller = [SIPkginfoWindowController controllerWithProduct:selectedProduct];
+        controller.delegate = self;
+        [self.pkginfoWindowControllers addObject:controller];
     } else {
         [self.multiplePkginfoController setProducts:[self.productsArrayController selectedObjects]];
         [self.multiplePkginfoController showWindow:nil];
@@ -166,9 +170,19 @@
     [self openPkginfoWindow];
 }
 
+- (void)removeProductInfoWindowController:(id)sender
+{
+    [self.productInfoWindowControllers removeObject:sender];
+}
+
+- (void)removePkginfoWindowController:(id)sender
+{
+    [self.pkginfoWindowControllers removeObject:sender];
+}
+
 - (void)sendSelectedItemsToMunkiAdmin
 {
-    NSMutableArray *productsToSend = [NSMutableArray new];
+    NSMutableArray *productsToSend = [[[NSMutableArray alloc] init] autorelease];
     for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
         [productsToSend addObject:aProduct];
     }

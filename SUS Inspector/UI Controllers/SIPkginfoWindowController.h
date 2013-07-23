@@ -23,11 +23,14 @@
 
 @class SIProductMO;
 
-@interface SIPkginfoWindowController : NSWindowController <NSTokenFieldDelegate>
+@interface SIPkginfoWindowController : NSWindowController <NSWindowDelegate, NSTokenFieldDelegate, NSMenuDelegate>
+
++ (id)controllerWithProduct:(SIProductMO *)product;
 
 # pragma mark -
 # pragma mark Properties
 @property (retain) SIProductMO *product;
+@property (assign) id delegate;
 @property (retain) NSString *munki_name;
 @property (retain) NSString *munki_description;
 @property (retain) NSString *munki_display_name;
@@ -50,6 +53,11 @@
 @property (assign) IBOutlet NSPopUpButton *descriptionPopupButton;
 @property (assign) IBOutlet NSTokenField *catalogsTokenField;
 @property (assign) IBOutlet NSTokenField *blockingAppsTokenField;
+@property (assign) IBOutlet NSPopUpButton *sharePopupButton;
+@property (assign) IBOutlet NSMenuItem *sendToMunkiAdminMenuItem;
+@property (assign) IBOutlet NSMenu *shareMenu;
+@property (assign) IBOutlet NSMenu *descriptionMenu;
+@property (assign) IBOutlet NSMenuItem *munkiimportCommandMenuItem;
 
 # pragma mark -
 # pragma mark IBActions

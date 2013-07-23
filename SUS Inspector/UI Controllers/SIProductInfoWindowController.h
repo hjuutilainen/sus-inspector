@@ -24,11 +24,12 @@
 
 @class SIProductMO;
 
-@interface SIProductInfoWindowController : NSWindowController <NSTokenFieldDelegate, NSTabViewDelegate> {
+@interface SIProductInfoWindowController : NSWindowController <NSWindowDelegate, NSTokenFieldDelegate, NSTabViewDelegate> {
     
 }
 
 @property (retain) SIProductMO *product;
+@property (assign) id delegate;
 @property (retain) NSArray *catalogs;
 //@property (assign) IBOutlet NSTableView *packagesTableView;
 @property (assign) IBOutlet NSScrollView *packagesScrollView;

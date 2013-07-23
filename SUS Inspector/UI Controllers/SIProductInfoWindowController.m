@@ -370,11 +370,17 @@
     
 }
 
+- (void)windowWillClose:(NSNotification *)notification
+{
+    if ([self.delegate respondsToSelector:@selector(removeProductInfoWindowController:)]) {
+        [self.delegate performSelector:@selector(removeProductInfoWindowController:) withObject:self];
+    }
+}
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
+    [self.window setDelegate:self];
     //[self.window center];
     
     [self setupProductInfoView:[self.window contentView]];

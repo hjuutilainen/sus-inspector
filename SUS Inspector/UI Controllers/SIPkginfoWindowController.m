@@ -32,6 +32,23 @@
 @dynamic pkginfo;
 @dynamic pkginfoDict;
 
+
++ (id)controllerWithProduct:(SIProductMO *)product
+{
+    SIPkginfoWindowController *controller = [[[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"] autorelease];
+    controller.product = product;
+    [controller populateDefaultValues];
+    [controller showWindow:nil];
+    return controller;
+}
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    if ([self.delegate respondsToSelector:@selector(removePkginfoWindowController:)]) {
+        [self.delegate performSelector:@selector(removePkginfoWindowController:) withObject:self];
+    }
+}
+
 - (NSURL *)showSavePanelForPkginfo:(NSString *)fileName
 {
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
@@ -51,6 +68,7 @@
     if (self) {
         NSArray *restartActions = [NSArray arrayWithObjects:@"RequireShutdown", @"RequireRestart", @"RecommendRestart", @"RequireLogout", @"None", nil];
         self.restartActionTemplates = [restartActions sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+        [self.window setDelegate:self];
     }
     
     return self;
@@ -183,7 +201,7 @@
     NSString *joinWithString = @"-";
     
     NSArray *nameComponents = @[self.munki_display_name, self.munki_version, self.munki_name];
-    NSMutableArray *processedComponents = [NSMutableArray new];
+    NSMutableArray *processedComponents = [[[NSMutableArray alloc] init] autorelease];
     for (NSString *component in nameComponents) {
         NSString *newValue = [component stringByReplacingOccurrencesOfString:@" " withString:whiteSpaceReplacement];
         [processedComponents addObject:newValue];
@@ -302,9 +320,14 @@
     return returnString;
 }
 
-- (NSString *)munkiCommandArgumentString
+- (NSString *)munkiCommandStringWithCommandName:(NSString *)command
 {
-    NSMutableArray *args = [NSMutableArray new];
+    NSMutableArray *args = [[[NSMutableArray alloc] init] autorelease];
+    
+    /*
+     The command
+     */
+    [args addObject:command];
     
     /*
      pkginfo type and name
@@ -382,9 +405,9 @@
     }
 }
 
-- (void)copyMunkiCommandArguments:(id)sender
+- (void)copyMunkiimportCommand:(id)sender
 {
-    NSString *args = [self munkiCommandArgumentString];
+    NSString *args = [self munkiCommandStringWithCommandName:@"munkiimport"];
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
     [pasteboard setString:args forType:NSStringPboardType];
@@ -484,7 +507,7 @@
     [pkginfoScrollView setBorderType:NSNoBorder];
     [pkginfoScrollView setHasVerticalScroller:YES];
     [pkginfoScrollView setHasHorizontalScroller:YES];
-    [pkginfoScrollView setAutohidesScrollers:YES];
+    [pkginfoScrollView setAutohidesScrollers:NO];
     [pkginfoScrollView setAutoresizesSubviews:YES];
     [pkginfoScrollView setDocumentView:pkginfoTextView];
     [parentView addSubview:pkginfoScrollView];
@@ -628,7 +651,7 @@
     [descriptionScroll setBorderType:NSBezelBorder];
     [descriptionScroll setHasVerticalScroller:YES];
     [descriptionScroll setHasHorizontalScroller:NO];
-    [descriptionScroll setAutohidesScrollers:YES];
+    [descriptionScroll setAutohidesScrollers:NO];
     
     NSTextView *descriptionTextView = [[[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, contentSize.width, contentSize.height)] autorelease];
     [descriptionTextView setIdentifier:@"descriptionTextView"];
@@ -775,36 +798,41 @@
      */
     NSButton *savePkginfoButton = [self addPushButtonWithTitle:NSLocalizedString(@"Save Pkginfo...", nil) identifier:@"savePkginfoButton" superView:contentView];
     [savePkginfoButton setAction:@selector(savePkginfoAction:)];
-    [savePkginfoButton setKeyEquivalent:@"s"];
-    [savePkginfoButton setKeyEquivalentModifierMask:NSCommandKeyMask];
+    [savePkginfoButton setKeyEquivalent:@"\r"]; // return
+    [savePkginfoButton setKeyEquivalentModifierMask:0];
     NSButton *cancelButton = [self addPushButtonWithTitle:NSLocalizedString(@"Cancel", nil) identifier:@"cancelButton" superView:contentView];
     [cancelButton setAction:@selector(cancelSavePkginfoAction:)];
     [cancelButton setKeyEquivalent:@"\e"]; // escape
-    NSButton *sendToMunkiAdminButton = [self addPushButtonWithTitle:NSLocalizedString(@"Send to MunkiAdmin...", nil) identifier:@"sendToMunkiAdminButton" superView:contentView];
-    [sendToMunkiAdminButton setAction:@selector(sendToMunkiAdminAction:)];
-    NSButton *copyArgsButton = [self addPushButtonWithTitle:NSLocalizedString(@"Copy Args", nil) identifier:@"copyArgsButton" superView:contentView];
-    [copyArgsButton setAction:@selector(copyMunkiCommandArguments:)];
     
-    // Check if MunkiAdmin is installed
-    SIMunkiAdminBridge *maBridge = [SIMunkiAdminBridge sharedBridge];
-    if ([maBridge munkiAdminInstalled]) {
-        [sendToMunkiAdminButton setHidden:NO];
-    } else {
-        [sendToMunkiAdminButton setHidden:YES];
-    }
+    /*
+     Configure the share popup button
+     */
+    NSPopUpButton *sharePopupButton = self.sharePopupButton;
+    [sharePopupButton setIdentifier:@"sharePopupButton"];
+    [sharePopupButton setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
+    [sharePopupButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    // Check if MunkiAdmin is running
-    if ([maBridge munkiAdminRunning]) {
-        [sendToMunkiAdminButton setEnabled:YES];
-    } else {
-        [sendToMunkiAdminButton setEnabled:NO];
-    }
+    NSImage *shareImage = [[NSImage imageNamed:@"shareTemplate"] copy];
+    [shareImage setTemplate:NO];
+    NSMenuItem *imageItem = [[[NSMenuItem alloc] init] autorelease];
+    [imageItem setImage:shareImage];
+    [shareImage release];
+    
+    [[sharePopupButton cell] setUsesItemFromMenu:NO];
+    [[sharePopupButton cell] setMenuItem:imageItem];
+    [[sharePopupButton cell] setImagePosition:NSImageOnly];
+    
+    [[sharePopupButton menu] setDelegate:self];
+    [contentView addSubview:sharePopupButton];
+    
+    [self.munkiimportCommandMenuItem setTarget:self];
+    [self.munkiimportCommandMenuItem setAction:@selector(copyMunkiimportCommand:)];
     
     /*
      Window layout
      */
-    NSDictionary *topLevelComponents = NSDictionaryOfVariableBindings(splitView, savePkginfoButton, cancelButton, sendToMunkiAdminButton, copyArgsButton);
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[sendToMunkiAdminButton]-[copyArgsButton]-[cancelButton]-[savePkginfoButton]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
+    NSDictionary *topLevelComponents = NSDictionaryOfVariableBindings(splitView, savePkginfoButton, cancelButton, sharePopupButton);
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[sharePopupButton]-(12)-[cancelButton]-[savePkginfoButton]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[splitView]-(20)-[savePkginfoButton]-|" options:0 metrics:nil views:topLevelComponents]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[splitView]|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
     
@@ -820,6 +848,19 @@
     
     [self setupPkginfoPreviewView:rightSubView];
     [self setupPkginfoView:leftSubView];
+}
+
+
+#pragma mark -
+#pragma mark NSMenu delegates
+
+- (void)menuWillOpen:(NSMenu *)menu
+{
+    if (menu == self.shareMenu) {
+        SIMunkiAdminBridge *maBridge = [SIMunkiAdminBridge sharedBridge];
+        [self.sendToMunkiAdminMenuItem setHidden:![maBridge munkiAdminInstalled]];
+        [self.sendToMunkiAdminMenuItem setEnabled:[maBridge munkiAdminRunning]];
+    }
 }
 
 

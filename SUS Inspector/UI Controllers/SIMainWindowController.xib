@@ -73,8 +73,9 @@
 							<object class="NSButton" key="NSToolbarItemView" id="906300412">
 								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{21, 14}, {32, 25}}</string>
+								<string key="NSFrame">{{19, 14}, {35, 25}}</string>
 								<reference key="NSSuperview"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:22</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="175245566">
@@ -104,8 +105,8 @@
 							<reference key="NSToolbarItemImage" ref="693466085"/>
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{32, 25}</string>
-							<string key="NSToolbarItemMaxSize">{32, 25}</string>
+							<string key="NSToolbarItemMinSize">{35, 25}</string>
+							<string key="NSToolbarItemMaxSize">{35, 25}</string>
 							<bool key="NSToolbarItemEnabled">YES</bool>
 							<bool key="NSToolbarItemAutovalidates">YES</bool>
 							<int key="NSToolbarItemTag">0</int>
@@ -122,8 +123,9 @@
 							<object class="NSPopUpButton" key="NSToolbarItemView" id="630621647">
 								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{3, 14}, {32, 25}}</string>
+								<string key="NSFrame">{{1, 14}, {35, 25}}</string>
 								<reference key="NSSuperview"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="201440192">
@@ -134,9 +136,9 @@
 									<reference key="NSControlView" ref="630621647"/>
 									<int key="NSButtonFlags">-2031075328</int>
 									<int key="NSButtonFlags2">163</int>
-									<object class="NSCustomResource" key="NSNormalImage" id="711365915">
+									<object class="NSCustomResource" key="NSNormalImage">
 										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">shareTemplate</string>
+										<string key="NSResourceName">NSSh</string>
 									</object>
 									<string key="NSAlternateContents"/>
 									<string key="NSKeyEquivalent"/>
@@ -150,7 +152,10 @@
 										<int key="NSKeyEquivModMask">1048576</int>
 										<int key="NSMnemonicLoc">2147483647</int>
 										<int key="NSState">1</int>
-										<reference key="NSImage" ref="711365915"/>
+										<object class="NSCustomResource" key="NSImage" id="365882708">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">shareTemplate</string>
+										</object>
 										<object class="NSCustomResource" key="NSOnImage" id="485355078">
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">NSMenuCheckmark</string>
@@ -200,11 +205,11 @@
 								</object>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 							</object>
-							<reference key="NSToolbarItemImage" ref="711365915"/>
+							<reference key="NSToolbarItemImage" ref="365882708"/>
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{32, 25}</string>
-							<string key="NSToolbarItemMaxSize">{32, 25}</string>
+							<string key="NSToolbarItemMinSize">{34, 25}</string>
+							<string key="NSToolbarItemMaxSize">{35, 25}</string>
 							<bool key="NSToolbarItemEnabled">YES</bool>
 							<bool key="NSToolbarItemAutovalidates">YES</bool>
 							<int key="NSToolbarItemTag">0</int>
@@ -221,8 +226,9 @@
 							<object class="NSButton" key="NSToolbarItemView" id="762905289">
 								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{8, 14}, {32, 25}}</string>
+								<string key="NSFrame">{{7, 14}, {35, 25}}</string>
 								<reference key="NSSuperview"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:22</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="589141492">
@@ -248,8 +254,8 @@
 							<reference key="NSToolbarItemImage" ref="978747628"/>
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{32, 25}</string>
-							<string key="NSToolbarItemMaxSize">{32, 25}</string>
+							<string key="NSToolbarItemMinSize">{34, 25}</string>
+							<string key="NSToolbarItemMaxSize">{35, 25}</string>
 							<bool key="NSToolbarItemEnabled">YES</bool>
 							<bool key="NSToolbarItemAutovalidates">YES</bool>
 							<int key="NSToolbarItemTag">0</int>
@@ -266,8 +272,9 @@
 							<object class="NSButton" key="NSToolbarItemView" id="794929595">
 								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{20, 14}, {32, 25}}</string>
+								<string key="NSFrame">{{18, 14}, {35, 25}}</string>
 								<reference key="NSSuperview"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:22</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="905141612">
@@ -293,8 +300,8 @@
 							<reference key="NSToolbarItemImage" ref="433150967"/>
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{32, 25}</string>
-							<string key="NSToolbarItemMaxSize">{32, 25}</string>
+							<string key="NSToolbarItemMinSize">{35, 25}</string>
+							<string key="NSToolbarItemMaxSize">{35, 25}</string>
 							<bool key="NSToolbarItemEnabled">YES</bool>
 							<bool key="NSToolbarItemAutovalidates">YES</bool>
 							<int key="NSToolbarItemTag">0</int>
@@ -398,6 +405,7 @@
 									<string key="NSFrame">{{213, 0}, {857, 569}}</string>
 									<reference key="NSSuperview" ref="800024404"/>
 									<reference key="NSWindow"/>
+									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:13</string>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -867,6 +875,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSMenuCheckmark">{11, 11}</string>
 			<string key="NSMenuMixedState">{10, 3}</string>
+			<string key="NSSh">{128, 128}</string>
 			<string key="documentTemplate">{128, 128}</string>
 			<string key="infoTemplate">{128, 128}</string>
 			<string key="refreshTemplate">{128, 128}</string>

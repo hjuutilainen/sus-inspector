@@ -30,6 +30,8 @@
     
 }
 
+@property (retain) NSMutableArray *pkginfoWindowControllers;
+@property (retain) NSMutableArray *productInfoWindowControllers;
 @property (assign) IBOutlet NSSearchField *searchField;
 @property (assign) IBOutlet NSArrayController *productsArrayController;
 @property (retain) NSPredicate *productsMainFilterPredicate;
