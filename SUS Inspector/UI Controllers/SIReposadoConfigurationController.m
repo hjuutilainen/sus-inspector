@@ -54,7 +54,7 @@
 - (NSUndoManager*)windowWillReturnUndoManager:(NSWindow*)window
 {
     if (!self.undoManager) {
-        self.undoManager = [[NSUndoManager alloc] init];
+        self.undoManager = [[[NSUndoManager alloc] init] autorelease];
     }
     return self.undoManager;
 }
