@@ -117,7 +117,7 @@ static dispatch_queue_t serialQueue;
 
 - (void)sendPkginfos:(NSArray *)pkginfoArray
 {
-    NSMutableArray *arrayToSend = [NSMutableArray new];
+    NSMutableArray *arrayToSend = [[[NSMutableArray alloc] init] autorelease];
     [pkginfoArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary *infoDict = [NSMutableDictionary new];
         if ([obj objectForKey:@"pkginfo"])
@@ -126,6 +126,7 @@ static dispatch_queue_t serialQueue;
             [infoDict setObject:[obj objectForKey:@"filename"] forKey:@"filename"];
         
         [arrayToSend addObject:infoDict];
+        [infoDict release];
     }];
     
     NSArray *immutablePkginfos = [NSArray arrayWithArray:arrayToSend];
@@ -136,12 +137,13 @@ static dispatch_queue_t serialQueue;
 
 - (void)sendProducts:(NSArray *)productArray
 {
-    NSMutableArray *arrayToSend = [NSMutableArray new];
+    NSMutableArray *arrayToSend = [[[NSMutableArray alloc] init] autorelease];
     [productArray enumerateObjectsUsingBlock:^(SIProductMO *obj, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary *infoDict = [NSMutableDictionary new];
         [infoDict setObject:obj.pkginfoFilename forKey:@"filename"];
         [infoDict setObject:obj.pkginfoDictionary forKey:@"pkginfo"];
         [arrayToSend addObject:infoDict];
+        [infoDict release];
     }];
     
     NSArray *immutablePkginfos = [NSArray arrayWithArray:arrayToSend];
