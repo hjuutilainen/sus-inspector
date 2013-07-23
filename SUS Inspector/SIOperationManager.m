@@ -744,6 +744,7 @@ static dispatch_queue_t serialQueue;
     NSData *xmlData = [NSData dataWithContentsOfFile:obj.objectCachedPath];
     SIPackageMetadataParser *parser = [[SIPackageMetadataParser alloc] init];
     [parser parseData:xmlData];
+    [parser release];
     
 }
 
@@ -752,6 +753,7 @@ static dispatch_queue_t serialQueue;
     NSData *xmlData = [NSData dataWithContentsOfFile:obj.objectCachedPath];
     SIPackageMetadataParser *parser = [[SIPackageMetadataParser alloc] init];
     [parser parseData:xmlData];
+    [parser release];
 }
 
 
