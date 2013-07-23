@@ -86,7 +86,7 @@
     NSString *joinWithString = @"-";
     
     NSArray *nameComponents = @[self.productTitle, self.productVersion, self.productID];
-    NSMutableArray *processedComponents = [NSMutableArray new];
+    NSMutableArray *processedComponents = [[[NSMutableArray alloc] init] autorelease];
     for (NSString *component in nameComponents) {
         NSString *newValue = [component stringByReplacingOccurrencesOfString:@" " withString:whiteSpaceReplacement];
         [processedComponents addObject:newValue];
