@@ -75,7 +75,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{19, 14}, {35, 25}}</string>
 								<reference key="NSSuperview"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:22</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="175245566">
@@ -125,7 +124,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{1, 14}, {35, 25}}</string>
 								<reference key="NSSuperview"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="201440192">
@@ -136,9 +134,9 @@
 									<reference key="NSControlView" ref="630621647"/>
 									<int key="NSButtonFlags">-2031075328</int>
 									<int key="NSButtonFlags2">163</int>
-									<object class="NSCustomResource" key="NSNormalImage">
+									<object class="NSCustomResource" key="NSNormalImage" id="609730633">
 										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">NSSh</string>
+										<string key="NSResourceName">shareTemplate</string>
 									</object>
 									<string key="NSAlternateContents"/>
 									<string key="NSKeyEquivalent"/>
@@ -152,10 +150,7 @@
 										<int key="NSKeyEquivModMask">1048576</int>
 										<int key="NSMnemonicLoc">2147483647</int>
 										<int key="NSState">1</int>
-										<object class="NSCustomResource" key="NSImage" id="365882708">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">shareTemplate</string>
-										</object>
+										<reference key="NSImage" ref="609730633"/>
 										<object class="NSCustomResource" key="NSOnImage" id="485355078">
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">NSMenuCheckmark</string>
@@ -195,6 +190,7 @@
 												<reference key="NSTarget" ref="201440192"/>
 											</object>
 										</array>
+										<bool key="NSNoAutoenable">YES</bool>
 										<reference key="NSMenuFont" ref="68174250"/>
 									</object>
 									<int key="NSSelectedIndex">-1</int>
@@ -205,7 +201,7 @@
 								</object>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 							</object>
-							<reference key="NSToolbarItemImage" ref="365882708"/>
+							<reference key="NSToolbarItemImage" ref="609730633"/>
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
 							<string key="NSToolbarItemMinSize">{34, 25}</string>
@@ -228,7 +224,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{7, 14}, {35, 25}}</string>
 								<reference key="NSSuperview"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:22</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="589141492">
@@ -274,7 +269,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{18, 14}, {35, 25}}</string>
 								<reference key="NSSuperview"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:22</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="905141612">
@@ -405,7 +399,6 @@
 									<string key="NSFrame">{{213, 0}, {857, 569}}</string>
 									<reference key="NSSuperview" ref="800024404"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:13</string>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -875,7 +868,6 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSMenuCheckmark">{11, 11}</string>
 			<string key="NSMenuMixedState">{10, 3}</string>
-			<string key="NSSh">{128, 128}</string>
 			<string key="documentTemplate">{128, 128}</string>
 			<string key="infoTemplate">{128, 128}</string>
 			<string key="refreshTemplate">{128, 128}</string>
