@@ -13,8 +13,6 @@ Or edit the URL's manually on the first run setup window.
 
 ### KNOWN ISSUES
 
-
-* Blocking applications for pkginfo files are not yet supported
 * There's no way to cancel an active package download.
 * There's no way to cancel an active repo_sync.
 * The 'Extract Package Payload...' from product info window works only for newer gzip compressed payloads.
