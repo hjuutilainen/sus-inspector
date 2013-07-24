@@ -21,9 +21,22 @@
 
 #import "SIMunkiAdminBridge.h"
 
+@interface SIMunkiAdminBridge ()
+@property (readwrite) BOOL munkiAdminIsActiveAndReady;
+@property (readwrite, retain) NSArray *currentAppleUpdateMetadataNames;
+@end
+
 @implementation SIMunkiAdminBridge
 
 #define kMunkiAdminBundleID @"fi.obsolete.MunkiAdmin"
+
+// Notification names
+#define kMunkiAdminStatusUpdateRequestName @"SUSInspectorMunkiAdminStatusUpdateRequest"
+#define kMunkiAdminDidChangeStatusName @"MunkiAdminDidChangeStatus"
+#define kSUSInspectorPostedSharedPkginfoName @"SUSInspectorPostedSharedPkginfo"
+
+#define kPkginfoKeyName @"pkginfo"
+#define kFilenameKeyName @"filename"
 
 static SIMunkiAdminBridge *sharedBridge = nil;
 static dispatch_queue_t serialQueue;
@@ -60,12 +73,40 @@ static dispatch_queue_t serialQueue;
     dispatch_sync(serialQueue, ^{
         obj = [super init];
         if (obj) {
-            
+            NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];
+            [dnc addObserver:self selector:@selector(munkiAdminDidChangeStatus:) name:kMunkiAdminDidChangeStatusName object:nil];
+            self.currentAppleUpdateMetadataNames = [NSArray array];
+            self.munkiAdminIsActiveAndReady = NO;
         }
     });
     
     self = obj;
     return self;
+}
+
+- (void)munkiAdminDidChangeStatus:(NSNotification *)aNotification
+{
+    if (![aNotification userInfo]) {
+        self.munkiAdminIsActiveAndReady = NO;
+        self.currentAppleUpdateMetadataNames = [NSArray array];
+        return;
+    }
+    
+    id readyToReceive = [[aNotification userInfo] objectForKey:@"readyToReceive"];
+    if (readyToReceive && [readyToReceive isKindOfClass:[NSNumber class]]) {
+        BOOL readyToReceiveBool = [[[aNotification userInfo] objectForKey:@"readyToReceive"] boolValue];
+        self.munkiAdminIsActiveAndReady = readyToReceiveBool;
+    } else {
+        self.munkiAdminIsActiveAndReady = NO;
+    }
+    
+    id appleUpdateMetadataNames = [[aNotification userInfo] objectForKey:@"appleUpdateMetadataNames"];
+    if (appleUpdateMetadataNames && [appleUpdateMetadataNames isKindOfClass:[NSArray class]]) {
+        NSArray *newAppleUpdateMetadataNames = [NSArray arrayWithArray:(NSArray *)appleUpdateMetadataNames];
+        self.currentAppleUpdateMetadataNames = [newAppleUpdateMetadataNames sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+    } else {
+        self.currentAppleUpdateMetadataNames = [NSArray array];
+    }
 }
 
 - (BOOL)munkiAdminInstalled
@@ -80,6 +121,12 @@ static dispatch_queue_t serialQueue;
     NSArray *runningApps = [NSRunningApplication runningApplicationsWithBundleIdentifier:kMunkiAdminBundleID];
     if ([runningApps count] == 0) return NO;
     else return YES;
+}
+
+- (void)requestMunkiAdminStatusUpdate
+{
+    NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];
+    [dnc postNotificationName:kMunkiAdminStatusUpdateRequestName object:nil userInfo:nil deliverImmediately:YES];
 }
 
 # pragma mark -
@@ -120,10 +167,10 @@ static dispatch_queue_t serialQueue;
     NSMutableArray *arrayToSend = [[[NSMutableArray alloc] init] autorelease];
     [pkginfoArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary *infoDict = [NSMutableDictionary new];
-        if ([obj objectForKey:@"pkginfo"])
-            [infoDict setObject:[obj objectForKey:@"pkginfo"] forKey:@"pkginfo"];
-        if ([obj objectForKey:@"filename"])
-            [infoDict setObject:[obj objectForKey:@"filename"] forKey:@"filename"];
+        if ([obj objectForKey:kPkginfoKeyName])
+            [infoDict setObject:[obj objectForKey:kPkginfoKeyName] forKey:kPkginfoKeyName];
+        if ([obj objectForKey:kFilenameKeyName])
+            [infoDict setObject:[obj objectForKey:kFilenameKeyName] forKey:kFilenameKeyName];
         
         [arrayToSend addObject:infoDict];
         [infoDict release];
@@ -132,7 +179,7 @@ static dispatch_queue_t serialQueue;
     NSArray *immutablePkginfos = [NSArray arrayWithArray:arrayToSend];
     
     NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];
-    [dnc postNotificationName:@"SUSInspectorPostedSharedPkginfo" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:immutablePkginfos, @"payloadDictionaries", nil]];
+    [dnc postNotificationName:kSUSInspectorPostedSharedPkginfoName object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:immutablePkginfos, @"payloadDictionaries", nil]];
 }
 
 - (void)sendProducts:(NSArray *)productArray
@@ -140,8 +187,8 @@ static dispatch_queue_t serialQueue;
     NSMutableArray *arrayToSend = [[[NSMutableArray alloc] init] autorelease];
     [productArray enumerateObjectsUsingBlock:^(SIProductMO *obj, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary *infoDict = [NSMutableDictionary new];
-        [infoDict setObject:obj.pkginfoFilename forKey:@"filename"];
-        [infoDict setObject:obj.pkginfoDictionary forKey:@"pkginfo"];
+        [infoDict setObject:obj.pkginfoFilename forKey:kFilenameKeyName];
+        [infoDict setObject:obj.pkginfoDictionary forKey:kPkginfoKeyName];
         [arrayToSend addObject:infoDict];
         [infoDict release];
     }];
@@ -149,7 +196,7 @@ static dispatch_queue_t serialQueue;
     NSArray *immutablePkginfos = [NSArray arrayWithArray:arrayToSend];
     
     NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];
-    [dnc postNotificationName:@"SUSInspectorPostedSharedPkginfo" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:immutablePkginfos, @"payloadDictionaries", nil]];
+    [dnc postNotificationName:kSUSInspectorPostedSharedPkginfoName object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:immutablePkginfos, @"payloadDictionaries", nil]];
 }
 
 @end

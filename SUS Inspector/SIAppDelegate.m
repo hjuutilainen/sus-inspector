@@ -23,6 +23,7 @@
 #import "SIMainWindowController.h"
 #import "SIPreferencesController.h"
 #import "SIReposadoConstants.h"
+#import "SIMunkiAdminBridge.h"
 
 @implementation SIAppDelegate
 
@@ -263,6 +264,8 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
          [self.managedObjectContext mergeChangesFromContextDidSaveNotification:note];
      }];
+    
+    [[SIMunkiAdminBridge sharedBridge] requestMunkiAdminStatusUpdate];
 }
 
 

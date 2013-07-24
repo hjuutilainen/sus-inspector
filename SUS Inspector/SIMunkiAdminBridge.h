@@ -24,11 +24,14 @@
 
 @interface SIMunkiAdminBridge : NSObject
 
+@property (readonly) BOOL munkiAdminIsActiveAndReady;
+@property (readonly, retain) NSArray *currentAppleUpdateMetadataNames;
+
 + (SIMunkiAdminBridge *)sharedBridge;
 - (BOOL)munkiAdminInstalled;
 - (BOOL)munkiAdminRunning;
+- (void)requestMunkiAdminStatusUpdate;
 - (void)sendPkginfos:(NSArray *)pkginfoArray;
 - (void)sendProducts:(NSArray *)productArray;
-//- (NSDictionary *)pkginfoDictionaryFromProduct:(SIProductMO *)aProduct;
 
 @end
