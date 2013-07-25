@@ -64,8 +64,9 @@ Building requires:
 * CocoaDev [MultiPanePreferences](http://www.cocoadev.com/index.pl?MultiPanePreferences)
 * Cathy Shive for [NSCell example code](http://katidev.com/blog/2008/02/22/styling-an-nstableview-dttah/)
 * Daniel Jalkut at Red Sweater Software for [RSVerticallyCenteredTextFieldCell](http://www.red-sweater.com/blog/148/what-a-difference-a-cell-makes)
-* SUS Inspector uses icons created by:
-    * [Glyphish Pro](http://www.glyphish.com)
+* SUS Inspector uses wonderful icons created by:
+    * [Glyphish Pro 3](http://www.glyphish.com)
+    * [Batch](http://adamwhitcroft.com/batch/) by [@adamwhitcroft](https://twitter.com/adamwhitcroft)
 
 
 ## LICENSE
