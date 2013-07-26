@@ -332,6 +332,21 @@ static dispatch_queue_t serialQueue;
     
     iWorkItem.productFilterPredicate = iWorkPredicate;
     
+    /*
+     Safari item
+     */
+    SISourceListItemMO *safariItem = [self sourceListItemWithTitle:@"Safari" managedObjectContext:moc];
+    safariItem.iconImage = iconFolderSmart;
+    safariItem.parent = productGroupsGroupItem;
+    
+    NSPredicate *safariTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Safari\""];
+    
+    NSArray *safariPredicates = [NSArray arrayWithObjects:safariTitlePredicate, nil];
+    NSPredicate *safariCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:safariPredicates];
+    NSPredicate *safariFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, safariCompoundPredicate, nil]];
+    
+    safariItem.productFilterPredicate = safariFinalPredicate;
+    
 }
 
 
