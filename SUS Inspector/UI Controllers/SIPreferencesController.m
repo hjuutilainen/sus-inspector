@@ -47,29 +47,28 @@
 
 - (IBAction)addNewCatalogAction:(id)sender
 {
-    //Try to end any editing that is taking place in the table view
-    NSWindow *w = [self.catalogsTableView window];
-    BOOL endEdit = [w makeFirstResponder:w];
+    // Try to end any editing that is taking place in the table view
+    NSWindow *window = [self.catalogsTableView window];
+    BOOL endEdit = [window makeFirstResponder:window];
     if (!endEdit)
         return;
     
-    //NSDictionary *newCatalog = [NSDictionary dictionaryWithObjectsAndKeys:@"newCatalog", @"title", [NSNumber numberWithBool:YES], @"enabled", nil];
+    // Create a new catalog
     id newCatalog = [self.catalogsArrayController newObject];
     [newCatalog setObject:@"newCatalog" forKey:@"title"];
     [newCatalog setObject:[NSNumber numberWithBool:YES] forKey:@"enabled"];
     [self.catalogsArrayController addObject:newCatalog];
     [newCatalog release];
     
-    //Rearrange the objects if there is a sort on any of the columns
+    // Rearrange the objects if there is a sort on any of the columns
     [self.catalogsArrayController rearrangeObjects];
     
-    //Retrieve an array of the objects in your array controller and calculate
-    //which row your new object is in
+    // Get the index of the object we just created
     NSArray *array = [self.catalogsArrayController arrangedObjects];
-    NSUInteger row = [array indexOfObjectIdenticalTo:newCatalog];
+    NSUInteger row = [array indexOfObject:newCatalog];
     
-    //Begin editing of the cell containing the new object
-    [self.catalogsTableView editColumn:0 row:row withEvent:nil select:YES];
+    // Edit the cell containing the new object
+    [self.catalogsTableView editColumn:1 row:row withEvent:nil select:YES];
 }
 
 - (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier
@@ -203,6 +202,9 @@
     
     [self setupTextEditor];
     [self setupLocales];
+    
+    NSSortDescriptor *sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)];
+    [self.catalogsArrayController setSortDescriptors:@[sortByTitle]];
 }
 
 - (void)switchViews:(NSToolbarItem *)item
