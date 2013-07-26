@@ -182,7 +182,13 @@ static dispatch_queue_t serialQueue;
 - (void)createProductGroupsSectionWithIndex:(NSUInteger)index managedObjectContext:(NSManagedObjectContext *)moc
 {
     NSImage *iconFolderSmart = [NSImage imageNamed:NSImageNameFolderSmart];
-    NSPredicate *notDeprecatedPredicate = [NSPredicate predicateWithFormat:@"productIsDeprecated == FALSE"];
+    
+    NSPredicate *includeDeprecatedPredicate;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"includeDeprecatedInProductGroups"]) {
+        includeDeprecatedPredicate = [NSPredicate predicateWithFormat:@"(productIsDeprecated == TRUE) OR (productIsDeprecated == FALSE)"];
+    } else {
+        includeDeprecatedPredicate = [NSPredicate predicateWithFormat:@"(productIsDeprecated == FALSE)"];
+    }
     
     /*
      The PRODUCT GROUPS item
@@ -209,7 +215,7 @@ static dispatch_queue_t serialQueue;
     
     NSArray *javaPredicates = [NSArray arrayWithObjects:javaInTitlePredicate, nil];
     NSPredicate *javaCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:javaPredicates];
-    NSPredicate *javaFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, javaCompoundPredicate, nil]];
+    NSPredicate *javaFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, javaCompoundPredicate, nil]];
     
     javaItem.productFilterPredicate = javaFinalPredicate;
     
@@ -223,7 +229,7 @@ static dispatch_queue_t serialQueue;
     NSPredicate *firmwareInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Firmware\""];
     NSArray *firmwarePredicates = [NSArray arrayWithObjects:firmwareInTitlePredicate, nil];
     NSPredicate *firmwareCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:firmwarePredicates];
-    NSPredicate *firmwareFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, firmwareCompoundPredicate, nil]];
+    NSPredicate *firmwareFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, firmwareCompoundPredicate, nil]];
     
     firmwareItem.productFilterPredicate = firmwareFinalPredicate;
     
@@ -238,7 +244,7 @@ static dispatch_queue_t serialQueue;
     NSPredicate *osxserverInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"OS X Server Update\""];
     NSArray *osPredicates = [NSArray arrayWithObjects:osxupdateInTitlePredicate, osxserverInTitlePredicate, nil];
     NSPredicate *osCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:osPredicates];
-    NSPredicate *osFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, osCompoundPredicate, nil]];
+    NSPredicate *osFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, osCompoundPredicate, nil]];
     
     osItem.productFilterPredicate = osFinalPredicate;
     
@@ -252,7 +258,7 @@ static dispatch_queue_t serialQueue;
     NSPredicate *securityInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Security Update\""];
     NSArray *securityPredicates = [NSArray arrayWithObjects:securityInTitlePredicate, nil];
     NSPredicate *securityCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:securityPredicates];
-    NSPredicate *securityFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, securityCompoundPredicate, nil]];
+    NSPredicate *securityFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, securityCompoundPredicate, nil]];
     
     securityItem.productFilterPredicate = securityFinalPredicate;
     
@@ -266,7 +272,7 @@ static dispatch_queue_t serialQueue;
     NSPredicate *printerInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Printer\""];
     NSArray *printerPredicates = [NSArray arrayWithObjects:printerInTitlePredicate, nil];
     NSPredicate *printerCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:printerPredicates];
-    NSPredicate *printerFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, printerCompoundPredicate, nil]];
+    NSPredicate *printerFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, printerCompoundPredicate, nil]];
     
     printerItem.productFilterPredicate = printerFinalPredicate;
     
@@ -292,7 +298,7 @@ static dispatch_queue_t serialQueue;
     
     NSArray *proAppsPredicates = [NSArray arrayWithObjects:proAppsInTitlePredicate, apertureInTitlePredicate, logicComponentsInTitlePredicate, finalCutInTitlePredicate, nil];
     NSPredicate *proAppsCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:proAppsPredicates];
-    NSPredicate *proAppsFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, proAppsCompoundPredicate, nil]];
+    NSPredicate *proAppsFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, proAppsCompoundPredicate, nil]];
     
     proAppsItem.productFilterPredicate = proAppsFinalPredicate;
     
@@ -311,7 +317,7 @@ static dispatch_queue_t serialQueue;
     
     NSArray *iLifePredicates = [NSArray arrayWithObjects:iLifeInTitlePredicate, iMoviePredicate, iPhotoPredicate, garageBandPredicate, iDVDPredicate, nil];
     NSPredicate *iLifeCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:iLifePredicates];
-    NSPredicate *iLifeFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notDeprecatedPredicate, iLifeCompoundPredicate, nil]];
+    NSPredicate *iLifeFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, iLifeCompoundPredicate, nil]];
     
     iLifeItem.productFilterPredicate = iLifeFinalPredicate;
     
@@ -328,9 +334,10 @@ static dispatch_queue_t serialQueue;
     NSPredicate *keynotePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Keynote\""];
     
     NSArray *iWorkPredicates = [NSArray arrayWithObjects:pagesPredicate, numbersPredicate, keynotePredicate, nil];
-    NSPredicate *iWorkPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:iWorkPredicates];
+    NSPredicate *iWorkCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:iWorkPredicates];
+    NSPredicate *iWorkFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, iWorkCompoundPredicate, nil]];
     
-    iWorkItem.productFilterPredicate = iWorkPredicate;
+    iWorkItem.productFilterPredicate = iWorkFinalPredicate;
     
     /*
      Safari item
