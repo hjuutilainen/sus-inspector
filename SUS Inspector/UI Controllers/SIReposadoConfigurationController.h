@@ -33,16 +33,16 @@
     
 }
 
-@property (assign) IBOutlet NSButton *okButton;
+@property (weak) IBOutlet NSButton *okButton;
 
-@property (retain) id<SIReposadoConfigurationControllerDelegate> delegate;
-@property (retain) NSUndoManager *undoManager;
-@property (assign) SIReposadoInstanceMO *reposadoInstance;
+@property (strong) id<SIReposadoConfigurationControllerDelegate> delegate;
+@property (strong) NSUndoManager *undoManager;
+@property (weak) SIReposadoInstanceMO *reposadoInstance;
 @property NSModalSession modalSession;
-@property (retain) NSString *customBaseURL;
-@property (assign) IBOutlet NSArrayController *catalogsArrayController;
-@property (assign) IBOutlet NSObjectController *reposadoInstanceObjectController;
-@property (assign) IBOutlet NSTableView *catalogsTableView;
+@property (strong) NSString *customBaseURL;
+@property (weak) IBOutlet NSArrayController *catalogsArrayController;
+@property (weak) IBOutlet NSObjectController *reposadoInstanceObjectController;
+@property (weak) IBOutlet NSTableView *catalogsTableView;
 
 - (NSModalSession)beginEditSessionWithObject:(SIReposadoInstanceMO *)instance delegate:(id)modalDelegate;
 - (IBAction)saveAction:(id)sender;

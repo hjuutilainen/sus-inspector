@@ -58,7 +58,6 @@
     [newCatalog setObject:@"newCatalog" forKey:@"title"];
     [newCatalog setObject:[NSNumber numberWithBool:YES] forKey:@"enabled"];
     [self.catalogsArrayController addObject:newCatalog];
-    [newCatalog release];
     
     // Rearrange the objects if there is a sort on any of the columns
     [self.catalogsArrayController rearrangeObjects];
@@ -104,11 +103,11 @@
      }
      */
     
-    NSString *distUTI = @"public.text";
+    CFStringRef distUTI = CFSTR("public.text");
     [self.distApplicationsPopUpButton removeAllItems];
     
-    NSArray *roleHandlers = [(NSArray *)LSCopyAllRoleHandlersForContentType((CFStringRef)distUTI, kLSRolesAll) autorelease];
-    NSMutableArray *appDicts = [[[NSMutableArray alloc] init] autorelease];
+    NSArray *roleHandlers = (__bridge_transfer NSArray *)LSCopyAllRoleHandlersForContentType(distUTI, kLSRolesAll);
+    NSMutableArray *appDicts = [[NSMutableArray alloc] init];
     for (NSString *bundleIdentifier in roleHandlers) {
         NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:bundleIdentifier];
         NSString *name = [[NSFileManager defaultManager] displayNameAtPath:path];
@@ -122,7 +121,7 @@
     }
     NSSortDescriptor *byTitle = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)];
     for (NSDictionary *appDict in [appDicts sortedArrayUsingDescriptors:[NSArray arrayWithObject:byTitle]]) {
-        NSMenuItem *menuItem = [[[NSMenuItem alloc] init] autorelease];
+        NSMenuItem *menuItem = [[NSMenuItem alloc] init];
         menuItem.title = [appDict objectForKey:@"name"];
         menuItem.image = [appDict objectForKey:@"icon"];
         menuItem.representedObject = [appDict objectForKey:@"path"];
@@ -130,7 +129,7 @@
     }
     
     // Determine the default
-    NSString *defaultHandler = [(NSString *)LSCopyDefaultRoleHandlerForContentType((CFStringRef)distUTI, kLSRolesAll) autorelease];
+    NSString *defaultHandler = (__bridge_transfer NSString *)LSCopyDefaultRoleHandlerForContentType(distUTI, kLSRolesAll);
     NSString *defaultHandlerPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:defaultHandler];
     NSString *appPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"distFileViewerPath"];
     if (appPath == nil) {
@@ -147,8 +146,8 @@
     NSArray *languages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
     //NSString *currentLanguage = [languages objectAtIndex:0];
     
-    NSMutableArray *langDicts = [[[NSMutableArray alloc] init] autorelease];
-    NSMutableArray *mutableLanguageIDs = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *langDicts = [[NSMutableArray alloc] init];
+    NSMutableArray *mutableLanguageIDs = [[NSMutableArray alloc] init];
     for (NSString *aLanguage in languages) {
         NSString *displayName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:aLanguage];
         NSDictionary *langDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -164,32 +163,29 @@
 
 - (void)awakeFromNib
 {
-    self.items = [[[NSMutableDictionary alloc] init] autorelease];
+    self.items = [[NSMutableDictionary alloc] init];
     
 	NSToolbarItem *generalItem = [self toolbarItemWithIdentifier:@"General"];
     [generalItem setToolTip:NSLocalizedString(@"General preference options.", nil)];
     [generalItem setImage:[NSImage imageNamed:@"NSPreferencesGeneral"]];
     [self.items setObject:generalItem forKey:@"General"];
-    [generalItem release];
     
     NSToolbarItem *munkiItem = [self toolbarItemWithIdentifier:@"Munki"];
     [munkiItem setToolTip:NSLocalizedString(@"Munki preference options.", nil)];
     [munkiItem setImage:[NSImage imageNamed:@"NSPreferencesGeneral"]];
     [self.items setObject:munkiItem forKey:@"Munki"];
-    [munkiItem release];
     
     
     NSToolbarItem *advancedItem = [self toolbarItemWithIdentifier:@"Advanced"];
     [advancedItem setToolTip:NSLocalizedString(@"Advanced options.", nil)];
     [advancedItem setImage:[NSImage imageNamed:@"NSAdvanced"]];
     [self.items setObject:advancedItem forKey:@"Advanced"];
-    [advancedItem release];
 	
     //any other items you want to add, do so here.
     //after you are done, just do all the toolbar stuff.
     //myWindow is an outlet pointing to the Preferences Window you made to hold all these custom views.
 	
-    self.toolbar = [[[NSToolbar alloc] initWithIdentifier:@"preferencePanes"] autorelease];
+    self.toolbar = [[NSToolbar alloc] initWithIdentifier:@"preferencePanes"];
     [self.toolbar setDelegate:self];
     [self.toolbar setAllowsUserCustomization:NO];
     [self.toolbar setAutosavesConfiguration:NO];
@@ -232,7 +228,6 @@
 	
     NSView *tempView = [[NSView alloc] initWithFrame:[[self.window contentView] frame]];
     [self.window setContentView:tempView];
-    [tempView release];
     
     NSRect newFrame = [self.window frame];
     newFrame.size.height = [prefsView frame].size.height + ([self.window frame].size.height - [[self.window contentView] frame].size.height);

@@ -5,24 +5,24 @@
 
 
 extern const struct SICatalogMOAttributes {
-	 NSString *allowRemove;
-	 NSString *catalogDescription;
-	 NSString *catalogDisplayName;
-	 NSString *catalogFileURL;
-	 NSString *catalogOSVersion;
-	 NSString *catalogTitle;
-	 NSString *catalogURL;
-	 NSString *catalogURLCheckPending;
-	 NSString *catalogURLFromInstanceDefaultURL;
-	 NSString *catalogURLIsValid;
-	 NSString *catalogURLStatusCode;
-	 NSString *isActive;
+	__unsafe_unretained NSString *allowRemove;
+	__unsafe_unretained NSString *catalogDescription;
+	__unsafe_unretained NSString *catalogDisplayName;
+	__unsafe_unretained NSString *catalogFileURL;
+	__unsafe_unretained NSString *catalogOSVersion;
+	__unsafe_unretained NSString *catalogTitle;
+	__unsafe_unretained NSString *catalogURL;
+	__unsafe_unretained NSString *catalogURLCheckPending;
+	__unsafe_unretained NSString *catalogURLFromInstanceDefaultURL;
+	__unsafe_unretained NSString *catalogURLIsValid;
+	__unsafe_unretained NSString *catalogURLStatusCode;
+	__unsafe_unretained NSString *isActive;
 } SICatalogMOAttributes;
 
 extern const struct SICatalogMORelationships {
-	 NSString *products;
-	 NSString *reposadoInstance;
-	 NSString *sourceListItem;
+	__unsafe_unretained NSString *products;
+	__unsafe_unretained NSString *reposadoInstance;
+	__unsafe_unretained NSString *sourceListItem;
 } SICatalogMORelationships;
 
 extern const struct SICatalogMOFetchedProperties {
@@ -58,7 +58,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* allowRemove;
+@property (nonatomic, strong) NSNumber* allowRemove;
 
 
 
@@ -72,7 +72,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* catalogDescription;
+@property (nonatomic, strong) NSString* catalogDescription;
 
 
 
@@ -82,7 +82,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* catalogDisplayName;
+@property (nonatomic, strong) NSString* catalogDisplayName;
 
 
 
@@ -92,7 +92,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) id catalogFileURL;
+@property (nonatomic, strong) id catalogFileURL;
 
 
 
@@ -102,7 +102,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* catalogOSVersion;
+@property (nonatomic, strong) NSString* catalogOSVersion;
 
 
 
@@ -112,7 +112,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* catalogTitle;
+@property (nonatomic, strong) NSString* catalogTitle;
 
 
 
@@ -122,7 +122,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* catalogURL;
+@property (nonatomic, strong) NSString* catalogURL;
 
 
 
@@ -132,7 +132,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* catalogURLCheckPending;
+@property (nonatomic, strong) NSNumber* catalogURLCheckPending;
 
 
 
@@ -146,7 +146,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* catalogURLFromInstanceDefaultURL;
+@property (nonatomic, strong) NSString* catalogURLFromInstanceDefaultURL;
 
 
 
@@ -156,7 +156,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* catalogURLIsValid;
+@property (nonatomic, strong) NSNumber* catalogURLIsValid;
 
 
 
@@ -170,7 +170,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* catalogURLStatusCode;
+@property (nonatomic, strong) NSNumber* catalogURLStatusCode;
 
 
 
@@ -184,7 +184,7 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* isActive;
+@property (nonatomic, strong) NSNumber* isActive;
 
 
 
@@ -198,21 +198,21 @@ extern const struct SICatalogMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSSet *products;
+@property (nonatomic, strong) NSSet *products;
 
 - (NSMutableSet*)productsSet;
 
 
 
 
-@property (nonatomic, retain) SIReposadoInstanceMO *reposadoInstance;
+@property (nonatomic, strong) SIReposadoInstanceMO *reposadoInstance;
 
 //- (BOOL)validateReposadoInstance:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, retain) SISourceListItemMO *sourceListItem;
+@property (nonatomic, strong) SISourceListItemMO *sourceListItem;
 
 //- (BOOL)validateSourceListItem:(id*)value_ error:(NSError**)error_;
 

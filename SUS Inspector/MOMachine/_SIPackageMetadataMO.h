@@ -5,11 +5,11 @@
 #import "SIDownloadableObject.h"
 
 extern const struct SIPackageMetadataMOAttributes {
-	 NSString *metadataFileContents;
+	__unsafe_unretained NSString *metadataFileContents;
 } SIPackageMetadataMOAttributes;
 
 extern const struct SIPackageMetadataMORelationships {
-	 NSString *package;
+	__unsafe_unretained NSString *package;
 } SIPackageMetadataMORelationships;
 
 extern const struct SIPackageMetadataMOFetchedProperties {
@@ -32,7 +32,7 @@ extern const struct SIPackageMetadataMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* metadataFileContents;
+@property (nonatomic, strong) NSString* metadataFileContents;
 
 
 
@@ -42,7 +42,7 @@ extern const struct SIPackageMetadataMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) SIPackageMO *package;
+@property (nonatomic, strong) SIPackageMO *package;
 
 //- (BOOL)validatePackage:(id*)value_ error:(NSError**)error_;
 

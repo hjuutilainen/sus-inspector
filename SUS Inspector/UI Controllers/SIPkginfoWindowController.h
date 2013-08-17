@@ -29,35 +29,35 @@
 
 # pragma mark -
 # pragma mark Properties
-@property (retain) SIProductMO *product;
-@property (assign) id delegate;
-@property (retain) NSString *munki_name;
-@property (retain) NSString *munki_description;
-@property (retain) NSString *munki_display_name;
-@property (retain) NSString *munki_version;
-@property (retain) NSString *munki_RestartAction;
-@property (retain) NSArray *munki_blocking_applications;
-@property (retain) NSArray *restartActionTemplates;
-@property (retain) NSArray *munki_catalogs;
-@property (retain) NSNumber *munki_unattended_install;
-@property (retain) NSDate *munki_force_install_after_date;
-@property (retain) NSNumber *munki_force_install_after_date_enabled;
-@property (readonly, retain) NSString *pkginfo;
-@property (readonly, retain) NSDictionary *pkginfoDict;
+@property (strong) SIProductMO *product;
+@property (unsafe_unretained) id delegate;
+@property (strong) NSString *munki_name;
+@property (strong) NSString *munki_description;
+@property (strong) NSString *munki_display_name;
+@property (strong) NSString *munki_version;
+@property (strong) NSString *munki_RestartAction;
+@property (strong) NSArray *munki_blocking_applications;
+@property (strong) NSArray *restartActionTemplates;
+@property (strong) NSArray *munki_catalogs;
+@property (strong) NSNumber *munki_unattended_install;
+@property (strong) NSDate *munki_force_install_after_date;
+@property (strong) NSNumber *munki_force_install_after_date_enabled;
+@property (readonly, strong) NSString *pkginfo;
+@property (readonly, strong) NSDictionary *pkginfoDict;
 
 # pragma mark -
 # pragma mark IBOutlets
-@property (assign) IBOutlet NSView *leftSubView;
-@property (assign) IBOutlet NSView *rightSubView;
-@property (assign) IBOutlet NSSplitView *splitView;
-@property (assign) IBOutlet NSPopUpButton *descriptionPopupButton;
-@property (assign) IBOutlet NSTokenField *catalogsTokenField;
-@property (assign) IBOutlet NSTokenField *blockingAppsTokenField;
-@property (assign) IBOutlet NSPopUpButton *sharePopupButton;
-@property (assign) IBOutlet NSMenuItem *sendToMunkiAdminMenuItem;
-@property (assign) IBOutlet NSMenu *shareMenu;
-@property (assign) IBOutlet NSMenu *descriptionMenu;
-@property (assign) IBOutlet NSMenuItem *munkiimportCommandMenuItem;
+@property (weak) IBOutlet NSView *leftSubView;
+@property (weak) IBOutlet NSView *rightSubView;
+@property (weak) IBOutlet NSSplitView *splitView;
+@property (weak) IBOutlet NSPopUpButton *descriptionPopupButton;
+@property (weak) IBOutlet NSTokenField *catalogsTokenField;
+@property (weak) IBOutlet NSTokenField *blockingAppsTokenField;
+@property (weak) IBOutlet NSPopUpButton *sharePopupButton;
+@property (weak) IBOutlet NSMenuItem *sendToMunkiAdminMenuItem;
+@property (weak) IBOutlet NSMenu *shareMenu;
+@property (weak) IBOutlet NSMenu *descriptionMenu;
+@property (weak) IBOutlet NSMenuItem *munkiimportCommandMenuItem;
 
 # pragma mark -
 # pragma mark IBActions

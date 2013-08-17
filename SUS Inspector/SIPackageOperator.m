@@ -105,7 +105,7 @@
 
 - (BOOL)pkgutilExpandSource:(NSString *)sourcePath outPath:(NSString *)outputPath
 {
-    NSTask *pkgutilTask = [[[NSTask alloc] init] autorelease];
+    NSTask *pkgutilTask = [[NSTask alloc] init];
     NSPipe *outPipe = [NSPipe pipe];
     NSString *launchPath = @"/usr/sbin/pkgutil";
 	[pkgutilTask setLaunchPath:launchPath];
@@ -152,7 +152,7 @@
 - (NSString *)fileTypeString:(NSString *)aPath
 {
     NSString *fileType = nil;
-    NSTask *task = [[[NSTask alloc] init] autorelease];
+    NSTask *task = [[NSTask alloc] init];
 	NSPipe *outpipe = [NSPipe pipe];
     NSFileHandle *filehandle = [outpipe fileHandleForReading];
 	[task setLaunchPath:@"/usr/bin/file"];
@@ -164,7 +164,7 @@
     [task waitUntilExit];
     
     NSData *makepkginfoTaskData = [filehandle readDataToEndOfFile];
-    NSString *output = [[[NSString alloc] initWithData:makepkginfoTaskData encoding:NSUTF8StringEncoding] autorelease];
+    NSString *output = [[NSString alloc] initWithData:makepkginfoTaskData encoding:NSUTF8StringEncoding];
     fileType = [NSString stringWithString:output];
     return fileType;
 }
@@ -215,7 +215,7 @@
     
     [SIOperationManager sharedManager].currentOperationTitle = [NSString stringWithFormat:@"Extracting package payload..."];
     
-    NSTask *gunzipTask = [[[NSTask alloc] init] autorelease];
+    NSTask *gunzipTask = [[NSTask alloc] init];
 	NSPipe *gunzipOutPipe = [NSPipe pipe];
 	
 	NSString *launchPath = @"/usr/bin/gunzip";
@@ -226,7 +226,7 @@
     [gunzipTask setCurrentDirectoryPath:outputPath];
 	
     
-    NSTask *paxTask = [[[NSTask alloc] init] autorelease];
+    NSTask *paxTask = [[NSTask alloc] init];
 	NSPipe *paxOutPipe = [NSPipe pipe];
     NSString *paxPath = @"/bin/pax";
 	[paxTask setLaunchPath:paxPath];

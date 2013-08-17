@@ -67,7 +67,7 @@ static dispatch_queue_t serialQueue;
     dispatch_sync(serialQueue, ^{
         obj = [super init];
         if (obj) {
-            self.operationQueue = [[[NSOperationQueue alloc] init] autorelease];
+            self.operationQueue = [[NSOperationQueue alloc] init];
             [self.operationQueue setMaxConcurrentOperationCount:4];
         }
     });
@@ -107,7 +107,7 @@ static dispatch_queue_t serialQueue;
     if (numFoundCatalogs > 0) {
         catalogs = [moc executeFetchRequest:fetchProducts error:nil];
     }
-    [fetchProducts release];
+    //[fetchProducts release];
     return catalogs;
 }
 
@@ -126,7 +126,7 @@ static dispatch_queue_t serialQueue;
     } else {
         theCatalog = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
     }
-    [fetchProducts release];
+    //[fetchProducts release];
     return theCatalog;
 }
 
@@ -171,7 +171,7 @@ static dispatch_queue_t serialQueue;
     thisWeekProductsItem.sortIndexValue = 2;
     
     NSDate *now = [NSDate date];
-    NSDateComponents *dayComponent = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
     dayComponent.day = -30;
     NSDate *thirtyDaysAgo = [[NSCalendar currentCalendar] dateByAddingComponents:dayComponent toDate:now options:0];
     NSPredicate *thirtyDaysAgoPredicate = [NSPredicate predicateWithFormat:@"productPostDate >= %@", thirtyDaysAgo];
@@ -397,7 +397,7 @@ static dispatch_queue_t serialQueue;
             
         }];
     }
-    [fetchForCatalogs release];
+    //[fetchForCatalogs release];
 }
 
 
@@ -465,7 +465,6 @@ static dispatch_queue_t serialQueue;
             NSLog(@"%@", metadataURLString);
         }];
     }
-    [fetchForCatalogs release];
 }
 
 - (void)updateCachedStatusForProduct:(SIProductMO *)product
@@ -512,7 +511,6 @@ static dispatch_queue_t serialQueue;
     [foundObjects enumerateObjectsWithOptions:0 usingBlock:^(id anObject, NSUInteger idx, BOOL *stop) {
         [moc deleteObject:anObject];
     }];
-    [fetchRequest release];
     [moc processPendingChanges];
 }
 
@@ -555,13 +553,13 @@ static dispatch_queue_t serialQueue;
     
     self.currentCatalogs = [self allCatalogs];
     NSArray *arguments = [NSArray arrayWithObjects:instance.reposyncPath, nil];
-    AMShellWrapper *wrapper = [[[AMShellWrapper alloc] initWithInputPipe:nil
+    AMShellWrapper *wrapper = [[AMShellWrapper alloc] initWithInputPipe:nil
                                                               outputPipe:nil
                                                                errorPipe:nil
                                                         workingDirectory:@"."
                                                              environment:nil
                                                                arguments:arguments
-                                                                 context:NULL] autorelease];
+                                                                 context:NULL];
 	[wrapper setDelegate:self];
     self.shellWrapper = wrapper;
     if (self.shellWrapper) {
@@ -736,7 +734,6 @@ static dispatch_queue_t serialQueue;
             } else {
                 NSLog(@"Got response for %@ but found 0 matching catalogs. Ignoring...", [catalogURL absoluteString]);
             }
-            [fetchRequest release];
             
         }];
         
@@ -766,7 +763,6 @@ static dispatch_queue_t serialQueue;
     NSData *xmlData = [NSData dataWithContentsOfFile:obj.objectCachedPath];
     SIPackageMetadataParser *parser = [[SIPackageMetadataParser alloc] init];
     [parser parseData:xmlData];
-    [parser release];
     
 }
 
@@ -775,7 +771,6 @@ static dispatch_queue_t serialQueue;
     NSData *xmlData = [NSData dataWithContentsOfFile:obj.objectCachedPath];
     SIPackageMetadataParser *parser = [[SIPackageMetadataParser alloc] init];
     [parser parseData:xmlData];
-    [parser release];
 }
 
 
@@ -804,15 +799,11 @@ static dispatch_queue_t serialQueue;
     } else {
         NSLog(@"Error: Could not find SIDownloadableObject with URL %@", [requestURL absoluteString]);
     }
-    [fetchObjects release];
 }
 
 
 - (void)download:(NSURLDownload *)download didFailWithError:(NSError *)error
 {
-    // Release the download.
-    [download release];
-    
     // Inform the user.
     NSLog(@"Download failed! Error - %@ %@",
           [error localizedDescription],
@@ -857,10 +848,6 @@ static dispatch_queue_t serialQueue;
     } else {
         NSLog(@"Error: Could not find SIDownloadableObject with URL %@", [requestURL absoluteString]);
     }
-    [fetchObjects release];
-    
-    // Release the download.
-    [download release];
 }
 
 

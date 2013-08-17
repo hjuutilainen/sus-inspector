@@ -5,13 +5,13 @@
 #import "SIDownloadableObject.h"
 
 extern const struct SIDistributionMOAttributes {
-	 NSString *distributionFileContents;
-	 NSString *distributionLanguage;
-	 NSString *distributionLanguageDisplayName;
+	__unsafe_unretained NSString *distributionFileContents;
+	__unsafe_unretained NSString *distributionLanguage;
+	__unsafe_unretained NSString *distributionLanguageDisplayName;
 } SIDistributionMOAttributes;
 
 extern const struct SIDistributionMORelationships {
-	 NSString *product;
+	__unsafe_unretained NSString *product;
 } SIDistributionMORelationships;
 
 extern const struct SIDistributionMOFetchedProperties {
@@ -36,7 +36,7 @@ extern const struct SIDistributionMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* distributionFileContents;
+@property (nonatomic, strong) NSString* distributionFileContents;
 
 
 
@@ -46,7 +46,7 @@ extern const struct SIDistributionMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* distributionLanguage;
+@property (nonatomic, strong) NSString* distributionLanguage;
 
 
 
@@ -56,7 +56,7 @@ extern const struct SIDistributionMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* distributionLanguageDisplayName;
+@property (nonatomic, strong) NSString* distributionLanguageDisplayName;
 
 
 
@@ -66,7 +66,7 @@ extern const struct SIDistributionMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) SIProductMO *product;
+@property (nonatomic, strong) SIProductMO *product;
 
 //- (BOOL)validateProduct:(id*)value_ error:(NSError**)error_;
 

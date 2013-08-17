@@ -106,7 +106,7 @@
 
 - (NSTextField *)addTextFieldWithidentifier:(NSString *)identifier superView:(NSView *)superview
 {
-    NSTextField *textField = [[[NSTextField alloc] init] autorelease];
+    NSTextField *textField = [[NSTextField alloc] init];
     [textField setIdentifier:identifier];
     [[textField cell] setControlSize:NSRegularControlSize];
     [textField setBordered:NO];
@@ -122,7 +122,7 @@
 
 - (NSTextField *)addLabelFieldWithTitle:(NSString *)title identifier:(NSString *)identifier superView:(NSView *)superview
 {
-    NSTextField *textField = [[[NSTextField alloc] init] autorelease];
+    NSTextField *textField = [[NSTextField alloc] init];
     [textField setIdentifier:identifier];
     [textField setStringValue:title];
     [[textField cell] setControlSize:NSRegularControlSize];
@@ -181,7 +181,7 @@
      */
     NSTextField *productReleasedLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Released", nil) identifier:@"productReleasedLabel" superView:parentView];
     NSTextField *productReleasedTextField = [self addTextFieldWithidentifier:@"productReleasedTextField" superView:parentView];
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [productReleasedTextField setFormatter:dateFormatter];
@@ -193,7 +193,7 @@
      */
     NSTextField *productSizeLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Size", nil) identifier:@"productSizeLabel" superView:parentView];
     NSTextField *productSizeTextField = [self addTextFieldWithidentifier:@"productSizeTextField" superView:parentView];
-    SISizeFormatter *fileSizeFormatter = [[[SISizeFormatter alloc] init] autorelease];
+    SISizeFormatter *fileSizeFormatter = [[SISizeFormatter alloc] init];
     [productSizeTextField setFormatter:fileSizeFormatter];
     [productSizeTextField bind:@"value" toObject:self withKeyPath:@"product.productSize" options:bindOptions];
     
@@ -202,7 +202,7 @@
      Catalogs token field
      */
     NSTextField *productCatalogsLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Catalogs", nil) identifier:@"productCatalogsLabel" superView:parentView];
-    NSTokenField *productCatalogsTokenField = [[[NSTokenField alloc] init] autorelease];
+    NSTokenField *productCatalogsTokenField = [[NSTokenField alloc] init];
     [productCatalogsTokenField setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
     [productCatalogsTokenField setTranslatesAutoresizingMaskIntoConstraints:NO];
     [productCatalogsTokenField setDelegate:self];

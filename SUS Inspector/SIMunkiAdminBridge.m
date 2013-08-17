@@ -23,7 +23,7 @@
 
 @interface SIMunkiAdminBridge ()
 @property (readwrite) BOOL munkiAdminIsActiveAndReady;
-@property (readwrite, retain) NSArray *currentAppleUpdateMetadataNames;
+@property (readwrite, strong) NSArray *currentAppleUpdateMetadataNames;
 @end
 
 @implementation SIMunkiAdminBridge
@@ -164,7 +164,7 @@ static dispatch_queue_t serialQueue;
 
 - (void)sendPkginfos:(NSArray *)pkginfoArray
 {
-    NSMutableArray *arrayToSend = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *arrayToSend = [[NSMutableArray alloc] init];
     [pkginfoArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary *infoDict = [NSMutableDictionary new];
         if ([obj objectForKey:kPkginfoKeyName])
@@ -173,7 +173,6 @@ static dispatch_queue_t serialQueue;
             [infoDict setObject:[obj objectForKey:kFilenameKeyName] forKey:kFilenameKeyName];
         
         [arrayToSend addObject:infoDict];
-        [infoDict release];
     }];
     
     NSArray *immutablePkginfos = [NSArray arrayWithArray:arrayToSend];
@@ -184,13 +183,12 @@ static dispatch_queue_t serialQueue;
 
 - (void)sendProducts:(NSArray *)productArray
 {
-    NSMutableArray *arrayToSend = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *arrayToSend = [[NSMutableArray alloc] init];
     [productArray enumerateObjectsUsingBlock:^(SIProductMO *obj, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary *infoDict = [NSMutableDictionary new];
         [infoDict setObject:obj.pkginfoFilename forKey:kFilenameKeyName];
         [infoDict setObject:obj.pkginfoDictionary forKey:kPkginfoKeyName];
         [arrayToSend addObject:infoDict];
-        [infoDict release];
     }];
     
     NSArray *immutablePkginfos = [NSArray arrayWithArray:arrayToSend];

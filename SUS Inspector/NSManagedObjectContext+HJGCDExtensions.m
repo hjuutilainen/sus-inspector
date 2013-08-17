@@ -40,7 +40,7 @@
             [parentMoc save:&parentError];
         }];
         
-        [childMoc release], childMoc = nil;
+        //[childMoc release], childMoc = nil;
     });
 }
 
@@ -61,7 +61,7 @@
         [parentMoc save:&parentError];
     }];
     
-    [childMoc release], childMoc = nil;
+    //[childMoc release], childMoc = nil;
 }
 
 
@@ -89,7 +89,7 @@
             [parentMoc save:&parentError];
         }];
         
-        [childMoc release], childMoc = nil;
+        //[childMoc release], childMoc = nil;
     });
 }
 

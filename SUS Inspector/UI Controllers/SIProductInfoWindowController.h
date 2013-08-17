@@ -28,20 +28,20 @@
     
 }
 
-@property (retain) SIProductMO *product;
-@property (assign) id delegate;
-@property (retain) NSArray *catalogs;
+@property (strong) SIProductMO *product;
+@property (unsafe_unretained) id delegate;
+@property (strong) NSArray *catalogs;
 //@property (assign) IBOutlet NSTableView *packagesTableView;
-@property (assign) IBOutlet NSScrollView *packagesScrollView;
-@property (assign) IBOutlet NSArrayController *catalogsArrayController;
-@property (assign) IBOutlet NSTokenField *catalogsTokenField;
-@property (assign) IBOutlet NSArrayController *packagesArrayController;
-@property (assign) IBOutlet NSTabView *tabView;
-@property (assign) IBOutlet WebView *descriptionWebView;
-@property (assign) IBOutlet NSView *tabContainerView;
-@property (assign) IBOutlet NSArrayController *distributionsArrayController;
-@property (assign) IBOutlet NSTableView *packagesTableView;
-@property (assign) IBOutlet NSTableView *distributionsTableView;
+@property (weak) IBOutlet NSScrollView *packagesScrollView;
+@property (weak) IBOutlet NSArrayController *catalogsArrayController;
+@property (weak) IBOutlet NSTokenField *catalogsTokenField;
+@property (weak) IBOutlet NSArrayController *packagesArrayController;
+@property (weak) IBOutlet NSTabView *tabView;
+@property (weak) IBOutlet WebView *descriptionWebView;
+@property (weak) IBOutlet NSView *tabContainerView;
+@property (weak) IBOutlet NSArrayController *distributionsArrayController;
+@property (weak) IBOutlet NSTableView *packagesTableView;
+@property (weak) IBOutlet NSTableView *distributionsTableView;
 
 - (IBAction)expandSelectedPackagesAction:(id)sender;
 - (IBAction)extractOriginalsFromSelectedPackagesAction:(id)sender;

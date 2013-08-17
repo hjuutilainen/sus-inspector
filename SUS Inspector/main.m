@@ -23,23 +23,22 @@
 
 int main(int argc, char *argv[])
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *userDefaultsValuesPath;
-	NSDictionary *userDefaultsValuesDict;
-	
-	// load the default values for the user defaults
-	userDefaultsValuesPath = [[NSBundle mainBundle] pathForResource:@"UserDefaults" ofType:@"plist"];
-	userDefaultsValuesDict = [NSDictionary dictionaryWithContentsOfFile:userDefaultsValuesPath];
-	
-	// set them in the standard user defaults
-	[[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsValuesDict];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
-    NSString *currentLanguage = [languages objectAtIndex:0];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"preferredLanguageForDistFiles": currentLanguage}];
-    
-	[pool release];
+    @autoreleasepool {
+        NSString *userDefaultsValuesPath;
+        NSDictionary *userDefaultsValuesDict;
+        
+        // Load the default values for the user defaults
+        userDefaultsValuesPath = [[NSBundle mainBundle] pathForResource:@"UserDefaults" ofType:@"plist"];
+        userDefaultsValuesDict = [NSDictionary dictionaryWithContentsOfFile:userDefaultsValuesPath];
+        
+        // Set them in the standard user defaults
+        [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsValuesDict];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
+        NSString *currentLanguage = [languages objectAtIndex:0];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"preferredLanguageForDistFiles": currentLanguage}];
+    }
     
     return NSApplicationMain(argc, (const char **)argv);
 }

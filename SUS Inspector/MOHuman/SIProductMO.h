@@ -19,9 +19,9 @@
 
 @interface SIProductMO : _SIProductMO {}
 
-@property (readonly) NSString *pkginfo;
-@property (readonly) NSString *pkginfoFilename;
-@property (readonly) NSDictionary *pkginfoDictionary;
+@property (weak, readonly) NSString *pkginfo;
+@property (weak, readonly) NSString *pkginfoFilename;
+@property (weak, readonly) NSDictionary *pkginfoDictionary;
 
 - (SIDistributionMO *)preferredDistribution;
 

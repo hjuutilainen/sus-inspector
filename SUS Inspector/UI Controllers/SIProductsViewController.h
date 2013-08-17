@@ -30,22 +30,22 @@
     
 }
 
-@property (retain) NSMutableArray *pkginfoWindowControllers;
-@property (retain) NSMutableArray *productInfoWindowControllers;
-@property (assign) IBOutlet NSSearchField *searchField;
-@property (assign) IBOutlet NSArrayController *productsArrayController;
-@property (retain) NSPredicate *productsMainFilterPredicate;
-@property (readonly, retain) NSPredicate *mainCompoundPredicate;
-@property (retain) NSPredicate *searchFieldPredicate;
-@property (assign) IBOutlet NSTableView *productsTableView;
-@property (retain) SICatalogMO *selectedCatalog;
-@property (retain) SIProductInfoWindowController *productInfoWindowController;
-@property (retain) SIPkginfoWindowController *pkginfoWindowController;
-@property (retain) SIPkginfoMultipleWindowController *multiplePkginfoController;
-@property (assign) IBOutlet NSMenu *productsListMenu;
-@property (assign) IBOutlet NSMenu *distributionFilesMenu;
-@property (assign) IBOutlet NSMenu *packagesMenu;
-@property (assign) IBOutlet NSMenuItem *sendToMunkiAdminMenuItem;
+@property (strong) NSMutableArray *pkginfoWindowControllers;
+@property (strong) NSMutableArray *productInfoWindowControllers;
+@property (weak) IBOutlet NSSearchField *searchField;
+@property (weak) IBOutlet NSArrayController *productsArrayController;
+@property (strong) NSPredicate *productsMainFilterPredicate;
+@property (readonly, strong) NSPredicate *mainCompoundPredicate;
+@property (strong) NSPredicate *searchFieldPredicate;
+@property (weak) IBOutlet NSTableView *productsTableView;
+@property (strong) SICatalogMO *selectedCatalog;
+@property (strong) SIProductInfoWindowController *productInfoWindowController;
+@property (strong) SIPkginfoWindowController *pkginfoWindowController;
+@property (strong) SIPkginfoMultipleWindowController *multiplePkginfoController;
+@property (weak) IBOutlet NSMenu *productsListMenu;
+@property (weak) IBOutlet NSMenu *distributionFilesMenu;
+@property (weak) IBOutlet NSMenu *packagesMenu;
+@property (weak) IBOutlet NSMenuItem *sendToMunkiAdminMenuItem;
 
 - (IBAction)getInfoAction:(id)sender;
 - (IBAction)createPkginfoAction:(id)sender;

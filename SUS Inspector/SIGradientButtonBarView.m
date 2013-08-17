@@ -31,17 +31,14 @@
         self.drawTopLine = YES;
         self.drawLeftLine = YES;
         self.drawRightLine = YES;
-        self.fillGradient = [[[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.95 alpha:1.0] 
-                                                           endingColor:[NSColor colorWithCalibratedWhite:1.0 alpha:1.0]] autorelease];
+        self.fillGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.95 alpha:1.0] 
+                                                           endingColor:[NSColor colorWithCalibratedWhite:1.0 alpha:1.0]];
     }
     
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
+
 
 - (void)drawRect:(NSRect)dirtyRect
 {
