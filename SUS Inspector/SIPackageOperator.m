@@ -215,44 +215,19 @@
     
     [SIOperationManager sharedManager].currentOperationTitle = [NSString stringWithFormat:@"Extracting package payload..."];
     
-    NSTask *gunzipTask = [[NSTask alloc] init];
-	NSPipe *gunzipOutPipe = [NSPipe pipe];
-	
-	NSString *launchPath = @"/usr/bin/gunzip";
-	[gunzipTask setLaunchPath:launchPath];
-    NSArray *gunzipArgs = [NSArray arrayWithObjects:@"-c", @"-S", @"", payloadPath, nil];
-	[gunzipTask setArguments:gunzipArgs];
-	[gunzipTask setStandardOutput:gunzipOutPipe];
-    [gunzipTask setCurrentDirectoryPath:outputPath];
-	
+    // Extract the payload using "ditto -x" (thanks for the tip @magervalp)
+    NSTask *dittoTask = [[NSTask alloc] init];
+    NSString *launchPath = @"/usr/bin/ditto";
+    [dittoTask setLaunchPath:launchPath];
+    NSArray *gunzipArgs = [NSArray arrayWithObjects:@"-x", payloadPath, outputPath, nil];
+    [dittoTask setArguments:gunzipArgs];
+    [dittoTask setCurrentDirectoryPath:outputPath];
     
-    NSTask *paxTask = [[NSTask alloc] init];
-	NSPipe *paxOutPipe = [NSPipe pipe];
-    NSString *paxPath = @"/bin/pax";
-	[paxTask setLaunchPath:paxPath];
-    NSArray *paxArgs = [NSArray arrayWithObjects:@"-r", nil];
-    [paxTask setArguments:paxArgs];
-    [paxTask setStandardInput:gunzipOutPipe];
-    [paxTask setStandardOutput:paxOutPipe];
-    [paxTask setCurrentDirectoryPath:outputPath];
+    // Launch the task and get the exit code
+    [dittoTask launch];
+    [dittoTask waitUntilExit];
+    int exitCode = [dittoTask terminationStatus];
     
-    [gunzipTask launch];
-    
-    /*
-    int gunzipStatus = [gunzipTask terminationStatus];
-    if (gunzipStatus != 0) {
-        // Remove temporary files
-        [SIOperationManager sharedManager].currentOperationTitle = [NSString stringWithFormat:@"Cleaning temporary files..."];
-        [fileManager removeItemAtPath:expandTemp error:nil];
-        [self willEndOperation];
-        NSLog(@"gunzip failed");
-        return FALSE;
-    }
-     */
-    
-    [paxTask launch];
-    [paxTask waitUntilExit];
-    int paxStatus = [paxTask terminationStatus];
     
     // Remove temporary files
     [SIOperationManager sharedManager].currentOperationTitle = [NSString stringWithFormat:@"Cleaning temporary files..."];
@@ -260,7 +235,7 @@
     
     [self willEndOperation];
     
-    if (paxStatus == 0) {
+    if (exitCode == 0) {
         return TRUE;
     } else {
         NSLog(@"extractPackagePayload failed");
