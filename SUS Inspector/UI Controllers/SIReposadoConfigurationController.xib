@@ -157,6 +157,7 @@
 							<string key="NSFrame">{{551, 13}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="495737042">
@@ -689,7 +690,7 @@
 												</object>
 												<object class="NSMenuItem" id="5455858">
 													<reference key="NSMenu" ref="235379318"/>
-													<string key="NSTitle">Item 3</string>
+													<string key="NSTitle">Change base URL...</string>
 													<string key="NSKeyEquiv"/>
 													<int key="NSKeyEquivModMask">1048576</int>
 													<int key="NSMnemonicLoc">2147483647</int>
@@ -701,6 +702,7 @@
 											</array>
 											<reference key="NSMenuFont" ref="539447481"/>
 										</object>
+										<int key="NSSelectedIndex">-1</int>
 										<bool key="NSPullDown">YES</bool>
 										<int key="NSPreferredEdge">1</int>
 										<bool key="NSUsesItemFromMenu">YES</bool>
