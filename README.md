@@ -53,7 +53,7 @@ At the moment, the only way to run SUS Inspector is to build from source:
 
 Building requires:
 
-* Xcode 4.6 or later
+* Xcode 5 or later
 * Optional: [mogenerator + Xmo'd](http://github.com/rentzsch/mogenerator) 
 
 
