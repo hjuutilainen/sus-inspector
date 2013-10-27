@@ -103,11 +103,11 @@
     
     //[self.window center];
     
-    self.progressWindowController = [[[SIProgressWindowController alloc] initWithWindowNibName:@"SIProgressWindowController"] autorelease];
-    self.productsViewController = [[[SIProductsViewController alloc] initWithNibName:@"SIProductsViewController" bundle:nil] autorelease];
-    self.catalogsViewController = [[[SICatalogsViewController alloc] initWithNibName:@"SICatalogsViewController" bundle:nil] autorelease];
+    self.progressWindowController = [[SIProgressWindowController alloc] initWithWindowNibName:@"SIProgressWindowController"];
+    self.productsViewController = [[SIProductsViewController alloc] initWithNibName:@"SIProductsViewController" bundle:nil];
+    self.catalogsViewController = [[SICatalogsViewController alloc] initWithNibName:@"SICatalogsViewController" bundle:nil];
     self.catalogsViewController.delegate = self;
-    self.reposadoConfigurationController = [[[SIReposadoConfigurationController alloc] initWithWindowNibName:@"SIReposadoConfigurationController"] autorelease];
+    self.reposadoConfigurationController = [[SIReposadoConfigurationController alloc] initWithWindowNibName:@"SIReposadoConfigurationController"];
     
     [self.mainSplitView setDelegate:self];
     [self.shareMenu setDelegate:self];

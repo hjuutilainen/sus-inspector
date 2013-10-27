@@ -27,14 +27,6 @@
 
 @implementation SIAppDelegate
 
-- (void)dealloc
-{
-    [_persistentStoreCoordinator release];
-    [_managedObjectModel release];
-    [_managedObjectContext release];
-    [super dealloc];
-}
-
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
@@ -95,7 +87,6 @@
     [foundObjects enumerateObjectsWithOptions:0 usingBlock:^(id anObject, NSUInteger idx, BOOL *stop) {
         [moc deleteObject:anObject];
     }];
-    [fetchRequest release];
     [moc processPendingChanges];
 }
 
@@ -190,7 +181,7 @@
      */
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"SIReposadoInstance" inManagedObjectContext:moc];
-    NSFetchRequest *fetchForReposadoInstances = [[[NSFetchRequest alloc] init] autorelease];
+    NSFetchRequest *fetchForReposadoInstances = [[NSFetchRequest alloc] init];
     [fetchForReposadoInstances setEntity:entityDescription];
     NSUInteger instanceCount = [moc countForFetchRequest:fetchForReposadoInstances error:nil];
     if (instanceCount == 0) {
@@ -240,10 +231,10 @@
     /*
      * Create view and window controllers
      */
-    self.mainWindowController = [[[SIMainWindowController alloc] initWithWindowNibName:@"SIMainWindowController"] autorelease];
+    self.mainWindowController = [[SIMainWindowController alloc] initWithWindowNibName:@"SIMainWindowController"];
     [self.mainWindowController showWindow:self];
     
-    self.preferencesController = [[[SIPreferencesController alloc] initWithWindowNibName:@"SIPreferencesController"] autorelease];
+    self.preferencesController = [[SIPreferencesController alloc] initWithWindowNibName:@"SIPreferencesController"];
     
     SIOperationManager *operationManager = [SIOperationManager sharedManager];
     operationManager.delegate = self;
@@ -326,6 +317,7 @@
     return [appSupportURL URLByAppendingPathComponent:@"SUS Inspector"];
 }
 
+
 // Creates if necessary and returns the managed object model for the application.
 - (NSManagedObjectModel *)managedObjectModel
 {
@@ -381,7 +373,7 @@
     }
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"SUS_Inspector.storedata"];
-    NSPersistentStoreCoordinator *coordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom] autorelease];
+    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
     if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
         
         // Try to remove the store file
@@ -399,8 +391,8 @@
         }
         
     }
-    _persistentStoreCoordinator = [coordinator retain];
     
+    _persistentStoreCoordinator = coordinator;
     return _persistentStoreCoordinator;
 }
 
@@ -477,7 +469,7 @@
         NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
         NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
         NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
-        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+        NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:question];
         [alert setInformativeText:info];
         [alert addButtonWithTitle:quitButton];

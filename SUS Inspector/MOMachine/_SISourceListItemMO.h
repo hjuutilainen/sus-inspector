@@ -5,18 +5,18 @@
 
 
 extern const struct SISourceListItemMOAttributes {
-	 NSString *iconImage;
-	 NSString *iconName;
-	 NSString *isGroupItem;
-	 NSString *productFilterPredicate;
-	 NSString *sortIndex;
-	 NSString *title;
+	__unsafe_unretained NSString *iconImage;
+	__unsafe_unretained NSString *iconName;
+	__unsafe_unretained NSString *isGroupItem;
+	__unsafe_unretained NSString *productFilterPredicate;
+	__unsafe_unretained NSString *sortIndex;
+	__unsafe_unretained NSString *title;
 } SISourceListItemMOAttributes;
 
 extern const struct SISourceListItemMORelationships {
-	 NSString *catalogReference;
-	 NSString *children;
-	 NSString *parent;
+	__unsafe_unretained NSString *catalogReference;
+	__unsafe_unretained NSString *children;
+	__unsafe_unretained NSString *parent;
 } SISourceListItemMORelationships;
 
 extern const struct SISourceListItemMOFetchedProperties {
@@ -46,7 +46,7 @@ extern const struct SISourceListItemMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) id iconImage;
+@property (nonatomic, strong) id iconImage;
 
 
 
@@ -56,7 +56,7 @@ extern const struct SISourceListItemMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* iconName;
+@property (nonatomic, strong) NSString* iconName;
 
 
 
@@ -66,7 +66,7 @@ extern const struct SISourceListItemMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* isGroupItem;
+@property (nonatomic, strong) NSNumber* isGroupItem;
 
 
 
@@ -80,7 +80,7 @@ extern const struct SISourceListItemMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) id productFilterPredicate;
+@property (nonatomic, strong) id productFilterPredicate;
 
 
 
@@ -90,7 +90,7 @@ extern const struct SISourceListItemMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* sortIndex;
+@property (nonatomic, strong) NSNumber* sortIndex;
 
 
 
@@ -104,7 +104,7 @@ extern const struct SISourceListItemMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* title;
+@property (nonatomic, strong) NSString* title;
 
 
 
@@ -114,21 +114,21 @@ extern const struct SISourceListItemMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) SICatalogMO *catalogReference;
+@property (nonatomic, strong) SICatalogMO *catalogReference;
 
 //- (BOOL)validateCatalogReference:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, retain) NSSet *children;
+@property (nonatomic, strong) NSSet *children;
 
 - (NSMutableSet*)childrenSet;
 
 
 
 
-@property (nonatomic, retain) SISourceListItemMO *parent;
+@property (nonatomic, strong) SISourceListItemMO *parent;
 
 //- (BOOL)validateParent:(id*)value_ error:(NSError**)error_;
 

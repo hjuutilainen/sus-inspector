@@ -25,7 +25,7 @@
 @interface SIMunkiAdminBridge : NSObject
 
 @property (readonly) BOOL munkiAdminIsActiveAndReady;
-@property (readonly, retain) NSArray *currentAppleUpdateMetadataNames;
+@property (readonly, strong) NSArray *currentAppleUpdateMetadataNames;
 
 + (SIMunkiAdminBridge *)sharedBridge;
 - (BOOL)munkiAdminInstalled;

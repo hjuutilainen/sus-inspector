@@ -41,13 +41,13 @@ typedef enum {
     SIOperationTypePackageOperation,
 } SIOperationType;
 
-@property (assign) id <SIOperationManagerDelegate> delegate;
+@property (unsafe_unretained) id <SIOperationManagerDelegate> delegate;
 @property SIOperationType currentOperationType;
-@property (retain) NSOperationQueue *operationQueue;
-@property (retain) NSString *currentOperationTitle;
-@property (retain) NSString *currentOperationDescription;
-@property (retain) AMShellWrapper *shellWrapper;
-@property (retain) NSArray *currentCatalogs;
+@property (strong) NSOperationQueue *operationQueue;
+@property (strong) NSString *currentOperationTitle;
+@property (strong) NSString *currentOperationDescription;
+@property (strong) AMShellWrapper *shellWrapper;
+@property (strong) NSArray *currentCatalogs;
 
 
 + (SIOperationManager *)sharedManager;

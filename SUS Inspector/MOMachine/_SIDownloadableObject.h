@@ -5,11 +5,11 @@
 
 
 extern const struct SIDownloadableObjectAttributes {
-	 NSString *objectCachedPath;
-	 NSString *objectIsCached;
-	 NSString *objectIsDownloading;
-	 NSString *objectURL;
-	 NSString *performPostDownloadAction;
+	__unsafe_unretained NSString *objectCachedPath;
+	__unsafe_unretained NSString *objectIsCached;
+	__unsafe_unretained NSString *objectIsDownloading;
+	__unsafe_unretained NSString *objectURL;
+	__unsafe_unretained NSString *performPostDownloadAction;
 } SIDownloadableObjectAttributes;
 
 extern const struct SIDownloadableObjectRelationships {
@@ -38,7 +38,7 @@ extern const struct SIDownloadableObjectFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* objectCachedPath;
+@property (nonatomic, strong) NSString* objectCachedPath;
 
 
 
@@ -48,7 +48,7 @@ extern const struct SIDownloadableObjectFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* objectIsCached;
+@property (nonatomic, strong) NSNumber* objectIsCached;
 
 
 
@@ -62,7 +62,7 @@ extern const struct SIDownloadableObjectFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* objectIsDownloading;
+@property (nonatomic, strong) NSNumber* objectIsDownloading;
 
 
 
@@ -76,7 +76,7 @@ extern const struct SIDownloadableObjectFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* objectURL;
+@property (nonatomic, strong) NSString* objectURL;
 
 
 
@@ -86,7 +86,7 @@ extern const struct SIDownloadableObjectFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* performPostDownloadAction;
+@property (nonatomic, strong) NSNumber* performPostDownloadAction;
 
 
 

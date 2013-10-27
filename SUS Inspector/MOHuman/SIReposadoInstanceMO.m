@@ -162,7 +162,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyyMMdd.HHmmss"];
     NSString *versionStringFromDate = [formatter stringFromDate:bundledReposadoCommitDate];
-    [formatter release];
+    //[formatter release];
     NSString *bundledReposadoCommitHash = kReposadoCurrentCommitHash;
     NSDictionary *newInfoDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                        versionStringFromDate,       @"commitVersion",

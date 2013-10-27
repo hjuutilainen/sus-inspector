@@ -23,8 +23,8 @@
 
 @interface SIProgressWindowController : NSWindowController
 
-@property (assign) IBOutlet NSProgressIndicator *progressIndicator;
-@property (assign) IBOutlet NSTextField *statusText;
-@property (assign) IBOutlet NSTextField *statusTextSmall;
+@property (weak) IBOutlet NSProgressIndicator *progressIndicator;
+@property (weak) IBOutlet NSTextField *statusText;
+@property (weak) IBOutlet NSTextField *statusTextSmall;
 
 @end

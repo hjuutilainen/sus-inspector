@@ -35,7 +35,7 @@
 
 + (id)controllerWithProduct:(SIProductMO *)product
 {
-    SIPkginfoWindowController *controller = [[[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"] autorelease];
+    SIPkginfoWindowController *controller = [[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"];
     controller.product = product;
     [controller populateDefaultValues];
     [controller showWindow:nil];
@@ -130,7 +130,7 @@
     
     // Create a calendar object with time zone set to UTC
     NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-    NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     [gregorian setTimeZone:timeZoneUTC];
     
     // Get the current date (without hour, minute and second)
@@ -145,7 +145,7 @@
     NSDate *normalizedDate = [gregorian dateFromComponents:dateComponents];
     
     // Add 7 days to the normalized date
-    NSDateComponents *offsetComponents = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setDay:7];
     
     NSDate *newDate = [gregorian dateByAddingComponents:offsetComponents toDate:normalizedDate options:0];
@@ -170,7 +170,7 @@
      and return the plain text value. Rude, I know...
      */
     NSData *data = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
-    NSAttributedString *html = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:nil] autorelease];
+    NSAttributedString *html = [[NSAttributedString alloc] initWithHTML:data documentAttributes:nil];
     return [html string];
 }
 
@@ -201,7 +201,7 @@
     NSString *joinWithString = @"-";
     
     NSArray *nameComponents = @[self.munki_display_name, self.munki_version, self.munki_name];
-    NSMutableArray *processedComponents = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *processedComponents = [[NSMutableArray alloc] init];
     for (NSString *component in nameComponents) {
         NSString *newValue = [component stringByReplacingOccurrencesOfString:@" " withString:whiteSpaceReplacement];
         [processedComponents addObject:newValue];
@@ -279,7 +279,7 @@
      Create a pkginfo representation of current values.
      If some field is empty, we don't want it at all in the resulting string.
      */
-    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:@"apple_update_metadata" forKey:@"installer_type"];
     if (self.munki_name) [dict setObject:self.munki_name forKey:@"name"];
     if (self.munki_display_name) [dict setObject:self.munki_display_name forKey:@"display_name"];
@@ -316,13 +316,13 @@
                                                           format:NSPropertyListXMLFormat_v1_0
                                                          options:NSPropertyListImmutable
                                                            error:&error];
-    NSString *returnString = [[[NSString alloc] initWithData:plist encoding:NSUTF8StringEncoding] autorelease];
+    NSString *returnString = [[NSString alloc] initWithData:plist encoding:NSUTF8StringEncoding];
     return returnString;
 }
 
 - (NSString *)munkiCommandStringWithCommandName:(NSString *)command
 {
-    NSMutableArray *args = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *args = [[NSMutableArray alloc] init];
     
     /*
      The command
@@ -377,10 +377,10 @@
     if ([self.munki_force_install_after_date_enabled boolValue]) {
         
         // Create a custom formatter
-        NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
         [formatter setTimeZone:timeZoneUTC];
-        NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         [formatter setCalendar:gregorian];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
         
@@ -416,7 +416,7 @@
 
 - (NSButton *)addPushButtonWithTitle:(NSString *)title identifier:(NSString *)identifier superView:(NSView *)superview
 {
-    NSButton *pushButton = [[[NSButton alloc] init] autorelease];
+    NSButton *pushButton = [[NSButton alloc] init];
     [pushButton setIdentifier:identifier];
     [pushButton setBezelStyle:NSRoundedBezelStyle];
     [pushButton setFont:[NSFont systemFontOfSize:13.0]];
@@ -432,7 +432,7 @@
 
 - (NSTextField *)addTextFieldWithidentifier:(NSString *)identifier superView:(NSView *)superview
 {
-    NSTextField *textField = [[[NSTextField alloc] init] autorelease];
+    NSTextField *textField = [[NSTextField alloc] init];
     [textField setIdentifier:identifier];
     [[textField cell] setControlSize:NSRegularControlSize];
     [textField setBordered:YES];
@@ -448,7 +448,7 @@
 
 - (NSComboBox *)addComboBoxWithidentifier:(NSString *)identifier superView:(NSView *)superview
 {
-    NSComboBox *textField = [[[NSComboBox alloc] init] autorelease];
+    NSComboBox *textField = [[NSComboBox alloc] init];
     [textField setIdentifier:identifier];
     [[textField cell] setControlSize:NSRegularControlSize];
     [textField setBordered:YES];
@@ -465,7 +465,7 @@
 
 - (NSTextField *)addLabelFieldWithTitle:(NSString *)title identifier:(NSString *)identifier superView:(NSView *)superview
 {
-    NSTextField *textField = [[[NSTextField alloc] init] autorelease];
+    NSTextField *textField = [[NSTextField alloc] init];
     [textField setIdentifier:identifier];
     [textField setStringValue:title];
     [[textField cell] setControlSize:NSRegularControlSize];
@@ -486,7 +486,7 @@
 {
     id nameLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Pkginfo Preview", nil) identifier:@"nameLabel" superView:parentView];
     
-    NSTextView *pkginfoTextView = [[[NSTextView alloc] initWithFrame:[parentView bounds]] autorelease];
+    NSTextView *pkginfoTextView = [[NSTextView alloc] initWithFrame:[parentView bounds]];
     [pkginfoTextView setIdentifier:@"pkginfoTextView"];
     [pkginfoTextView setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
     [pkginfoTextView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -500,7 +500,7 @@
     [pkginfoTextView bind:@"value" toObject:self withKeyPath:@"pkginfo" options:options];
     [pkginfoTextView setEditable:NO];
     [pkginfoTextView setSelectable:YES];
-    NSScrollView *pkginfoScrollView = [[[NSScrollView alloc] init] autorelease];
+    NSScrollView *pkginfoScrollView = [[NSScrollView alloc] init];
     [pkginfoScrollView setIdentifier:@"pkginfoScrollView"];
     [pkginfoScrollView setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
     [pkginfoScrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -590,7 +590,7 @@
      */
     id unattendedLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Unattended Install", nil) identifier:@"unattendedLabel" superView:parentView];
     [unattendedLabel setHidden:YES];
-    NSButton *unattendedButton = [[[NSButton alloc] init] autorelease];
+    NSButton *unattendedButton = [[NSButton alloc] init];
     [unattendedButton setButtonType:NSSwitchButton];
     [unattendedButton setTitle:NSLocalizedString(@"Unattended Install", nil)];
     [unattendedButton setIdentifier:@"unattendedButton"];
@@ -604,7 +604,7 @@
      Force install after date
      */
     id forceAfterLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Force After", nil) identifier:@"forceAfterLabel" superView:parentView];
-    NSDatePicker *forceAfterDatePicker = [[[NSDatePicker alloc] init] autorelease];
+    NSDatePicker *forceAfterDatePicker = [[NSDatePicker alloc] init];
     [forceAfterDatePicker setIdentifier:@"forceAfterDatePicker"];
     [forceAfterDatePicker setDatePickerStyle:NSTextFieldAndStepperDatePickerStyle];
     [forceAfterDatePicker setDatePickerElements:( NSYearMonthDayDatePickerElementFlag | NSHourMinuteDatePickerElementFlag)];
@@ -620,7 +620,7 @@
      Set the force_install_after_date date picker to use UTC
      */
     NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-    NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     [gregorian setTimeZone:timeZoneUTC];
     [forceAfterDatePicker setCalendar:gregorian];
     [forceAfterDatePicker setTimeZone:timeZoneUTC];
@@ -629,7 +629,7 @@
     [forceAfterDatePicker bind:@"enabled" toObject:self withKeyPath:@"munki_force_install_after_date_enabled" options:nil];
     [parentView addSubview:forceAfterDatePicker];
     
-    NSButton *forceAfterCheckBox = [[[NSButton alloc] init] autorelease];
+    NSButton *forceAfterCheckBox = [[NSButton alloc] init];
     [forceAfterCheckBox setButtonType:NSSwitchButton];
     [forceAfterCheckBox setImagePosition:NSImageOnly];
     [forceAfterCheckBox setIdentifier:@"forceAfterCheckBox"];
@@ -643,7 +643,7 @@
      */
     id descriptionLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Description", nil) identifier:@"descriptionLabel" superView:parentView];
     
-    NSScrollView *descriptionScroll = [[[NSScrollView alloc] initWithFrame:[parentView bounds]] autorelease];
+    NSScrollView *descriptionScroll = [[NSScrollView alloc] initWithFrame:[parentView bounds]];
     NSSize contentSize = [descriptionScroll contentSize];
     [descriptionScroll setIdentifier:@"descriptionScroll"];
     [descriptionScroll setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
@@ -653,7 +653,7 @@
     [descriptionScroll setHasHorizontalScroller:NO];
     [descriptionScroll setAutohidesScrollers:NO];
     
-    NSTextView *descriptionTextView = [[[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, contentSize.width, contentSize.height)] autorelease];
+    NSTextView *descriptionTextView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, contentSize.width, contentSize.height)];
     [descriptionTextView setIdentifier:@"descriptionTextView"];
     [descriptionTextView setAutoresizingMask:NSViewWidthSizable];
     [descriptionTextView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -814,9 +814,8 @@
     
     NSImage *shareImage = [[NSImage imageNamed:@"shareTemplate"] copy];
     [shareImage setTemplate:NO];
-    NSMenuItem *imageItem = [[[NSMenuItem alloc] init] autorelease];
+    NSMenuItem *imageItem = [[NSMenuItem alloc] init];
     [imageItem setImage:shareImage];
-    [shareImage release];
     
     [[sharePopupButton cell] setUsesItemFromMenu:NO];
     [[sharePopupButton cell] setMenuItem:imageItem];

@@ -54,15 +54,9 @@
 - (NSUndoManager*)windowWillReturnUndoManager:(NSWindow*)window
 {
     if (!self.undoManager) {
-        self.undoManager = [[[NSUndoManager alloc] init] autorelease];
+        self.undoManager = [[NSUndoManager alloc] init];
     }
     return self.undoManager;
-}
-
-- (void)dealloc
-{
-    [_undoManager release];
-    [super dealloc];
 }
 
 - (NSModalSession)beginEditSessionWithObject:(SIReposadoInstanceMO *)instance delegate:(id)modalDelegate

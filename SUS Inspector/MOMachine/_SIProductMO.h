@@ -5,21 +5,21 @@
 
 
 extern const struct SIProductMOAttributes {
-	 NSString *productDescription;
-	 NSString *productID;
-	 NSString *productIsDeprecated;
-	 NSString *productIsNew;
-	 NSString *productPostDate;
-	 NSString *productSize;
-	 NSString *productTitle;
-	 NSString *productVersion;
+	__unsafe_unretained NSString *productDescription;
+	__unsafe_unretained NSString *productID;
+	__unsafe_unretained NSString *productIsDeprecated;
+	__unsafe_unretained NSString *productIsNew;
+	__unsafe_unretained NSString *productPostDate;
+	__unsafe_unretained NSString *productSize;
+	__unsafe_unretained NSString *productTitle;
+	__unsafe_unretained NSString *productVersion;
 } SIProductMOAttributes;
 
 extern const struct SIProductMORelationships {
-	 NSString *catalogs;
-	 NSString *distributions;
-	 NSString *packages;
-	 NSString *serverMetadataFiles;
+	__unsafe_unretained NSString *catalogs;
+	__unsafe_unretained NSString *distributions;
+	__unsafe_unretained NSString *packages;
+	__unsafe_unretained NSString *serverMetadataFiles;
 } SIProductMORelationships;
 
 extern const struct SIProductMOFetchedProperties {
@@ -52,7 +52,7 @@ extern const struct SIProductMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* productDescription;
+@property (nonatomic, strong) NSString* productDescription;
 
 
 
@@ -62,7 +62,7 @@ extern const struct SIProductMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* productID;
+@property (nonatomic, strong) NSString* productID;
 
 
 
@@ -72,7 +72,7 @@ extern const struct SIProductMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* productIsDeprecated;
+@property (nonatomic, strong) NSNumber* productIsDeprecated;
 
 
 
@@ -86,7 +86,7 @@ extern const struct SIProductMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* productIsNew;
+@property (nonatomic, strong) NSNumber* productIsNew;
 
 
 
@@ -100,7 +100,7 @@ extern const struct SIProductMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSDate* productPostDate;
+@property (nonatomic, strong) NSDate* productPostDate;
 
 
 
@@ -110,7 +110,7 @@ extern const struct SIProductMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* productSize;
+@property (nonatomic, strong) NSNumber* productSize;
 
 
 
@@ -124,7 +124,7 @@ extern const struct SIProductMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* productTitle;
+@property (nonatomic, strong) NSString* productTitle;
 
 
 
@@ -134,7 +134,7 @@ extern const struct SIProductMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* productVersion;
+@property (nonatomic, strong) NSString* productVersion;
 
 
 
@@ -144,28 +144,28 @@ extern const struct SIProductMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSSet *catalogs;
+@property (nonatomic, strong) NSSet *catalogs;
 
 - (NSMutableSet*)catalogsSet;
 
 
 
 
-@property (nonatomic, retain) NSSet *distributions;
+@property (nonatomic, strong) NSSet *distributions;
 
 - (NSMutableSet*)distributionsSet;
 
 
 
 
-@property (nonatomic, retain) NSSet *packages;
+@property (nonatomic, strong) NSSet *packages;
 
 - (NSMutableSet*)packagesSet;
 
 
 
 
-@property (nonatomic, retain) NSSet *serverMetadataFiles;
+@property (nonatomic, strong) NSSet *serverMetadataFiles;
 
 - (NSMutableSet*)serverMetadataFilesSet;
 

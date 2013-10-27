@@ -28,16 +28,10 @@ static NSSet *interestingKeys;
     }
 }
 
-- (void)dealloc
-{
-    [items release];
-    [super dealloc];
-}
-
 - (BOOL)parseData:(NSData *)d
 {
     // Release the old itemArray
-    [items release];
+    //[items release];
     
     // Create a new, empty itemArray
     items = [[NSMutableArray alloc] init];
@@ -51,7 +45,7 @@ static NSSet *interestingKeys;
     // Do the parse
     [parser parse];
     
-    [parser release];
+    //[parser release];
     
     NSLog(@"items = %@", items);
     return YES;
@@ -126,7 +120,7 @@ static NSSet *interestingKeys;
         [items addObject:pkgInProgress];
         
         // Clear the current item
-        [pkgInProgress release];
+        //[pkgInProgress release];
         pkgInProgress = nil;
         return;
     }

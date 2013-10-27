@@ -37,7 +37,7 @@
 		F53BDE5416E8A0CD00055BC3 /* SIProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5216E8A0CD00055BC3 /* SIProductsViewController.m */; };
 		F53BDE5516E8A0CD00055BC3 /* SIProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F53BDE5316E8A0CD00055BC3 /* SIProductsViewController.xib */; };
 		F53BDE5816E8A3C300055BC3 /* SIGradientBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5716E8A3C200055BC3 /* SIGradientBackgroundView.m */; };
-		F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */; };
+		F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F559596D1740C1CC0077140B /* SITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F559596C1740C1CC0077140B /* SITableView.m */; };
 		F5595973174113E00077140B /* SUS Inspector.icns in Resources */ = {isa = PBXBuildFile; fileRef = F5595972174113E00077140B /* SUS Inspector.icns */; };
 		F55EA4DC178FF2C80015717E /* SIMunkiAdminBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F55EA4DB178FF2C80015717E /* SIMunkiAdminBridge.m */; };
@@ -807,6 +807,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -839,6 +840,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -860,6 +862,7 @@
 		F5E06E6E16E47400008B7831 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
@@ -874,6 +877,7 @@
 		F5E06E6F16E47400008B7831 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";

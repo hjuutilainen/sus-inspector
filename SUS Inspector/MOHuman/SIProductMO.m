@@ -86,7 +86,7 @@
     NSString *joinWithString = @"-";
     
     NSArray *nameComponents = @[self.productTitle, self.productVersion, self.productID];
-    NSMutableArray *processedComponents = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *processedComponents = [[NSMutableArray alloc] init];
     for (NSString *component in nameComponents) {
         NSString *newValue = [component stringByReplacingOccurrencesOfString:@" " withString:whiteSpaceReplacement];
         [processedComponents addObject:newValue];
@@ -105,7 +105,7 @@
      and return the plain text value. Rude, I know...
      */
     NSData *data = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
-    NSAttributedString *html = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:nil] autorelease];
+    NSAttributedString *html = [[NSAttributedString alloc] initWithHTML:data documentAttributes:nil];
     return [html string];
 }
 
@@ -117,7 +117,7 @@
      */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:@"apple_update_metadata" forKey:@"installer_type"];
     if (self.productID) [dict setObject:self.productID forKey:@"name"];
     if (self.productTitle) [dict setObject:self.productTitle forKey:@"display_name"];
@@ -169,7 +169,7 @@
                                                           format:NSPropertyListXMLFormat_v1_0
                                                          options:NSPropertyListImmutable
                                                            error:&error];
-    NSString *returnString = [[[NSString alloc] initWithData:plist encoding:NSUTF8StringEncoding] autorelease];
+    NSString *returnString = [[NSString alloc] initWithData:plist encoding:NSUTF8StringEncoding];
     return returnString;
 }
 

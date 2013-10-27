@@ -23,8 +23,8 @@
 
 @interface SICatalogsViewController : NSViewController <NSOutlineViewDelegate>
 
-@property (assign) IBOutlet NSOutlineView *sourceListOutlineView;
-@property (assign) IBOutlet NSTreeController *sourceListTreeController;
-@property (assign) id delegate;
+@property (weak) IBOutlet NSOutlineView *sourceListOutlineView;
+@property (weak) IBOutlet NSTreeController *sourceListTreeController;
+@property (unsafe_unretained) id delegate;
 
 @end

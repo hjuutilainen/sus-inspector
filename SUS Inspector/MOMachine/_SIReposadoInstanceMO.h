@@ -5,22 +5,22 @@
 
 
 extern const struct SIReposadoInstanceMOAttributes {
-	 NSString *productInfoCreationDate;
-	 NSString *productInfoModificationDate;
-	 NSString *reposadoCatalogsBaseURLString;
-	 NSString *reposadoInstallURL;
-	 NSString *reposadoSetupComplete;
-	 NSString *reposadoTitle;
-	 NSString *reposadoUpdatesMetadataDir;
-	 NSString *reposadoUpdatesRootDir;
+	__unsafe_unretained NSString *productInfoCreationDate;
+	__unsafe_unretained NSString *productInfoModificationDate;
+	__unsafe_unretained NSString *reposadoCatalogsBaseURLString;
+	__unsafe_unretained NSString *reposadoInstallURL;
+	__unsafe_unretained NSString *reposadoSetupComplete;
+	__unsafe_unretained NSString *reposadoTitle;
+	__unsafe_unretained NSString *reposadoUpdatesMetadataDir;
+	__unsafe_unretained NSString *reposadoUpdatesRootDir;
 } SIReposadoInstanceMOAttributes;
 
 extern const struct SIReposadoInstanceMORelationships {
-	 NSString *catalogs;
+	__unsafe_unretained NSString *catalogs;
 } SIReposadoInstanceMORelationships;
 
 extern const struct SIReposadoInstanceMOFetchedProperties {
-	 NSString *activeCatalogs;
+	__unsafe_unretained NSString *activeCatalogs;
 } SIReposadoInstanceMOFetchedProperties;
 
 @class SICatalogMO;
@@ -47,7 +47,7 @@ extern const struct SIReposadoInstanceMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSDate* productInfoCreationDate;
+@property (nonatomic, strong) NSDate* productInfoCreationDate;
 
 
 
@@ -57,7 +57,7 @@ extern const struct SIReposadoInstanceMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSDate* productInfoModificationDate;
+@property (nonatomic, strong) NSDate* productInfoModificationDate;
 
 
 
@@ -67,7 +67,7 @@ extern const struct SIReposadoInstanceMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* reposadoCatalogsBaseURLString;
+@property (nonatomic, strong) NSString* reposadoCatalogsBaseURLString;
 
 
 
@@ -77,7 +77,7 @@ extern const struct SIReposadoInstanceMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) id reposadoInstallURL;
+@property (nonatomic, strong) id reposadoInstallURL;
 
 
 
@@ -87,7 +87,7 @@ extern const struct SIReposadoInstanceMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* reposadoSetupComplete;
+@property (nonatomic, strong) NSNumber* reposadoSetupComplete;
 
 
 
@@ -101,7 +101,7 @@ extern const struct SIReposadoInstanceMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* reposadoTitle;
+@property (nonatomic, strong) NSString* reposadoTitle;
 
 
 
@@ -111,7 +111,7 @@ extern const struct SIReposadoInstanceMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* reposadoUpdatesMetadataDir;
+@property (nonatomic, strong) NSString* reposadoUpdatesMetadataDir;
 
 
 
@@ -121,7 +121,7 @@ extern const struct SIReposadoInstanceMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* reposadoUpdatesRootDir;
+@property (nonatomic, strong) NSString* reposadoUpdatesRootDir;
 
 
 
@@ -131,7 +131,7 @@ extern const struct SIReposadoInstanceMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSSet *catalogs;
+@property (nonatomic, strong) NSSet *catalogs;
 
 - (NSMutableSet*)catalogsSet;
 

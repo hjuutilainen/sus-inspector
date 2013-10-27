@@ -84,7 +84,7 @@
     
     // Create a calendar object with time zone set to UTC
     NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-    NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     [gregorian setTimeZone:timeZoneUTC];
     
     // Get the current date (without hour, minute and second)
@@ -99,7 +99,7 @@
     NSDate *normalizedDate = [gregorian dateFromComponents:dateComponents];
     
     // Add 7 days to the normalized date
-    NSDateComponents *offsetComponents = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setDay:7];
     
     NSDate *newDate = [gregorian dateByAddingComponents:offsetComponents toDate:normalizedDate options:0];
@@ -123,7 +123,7 @@
      and return the plain text value. Rude, I know...
      */
     NSData *data = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
-    NSAttributedString *html = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:nil] autorelease];
+    NSAttributedString *html = [[NSAttributedString alloc] initWithHTML:data documentAttributes:nil];
     return [html string];
 }
 
@@ -133,7 +133,7 @@
      Create a pkginfo representation of current values.
      If some field is empty, we don't want it at all in the resulting string.
      */
-    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:@"apple_update_metadata" forKey:@"installer_type"];
     [dict setObject:product.productID forKey:@"name"];
     if ([self.includeDisplayName boolValue]) [dict setObject:product.productTitle forKey:@"display_name"];
@@ -178,7 +178,7 @@
                                                           format:NSPropertyListXMLFormat_v1_0
                                                          options:NSPropertyListImmutable
                                                            error:&error];
-    NSString *returnString = [[[NSString alloc] initWithData:plist encoding:NSUTF8StringEncoding] autorelease];
+    NSString *returnString = [[NSString alloc] initWithData:plist encoding:NSUTF8StringEncoding];
     return returnString;
 }
 

@@ -25,19 +25,19 @@
     
 }
 
-@property (assign) IBOutlet NSView *generalView;
-@property (assign) IBOutlet NSView *munkiView;
-@property (assign) IBOutlet NSView *advancedView;
-@property (assign) IBOutlet NSArrayController *catalogsArrayController;
-@property (assign) IBOutlet NSTableView *catalogsTableView;
-@property (assign) IBOutlet NSPopUpButton *distApplicationsPopUpButton;
-@property (assign) IBOutlet NSPopUpButton *languagesPopupButton;
-@property (assign) IBOutlet NSComboBox *languageComboBox;
+@property (weak) IBOutlet NSView *generalView;
+@property (weak) IBOutlet NSView *munkiView;
+@property (weak) IBOutlet NSView *advancedView;
+@property (weak) IBOutlet NSArrayController *catalogsArrayController;
+@property (weak) IBOutlet NSTableView *catalogsTableView;
+@property (weak) IBOutlet NSPopUpButton *distApplicationsPopUpButton;
+@property (weak) IBOutlet NSPopUpButton *languagesPopupButton;
+@property (weak) IBOutlet NSComboBox *languageComboBox;
 
-@property (retain) NSToolbar *toolbar;
-@property (retain) NSMutableDictionary *items;
-@property (retain) NSArray *distApplications;
-@property (retain) NSArray *languageIDs;
+@property (strong) NSToolbar *toolbar;
+@property (strong) NSMutableDictionary *items;
+@property (strong) NSArray *distApplications;
+@property (strong) NSArray *languageIDs;
 
 - (void)switchViews:(NSToolbarItem *)item;
 

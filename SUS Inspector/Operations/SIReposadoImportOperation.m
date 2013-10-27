@@ -27,7 +27,7 @@ static const int ImportBatchSize = 50;
 
 @interface SIReposadoImportOperation ()
 @property (nonatomic, strong) NSManagedObjectContext *context;
-@property (retain) SIReposadoInstanceMO *reposadoInstance;
+@property (strong) SIReposadoInstanceMO *reposadoInstance;
 @property BOOL force;
 @end
 
@@ -35,25 +35,19 @@ static const int ImportBatchSize = 50;
 
 + (id)importReposadoInstanceWithID:(SIReposadoInstanceMOID *)instanceID force:(BOOL)force
 {
-	return [[[self alloc] initWithReposadoInstanceID:instanceID force:force] autorelease];
+	return [[self alloc] initWithReposadoInstanceID:instanceID force:force];
 }
 
 - (id)initWithReposadoInstanceID:(SIReposadoInstanceMOID *)instanceID force:(BOOL)force
 {
 	if ((self = [super init])) {
-		self.context = [[[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType] autorelease];
+		self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         self.context.persistentStoreCoordinator = [[NSApp delegate] persistentStoreCoordinator];
         self.context.undoManager = nil;
         self.reposadoInstance = (SIReposadoInstanceMO *)[self.context objectWithID:instanceID];
         self.force = force;
 	}
 	return self;
-}
-
-- (void)dealloc {
-    [_reposadoInstance release];
-	[_context release];
-	[super dealloc];
 }
 
 - (SIPackageMetadataMO *)packageMetadataFileWithURLString:(NSString *)urlString managedObjectContext:(NSManagedObjectContext *)moc
@@ -151,7 +145,6 @@ static const int ImportBatchSize = 50;
     if (numFoundCatalogs > 0) {
         catalogs = [moc executeFetchRequest:fetchProducts error:nil];
     }
-    [fetchProducts release];
     return catalogs;
 }
 
@@ -169,7 +162,6 @@ static const int ImportBatchSize = 50;
     } else {
         theCatalog = [[moc executeFetchRequest:fetchProducts error:nil] objectAtIndex:0];
     }
-    [fetchProducts release];
     return theCatalog;
     
     /*
@@ -268,7 +260,6 @@ static const int ImportBatchSize = 50;
                         SICatalogMO *existingCatalog = [[self.context executeFetchRequest:fetchForCatalogs error:nil] objectAtIndex:0];
                         [existingCatalog addProductsObject:newProduct];
                     }
-                    [fetchForCatalogs release];
                 }
                 
                 /*

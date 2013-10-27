@@ -5,13 +5,13 @@
 #import "SIDownloadableObject.h"
 
 extern const struct SIPackageMOAttributes {
-	 NSString *packageMetadataURL;
-	 NSString *packageSize;
+	__unsafe_unretained NSString *packageMetadataURL;
+	__unsafe_unretained NSString *packageSize;
 } SIPackageMOAttributes;
 
 extern const struct SIPackageMORelationships {
-	 NSString *metadata;
-	 NSString *product;
+	__unsafe_unretained NSString *metadata;
+	__unsafe_unretained NSString *product;
 } SIPackageMORelationships;
 
 extern const struct SIPackageMOFetchedProperties {
@@ -36,7 +36,7 @@ extern const struct SIPackageMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* packageMetadataURL;
+@property (nonatomic, strong) NSString* packageMetadataURL;
 
 
 
@@ -46,7 +46,7 @@ extern const struct SIPackageMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* packageSize;
+@property (nonatomic, strong) NSNumber* packageSize;
 
 
 
@@ -60,14 +60,14 @@ extern const struct SIPackageMOFetchedProperties {
 
 
 
-@property (nonatomic, retain) SIPackageMetadataMO *metadata;
+@property (nonatomic, strong) SIPackageMetadataMO *metadata;
 
 //- (BOOL)validateMetadata:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, retain) SIProductMO *product;
+@property (nonatomic, strong) SIProductMO *product;
 
 //- (BOOL)validateProduct:(id*)value_ error:(NSError**)error_;
 

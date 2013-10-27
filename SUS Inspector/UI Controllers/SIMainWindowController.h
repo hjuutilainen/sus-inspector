@@ -29,15 +29,15 @@
 
 @interface SIMainWindowController : NSWindowController <NSSplitViewDelegate, NSToolbarDelegate, NSMenuDelegate>
 
-@property (retain) SIProgressWindowController *progressWindowController;
-@property (retain) SIProductsViewController *productsViewController;
-@property (retain) SICatalogsViewController *catalogsViewController;
-@property (retain) SIReposadoConfigurationController *reposadoConfigurationController;
-@property (assign) IBOutlet NSView *leftView;
-@property (assign) IBOutlet NSView *rightView;
-@property (assign) IBOutlet NSSplitView *mainSplitView;
-@property (assign) IBOutlet NSMenuItem *sendToMunkiAdminMenuItem;
-@property (assign) IBOutlet NSMenu *shareMenu;
+@property (strong) SIProgressWindowController *progressWindowController;
+@property (strong) SIProductsViewController *productsViewController;
+@property (strong) SICatalogsViewController *catalogsViewController;
+@property (strong) SIReposadoConfigurationController *reposadoConfigurationController;
+@property (weak) IBOutlet NSView *leftView;
+@property (weak) IBOutlet NSView *rightView;
+@property (weak) IBOutlet NSSplitView *mainSplitView;
+@property (weak) IBOutlet NSMenuItem *sendToMunkiAdminMenuItem;
+@property (weak) IBOutlet NSMenu *shareMenu;
 
 - (void)showProgressPanel;
 - (void)showProgressPanelAttachedToWindow:(NSWindow *)aWindow;

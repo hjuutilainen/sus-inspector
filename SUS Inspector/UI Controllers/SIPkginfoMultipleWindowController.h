@@ -27,41 +27,41 @@
 
 # pragma mark -
 # pragma mark Properties
-@property (retain) NSArray *products;
-@property (retain) NSNumber *includeDisplayName;
-@property (retain) NSNumber *overrideDisplayName;
-@property (retain) NSString *displayName;
+@property (strong) NSArray *products;
+@property (strong) NSNumber *includeDisplayName;
+@property (strong) NSNumber *overrideDisplayName;
+@property (strong) NSString *displayName;
 
-@property (retain) NSNumber *includeOriginalVersion;
-@property (retain) NSNumber *overrideVersion;
-@property (retain) NSString *version;
+@property (strong) NSNumber *includeOriginalVersion;
+@property (strong) NSNumber *overrideVersion;
+@property (strong) NSString *version;
 
-@property (retain) NSNumber *includeOriginalDescription;
-@property (retain) NSNumber *includeOriginalDescriptionType;
+@property (strong) NSNumber *includeOriginalDescription;
+@property (strong) NSNumber *includeOriginalDescriptionType;
 
-@property (retain) NSNumber *includeRestartAction;
-@property (retain) NSString *restartAction;
-@property (retain) NSArray *restartActionTemplates;
+@property (strong) NSNumber *includeRestartAction;
+@property (strong) NSString *restartAction;
+@property (strong) NSArray *restartActionTemplates;
 
-@property (retain) NSNumber *includeCatalogs;
-@property (retain) NSArray *munki_catalogs;
+@property (strong) NSNumber *includeCatalogs;
+@property (strong) NSArray *munki_catalogs;
 
-@property (retain) NSNumber *includeUnattendedInstall;
+@property (strong) NSNumber *includeUnattendedInstall;
 
-@property (retain) NSNumber *includeForceInstallAfterDate;
-@property (retain) NSDate *forceInstallAfterDate;
+@property (strong) NSNumber *includeForceInstallAfterDate;
+@property (strong) NSDate *forceInstallAfterDate;
 
-@property (retain) NSNumber *includeBlockingApplications;
-@property (retain) NSArray *munki_blocking_applications;
+@property (strong) NSNumber *includeBlockingApplications;
+@property (strong) NSArray *munki_blocking_applications;
 
-@property (readonly, retain) NSArray *pkginfos;
+@property (readonly, strong) NSArray *pkginfos;
 
 
 # pragma mark -
 # pragma mark IBOutlets
-@property (assign) IBOutlet NSArrayController *productsArrayController;
-@property (assign) IBOutlet NSTokenField *catalogsTokenField;
-@property (assign) IBOutlet NSTokenField *blockingAppsTokenField;
-@property (assign) IBOutlet NSDatePicker *forceAfterDatePicker;
+@property (weak) IBOutlet NSArrayController *productsArrayController;
+@property (weak) IBOutlet NSTokenField *catalogsTokenField;
+@property (weak) IBOutlet NSTokenField *blockingAppsTokenField;
+@property (weak) IBOutlet NSDatePicker *forceAfterDatePicker;
 
 @end

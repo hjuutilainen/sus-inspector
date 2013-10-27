@@ -29,18 +29,18 @@
 
 @interface SIAppDelegate : NSObject <NSApplicationDelegate, SIOperationManagerDelegate, SIReposadoConfigurationControllerDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSArrayController *productsArrayController;
+@property (weak) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSArrayController *productsArrayController;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
-@property (retain) SIMainWindowController *mainWindowController;
-@property (retain) SIPreferencesController *preferencesController;
-@property (retain) SIReposadoInstanceMO *defaultReposadoInstance;
-@property (assign) IBOutlet NSArrayController *catalogsArrayController;
-@property (assign) IBOutlet NSTreeController *sourceListTreeController;
+@property (strong) SIMainWindowController *mainWindowController;
+@property (strong) SIPreferencesController *preferencesController;
+@property (strong) SIReposadoInstanceMO *defaultReposadoInstance;
+@property (weak) IBOutlet NSArrayController *catalogsArrayController;
+@property (weak) IBOutlet NSTreeController *sourceListTreeController;
 
 - (IBAction)saveAction:(id)sender;
 - (IBAction)reposyncAction:(id)sender;

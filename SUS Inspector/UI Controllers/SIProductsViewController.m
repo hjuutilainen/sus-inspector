@@ -36,8 +36,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.pkginfoWindowControllers = [[NSMutableArray new] autorelease];
-        self.productInfoWindowControllers = [[NSMutableArray new] autorelease];
+        self.pkginfoWindowControllers = [NSMutableArray new];
+        self.productInfoWindowControllers = [NSMutableArray new];
     }
     
     return self;
@@ -73,7 +73,7 @@
 - (void)openGetInfoWindow
 {
     for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
-        SIProductInfoWindowController *newInfoWindow = [[[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"] autorelease];
+        SIProductInfoWindowController *newInfoWindow = [[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"];
         newInfoWindow.delegate = self;
         [self.productInfoWindowControllers addObject:newInfoWindow];
         [newInfoWindow setProduct:aProduct];
@@ -98,7 +98,7 @@
     NSArray *pb_types = [NSArray arrayWithObjects:NSStringPboardType, nil];
     [pb declareTypes:pb_types owner:nil];
     
-    NSMutableArray *productIDStrings = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *productIDStrings = [[NSMutableArray alloc] init];
     for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
         [productIDStrings addObject:aProduct.productID];
     }
@@ -117,7 +117,7 @@
     NSArray *pb_types = [NSArray arrayWithObjects:NSStringPboardType, nil];
     [pb declareTypes:pb_types owner:nil];
     
-    NSMutableArray *productIDStrings = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *productIDStrings = [[NSMutableArray alloc] init];
     for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
         [productIDStrings addObject:aProduct.productTitle];
     }
@@ -182,7 +182,7 @@
 
 - (void)sendSelectedItemsToMunkiAdmin
 {
-    NSMutableArray *productsToSend = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *productsToSend = [[NSMutableArray alloc] init];
     for (SIProductMO *aProduct in [self.productsArrayController selectedObjects]) {
         [productsToSend addObject:aProduct];
     }
@@ -233,7 +233,7 @@
         NSArray *sortedDistributions = [selectedProduct.distributions sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortByLanguage]];
         [sortedDistributions enumerateObjectsWithOptions:0 usingBlock:^(SIDistributionMO *obj, NSUInteger idx, BOOL *stop) {
             NSString *language = obj.distributionLanguageDisplayName;
-            NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:language action:@selector(distributionFilesMenuAction:) keyEquivalent:@""] autorelease];
+            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:language action:@selector(distributionFilesMenuAction:) keyEquivalent:@""];
             [item setTarget:self];
             [item setRepresentedObject:obj];
             [self.distributionFilesMenu addItem:item];
@@ -254,7 +254,7 @@
              */
             title = [NSString stringWithFormat:@"%@", [obj packageFilename]];
             
-            NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:title action:@selector(packagesMenuAction:) keyEquivalent:@""] autorelease];
+            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title action:@selector(packagesMenuAction:) keyEquivalent:@""];
             [item setTarget:self];
             [item setRepresentedObject:obj];
             NSImage *icon = [obj iconImage];
@@ -280,7 +280,7 @@
     //self.productInfoWindowController = [[[SIProductInfoWindowController alloc] initWithWindowNibName:@"SIProductInfoWindowController"] autorelease];
     //self.pkginfoWindowController = [[[SIPkginfoWindowController alloc] initWithWindowNibName:@"SIPkginfoWindowController"] autorelease];
     
-    self.multiplePkginfoController = [[[SIPkginfoMultipleWindowController alloc] initWithWindowNibName:@"SIPkginfoMultipleWindowController"] autorelease];
+    self.multiplePkginfoController = [[SIPkginfoMultipleWindowController alloc] initWithWindowNibName:@"SIPkginfoMultipleWindowController"];
     (void)[self.multiplePkginfoController window];
 }
 
