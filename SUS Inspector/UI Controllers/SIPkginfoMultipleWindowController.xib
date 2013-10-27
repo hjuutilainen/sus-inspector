@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <deployment defaultVersion="1080" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SIPkginfoMultipleWindowController">
@@ -19,13 +19,13 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="283" y="305" width="366" height="435"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1366" height="746"/>
             <view key="contentView" id="106">
                 <rect key="frame" x="0.0" y="0.0" width="366" height="435"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="152">
-                        <rect key="frame" x="67" y="370" width="239" height="18"/>
+                        <rect key="frame" x="67" y="370" width="238" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Product name as the display name" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="182">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -36,7 +36,7 @@
                         </connections>
                     </button>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="153">
-                        <rect key="frame" x="67" y="318" width="99" height="18"/>
+                        <rect key="frame" x="67" y="318" width="98" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Description:" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="181">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -98,7 +98,7 @@
                             <calendarDate key="date" timeIntervalSinceReferenceDate="-595929600" calendarFormat="%Y-%m-%d %H:%M:%S %z">
                                 <!--1982-02-12 08:00:00 -0800-->
                                 <timeZone key="timeZone" name="US/Pacific">
-                                    <mutableData key="data">
+                                    <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -116,7 +116,7 @@ f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</mutableData>
+</data>
                                 </timeZone>
                             </calendarDate>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -124,8 +124,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES"/>
                         </datePickerCell>
                         <connections>
-                            <binding destination="-2" name="enabled" keyPath="includeForceInstallAfterDate" id="184"/>
                             <binding destination="-2" name="value" keyPath="forceInstallAfterDate" id="190"/>
+                            <binding destination="-2" name="enabled" keyPath="includeForceInstallAfterDate" id="184"/>
                         </connections>
                     </datePicker>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="158">
@@ -192,14 +192,14 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </connections>
                     </tokenField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="162">
-                        <rect key="frame" x="170" y="313" width="142" height="26"/>
+                        <rect key="frame" x="169" y="313" width="142" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="137" id="232"/>
                         </constraints>
                         <popUpButtonCell key="cell" type="push" title="Plain text" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="172" id="169">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="170">
                                 <items>
                                     <menuItem title="Plain text" state="on" id="172"/>
@@ -213,7 +213,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </connections>
                     </popUpButton>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="163">
-                        <rect key="frame" x="188" y="13" width="164" height="32"/>
+                        <rect key="frame" x="189" y="13" width="163" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Save pkginfo files..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="168">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -227,7 +227,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="164">
-                        <rect key="frame" x="106" y="13" width="82" height="32"/>
+                        <rect key="frame" x="107" y="13" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="167">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -241,7 +241,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="216">
-                        <rect key="frame" x="17" y="398" width="166" height="17"/>
+                        <rect key="frame" x="18" y="398" width="168" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="User visible information" id="217">
                             <font key="font" metaFont="systemBold"/>
@@ -258,20 +258,20 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </comboBoxCell>
                         <connections>
-                            <binding destination="-2" name="contentValues" keyPath="restartActionTemplates" id="210"/>
                             <binding destination="-2" name="enabled" keyPath="includeRestartAction" id="208"/>
                             <binding destination="-2" name="value" keyPath="restartAction" previousBinding="210" id="211"/>
+                            <binding destination="-2" name="contentValues" keyPath="restartActionTemplates" id="210"/>
                         </connections>
                     </comboBox>
                     <box autoresizesSubviews="NO" verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="215">
-                        <rect key="frame" x="188" y="404" width="166" height="5"/>
+                        <rect key="frame" x="192" y="404" width="162" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="218">
-                        <rect key="frame" x="17" y="284" width="80" height="17"/>
+                        <rect key="frame" x="18" y="284" width="81" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Installation" id="220">
                             <font key="font" metaFont="systemBold"/>
@@ -280,7 +280,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <box autoresizesSubviews="NO" verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="219">
-                        <rect key="frame" x="102" y="290" width="252" height="5"/>
+                        <rect key="frame" x="105" y="290" width="249" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

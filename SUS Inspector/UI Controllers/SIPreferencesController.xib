@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <deployment defaultVersion="1080" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SIPreferencesController">
@@ -23,7 +23,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="550" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1366" height="746"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -33,15 +33,15 @@
             </connections>
         </window>
         <customView id="5" userLabel="Munki View">
-            <rect key="frame" x="0.0" y="0.0" width="550" height="400"/>
+            <rect key="frame" x="0.0" y="0.0" width="551" height="400"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                    <rect key="frame" x="188" y="181" width="290" height="158"/>
+                    <rect key="frame" x="189" y="181" width="290" height="158"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" id="Bz0-Un-APG">
                         <rect key="frame" x="1" y="17" width="288" height="140"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" headerView="755" id="7">
                                 <rect key="frame" x="0.0" y="0.0" width="288" height="140"/>
@@ -90,11 +90,11 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="158" id="182"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="290" id="580"/>
                     </constraints>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="8">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="8">
                         <rect key="frame" x="1" y="141" width="275" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="10">
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="10">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -104,7 +104,7 @@
                     </tableHeaderView>
                 </scrollView>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="25">
-                    <rect key="frame" x="68" y="322" width="115" height="17"/>
+                    <rect key="frame" x="69" y="322" width="114" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pkginfo Catalogs:" id="26">
                         <font key="font" metaFont="system"/>
@@ -113,7 +113,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="72">
-                    <rect key="frame" x="87" y="362" width="96" height="17"/>
+                    <rect key="frame" x="88" y="362" width="95" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="File Extension:" id="73">
                         <font key="font" metaFont="system"/>
@@ -122,14 +122,14 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="205">
-                    <rect key="frame" x="186" y="356" width="146" height="26"/>
+                    <rect key="frame" x="187" y="356" width="146" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="141" id="216"/>
                     </constraints>
                     <popUpButtonCell key="cell" type="push" title=".plist" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="208" id="206">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="207">
                             <items>
                                 <menuItem title=".plist" state="on" id="208"/>
@@ -144,7 +144,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="226">
-                    <rect key="frame" x="68" y="114" width="115" height="17"/>
+                    <rect key="frame" x="69" y="114" width="114" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Default Contents:" id="227">
                         <font key="font" metaFont="system"/>
@@ -153,7 +153,7 @@
                     </textFieldCell>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="232">
-                    <rect key="frame" x="186" y="113" width="109" height="18"/>
+                    <rect key="frame" x="187" y="113" width="108" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Display Name" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="233">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -164,7 +164,7 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="237">
-                    <rect key="frame" x="186" y="91" width="70" height="18"/>
+                    <rect key="frame" x="187" y="91" width="69" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Version" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="238">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -175,7 +175,7 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="530">
-                    <rect key="frame" x="186" y="69" width="137" height="18"/>
+                    <rect key="frame" x="187" y="69" width="137" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Unattended install" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="531">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -186,7 +186,7 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="242">
-                    <rect key="frame" x="186" y="47" width="112" height="18"/>
+                    <rect key="frame" x="187" y="47" width="111" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Description as" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="243">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -204,7 +204,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="push" title="Plain Text" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="260" id="258">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="259">
                             <items>
                                 <menuItem title="Plain Text" state="on" id="260">
@@ -222,7 +222,7 @@
                     </connections>
                 </popUpButton>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="677" customClass="SIGradientButtonBarView">
-                    <rect key="frame" x="188" y="157" width="290" height="25"/>
+                    <rect key="frame" x="189" y="157" width="290" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="707">
@@ -318,7 +318,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="610">
-                    <rect key="frame" x="78" y="287" width="162" height="17"/>
+                    <rect key="frame" x="79" y="287" width="160" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="View distribution files in:" id="611">
                         <font key="font" metaFont="system"/>
@@ -332,12 +332,12 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="179" id="626"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="617">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="617">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="618">
                             <items>
-                                <menuItem title="Item 1" state="on" id="619"/>
+                                <menuItem title="Item 1" id="619"/>
                                 <menuItem title="Item 2" id="620"/>
                                 <menuItem title="Item 3" id="621"/>
                             </items>
@@ -348,7 +348,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="632">
-                    <rect key="frame" x="112" y="244" width="128" height="17"/>
+                    <rect key="frame" x="111" y="244" width="128" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Preferred language:" id="633">
                         <font key="font" metaFont="system"/>
