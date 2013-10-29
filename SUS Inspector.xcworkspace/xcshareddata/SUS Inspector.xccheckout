@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>345D5207-DCC4-42E1-9F36-8BDBF2BA0FE3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SUS Inspector</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>154DD8B1-94CC-4892-958A-994AE23E30F8</key>
+		<string>ssh://github.com/hjuutilainen/sus-inspector.git</string>
+		<key>89E4B6F4-E191-4CD6-8EB1-D29EC745A382</key>
+		<string>ssh://github.com/hjuutilainen/reposado.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SUS Inspector.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>154DD8B1-94CC-4892-958A-994AE23E30F8</key>
+		<string>..</string>
+		<key>89E4B6F4-E191-4CD6-8EB1-D29EC745A382</key>
+		<string>../reposado</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/hjuutilainen/sus-inspector.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>154DD8B1-94CC-4892-958A-994AE23E30F8</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>89E4B6F4-E191-4CD6-8EB1-D29EC745A382</string>
+			<key>IDESourceControlWCCName</key>
+			<string>reposado</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>154DD8B1-94CC-4892-958A-994AE23E30F8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>sus-inspector</string>
+		</dict>
+	</array>
+</dict>
+</plist>
