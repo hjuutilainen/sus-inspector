@@ -42,7 +42,9 @@ SUS Inspector requires OS X 10.8 or later.
 
 ## INSTALLATION
 
-At the moment, the only way to run SUS Inspector is to build from source:
+Early preview release can be downloaded from the [Releases page](https://github.com/hjuutilainen/sus-inspector/releases)
+
+The other way to run SUS Inspector is to build from source:
 
 1. Clone the project (including the Reposado submodule)
 
