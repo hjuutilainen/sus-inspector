@@ -193,7 +193,9 @@
      */
     NSTextField *productSizeLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Size", nil) identifier:@"productSizeLabel" superView:parentView];
     NSTextField *productSizeTextField = [self addTextFieldWithidentifier:@"productSizeTextField" superView:parentView];
-    SISizeFormatter *fileSizeFormatter = [[SISizeFormatter alloc] init];
+    //SISizeFormatter *fileSizeFormatter = [[SISizeFormatter alloc] init];
+    NSByteCountFormatter *fileSizeFormatter = [[NSByteCountFormatter alloc] init];
+    fileSizeFormatter.includesActualByteCount = YES;
     [productSizeTextField setFormatter:fileSizeFormatter];
     [productSizeTextField bind:@"value" toObject:self withKeyPath:@"product.productSize" options:bindOptions];
     

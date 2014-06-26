@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Hannes Juutilainen. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface SUS_InspectorTests : SenTestCase
+@interface SUS_InspectorTests : XCTestCase
 
 @end

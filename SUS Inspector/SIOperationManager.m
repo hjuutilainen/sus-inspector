@@ -139,7 +139,7 @@ static dispatch_queue_t serialQueue;
      */
     SISourceListItemMO *productsGroupItem = [self sourceListItemWithTitle:@"PRODUCTS" managedObjectContext:moc];
     productsGroupItem.isGroupItemValue = YES;
-    productsGroupItem.sortIndexValue = index;
+    productsGroupItem.sortIndex = [NSNumber numberWithUnsignedInteger:index];
     
     /*
      All Products item
@@ -195,7 +195,7 @@ static dispatch_queue_t serialQueue;
      */
     SISourceListItemMO *productGroupsGroupItem = [self sourceListItemWithTitle:@"PRODUCT GROUPS" managedObjectContext:moc];
     productGroupsGroupItem.isGroupItemValue = YES;
-    productGroupsGroupItem.sortIndexValue = index;
+    productGroupsGroupItem.sortIndex = [NSNumber numberWithUnsignedInteger:index];
     
     /*
      Remove all child items in this section
@@ -364,7 +364,7 @@ static dispatch_queue_t serialQueue;
      */
     SISourceListItemMO *catalogsGroupItem = [self sourceListItemWithTitle:@"CATALOGS" managedObjectContext:moc];
     catalogsGroupItem.isGroupItemValue = YES;
-    catalogsGroupItem.sortIndexValue = index;
+    catalogsGroupItem.sortIndex = [NSNumber numberWithUnsignedInteger:index];
     
     /*
      Fetch all catalogs and create source list items
