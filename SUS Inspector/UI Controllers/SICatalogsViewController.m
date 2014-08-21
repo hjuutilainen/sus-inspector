@@ -21,6 +21,7 @@
 
 #import "SICatalogsViewController.h"
 #import "DataModelHeaders.h"
+#import "SIAppDelegate.h"
 
 @interface SICatalogsViewController ()
 
@@ -42,7 +43,7 @@
 
 - (void)enableAllBindings
 {
-    [self.sourceListTreeController setManagedObjectContext:[[NSApp delegate] managedObjectContext]];
+    [self.sourceListTreeController setManagedObjectContext:[(SIAppDelegate *)[NSApp delegate] managedObjectContext]];
     [self.sourceListTreeController setEntityName:@"SISourceListItem"];
     if ([self.sourceListTreeController fetchWithRequest:nil merge:YES error:nil]) {
         [self.sourceListTreeController setAutomaticallyPreparesContent:YES];

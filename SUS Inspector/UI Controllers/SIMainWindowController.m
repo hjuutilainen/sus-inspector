@@ -82,8 +82,8 @@
 - (IBAction)reposyncAction:(id)sender
 {
     SIOperationManager *operationManager = [SIOperationManager sharedManager];
-    operationManager.delegate = [NSApp delegate];
-    [operationManager runReposync:[[NSApp delegate] defaultReposadoInstance]];
+    operationManager.delegate = (SIAppDelegate *)[NSApp delegate];
+    [operationManager runReposync:[(SIAppDelegate *)[NSApp delegate] defaultReposadoInstance]];
 }
 
 - (IBAction)createPkginfoAction:(id)sender

@@ -24,6 +24,7 @@
 #import "SIOperationManager.h"
 #import "SIPackageOperator.h"
 #import "SISizeFormatter.h"
+#import "SIAppDelegate.h"
 
 @interface SIProductInfoWindowController ()
 
@@ -42,7 +43,7 @@
 
 - (NSManagedObjectContext *)managedObjectContext
 {
-    return [[NSApp delegate] managedObjectContext];
+    return [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
 }
 
 - (void)showWindow:(id)sender

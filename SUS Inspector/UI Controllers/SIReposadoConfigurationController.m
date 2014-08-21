@@ -97,7 +97,7 @@
 - (IBAction)resetCatalogsToDefaultAction:(id)sender
 {
     // Delete catalogs
-    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
     for (SICatalogMO *aCatalog in self.reposadoInstance.catalogs) {
         [moc deleteObject:aCatalog];
     }
@@ -143,11 +143,11 @@
             [[NSFileManager defaultManager] removeItemAtURL:oldLocation error:nil];
         }
         
-        [[NSApp delegate] createDirectoriesForReposadoAtURL:newLocation];
+        [(SIAppDelegate *)[NSApp delegate] createDirectoriesForReposadoAtURL:newLocation];
         
         self.reposadoInstance.reposadoInstallURL = newLocation;
         
-        [[[NSApp delegate] managedObjectContext] save:nil];
+        [[(SIAppDelegate *)[NSApp delegate] managedObjectContext] save:nil];
     }
 }
 

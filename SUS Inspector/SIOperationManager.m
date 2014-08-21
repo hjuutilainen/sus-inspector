@@ -100,7 +100,7 @@ static dispatch_queue_t serialQueue;
 - (NSArray *)allCatalogs
 {
     NSArray *catalogs = nil;
-    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
     NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
     [fetchProducts setEntity:[NSEntityDescription entityForName:@"SICatalog" inManagedObjectContext:moc]];
     NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchProducts error:nil];
@@ -403,7 +403,7 @@ static dispatch_queue_t serialQueue;
 
 - (void)setupSourceListGroupItems
 {
-    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
     
     /*
      The PRODUCTS group item
@@ -433,7 +433,7 @@ static dispatch_queue_t serialQueue;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SIWillStartSetupSourceListItems" object:nil];
     }];
     
-    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
     [self createProductsSectionWithIndex:0 managedObjectContext:moc];
     [self createProductGroupsSectionWithIndex:1 managedObjectContext:moc];
     [self createCatalogsSectionWithIndex:2 managedObjectContext:moc];
@@ -450,7 +450,7 @@ static dispatch_queue_t serialQueue;
 - (void)readPackageMetadataFiles:(SIReposadoInstanceMO *)reposadoInstance
 {
     // Fetch all Packages with metadataURL
-    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
     NSEntityDescription *catalogEntityDescr = [NSEntityDescription entityForName:@"SIPackage" inManagedObjectContext:moc];
     NSFetchRequest *fetchForCatalogs = [[NSFetchRequest alloc] init];
     NSPredicate *notDeprecated = [NSPredicate predicateWithFormat:@"metadata = nil"];
@@ -474,7 +474,7 @@ static dispatch_queue_t serialQueue;
     for (SIPackageMO *aPackage in packages) {
         NSString *packageURL = aPackage.objectURL;
         
-        NSString *packageLocalPath = [[[NSApp delegate] defaultReposadoInstance] getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
+        NSString *packageLocalPath = [[(SIAppDelegate *)[NSApp delegate] defaultReposadoInstance] getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
         if ([fileManager fileExistsAtPath:packageLocalPath]) {
             NSLog(@"Exists %@", packageLocalPath);
             aPackage.objectIsCachedValue = YES;
@@ -485,12 +485,12 @@ static dispatch_queue_t serialQueue;
             aPackage.objectCachedPath = nil;
         }
         
-        [[[NSApp delegate] managedObjectContext] refreshObject:aPackage mergeChanges:YES];
+        [[(SIAppDelegate *)[NSApp delegate] managedObjectContext] refreshObject:aPackage mergeChanges:YES];
         
         // Check if the package has a metadata URL
         SIPackageMetadataMO *metadataObject = aPackage.metadata;
         if (metadataObject) {
-            NSString *packageMetadataLocalPath = [[[NSApp delegate] defaultReposadoInstance] getLocalFilePathFromRemoteURL:[NSURL URLWithString:metadataObject.objectURL]];
+            NSString *packageMetadataLocalPath = [[(SIAppDelegate *)[NSApp delegate] defaultReposadoInstance] getLocalFilePathFromRemoteURL:[NSURL URLWithString:metadataObject.objectURL]];
             if ([fileManager fileExistsAtPath:packageMetadataLocalPath]) {
                 metadataObject.objectIsCachedValue = YES;
                 metadataObject.objectCachedPath = packageMetadataLocalPath;
@@ -504,7 +504,7 @@ static dispatch_queue_t serialQueue;
 
 - (void)deleteAllObjectsForEntityName:(NSString *)entity
 {
-    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:entity inManagedObjectContext:moc]];
     NSArray *foundObjects = [moc executeFetchRequest:fetchRequest error:nil];
@@ -647,7 +647,7 @@ static dispatch_queue_t serialQueue;
      [runButton setAction:@selector(printBanner:)];
      */
     
-    [self readReposadoInstanceContentsAsync:[[NSApp delegate] defaultReposadoInstance] force:NO];
+    [self readReposadoInstanceContentsAsync:[(SIAppDelegate *)[NSApp delegate] defaultReposadoInstance] force:NO];
     //[self willEndOperations];
 }
 
@@ -691,7 +691,7 @@ static dispatch_queue_t serialQueue;
         /*
          Create a thread safe context
          */
-        NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+        NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
         [moc performBlockWithPrivateQueueConcurrency:^(NSManagedObjectContext *threadSafeMoc) {
             
             /*
@@ -777,7 +777,7 @@ static dispatch_queue_t serialQueue;
 - (void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename
 {
     NSURL *requestURL = [[download request] URL];
-    SIReposadoInstanceMO *defaultRep = [[NSApp delegate] defaultReposadoInstance];
+    SIReposadoInstanceMO *defaultRep = [(SIAppDelegate *)[NSApp delegate] defaultReposadoInstance];
     NSString *joined = [[defaultRep getLocalFileURLFromRemoteURL:requestURL] path];
     [download setDestination:joined allowOverwrite:YES];
 }
@@ -785,7 +785,7 @@ static dispatch_queue_t serialQueue;
 - (void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path
 {
     NSURL *requestURL = [[download request] URL];
-    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
     
     // Determine what kind of file we just downloaded
     NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];
@@ -813,7 +813,7 @@ static dispatch_queue_t serialQueue;
 - (void)downloadDidFinish:(NSURLDownload *)download
 {
     NSURL *requestURL = [[download request] URL];
-    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
     
     // Determine what kind of file we just downloaded
     NSFetchRequest *fetchObjects = [[NSFetchRequest alloc] init];

@@ -42,7 +42,7 @@ static const int ImportBatchSize = 50;
 {
 	if ((self = [super init])) {
 		self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        self.context.persistentStoreCoordinator = [[NSApp delegate] persistentStoreCoordinator];
+        self.context.persistentStoreCoordinator = [(SIAppDelegate *)[NSApp delegate] persistentStoreCoordinator];
         self.context.undoManager = nil;
         self.reposadoInstance = (SIReposadoInstanceMO *)[self.context objectWithID:instanceID];
         self.force = force;
@@ -138,7 +138,7 @@ static const int ImportBatchSize = 50;
 - (NSArray *)allCatalogs
 {
     NSArray *catalogs = nil;
-    NSManagedObjectContext *moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
     NSFetchRequest *fetchProducts = [[NSFetchRequest alloc] init];
     [fetchProducts setEntity:[NSEntityDescription entityForName:@"SICatalog" inManagedObjectContext:moc]];
     NSUInteger numFoundCatalogs = [moc countForFetchRequest:fetchProducts error:nil];
