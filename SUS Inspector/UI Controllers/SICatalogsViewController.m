@@ -68,7 +68,7 @@
 - (void)awakeFromNib
 {
     NSSortDescriptor *sortByIndex = [NSSortDescriptor sortDescriptorWithKey:@"sortIndex" ascending:YES selector:@selector(compare:)];
-    NSSortDescriptor *sortByOSVersion = [NSSortDescriptor sortDescriptorWithKey:@"catalogReference.catalogOSVersion" ascending:NO selector:@selector(compare:)];
+    NSSortDescriptor *sortByOSVersion = [NSSortDescriptor sortDescriptorWithKey:@"catalogReference.catalogOSVersion" ascending:NO selector:@selector(localizedStandardCompare:)];
     NSSortDescriptor *sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)];
     [self.sourceListTreeController setSortDescriptors:[NSArray arrayWithObjects:sortByIndex, sortByOSVersion, sortByTitle, nil]];
     

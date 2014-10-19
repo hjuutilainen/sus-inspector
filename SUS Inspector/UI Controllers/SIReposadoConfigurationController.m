@@ -47,7 +47,7 @@
     [self.window center];
     
     NSSortDescriptor *sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"catalogDisplayName" ascending:YES selector:@selector(compare:)];
-    NSSortDescriptor *sortByOSVersion = [NSSortDescriptor sortDescriptorWithKey:@"catalogOSVersion" ascending:NO selector:@selector(compare:)];
+    NSSortDescriptor *sortByOSVersion = [NSSortDescriptor sortDescriptorWithKey:@"catalogOSVersion" ascending:NO selector:@selector(localizedStandardCompare:)];
     [self.catalogsArrayController setSortDescriptors:[NSArray arrayWithObjects:sortByOSVersion, sortByTitle, nil]];
 }
 
