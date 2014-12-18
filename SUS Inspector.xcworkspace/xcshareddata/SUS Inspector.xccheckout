@@ -10,33 +10,33 @@
 	<string>SUS Inspector</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>154DD8B1-94CC-4892-958A-994AE23E30F8</key>
-		<string>ssh://github.com/hjuutilainen/sus-inspector.git</string>
-		<key>89E4B6F4-E191-4CD6-8EB1-D29EC745A382</key>
+		<key>2F2E78C920CFEBC69AE1267ED6DADEA7DB4F018B</key>
 		<string>ssh://github.com/hjuutilainen/reposado.git</string>
+		<key>5CB18246586FE4CC81393A2633B3CB6393CF2F07</key>
+		<string>ssh://github.com/hjuutilainen/sus-inspector.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>SUS Inspector.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>154DD8B1-94CC-4892-958A-994AE23E30F8</key>
-		<string>..</string>
-		<key>89E4B6F4-E191-4CD6-8EB1-D29EC745A382</key>
+		<key>2F2E78C920CFEBC69AE1267ED6DADEA7DB4F018B</key>
 		<string>../reposado</string>
+		<key>5CB18246586FE4CC81393A2633B3CB6393CF2F07</key>
+		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/hjuutilainen/sus-inspector.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>154DD8B1-94CC-4892-958A-994AE23E30F8</string>
+	<string>5CB18246586FE4CC81393A2633B3CB6393CF2F07</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>89E4B6F4-E191-4CD6-8EB1-D29EC745A382</string>
+			<string>2F2E78C920CFEBC69AE1267ED6DADEA7DB4F018B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>reposado</string>
 		</dict>
@@ -44,7 +44,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>154DD8B1-94CC-4892-958A-994AE23E30F8</string>
+			<string>5CB18246586FE4CC81393A2633B3CB6393CF2F07</string>
 			<key>IDESourceControlWCCName</key>
 			<string>sus-inspector</string>
 		</dict>

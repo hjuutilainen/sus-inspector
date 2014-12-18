@@ -528,7 +528,7 @@ static dispatch_queue_t serialQueue;
     /*
      Create and run the import operation
      */
-    SIReposadoImportOperation *importOp = [SIReposadoImportOperation importReposadoInstanceWithID:instance.objectID force:force];
+    SIReposadoImportOperation *importOp = [SIReposadoImportOperation importReposadoInstanceWithID:[instance objectID] force:force];
     importOp.progressCallback = ^(float progress) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
              float percentage = progress * 100.0;
