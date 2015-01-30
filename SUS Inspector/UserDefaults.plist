@@ -21,6 +21,8 @@
 	</array>
 	<key>pkginfoDefaultFileExtension</key>
 	<string>.plist</string>
+	<key>pkginfoAddMetadata</key>
+	<true/>
 	<key>defaultMunkiCatalogs</key>
 	<array>
 		<dict>

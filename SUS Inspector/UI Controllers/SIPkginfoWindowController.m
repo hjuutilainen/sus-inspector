@@ -223,7 +223,16 @@
     if (!saveURL) {
         return;
     }
-    if (![[self pkginfo] writeToURL:saveURL atomically:YES encoding:NSUTF8StringEncoding error:nil]) {
+    
+    NSDictionary *pkginfo;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"pkginfoAddMetadata"]) {
+        pkginfo = [self pkginfoDictWithMetadata];
+    } else {
+        pkginfo = [self pkginfoDict];
+    }
+    
+    NSString *pkginfoAsString = [self stringRepresentationFromDictionary:pkginfo];
+    if (![pkginfoAsString writeToURL:saveURL atomically:YES encoding:NSUTF8StringEncoding error:nil]) {
         NSLog(@"Failed to write %@", [saveURL path]);
     }
 }
@@ -273,6 +282,33 @@
     return keyPaths;
 }
 
+- (NSDictionary *)pkginfoMetadata
+{
+    /*
+     Metadata
+     */
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSDate *now = [NSDate date];
+    NSOperatingSystemVersion operatingSystemVersion = [[NSProcessInfo processInfo] operatingSystemVersion];
+    NSInteger majorVersion = operatingSystemVersion.majorVersion;
+    NSInteger minorVersion = operatingSystemVersion.minorVersion;
+    NSInteger patchVersion = operatingSystemVersion.patchVersion;
+    NSString *osVersionString = [NSString stringWithFormat:@"%li.%li.%li", majorVersion, minorVersion, patchVersion];
+    NSDictionary *metadata = @{@"created_by": NSUserName(),
+                               @"creation_date": now,
+                               @"sus_inspector_version": version,
+                               @"os_version": osVersionString};
+    return @{@"_metadata": metadata};
+}
+
+- (NSDictionary *)pkginfoDictWithMetadata
+{
+    NSMutableDictionary *pkginfo = [NSMutableDictionary new];
+    [pkginfo addEntriesFromDictionary:[self pkginfoDict]];
+    [pkginfo addEntriesFromDictionary:[self pkginfoMetadata]];
+    return [NSDictionary dictionaryWithDictionary:pkginfo];
+}
+
 - (NSDictionary *)pkginfoDict
 {
     /*
@@ -304,6 +340,17 @@
         [dict setValue:(id)kCFBooleanTrue forKey:@"unattended_install"];
     }
     return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+- (NSString *)stringRepresentationFromDictionary:(NSDictionary *)dictionary
+{
+    NSError *error;
+    id plist = [NSPropertyListSerialization dataWithPropertyList:dictionary
+                                                          format:NSPropertyListXMLFormat_v1_0
+                                                         options:NSPropertyListImmutable
+                                                           error:&error];
+    NSString *returnString = [[NSString alloc] initWithData:plist encoding:NSUTF8StringEncoding];
+    return returnString;
 }
 
 - (NSString *)pkginfo

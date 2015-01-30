@@ -127,6 +127,25 @@
     return [html string];
 }
 
+- (NSDictionary *)pkginfoMetadata
+{
+    /*
+     Metadata
+     */
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSDate *now = [NSDate date];
+    NSOperatingSystemVersion operatingSystemVersion = [[NSProcessInfo processInfo] operatingSystemVersion];
+    NSInteger majorVersion = operatingSystemVersion.majorVersion;
+    NSInteger minorVersion = operatingSystemVersion.minorVersion;
+    NSInteger patchVersion = operatingSystemVersion.patchVersion;
+    NSString *osVersionString = [NSString stringWithFormat:@"%li.%li.%li", majorVersion, minorVersion, patchVersion];
+    NSDictionary *metadata = @{@"created_by": NSUserName(),
+                               @"creation_date": now,
+                               @"sus_inspector_version": version,
+                               @"os_version": osVersionString};
+    return @{@"_metadata": metadata};
+}
+
 - (NSDictionary *)pkginfoDictForProduct:(SIProductMO *)product
 {
     /*
@@ -156,6 +175,10 @@
     if ([self.includeRestartAction boolValue]) [dict setObject:self.restartAction forKey:@"RestartAction"];
     if ([self.includeForceInstallAfterDate boolValue]) {
         [dict setObject:self.forceInstallAfterDate forKey:@"force_install_after_date"];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"pkginfoAddMetadata"]) {
+        [dict addEntriesFromDictionary:[self pkginfoMetadata]];
     }
     
     /*
