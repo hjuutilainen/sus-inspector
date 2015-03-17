@@ -47,7 +47,7 @@ static NSSet *interestingKeys;
     
     //[parser release];
     
-    NSLog(@"items = %@", items);
+    //NSLog(@"items = %@", items);
     return YES;
 }
 
