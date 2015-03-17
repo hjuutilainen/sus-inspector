@@ -50,12 +50,12 @@ The other way to run SUS Inspector is to build from source:
 
 		$ git clone --recursive https://github.com/hjuutilainen/sus-inspector.git
 
-2. Open "SUS Inspector.xcodeproj" with Xcode and hit 'Run'
+2. Open "SUS Inspector.xcworkspace" with Xcode and hit 'Run'
 
 
 Building requires:
 
-* Xcode 5 or later
+* Xcode
 * Optional: [mogenerator + Xmo'd](http://github.com/rentzsch/mogenerator) 
 
 
