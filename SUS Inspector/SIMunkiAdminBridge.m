@@ -28,7 +28,7 @@
 
 @implementation SIMunkiAdminBridge
 
-#define kMunkiAdminBundleID @"fi.obsolete.MunkiAdmin"
+#define kMunkiAdminBundleID @"com.hjuutilainen.MunkiAdmin"
 
 // Notification names
 #define kMunkiAdminStatusUpdateRequestName @"SUSInspectorMunkiAdminStatusUpdateRequest"
