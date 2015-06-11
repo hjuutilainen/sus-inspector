@@ -40,7 +40,7 @@
 			<key>catalogOSVersion</key>
 			<string>10.11</string>
 			<key>catalogURL</key>
-			<string>http://swscan.apple.com/content/catalogs/others/index-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
+			<string>https://swscan.apple.com/content/catalogs/others/index-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>El Capitan</string>
 		</dict>
@@ -48,7 +48,7 @@
 			<key>catalogOSVersion</key>
 			<string>10.10</string>
 			<key>catalogURL</key>
-			<string>http://swscan.apple.com/content/catalogs/others/index-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
+			<string>https://swscan.apple.com/content/catalogs/others/index-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Yosemite</string>
 		</dict>
@@ -56,7 +56,7 @@
 			<key>catalogOSVersion</key>
 			<string>10.9</string>
 			<key>catalogURL</key>
-			<string>http://swscan.apple.com/content/catalogs/others/index-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
+			<string>https://swscan.apple.com/content/catalogs/others/index-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Mavericks</string>
 		</dict>

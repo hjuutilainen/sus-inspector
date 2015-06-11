@@ -161,8 +161,10 @@
     for (NSDictionary *defaultCatalog in [defaults arrayForKey:@"defaultCatalogs"]) {
         SICatalogMO *newCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"SICatalog" inManagedObjectContext:moc];
         NSString *defaultCatalogURL = [defaultCatalog objectForKey:@"catalogURL"];
-        NSString *newURL = [defaultCatalogURL stringByReplacingOccurrencesOfString:@"http://swscan.apple.com"
-                                                                        withString:defaultBaseURL];
+        NSString *newURL = [defaultCatalogURL stringByReplacingOccurrencesOfString:@"https?://swscan\\.apple\\.com"
+                                                                        withString:defaultBaseURL
+                                                                           options:NSRegularExpressionSearch
+                                                                             range:NSMakeRange(0, defaultCatalogURL.length)];
         newCatalog.catalogURL = newURL;
         newCatalog.catalogDisplayName = [defaultCatalog objectForKey:@"catalogDisplayName"];
         newCatalog.catalogOSVersion = [defaultCatalog objectForKey:@"catalogOSVersion"];
