@@ -476,11 +476,11 @@ static dispatch_queue_t serialQueue;
         
         NSString *packageLocalPath = [[(SIAppDelegate *)[NSApp delegate] defaultReposadoInstance] getLocalFilePathFromRemoteURL:[NSURL URLWithString:packageURL]];
         if ([fileManager fileExistsAtPath:packageLocalPath]) {
-            NSLog(@"Exists %@", packageLocalPath);
+            NSLog(@"Object is already cached at path %@", packageLocalPath);
             aPackage.objectIsCachedValue = YES;
             aPackage.objectCachedPath = packageLocalPath;
         } else {
-            NSLog(@"Doesn't exist %@", packageLocalPath);
+            NSLog(@"Object is not yet cached %@", packageLocalPath);
             aPackage.objectIsCachedValue = NO;
             aPackage.objectCachedPath = nil;
         }

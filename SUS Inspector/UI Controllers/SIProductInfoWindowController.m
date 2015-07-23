@@ -86,22 +86,68 @@
     
 }
 
+- (SIPackageMO *)clickedPackage
+{
+    NSUInteger clickedRow = (NSUInteger)[self.packagesTableView clickedRow];
+    SIPackageMO *clickedPackage = [[self.packagesArrayController arrangedObjects] objectAtIndex:clickedRow];
+    return clickedPackage;
+}
+
+- (NSArray *)selectedPackagesWithClickedObject
+{
+    NSMutableArray *packages = [NSMutableArray new];
+    SIPackageMO *clickedPackage = [self clickedPackage];
+    if (clickedPackage) {
+        [packages addObject:clickedPackage];
+    }
+    for (SIPackageMO *package in [self.packagesArrayController selectedObjects]) {
+        if (![packages containsObject:package]) {
+            [packages addObject:package];
+        }
+    }
+    return [NSArray arrayWithArray:packages];
+}
+
 - (IBAction)expandSelectedPackagesAction:(id)sender
 {
-    SIPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
-    [[SIPackageOperator sharedOperator] expandPackage:selectedPackage];
+    for (SIPackageMO *package in [self selectedPackagesWithClickedObject]) {
+        [[SIPackageOperator sharedOperator] expandPackage:package];
+    }
 }
 
 - (IBAction)extractOriginalsFromSelectedPackagesAction:(id)sender
 {
-    SIPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
-    [[SIPackageOperator sharedOperator] copyPackage:selectedPackage];
+    for (SIPackageMO *package in [self selectedPackagesWithClickedObject]) {
+        [[SIPackageOperator sharedOperator] copyPackage:package];
+    }
 }
 
 - (IBAction)extractPayloadFromSelectedPackagesAction:(id)sender
 {
-    SIPackageMO *selectedPackage = [[self.packagesArrayController selectedObjects] objectAtIndex:0];
-    [[SIPackageOperator sharedOperator] extractPackagePayload:selectedPackage];
+    for (SIPackageMO *package in [self selectedPackagesWithClickedObject]) {
+        [[SIPackageOperator sharedOperator] extractPackagePayload:package];
+    }
+}
+
+- (IBAction)copyPackageURLAction:(id)sender
+{
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    NSArray *pb_types = [NSArray arrayWithObjects:NSStringPboardType, nil];
+    [pb declareTypes:pb_types owner:nil];
+    
+    NSMutableArray *packageURLs = [[NSMutableArray alloc] init];
+    for (SIPackageMO *package in [self selectedPackagesWithClickedObject]) {
+        if (![packageURLs containsObject:package.objectURL]) {
+            [packageURLs addObject:package.objectURL];
+        }
+    }
+    
+    if ([packageURLs count] > 1) {
+        NSString *combinedIDs = [packageURLs componentsJoinedByString:@" "];
+        [pb setString:combinedIDs forType:NSStringPboardType];
+    } else if ([packageURLs count] == 1) {
+        [pb setString:[packageURLs objectAtIndex:0] forType:NSStringPboardType];
+    }
 }
 
 
