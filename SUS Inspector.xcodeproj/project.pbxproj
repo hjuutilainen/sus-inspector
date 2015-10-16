@@ -583,6 +583,7 @@
 				F5D151A416EDC11C0072EE5F /* reposado */,
 				290B799F3BA44537A1221DED /* Copy Pods Resources */,
 				F5214CE418B3BDAA001891E9 /* ShellScript */,
+				CD42F564752925FFEAB77C2B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -620,7 +621,7 @@
 			attributes = {
 				CLASSPREFIX = SI;
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Hannes Juutilainen";
 			};
 			buildConfigurationList = F5E06E3416E473FF008B7831 /* Build configuration list for PBXProject "SUS Inspector" */;
@@ -710,6 +711,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CD42F564752925FFEAB77C2B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F5214CE418B3BDAA001891E9 /* ShellScript */ = {
@@ -872,6 +888,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -926,6 +943,7 @@
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS Inspector/SUS Inspector-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "fi.obsolete.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -942,6 +960,7 @@
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS Inspector/SUS Inspector-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "fi.obsolete.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -960,6 +979,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS InspectorTests/SUS InspectorTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "fi.obsolete.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -977,6 +997,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS InspectorTests/SUS InspectorTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "fi.obsolete.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
