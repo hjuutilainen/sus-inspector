@@ -24,7 +24,7 @@
 
 @class SIProductMO;
 
-@interface SIProductInfoWindowController : NSWindowController <NSWindowDelegate, NSTokenFieldDelegate, NSTabViewDelegate> {
+@interface SIProductInfoWindowController : NSWindowController <NSWindowDelegate, NSTokenFieldDelegate, NSTabViewDelegate, WebPolicyDelegate> {
     
 }
 
