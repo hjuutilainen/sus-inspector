@@ -6,7 +6,7 @@ By default, SUS Inspector uses Apple's servers for the catalogs. If you are alre
 
 To do this, modify the base URL before launching SUS Inspector for the first time:
 
-    $ defaults write fi.obsolete.SUS-Inspector baseURL "http://reposado.example.com"
+    $ defaults write com.hjuutilainen.SUS-Inspector baseURL "http://reposado.example.com"
 
 Or edit the URL's manually on the first run setup window.
 
