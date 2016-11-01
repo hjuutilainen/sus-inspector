@@ -222,7 +222,7 @@ static dispatch_queue_t serialQueue;
     /*
      Firmware Updates item
      */
-    SISourceListItemMO *firmwareItem = [self sourceListItemWithTitle:@"Firmware" managedObjectContext:moc];
+    SISourceListItemMO *firmwareItem = [self sourceListItemWithTitle:@"Firmware Updates" managedObjectContext:moc];
     firmwareItem.iconImage = iconFolderSmart;
     firmwareItem.parent = productGroupsGroupItem;
     
@@ -234,15 +234,29 @@ static dispatch_queue_t serialQueue;
     firmwareItem.productFilterPredicate = firmwareFinalPredicate;
     
     /*
+     Gatekeeper & XProtect item
+     */
+    SISourceListItemMO *gatekeeperItem = [self sourceListItemWithTitle:@"Gatekeeper & XProtect" managedObjectContext:moc];
+    gatekeeperItem.iconImage = iconFolderSmart;
+    gatekeeperItem.parent = productGroupsGroupItem;
+    
+    NSArray *gatekeeperPredicates = @[[NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Gatekeeper\""], [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"XProtect\""]];
+    NSPredicate *gatekeeperCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:gatekeeperPredicates];
+    NSPredicate *gatekeeperFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[includeDeprecatedPredicate, gatekeeperCompoundPredicate]];
+    
+    gatekeeperItem.productFilterPredicate = gatekeeperFinalPredicate;
+    
+    /*
      OS Updates item
      */
     SISourceListItemMO *osItem = [self sourceListItemWithTitle:@"System Updates" managedObjectContext:moc];
     osItem.iconImage = iconFolderSmart;
     osItem.parent = productGroupsGroupItem;
     
-    NSPredicate *osxupdateInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"OS X Update\""];
-    NSPredicate *osxserverInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"OS X Server Update\""];
-    NSArray *osPredicates = [NSArray arrayWithObjects:osxupdateInTitlePredicate, osxserverInTitlePredicate, nil];
+    NSPredicate *osxupdateInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle matches[cd] \"OS X.*Update\""];
+    NSPredicate *osxserverInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle matches[cd] \"OS X.*Server.*Update\""];
+    NSPredicate *macOSInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle matches[cd] \"macOS.*Update\""];
+    NSArray *osPredicates = [NSArray arrayWithObjects:osxupdateInTitlePredicate, osxserverInTitlePredicate, macOSInTitlePredicate, nil];
     NSPredicate *osCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:osPredicates];
     NSPredicate *osFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, osCompoundPredicate, nil]];
     
@@ -255,7 +269,7 @@ static dispatch_queue_t serialQueue;
     securityItem.iconImage = iconFolderSmart;
     securityItem.parent = productGroupsGroupItem;
     
-    NSPredicate *securityInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Security Update\""];
+    NSPredicate *securityInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Security\""];
     NSArray *securityPredicates = [NSArray arrayWithObjects:securityInTitlePredicate, nil];
     NSPredicate *securityCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:securityPredicates];
     NSPredicate *securityFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, securityCompoundPredicate, nil]];
@@ -265,7 +279,7 @@ static dispatch_queue_t serialQueue;
     /*
      Printer Drivers item
      */
-    SISourceListItemMO *printerItem = [self sourceListItemWithTitle:@"Printers" managedObjectContext:moc];
+    SISourceListItemMO *printerItem = [self sourceListItemWithTitle:@"Printer Drivers" managedObjectContext:moc];
     printerItem.iconImage = iconFolderSmart;
     printerItem.parent = productGroupsGroupItem;
     
@@ -285,6 +299,7 @@ static dispatch_queue_t serialQueue;
     
     NSPredicate *proAppsInTitlePredicate = [NSPredicate predicateWithFormat:
                                             @"productTitle contains[cd] \"Pro Applications\" OR \
+                                            productTitle contains[cd] \"Pro Video\" OR \
                                             productTitle contains[cd] \"ProApps\""];
     NSPredicate *apertureInTitlePredicate = [NSPredicate predicateWithFormat:
                                              @"productTitle contains[cd] \"Aperture\""];
