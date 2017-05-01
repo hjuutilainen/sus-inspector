@@ -42,7 +42,7 @@ static dispatch_queue_t serialQueue;
     static dispatch_once_t onceQueue;
     
     dispatch_once(&onceQueue, ^{
-        serialQueue = dispatch_queue_create("fi.obsolete.sus-inspector.serialqueue", NULL);
+        serialQueue = dispatch_queue_create("com.hjuutilainen.sus-inspector.serialqueue", NULL);
         if (sharedManager == nil) {
             sharedManager = (SIOperationManager *) [super allocWithZone:zone];
         }

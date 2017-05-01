@@ -256,7 +256,7 @@ static dispatch_queue_t serialQueue;
     static dispatch_once_t onceQueue;
     
     dispatch_once(&onceQueue, ^{
-        serialQueue = dispatch_queue_create("fi.obsolete.sus-inspector.packageoperator.serialqueue", NULL);
+        serialQueue = dispatch_queue_create("com.hjuutilainen.sus-inspector.packageoperator.serialqueue", NULL);
         if (sharedOperator == nil) {
             sharedOperator = (SIPackageOperator *) [super allocWithZone:zone];
         }

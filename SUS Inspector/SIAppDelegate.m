@@ -311,7 +311,7 @@
 # pragma mark -
 # pragma mark Core data defaults
 
-// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "fi.obsolete.SUS_Inspector" in the user's Application Support directory.
+// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "com.hjuutilainen.SUS_Inspector" in the user's Application Support directory.
 - (NSURL *)applicationFilesDirectory
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];

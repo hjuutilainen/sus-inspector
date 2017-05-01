@@ -859,10 +859,8 @@
     [sharePopupButton setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
     [sharePopupButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    NSImage *shareImage = [[NSImage imageNamed:@"shareTemplate"] copy];
-    [shareImage setTemplate:NO];
     NSMenuItem *imageItem = [[NSMenuItem alloc] init];
-    [imageItem setImage:shareImage];
+    [imageItem setImage:[NSImage imageNamed:NSImageNameShareTemplate]];
     
     [[sharePopupButton cell] setUsesItemFromMenu:NO];
     [[sharePopupButton cell] setMenuItem:imageItem];
@@ -878,7 +876,7 @@
      Window layout
      */
     NSDictionary *topLevelComponents = NSDictionaryOfVariableBindings(splitView, savePkginfoButton, cancelButton, sharePopupButton);
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[sharePopupButton]-(12)-[cancelButton]-[savePkginfoButton]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=20)-[sharePopupButton(38@200)]-(12)-[cancelButton]-[savePkginfoButton]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[splitView]-(20)-[savePkginfoButton]-|" options:0 metrics:nil views:topLevelComponents]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[splitView]|" options:NSLayoutFormatAlignAllBottom metrics:nil views:topLevelComponents]];
     

@@ -133,7 +133,7 @@
 		F52601B8178D4C3900DBC6E4 /* SIReposadoImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIReposadoImportOperation.h; sourceTree = "<group>"; };
 		F52601B9178D4C3900DBC6E4 /* SIReposadoImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReposadoImportOperation.m; sourceTree = "<group>"; };
 		F53BDE4216E874D300055BC3 /* SIOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIOperationManager.h; sourceTree = "<group>"; };
-		F53BDE4316E874D300055BC3 /* SIOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIOperationManager.m; sourceTree = "<group>"; };
+		F53BDE4316E874D300055BC3 /* SIOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SIOperationManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F53BDE4916E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+HJGCDExtensions.h"; sourceTree = "<group>"; };
 		F53BDE4A16E882C000055BC3 /* NSManagedObjectContext+HJGCDExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+HJGCDExtensions.m"; sourceTree = "<group>"; };
 		F53BDE4C16E89BD100055BC3 /* SIProgressWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIProgressWindowController.h; path = "UI Controllers/SIProgressWindowController.h"; sourceTree = "<group>"; };
@@ -150,14 +150,14 @@
 		F559596C1740C1CC0077140B /* SITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SITableView.m; path = "View Subclasses/SITableView.m"; sourceTree = "<group>"; };
 		F5595972174113E00077140B /* SUS Inspector.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "SUS Inspector.icns"; sourceTree = "<group>"; };
 		F55EA4DA178FF2C80015717E /* SIMunkiAdminBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMunkiAdminBridge.h; sourceTree = "<group>"; };
-		F55EA4DB178FF2C80015717E /* SIMunkiAdminBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMunkiAdminBridge.m; sourceTree = "<group>"; };
+		F55EA4DB178FF2C80015717E /* SIMunkiAdminBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SIMunkiAdminBridge.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F56658AB179E979E00CE142B /* documentTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = documentTemplate.pdf; sourceTree = "<group>"; };
 		F56658B5179E9D7700CE142B /* infoTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = infoTemplate.pdf; sourceTree = "<group>"; };
 		F58FF41016F7530500EF58B0 /* MIT-License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "MIT-License.rtf"; sourceTree = "<group>"; };
 		F58FF41116F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
 		F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
 		F59340C1174A11F0003BBCEC /* SIPackageOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIPackageOperator.h; sourceTree = "<group>"; };
-		F59340C2174A11F0003BBCEC /* SIPackageOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIPackageOperator.m; sourceTree = "<group>"; };
+		F59340C2174A11F0003BBCEC /* SIPackageOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SIPackageOperator.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F5B7EAF11797FDBA0026AAE2 /* SIToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIToolbarItem.h; path = "View Subclasses/SIToolbarItem.h"; sourceTree = "<group>"; };
 		F5B7EAF21797FDBA0026AAE2 /* SIToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIToolbarItem.m; path = "View Subclasses/SIToolbarItem.m"; sourceTree = "<group>"; };
 		F5C6643B16EF1994009802F2 /* SIGradientButtonBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIGradientButtonBarView.h; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 		F5E06E4A16E473FF008B7831 /* SUS Inspector-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SUS Inspector-Prefix.pch"; sourceTree = "<group>"; };
 		F5E06E4C16E473FF008B7831 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		F5E06E4E16E473FF008B7831 /* SIAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIAppDelegate.h; sourceTree = "<group>"; };
-		F5E06E4F16E473FF008B7831 /* SIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIAppDelegate.m; sourceTree = "<group>"; };
+		F5E06E4F16E473FF008B7831 /* SIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SIAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F5E06E5216E473FF008B7831 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F5E06E5516E473FF008B7831 /* SUS_Inspector.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SUS_Inspector.xcdatamodel; sourceTree = "<group>"; };
 		F5E06E5C16E473FF008B7831 /* SUS InspectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SUS InspectorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };

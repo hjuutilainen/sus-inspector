@@ -46,7 +46,7 @@ static dispatch_queue_t serialQueue;
     static dispatch_once_t onceQueue;
     
     dispatch_once(&onceQueue, ^{
-        serialQueue = dispatch_queue_create("fi.obsolete.sus-inspector.SIMunkiAdminBridge.serialqueue", NULL);
+        serialQueue = dispatch_queue_create("com.hjuutilainen.sus-inspector.SIMunkiAdminBridge.serialqueue", NULL);
         if (sharedBridge == nil) {
             sharedBridge = (SIMunkiAdminBridge *) [super allocWithZone:zone];
         }
