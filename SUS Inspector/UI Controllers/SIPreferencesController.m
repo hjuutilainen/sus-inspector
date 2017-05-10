@@ -83,26 +83,6 @@
 
 - (void)setupTextEditor
 {
-    /*
-     NSString *utiValue;
-     NSURL *url = [NSURL fileURLWithPath:myFilePath];
-     [url getResourceValue:&utiValue forKey:NSURLTypeIdentifierKey error:nil];
-     if (utiValue)
-     {
-     NSLog(@"UTI: %@", utiValue);
-     }
-     
-     NSString *fileUTIByExt = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
-     (CFStringRef)[myFilePath pathExtension],
-     NULL) autorelease];
-     //NSLog(@"Filetype UTI: %@", fileUTIByExt);
-     NSArray *allUTIsForExt = [(NSArray *)UTTypeCreateAllIdentifiersForTag(kUTTagClassFilenameExtension,
-     (CFStringRef)[myFilePath pathExtension], NULL) autorelease];
-     for (NSString *subUTI in allUTIsForExt) {
-     NSLog(@"Filetype UTI: %@", subUTI);
-     }
-     */
-    
     CFStringRef distUTI = CFSTR("public.text");
     [self.distApplicationsPopUpButton removeAllItems];
     
@@ -110,14 +90,16 @@
     NSMutableArray *appDicts = [[NSMutableArray alloc] init];
     for (NSString *bundleIdentifier in roleHandlers) {
         NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:bundleIdentifier];
-        NSString *name = [[NSFileManager defaultManager] displayNameAtPath:path];
-        NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:path];
-        [icon setSize:NSMakeSize(16, 16)];
-        NSDictionary *appDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 path, @"path",
-                                 name, @"name",
-                                 icon, @"icon", nil];
-        [appDicts addObject:appDict];
+        if (path) {
+            NSString *name = [[NSFileManager defaultManager] displayNameAtPath:path];
+            NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:path];
+            [icon setSize:NSMakeSize(16, 16)];
+            NSDictionary *appDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     path, @"path",
+                                     name, @"name",
+                                     icon, @"icon", nil];
+            [appDicts addObject:appDict];
+        }
     }
     NSSortDescriptor *byTitle = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)];
     for (NSDictionary *appDict in [appDicts sortedArrayUsingDescriptors:[NSArray arrayWithObject:byTitle]]) {
