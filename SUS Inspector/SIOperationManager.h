@@ -21,7 +21,6 @@
 
 #import <Foundation/Foundation.h>
 #import "DataModelHeaders.h"
-#import "AMShellWrapper.h"
 
 @class SIOperationManager;
 @class SIPackageMetadataParser;
@@ -32,7 +31,7 @@
 - (void)willEndOperations:(SIOperationManager *)operationManager;
 @end
 
-@interface SIOperationManager : NSObject <AMShellWrapperDelegate, NSURLDownloadDelegate>
+@interface SIOperationManager : NSObject <NSURLDownloadDelegate>
 
 typedef enum {
     SIOperationTypeGeneric,
@@ -46,7 +45,6 @@ typedef enum {
 @property (strong) NSOperationQueue *operationQueue;
 @property (strong) NSString *currentOperationTitle;
 @property (strong) NSString *currentOperationDescription;
-@property (strong) AMShellWrapper *shellWrapper;
 @property (strong) NSArray *currentCatalogs;
 
 

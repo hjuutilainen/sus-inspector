@@ -200,9 +200,11 @@ static dispatch_queue_t serialQueue;
     /*
      Remove all child items in this section
      */
+    /*
     [productGroupsGroupItem.children enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         [moc deleteObject:obj];
     }];
+     */
     
     /*
      Java Updates item
@@ -538,7 +540,7 @@ static dispatch_queue_t serialQueue;
     /*
      Perform pre-operation tasks
      */
-    [self willStartOperations];
+    //[self willStartOperations];
     
     /*
      Create and run the import operation
@@ -567,25 +569,107 @@ static dispatch_queue_t serialQueue;
     [self deleteAllObjectsForEntityName:@"SIProduct"];
     
     self.currentCatalogs = [self allCatalogs];
-    NSArray *arguments = [NSArray arrayWithObjects:instance.reposyncPath, nil];
-    AMShellWrapper *wrapper = [[AMShellWrapper alloc] initWithInputPipe:nil
-                                                              outputPipe:nil
-                                                               errorPipe:nil
-                                                        workingDirectory:@"."
-                                                             environment:nil
-                                                               arguments:arguments
-                                                                 context:NULL];
-	[wrapper setDelegate:self];
-    self.shellWrapper = wrapper;
-    if (self.shellWrapper) {
-		[self.shellWrapper startProcess];
-	}
+    //NSArray *arguments = [NSArray arrayWithObjects:instance.reposyncPath, nil];
+    
+    self.currentOperationType = SIOperationTypeRepoSync;
+    self.currentOperationTitle = @"Refreshing catalogs...";
+    
+    NSTask *task = [[NSTask alloc] init];
+    NSString *launchPath = instance.reposyncPath;
+    task.launchPath = launchPath;
+    
+    NSMutableDictionary *defaultEnv = [[NSMutableDictionary alloc] initWithDictionary:[[NSProcessInfo processInfo] environment]];
+    [defaultEnv setObject:@"YES" forKey:@"NSUnbufferedIO"] ;
+    task.environment = defaultEnv;
+    
+    __block NSMutableString *standardOutput = [NSMutableString new];
+    task.standardOutput = [NSPipe pipe];
+    [[task.standardOutput fileHandleForReading] setReadabilityHandler:^(NSFileHandle *file) {
+        NSData *data = [file availableData];
+        NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [standardOutput appendString:string];
+        
+        NSString *cleanedMessage = [self cleanReposadoMessage:string];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (string.length > 0) {
+                self.currentOperationDescription = cleanedMessage;
+            }
+            
+        });
+    }];
+    
+    __block NSMutableString *standardError = [[NSMutableString alloc] init];
+    task.standardError = [NSPipe pipe];
+    [[task.standardError fileHandleForReading] setReadabilityHandler:^(NSFileHandle *file) {
+        NSData *data = [file availableData];
+        NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", string);
+        [standardError appendString:string];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //[weakSelf setCurrentStatusDescription:string];
+        });
+    }];
+    
+    [task setTerminationHandler:^(NSTask *aTask) {
+        
+        [aTask.standardOutput fileHandleForReading].readabilityHandler = nil;
+        [aTask.standardError fileHandleForReading].readabilityHandler = nil;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            int exitCode = aTask.terminationStatus;
+            if (exitCode == 0) {
+                NSLog(@"%@ succeeded.", aTask.launchPath);
+                
+                [self readReposadoInstanceContentsAsync:[(SIAppDelegate *)[NSApp delegate] defaultReposadoInstance] force:NO];
+                
+                /*
+                 Check warnings
+                 */
+                if (standardError.length != 0) {
+                    // Check for warnings in makecatalogs stderr
+                    NSRange range = NSMakeRange(0, standardError.length);
+                    __block NSMutableString *warnings = [NSMutableString new];
+                    [standardError enumerateSubstringsInRange:range
+                                                      options:NSStringEnumerationByParagraphs
+                                                   usingBlock:^(NSString * _Nullable paragraph, NSRange paragraphRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
+                                                       if ([paragraph hasPrefix:@"WARNING: "]) {
+                                                           [warnings appendFormat:@"\n%@", paragraph];
+                                                       }
+                                                   }];
+                    if (warnings.length != 0) {
+                        NSLog(@"%@ produced warnings.", aTask.launchPath);
+                        NSString *description = @"Task output had warnings";
+                        NSString *recoverySuggestion = [NSString stringWithFormat:@"%@.", warnings];
+                        NSDictionary *errorDictionary = @{NSLocalizedDescriptionKey: description,
+                                                          NSLocalizedRecoverySuggestionErrorKey: recoverySuggestion,
+                                                          };
+                        NSError *error = [[NSError alloc] initWithDomain:@"Script Error Domain" code:999 userInfo:errorDictionary];
+                        [[NSApplication sharedApplication] presentError:error];
+                    }
+                }
+                
+            } else {
+                [self willEndOperations];
+                NSLog(@"%@ exited with code %i", aTask.launchPath, exitCode);
+                NSString *description = @"Task failed";
+                NSString *recoverySuggestion = [NSString stringWithFormat:@"Task exited with code %i.\n\n%@", exitCode, standardError];
+                NSDictionary *errorDictionary = @{NSLocalizedDescriptionKey: description,
+                                                  NSLocalizedRecoverySuggestionErrorKey: recoverySuggestion,
+                                                  };
+                NSError *error = [[NSError alloc] initWithDomain:@"Script Error Domain" code:999 userInfo:errorDictionary];
+                [[NSApplication sharedApplication] presentError:error];
+                
+            }
+            
+            
+        });
+        
+    }];
+    
+    [task launch];
 }
 
-
-
-# pragma mark -
-# pragma mark AMShellWrapperDelegate methods
 
 - (NSString *)cleanReposadoMessage:(NSString *)message
 {
@@ -618,68 +702,6 @@ static dispatch_queue_t serialQueue;
     return [cleanedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
-- (void)write:(NSString *)string
-{
-    NSString *cleanedMessage = [self cleanReposadoMessage:string];
-    if (![cleanedMessage isEqualToString:@""]) {
-        self.currentOperationDescription = cleanedMessage;
-    }
-}
-
-// output from stdout
-- (void)process:(AMShellWrapper *)wrapper appendOutput:(id)output
-{
-	[self write:output];
-}
-
-// output from stderr
-- (void)process:(AMShellWrapper *)wrapper appendError:(NSString *)error
-{
-	//[errorOutlet setString:[[errorOutlet string] stringByAppendingString:error]];
-    NSLog(@"ERROR: %@", error);
-}
-
-// This method is a callback which your controller can use to do other initialization
-// when a process is launched.
-- (void)processStarted:(AMShellWrapper *)wrapper
-{
-    self.currentOperationType = SIOperationTypeRepoSync;
-    self.currentOperationTitle = @"Refreshing catalogs...";
-}
-
-// This method is a callback which your controller can use to do other cleanup
-// when a process is halted.
-- (void)processFinished:(AMShellWrapper *)wrapper withTerminationStatus:(int)resultCode
-{
-    /*
-     [self write:[NSString stringWithFormat:@"\rcommand finished. Result code: %i\r", resultCode]];
-     [self setShellWrapper:nil];
-     [textOutlet scrollRangeToVisible:NSMakeRange([[textOutlet string] length], 0)];
-     [errorOutlet scrollRangeToVisible:NSMakeRange([[errorOutlet string] length], 0)];
-     [runButton setEnabled:YES];
-     [progressIndicator stopAnimation:self];
-     [runButton setTitle:@"Execute"];
-     [runButton setAction:@selector(printBanner:)];
-     */
-    
-    [self readReposadoInstanceContentsAsync:[(SIAppDelegate *)[NSApp delegate] defaultReposadoInstance] force:NO];
-    //[self willEndOperations];
-}
-
-- (void)processLaunchException:(NSException *)exception
-{
-    /*
-     [self write:[NSString stringWithFormat:@"\rcaught %@ while executing command\r", [exception name]]];
-     [textOutlet scrollRangeToVisible:NSMakeRange([[textOutlet string] length], 0)];
-     [errorOutlet scrollRangeToVisible:NSMakeRange([[errorOutlet string] length], 0)];
-     [runButton setEnabled:YES];
-     [progressIndicator stopAnimation:self];
-     [runButton setTitle:@"Execute"];
-     [runButton setAction:@selector(printBanner:)];
-     [self setShellWrapper:nil];
-     */
-    [self willEndOperations];
-}
 
 
 
