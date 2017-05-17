@@ -221,6 +221,8 @@
 	if ([openPanel runModal] == NSFileHandlingPanelOKButton)
 	{
         NSURL *selectedDir = [[openPanel URLs] objectAtIndex:0];
+        NSInteger numSavedPkginfos = 0;
+        NSInteger numFailedPkginfos = 0;
 		for (SIProductMO *aProduct in self.products) {
             NSURL *saveURL = [selectedDir URLByAppendingPathComponent:aProduct.pkginfoFilename];
             if (!saveURL) {
@@ -232,9 +234,45 @@
                                                             encoding:NSUTF8StringEncoding
                                                                error:&writeError]) {
                 NSLog(@"Failed to write %@: %@", [saveURL path], writeError);
+                numFailedPkginfos++;
+            } else {
+                numSavedPkginfos++;
             }
             
         }
+        
+        [self.window close];
+        
+        NSString *failedString, *createdString;
+        if (numFailedPkginfos == 0) {
+            failedString = @"";
+        } else if (numFailedPkginfos == 1) {
+            failedString = @"Failed to write 1 pkginfo file";
+        } else {
+            failedString = [NSString stringWithFormat:@"Failed to write %li pkginfo files", (long)numFailedPkginfos];
+        }
+        if (numSavedPkginfos == 0) {
+            createdString = @"No pkginfo files were created";
+        } else if (numSavedPkginfos == 1) {
+            createdString = @"1 pkginfo file was created";
+        } else {
+            createdString = [NSString stringWithFormat:@"%li pkginfo files were created", (long)numSavedPkginfos];
+        }
+        
+        NSString *alertText;
+        if (numFailedPkginfos > 0) {
+            alertText = [NSString stringWithFormat:@"%@. %@.", createdString, failedString];
+        } else {
+            alertText = [NSString stringWithFormat:@"%@.", createdString];
+        }
+        
+        NSAlert *importResultsAlert = [NSAlert alertWithMessageText:@"Done"
+                                                      defaultButton:@"OK"
+                                                    alternateButton:@""
+                                                        otherButton:@""
+                                          informativeTextWithFormat:@"%@", alertText];
+        [importResultsAlert runModal];
+        
 	} else {
         
     }
