@@ -1,2 +1,4 @@
 platform :osx, '10.8'
-pod 'AFNetworking', '~> 2.0'
+target 'SUS Inspector' do
+pod 'AFNetworking'
+end
