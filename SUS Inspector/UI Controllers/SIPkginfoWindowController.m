@@ -130,12 +130,12 @@
     
     // Create a calendar object with time zone set to UTC
     NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     [gregorian setTimeZone:timeZoneUTC];
     
     // Get the current date (without hour, minute and second)
     NSDate *now = [NSDate date];
-    NSDateComponents *dateComponents = [gregorian components:( NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:now];
+    NSDateComponents *dateComponents = [gregorian components:( NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:now];
     
     // Set the clock to a custom value
     [dateComponents setHour:23];
@@ -427,7 +427,7 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
         [formatter setTimeZone:timeZoneUTC];
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         [formatter setCalendar:gregorian];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
         
@@ -667,7 +667,7 @@
      Set the force_install_after_date date picker to use UTC
      */
     NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     [gregorian setTimeZone:timeZoneUTC];
     [forceAfterDatePicker setCalendar:gregorian];
     [forceAfterDatePicker setTimeZone:timeZoneUTC];
@@ -825,7 +825,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    [self.window setBackgroundColor:[NSColor whiteColor]];
+    //[self.window setBackgroundColor:[NSColor whiteColor]];
     [self.window center];
     
     [self.window bind:@"title" toObject:self withKeyPath:@"product.productTitleWithVersion" options:nil];

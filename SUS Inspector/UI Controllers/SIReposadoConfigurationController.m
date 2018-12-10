@@ -79,7 +79,7 @@
     [NSApp stopModal];
     
     if ([self.delegate respondsToSelector:@selector(reposadoConfigurationDidFinish:returnCode:object:)]) {
-        [self.delegate reposadoConfigurationDidFinish:self returnCode:NSOKButton object:self.reposadoInstance];
+        [self.delegate reposadoConfigurationDidFinish:self returnCode:NSModalResponseOK object:self.reposadoInstance];
     }
 }
 
@@ -90,7 +90,7 @@
     [NSApp stopModal];
     
     if ([self.delegate respondsToSelector:@selector(reposadoConfigurationDidFinish:returnCode:object:)]) {
-        [self.delegate reposadoConfigurationDidFinish:self returnCode:NSCancelButton object:self.reposadoInstance];
+        [self.delegate reposadoConfigurationDidFinish:self returnCode:NSModalResponseCancel object:self.reposadoInstance];
     }
 }
 

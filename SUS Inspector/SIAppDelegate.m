@@ -43,7 +43,7 @@
      * This is a callback from Reposado configuration
      */
     
-    if (returnCode == NSOKButton) {
+    if (returnCode == NSModalResponseOK) {
         /*
          * User approved the Reposado settings
          * Install, configure and run the initial repo_sync
@@ -54,7 +54,7 @@
         SIOperationManager *operationManager = [SIOperationManager sharedManager];
         //[operationManager setupSourceListItems];
         [operationManager runReposync:self.defaultReposadoInstance];
-    } else if (returnCode == NSCancelButton) {
+    } else if (returnCode == NSModalResponseCancel) {
         /*
          * User cancelled the configuration.
          * Undo everything and delete the instance

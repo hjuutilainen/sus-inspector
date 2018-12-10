@@ -28,7 +28,7 @@
 }
 
 @property (nonatomic, copy) void (^progressCallback) (float);
-@property (nonatomic, copy) void (^finishCallback) ();
+@property (nonatomic, copy) void (^finishCallback) (void);
 
 + (id)importReposadoInstanceWithID:(SIReposadoInstanceMOID *)instanceID force:(BOOL)force;
 - (id)initWithReposadoInstanceID:(SIReposadoInstanceMOID *)instanceID force:(BOOL)force;

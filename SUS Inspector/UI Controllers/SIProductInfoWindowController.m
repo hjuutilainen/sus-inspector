@@ -206,6 +206,7 @@
      */
     NSTextField *nameLabel = [self addTextFieldWithidentifier:@"nameLabel" superView:parentView];
     [nameLabel setFont:[NSFont boldSystemFontOfSize:16.0]];
+    [nameLabel setBackgroundColor:[NSColor windowBackgroundColor]];
     [nameLabel bind:@"value" toObject:self withKeyPath:@"product.productTitle" options:bindOptions];
     
     
@@ -214,6 +215,7 @@
      */
     NSTextField *productIDLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Product ID", nil) identifier:@"productIDLabel" superView:parentView];
     NSTextField *productIDTextField = [self addTextFieldWithidentifier:@"productIDTextField" superView:parentView];
+    [productIDTextField setBackgroundColor:[NSColor windowBackgroundColor]];
     [productIDTextField bind:@"value" toObject:self withKeyPath:@"product.productID" options:bindOptions];
     
     /*
@@ -221,6 +223,7 @@
      */
     NSTextField *productVersionLabel = [self addLabelFieldWithTitle:NSLocalizedString(@"Version", nil) identifier:@"productVersionLabel" superView:parentView];
     NSTextField *productVersionTextField = [self addTextFieldWithidentifier:@"productVersionTextField" superView:parentView];
+    [productVersionTextField setBackgroundColor:[NSColor windowBackgroundColor]];
     [productVersionTextField bind:@"value" toObject:self withKeyPath:@"product.productVersion" options:bindOptions];
     
     /*
@@ -232,6 +235,7 @@
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [productReleasedTextField setFormatter:dateFormatter];
+    [productReleasedTextField setBackgroundColor:[NSColor windowBackgroundColor]];
     [productReleasedTextField bind:@"value" toObject:self withKeyPath:@"product.productPostDate" options:bindOptions];
     
     
@@ -244,6 +248,7 @@
     NSByteCountFormatter *fileSizeFormatter = [[NSByteCountFormatter alloc] init];
     fileSizeFormatter.includesActualByteCount = YES;
     [productSizeTextField setFormatter:fileSizeFormatter];
+    [productSizeTextField setBackgroundColor:[NSColor windowBackgroundColor]];
     [productSizeTextField bind:@"value" toObject:self withKeyPath:@"product.productSize" options:bindOptions];
     
     
@@ -259,6 +264,7 @@
     [productCatalogsTokenField setBezeled:NO];
     [productCatalogsTokenField setSelectable:YES];
     [productCatalogsTokenField setEditable:NO];
+    [productCatalogsTokenField setBackgroundColor:[NSColor windowBackgroundColor]];
     [parentView addSubview:productCatalogsTokenField];
     [productCatalogsTokenField bind:@"value" toObject:self withKeyPath:@"catalogs" options:bindOptions];
     
@@ -482,7 +488,7 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    [self.window setBackgroundColor:[NSColor whiteColor]];
+    //[self.window setBackgroundColor:[NSColor whiteColor]];
 }
 
 - (IBAction)didSelectSegment:sender

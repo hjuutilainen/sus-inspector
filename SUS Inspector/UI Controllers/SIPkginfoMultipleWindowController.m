@@ -42,7 +42,7 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    [self.window setBackgroundColor:[NSColor whiteColor]];
+    //[self.window setBackgroundColor:[NSColor whiteColor]];
 }
 
 
@@ -84,12 +84,12 @@
     
     // Create a calendar object with time zone set to UTC
     NSTimeZone *timeZoneUTC = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     [gregorian setTimeZone:timeZoneUTC];
     
     // Get the current date (without hour, minute and second)
     NSDate *now = [NSDate date];
-    NSDateComponents *dateComponents = [gregorian components:( NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:now];
+    NSDateComponents *dateComponents = [gregorian components:( NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:now];
     
     // Set the clock to a custom value
     [dateComponents setHour:23];
