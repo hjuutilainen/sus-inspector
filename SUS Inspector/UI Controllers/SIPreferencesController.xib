@@ -41,13 +41,13 @@
                     <rect key="frame" x="186" y="181" width="293" height="158"/>
                     <clipView key="contentView" id="Bz0-Un-APG">
                         <rect key="frame" x="1" y="0.0" width="291" height="157"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" headerView="755" id="7">
                                 <rect key="frame" x="0.0" y="0.0" width="291" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn width="51" minWidth="10" maxWidth="3.4028234663852886e+38" id="267">
@@ -211,7 +211,7 @@
                         <binding destination="44" name="selectedIndex" keyPath="values.pkginfoPrefillDescriptionType" id="529"/>
                     </connections>
                 </popUpButton>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="677" customClass="SIGradientButtonBarView">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="677">
                     <rect key="frame" x="186" y="157" width="293" height="25"/>
                     <subviews>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="707">
