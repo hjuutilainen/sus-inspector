@@ -25,8 +25,8 @@
 /*
  The version check is based on these
  */
-#define kReposadoCurrentCommitDateString @"2017-09-15 09:47:04 -0700"
-#define kReposadoCurrentCommitHash @"fc994fba7be758d1adb88921df109b2c65104663"
+#define kReposadoCurrentCommitDateString @"2019-03-07 08:06:45 -0800"
+#define kReposadoCurrentCommitHash @"ed3a860de170df65eb88affe4b6d7312d419766c"
 
 
 /*
