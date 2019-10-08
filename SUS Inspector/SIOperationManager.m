@@ -238,11 +238,15 @@ static dispatch_queue_t serialQueue;
     /*
      Gatekeeper & XProtect item
      */
-    SISourceListItemMO *gatekeeperItem = [self sourceListItemWithTitle:@"Gatekeeper & XProtect" managedObjectContext:moc];
+    SISourceListItemMO *gatekeeperItem = [self sourceListItemWithTitle:@"Gatekeeper, XProtect & MRT" managedObjectContext:moc];
     gatekeeperItem.iconImage = iconFolderSmart;
     gatekeeperItem.parent = productGroupsGroupItem;
     
-    NSArray *gatekeeperPredicates = @[[NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Gatekeeper\""], [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"XProtect\""]];
+    NSArray *gatekeeperPredicates = @[
+        [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"Gatekeeper\""],
+        [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"XProtect\""],
+        [NSPredicate predicateWithFormat:@"productTitle contains[cd] \"MRT\""]
+    ];
     NSPredicate *gatekeeperCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:gatekeeperPredicates];
     NSPredicate *gatekeeperFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[includeDeprecatedPredicate, gatekeeperCompoundPredicate]];
     
