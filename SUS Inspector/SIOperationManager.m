@@ -258,7 +258,8 @@ static dispatch_queue_t serialQueue;
     NSPredicate *osxupdateInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle matches[cd] \"OS X.*Update\""];
     NSPredicate *osxserverInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle matches[cd] \"OS X.*Server.*Update\""];
     NSPredicate *macOSInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle matches[cd] \"macOS.*Update\""];
-    NSArray *osPredicates = [NSArray arrayWithObjects:osxupdateInTitlePredicate, osxserverInTitlePredicate, macOSInTitlePredicate, nil];
+    NSPredicate *supplementalInTitlePredicate = [NSPredicate predicateWithFormat:@"productTitle matches[cd] \"macOS.*Supplemental.*\""];
+    NSArray *osPredicates = [NSArray arrayWithObjects:osxupdateInTitlePredicate, osxserverInTitlePredicate, macOSInTitlePredicate, supplementalInTitlePredicate, nil];
     NSPredicate *osCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:osPredicates];
     NSPredicate *osFinalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:includeDeprecatedPredicate, osCompoundPredicate, nil]];
     
