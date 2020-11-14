@@ -1,199 +1,99 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to SIProductMO.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-
-extern const struct SIProductMOAttributes {
-	__unsafe_unretained NSString *productDescription;
-	__unsafe_unretained NSString *productID;
-	__unsafe_unretained NSString *productIsDeprecated;
-	__unsafe_unretained NSString *productIsNew;
-	__unsafe_unretained NSString *productPostDate;
-	__unsafe_unretained NSString *productSize;
-	__unsafe_unretained NSString *productTitle;
-	__unsafe_unretained NSString *productVersion;
-} SIProductMOAttributes;
-
-extern const struct SIProductMORelationships {
-	__unsafe_unretained NSString *catalogs;
-	__unsafe_unretained NSString *distributions;
-	__unsafe_unretained NSString *packages;
-	__unsafe_unretained NSString *serverMetadataFiles;
-} SIProductMORelationships;
-
-extern const struct SIProductMOFetchedProperties {
-} SIProductMOFetchedProperties;
+NS_ASSUME_NONNULL_BEGIN
 
 @class SICatalogMO;
 @class SIDistributionMO;
 @class SIPackageMO;
 @class SIServerMetadataMO;
 
-
-
-
-
-
-
-
-
-
 @interface SIProductMOID : NSManagedObjectID {}
 @end
 
-@interface _SIProductMO : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _SIProductMO : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (SIProductMOID*)objectID;
++ (nullable NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@property (nonatomic, readonly, strong) SIProductMOID *objectID;
 
+@property (nonatomic, strong, nullable) NSString* productDescription;
 
+@property (nonatomic, strong, nullable) NSString* productID;
 
+@property (nonatomic, strong, nullable) NSNumber* productIsDeprecated;
 
-
-@property (nonatomic, strong) NSString* productDescription;
-
-
-
-//- (BOOL)validateProductDescription:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* productID;
-
-
-
-//- (BOOL)validateProductID:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* productIsDeprecated;
-
-
-
-@property BOOL productIsDeprecatedValue;
+@property (atomic) BOOL productIsDeprecatedValue;
 - (BOOL)productIsDeprecatedValue;
 - (void)setProductIsDeprecatedValue:(BOOL)value_;
 
-//- (BOOL)validateProductIsDeprecated:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSNumber* productIsNew;
 
-
-
-
-
-@property (nonatomic, strong) NSNumber* productIsNew;
-
-
-
-@property BOOL productIsNewValue;
+@property (atomic) BOOL productIsNewValue;
 - (BOOL)productIsNewValue;
 - (void)setProductIsNewValue:(BOOL)value_;
 
-//- (BOOL)validateProductIsNew:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSDate* productPostDate;
 
+@property (nonatomic, strong, nullable) NSNumber* productSize;
 
-
-
-
-@property (nonatomic, strong) NSDate* productPostDate;
-
-
-
-//- (BOOL)validateProductPostDate:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* productSize;
-
-
-
-@property int64_t productSizeValue;
+@property (atomic) int64_t productSizeValue;
 - (int64_t)productSizeValue;
 - (void)setProductSizeValue:(int64_t)value_;
 
-//- (BOOL)validateProductSize:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* productTitle;
 
+@property (nonatomic, strong, nullable) NSString* productVersion;
 
+@property (nonatomic, strong, nullable) NSSet<SICatalogMO*> *catalogs;
+- (nullable NSMutableSet<SICatalogMO*>*)catalogsSet;
 
+@property (nonatomic, strong, nullable) NSSet<SIDistributionMO*> *distributions;
+- (nullable NSMutableSet<SIDistributionMO*>*)distributionsSet;
 
+@property (nonatomic, strong, nullable) NSSet<SIPackageMO*> *packages;
+- (nullable NSMutableSet<SIPackageMO*>*)packagesSet;
 
-@property (nonatomic, strong) NSString* productTitle;
-
-
-
-//- (BOOL)validateProductTitle:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* productVersion;
-
-
-
-//- (BOOL)validateProductVersion:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSSet *catalogs;
-
-- (NSMutableSet*)catalogsSet;
-
-
-
-
-@property (nonatomic, strong) NSSet *distributions;
-
-- (NSMutableSet*)distributionsSet;
-
-
-
-
-@property (nonatomic, strong) NSSet *packages;
-
-- (NSMutableSet*)packagesSet;
-
-
-
-
-@property (nonatomic, strong) NSSet *serverMetadataFiles;
-
-- (NSMutableSet*)serverMetadataFilesSet;
-
-
-
-
+@property (nonatomic, strong, nullable) NSSet<SIServerMetadataMO*> *serverMetadataFiles;
+- (nullable NSMutableSet<SIServerMetadataMO*>*)serverMetadataFilesSet;
 
 @end
 
-@interface _SIProductMO (CoreDataGeneratedAccessors)
-
-- (void)addCatalogs:(NSSet*)value_;
-- (void)removeCatalogs:(NSSet*)value_;
+@interface _SIProductMO (CatalogsCoreDataGeneratedAccessors)
+- (void)addCatalogs:(NSSet<SICatalogMO*>*)value_;
+- (void)removeCatalogs:(NSSet<SICatalogMO*>*)value_;
 - (void)addCatalogsObject:(SICatalogMO*)value_;
 - (void)removeCatalogsObject:(SICatalogMO*)value_;
 
-- (void)addDistributions:(NSSet*)value_;
-- (void)removeDistributions:(NSSet*)value_;
+@end
+
+@interface _SIProductMO (DistributionsCoreDataGeneratedAccessors)
+- (void)addDistributions:(NSSet<SIDistributionMO*>*)value_;
+- (void)removeDistributions:(NSSet<SIDistributionMO*>*)value_;
 - (void)addDistributionsObject:(SIDistributionMO*)value_;
 - (void)removeDistributionsObject:(SIDistributionMO*)value_;
 
-- (void)addPackages:(NSSet*)value_;
-- (void)removePackages:(NSSet*)value_;
+@end
+
+@interface _SIProductMO (PackagesCoreDataGeneratedAccessors)
+- (void)addPackages:(NSSet<SIPackageMO*>*)value_;
+- (void)removePackages:(NSSet<SIPackageMO*>*)value_;
 - (void)addPackagesObject:(SIPackageMO*)value_;
 - (void)removePackagesObject:(SIPackageMO*)value_;
 
-- (void)addServerMetadataFiles:(NSSet*)value_;
-- (void)removeServerMetadataFiles:(NSSet*)value_;
+@end
+
+@interface _SIProductMO (ServerMetadataFilesCoreDataGeneratedAccessors)
+- (void)addServerMetadataFiles:(NSSet<SIServerMetadataMO*>*)value_;
+- (void)removeServerMetadataFiles:(NSSet<SIServerMetadataMO*>*)value_;
 - (void)addServerMetadataFilesObject:(SIServerMetadataMO*)value_;
 - (void)removeServerMetadataFilesObject:(SIServerMetadataMO*)value_;
 
@@ -201,82 +101,69 @@ extern const struct SIProductMOFetchedProperties {
 
 @interface _SIProductMO (CoreDataGeneratedPrimitiveAccessors)
 
+- (nullable NSString*)primitiveProductDescription;
+- (void)setPrimitiveProductDescription:(nullable NSString*)value;
 
-- (NSString*)primitiveProductDescription;
-- (void)setPrimitiveProductDescription:(NSString*)value;
+- (nullable NSString*)primitiveProductID;
+- (void)setPrimitiveProductID:(nullable NSString*)value;
 
-
-
-
-- (NSString*)primitiveProductID;
-- (void)setPrimitiveProductID:(NSString*)value;
-
-
-
-
-- (NSNumber*)primitiveProductIsDeprecated;
-- (void)setPrimitiveProductIsDeprecated:(NSNumber*)value;
+- (nullable NSNumber*)primitiveProductIsDeprecated;
+- (void)setPrimitiveProductIsDeprecated:(nullable NSNumber*)value;
 
 - (BOOL)primitiveProductIsDeprecatedValue;
 - (void)setPrimitiveProductIsDeprecatedValue:(BOOL)value_;
 
-
-
-
-- (NSNumber*)primitiveProductIsNew;
-- (void)setPrimitiveProductIsNew:(NSNumber*)value;
+- (nullable NSNumber*)primitiveProductIsNew;
+- (void)setPrimitiveProductIsNew:(nullable NSNumber*)value;
 
 - (BOOL)primitiveProductIsNewValue;
 - (void)setPrimitiveProductIsNewValue:(BOOL)value_;
 
+- (nullable NSDate*)primitiveProductPostDate;
+- (void)setPrimitiveProductPostDate:(nullable NSDate*)value;
 
-
-
-- (NSDate*)primitiveProductPostDate;
-- (void)setPrimitiveProductPostDate:(NSDate*)value;
-
-
-
-
-- (NSNumber*)primitiveProductSize;
-- (void)setPrimitiveProductSize:(NSNumber*)value;
+- (nullable NSNumber*)primitiveProductSize;
+- (void)setPrimitiveProductSize:(nullable NSNumber*)value;
 
 - (int64_t)primitiveProductSizeValue;
 - (void)setPrimitiveProductSizeValue:(int64_t)value_;
 
+- (nullable NSString*)primitiveProductTitle;
+- (void)setPrimitiveProductTitle:(nullable NSString*)value;
 
+- (nullable NSString*)primitiveProductVersion;
+- (void)setPrimitiveProductVersion:(nullable NSString*)value;
 
+- (NSMutableSet<SICatalogMO*>*)primitiveCatalogs;
+- (void)setPrimitiveCatalogs:(NSMutableSet<SICatalogMO*>*)value;
 
-- (NSString*)primitiveProductTitle;
-- (void)setPrimitiveProductTitle:(NSString*)value;
+- (NSMutableSet<SIDistributionMO*>*)primitiveDistributions;
+- (void)setPrimitiveDistributions:(NSMutableSet<SIDistributionMO*>*)value;
 
+- (NSMutableSet<SIPackageMO*>*)primitivePackages;
+- (void)setPrimitivePackages:(NSMutableSet<SIPackageMO*>*)value;
 
-
-
-- (NSString*)primitiveProductVersion;
-- (void)setPrimitiveProductVersion:(NSString*)value;
-
-
-
-
-
-- (NSMutableSet*)primitiveCatalogs;
-- (void)setPrimitiveCatalogs:(NSMutableSet*)value;
-
-
-
-- (NSMutableSet*)primitiveDistributions;
-- (void)setPrimitiveDistributions:(NSMutableSet*)value;
-
-
-
-- (NSMutableSet*)primitivePackages;
-- (void)setPrimitivePackages:(NSMutableSet*)value;
-
-
-
-- (NSMutableSet*)primitiveServerMetadataFiles;
-- (void)setPrimitiveServerMetadataFiles:(NSMutableSet*)value;
-
+- (NSMutableSet<SIServerMetadataMO*>*)primitiveServerMetadataFiles;
+- (void)setPrimitiveServerMetadataFiles:(NSMutableSet<SIServerMetadataMO*>*)value;
 
 @end
+
+@interface SIProductMOAttributes: NSObject 
++ (NSString *)productDescription;
++ (NSString *)productID;
++ (NSString *)productIsDeprecated;
++ (NSString *)productIsNew;
++ (NSString *)productPostDate;
++ (NSString *)productSize;
++ (NSString *)productTitle;
++ (NSString *)productVersion;
+@end
+
+@interface SIProductMORelationships: NSObject
++ (NSString *)catalogs;
++ (NSString *)distributions;
++ (NSString *)packages;
++ (NSString *)serverMetadataFiles;
+@end
+
+NS_ASSUME_NONNULL_END

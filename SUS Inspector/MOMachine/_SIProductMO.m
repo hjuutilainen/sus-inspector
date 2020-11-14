@@ -3,33 +3,12 @@
 
 #import "_SIProductMO.h"
 
-const struct SIProductMOAttributes SIProductMOAttributes = {
-	.productDescription = @"productDescription",
-	.productID = @"productID",
-	.productIsDeprecated = @"productIsDeprecated",
-	.productIsNew = @"productIsNew",
-	.productPostDate = @"productPostDate",
-	.productSize = @"productSize",
-	.productTitle = @"productTitle",
-	.productVersion = @"productVersion",
-};
-
-const struct SIProductMORelationships SIProductMORelationships = {
-	.catalogs = @"catalogs",
-	.distributions = @"distributions",
-	.packages = @"packages",
-	.serverMetadataFiles = @"serverMetadataFiles",
-};
-
-const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
-};
-
 @implementation SIProductMOID
 @end
 
 @implementation _SIProductMO
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"SIProduct" inManagedObjectContext:moc_];
 }
@@ -49,7 +28,7 @@ const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"productIsDeprecatedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"productIsDeprecated"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -69,26 +48,11 @@ const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
 	return keyPaths;
 }
 
-
-
-
 @dynamic productDescription;
-
-
-
-
-
 
 @dynamic productID;
 
-
-
-
-
-
 @dynamic productIsDeprecated;
-
-
 
 - (BOOL)productIsDeprecatedValue {
 	NSNumber *result = [self productIsDeprecated];
@@ -96,7 +60,7 @@ const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
 }
 
 - (void)setProductIsDeprecatedValue:(BOOL)value_ {
-	[self setProductIsDeprecated:[NSNumber numberWithBool:value_]];
+	[self setProductIsDeprecated:@(value_)];
 }
 
 - (BOOL)primitiveProductIsDeprecatedValue {
@@ -105,16 +69,10 @@ const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
 }
 
 - (void)setPrimitiveProductIsDeprecatedValue:(BOOL)value_ {
-	[self setPrimitiveProductIsDeprecated:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveProductIsDeprecated:@(value_)];
 }
 
-
-
-
-
 @dynamic productIsNew;
-
-
 
 - (BOOL)productIsNewValue {
 	NSNumber *result = [self productIsNew];
@@ -122,7 +80,7 @@ const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
 }
 
 - (void)setProductIsNewValue:(BOOL)value_ {
-	[self setProductIsNew:[NSNumber numberWithBool:value_]];
+	[self setProductIsNew:@(value_)];
 }
 
 - (BOOL)primitiveProductIsNewValue {
@@ -131,23 +89,12 @@ const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
 }
 
 - (void)setPrimitiveProductIsNewValue:(BOOL)value_ {
-	[self setPrimitiveProductIsNew:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveProductIsNew:@(value_)];
 }
-
-
-
-
 
 @dynamic productPostDate;
 
-
-
-
-
-
 @dynamic productSize;
-
-
 
 - (int64_t)productSizeValue {
 	NSNumber *result = [self productSize];
@@ -155,7 +102,7 @@ const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
 }
 
 - (void)setProductSizeValue:(int64_t)value_ {
-	[self setProductSize:[NSNumber numberWithLongLong:value_]];
+	[self setProductSize:@(value_)];
 }
 
 - (int64_t)primitiveProductSizeValue {
@@ -164,82 +111,98 @@ const struct SIProductMOFetchedProperties SIProductMOFetchedProperties = {
 }
 
 - (void)setPrimitiveProductSizeValue:(int64_t)value_ {
-	[self setPrimitiveProductSize:[NSNumber numberWithLongLong:value_]];
+	[self setPrimitiveProductSize:@(value_)];
 }
-
-
-
-
 
 @dynamic productTitle;
 
-
-
-
-
-
 @dynamic productVersion;
-
-
-
-
-
 
 @dynamic catalogs;
 
-	
-- (NSMutableSet*)catalogsSet {
+- (NSMutableSet<SICatalogMO*>*)catalogsSet {
 	[self willAccessValueForKey:@"catalogs"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"catalogs"];
-  
+
+	NSMutableSet<SICatalogMO*> *result = (NSMutableSet<SICatalogMO*>*)[self mutableSetValueForKey:@"catalogs"];
+
 	[self didAccessValueForKey:@"catalogs"];
 	return result;
 }
-	
 
 @dynamic distributions;
 
-	
-- (NSMutableSet*)distributionsSet {
+- (NSMutableSet<SIDistributionMO*>*)distributionsSet {
 	[self willAccessValueForKey:@"distributions"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"distributions"];
-  
+
+	NSMutableSet<SIDistributionMO*> *result = (NSMutableSet<SIDistributionMO*>*)[self mutableSetValueForKey:@"distributions"];
+
 	[self didAccessValueForKey:@"distributions"];
 	return result;
 }
-	
 
 @dynamic packages;
 
-	
-- (NSMutableSet*)packagesSet {
+- (NSMutableSet<SIPackageMO*>*)packagesSet {
 	[self willAccessValueForKey:@"packages"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"packages"];
-  
+
+	NSMutableSet<SIPackageMO*> *result = (NSMutableSet<SIPackageMO*>*)[self mutableSetValueForKey:@"packages"];
+
 	[self didAccessValueForKey:@"packages"];
 	return result;
 }
-	
 
 @dynamic serverMetadataFiles;
 
-	
-- (NSMutableSet*)serverMetadataFilesSet {
+- (NSMutableSet<SIServerMetadataMO*>*)serverMetadataFilesSet {
 	[self willAccessValueForKey:@"serverMetadataFiles"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"serverMetadataFiles"];
-  
+
+	NSMutableSet<SIServerMetadataMO*> *result = (NSMutableSet<SIServerMetadataMO*>*)[self mutableSetValueForKey:@"serverMetadataFiles"];
+
 	[self didAccessValueForKey:@"serverMetadataFiles"];
 	return result;
 }
-	
-
-
-
-
-
 
 @end
+
+@implementation SIProductMOAttributes 
++ (NSString *)productDescription {
+	return @"productDescription";
+}
++ (NSString *)productID {
+	return @"productID";
+}
++ (NSString *)productIsDeprecated {
+	return @"productIsDeprecated";
+}
++ (NSString *)productIsNew {
+	return @"productIsNew";
+}
++ (NSString *)productPostDate {
+	return @"productPostDate";
+}
++ (NSString *)productSize {
+	return @"productSize";
+}
++ (NSString *)productTitle {
+	return @"productTitle";
+}
++ (NSString *)productVersion {
+	return @"productVersion";
+}
+@end
+
+@implementation SIProductMORelationships 
++ (NSString *)catalogs {
+	return @"catalogs";
+}
++ (NSString *)distributions {
+	return @"distributions";
+}
++ (NSString *)packages {
+	return @"packages";
+}
++ (NSString *)serverMetadataFiles {
+	return @"serverMetadataFiles";
+}
+@end
+

@@ -1,97 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="20B28" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="SICatalog" representedClassName="SICatalogMO" syncable="YES">
-        <attribute name="allowRemove" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="catalogDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="catalogDisplayName" optional="YES" attributeType="String" defaultValueString="New Catalog" syncable="YES"/>
-        <attribute name="catalogFileURL" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="catalogOSVersion" optional="YES" attributeType="String" defaultValueString="10.999" syncable="YES"/>
-        <attribute name="catalogTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="catalogURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="catalogURLCheckPending" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="catalogURLFromInstanceDefaultURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="catalogURLIsValid" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="catalogURLStatusCode" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="catalogs" inverseEntity="SIProduct" syncable="YES"/>
-        <relationship name="reposadoInstance" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIReposadoInstance" inverseName="catalogs" inverseEntity="SIReposadoInstance" syncable="YES"/>
-        <relationship name="sourceListItem" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SISourceListItem" inverseName="catalogReference" inverseEntity="SISourceListItem" syncable="YES"/>
+        <attribute name="allowRemove" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO"/>
+        <attribute name="catalogDescription" optional="YES" attributeType="String"/>
+        <attribute name="catalogDisplayName" optional="YES" attributeType="String" defaultValueString="New Catalog"/>
+        <attribute name="catalogFileURL" optional="YES" attributeType="URI"/>
+        <attribute name="catalogOSVersion" optional="YES" attributeType="String" defaultValueString="10.999"/>
+        <attribute name="catalogTitle" optional="YES" attributeType="String"/>
+        <attribute name="catalogURL" optional="YES" attributeType="String"/>
+        <attribute name="catalogURLCheckPending" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO"/>
+        <attribute name="catalogURLFromInstanceDefaultURL" optional="YES" attributeType="String"/>
+        <attribute name="catalogURLIsValid" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="catalogURLStatusCode" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO"/>
+        <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="catalogs" inverseEntity="SIProduct"/>
+        <relationship name="reposadoInstance" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIReposadoInstance" inverseName="catalogs" inverseEntity="SIReposadoInstance"/>
+        <relationship name="sourceListItem" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SISourceListItem" inverseName="catalogReference" inverseEntity="SISourceListItem"/>
     </entity>
     <entity name="SIDistribution" representedClassName="SIDistributionMO" parentEntity="SIDownloadableObject" syncable="YES">
-        <attribute name="distributionFileContents" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="distributionLanguage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="distributionLanguageDisplayName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="product" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="distributions" inverseEntity="SIProduct" syncable="YES"/>
+        <attribute name="distributionFileContents" optional="YES" attributeType="String"/>
+        <attribute name="distributionLanguage" optional="YES" attributeType="String"/>
+        <attribute name="distributionLanguageDisplayName" optional="YES" attributeType="String"/>
+        <relationship name="product" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="distributions" inverseEntity="SIProduct"/>
     </entity>
     <entity name="SIDownloadableObject" representedClassName="SIDownloadableObject" isAbstract="YES" syncable="YES">
-        <attribute name="objectCachedPath" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="objectIsCached" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="objectIsDownloading" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="objectURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="performPostDownloadAction" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="objectCachedPath" optional="YES" attributeType="String"/>
+        <attribute name="objectIsCached" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="objectIsDownloading" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="objectURL" optional="YES" attributeType="String"/>
+        <attribute name="performPostDownloadAction" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
     </entity>
     <entity name="SIPackage" representedClassName="SIPackageMO" parentEntity="SIDownloadableObject" syncable="YES">
-        <attribute name="packageMetadataURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="packageSize" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="SIPackageMetadata" inverseName="package" inverseEntity="SIPackageMetadata" syncable="YES"/>
-        <relationship name="product" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="packages" inverseEntity="SIProduct" syncable="YES"/>
+        <attribute name="packageMetadataURL" optional="YES" attributeType="String"/>
+        <attribute name="packageSize" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
+        <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="SIPackageMetadata" inverseName="package" inverseEntity="SIPackageMetadata"/>
+        <relationship name="product" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="packages" inverseEntity="SIProduct"/>
     </entity>
     <entity name="SIPackageMetadata" representedClassName="SIPackageMetadataMO" parentEntity="SIDownloadableObject" syncable="YES">
-        <attribute name="metadataFileContents" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="package" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIPackage" inverseName="metadata" inverseEntity="SIPackage" syncable="YES"/>
+        <attribute name="metadataFileContents" optional="YES" attributeType="String"/>
+        <relationship name="package" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIPackage" inverseName="metadata" inverseEntity="SIPackage"/>
     </entity>
     <entity name="SIProduct" representedClassName="SIProductMO" syncable="YES">
-        <attribute name="productDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="productID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="productIsDeprecated" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="productIsNew" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="productPostDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="productSize" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="productTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="productVersion" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SICatalog" inverseName="products" inverseEntity="SICatalog" syncable="YES"/>
-        <relationship name="distributions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SIDistribution" inverseName="product" inverseEntity="SIDistribution" syncable="YES"/>
-        <relationship name="packages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SIPackage" inverseName="product" inverseEntity="SIPackage" syncable="YES"/>
-        <relationship name="serverMetadataFiles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SIServerMetadata" inverseName="product" inverseEntity="SIServerMetadata" syncable="YES"/>
+        <attribute name="productDescription" optional="YES" attributeType="String"/>
+        <attribute name="productID" optional="YES" attributeType="String"/>
+        <attribute name="productIsDeprecated" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="productIsNew" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO"/>
+        <attribute name="productPostDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="productSize" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="productTitle" optional="YES" attributeType="String"/>
+        <attribute name="productVersion" optional="YES" attributeType="String"/>
+        <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SICatalog" inverseName="products" inverseEntity="SICatalog"/>
+        <relationship name="distributions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SIDistribution" inverseName="product" inverseEntity="SIDistribution"/>
+        <relationship name="packages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SIPackage" inverseName="product" inverseEntity="SIPackage"/>
+        <relationship name="serverMetadataFiles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SIServerMetadata" inverseName="product" inverseEntity="SIServerMetadata"/>
     </entity>
     <entity name="SIReposadoInstance" representedClassName="SIReposadoInstanceMO" syncable="YES">
-        <attribute name="productInfoCreationDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="productInfoModificationDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="reposadoCatalogsBaseURLString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="reposadoInstallURL" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="reposadoSetupComplete" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="reposadoTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="reposadoUpdatesMetadataDir" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="reposadoUpdatesRootDir" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SICatalog" inverseName="reposadoInstance" inverseEntity="SICatalog" syncable="YES"/>
-        <fetchedProperty name="activeCatalogs" optional="YES" syncable="YES">
+        <attribute name="productInfoCreationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="productInfoModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="reposadoCatalogsBaseURLString" optional="YES" attributeType="String"/>
+        <attribute name="reposadoInstallURL" optional="YES" attributeType="URI"/>
+        <attribute name="reposadoSetupComplete" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="reposadoTitle" optional="YES" attributeType="String"/>
+        <attribute name="reposadoUpdatesMetadataDir" optional="YES" attributeType="String"/>
+        <attribute name="reposadoUpdatesRootDir" optional="YES" attributeType="String"/>
+        <relationship name="catalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SICatalog" inverseName="reposadoInstance" inverseEntity="SICatalog"/>
+        <fetchedProperty name="activeCatalogs" optional="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="SICatalog" predicateString="($FETCH_SOURCE IN catalogs) AND (isActive == TRUE)"/>
         </fetchedProperty>
     </entity>
     <entity name="SIServerMetadata" representedClassName="SIServerMetadataMO" parentEntity="SIDownloadableObject" syncable="YES">
-        <attribute name="metadataFileContents" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="product" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="serverMetadataFiles" inverseEntity="SIProduct" syncable="YES"/>
+        <attribute name="metadataFileContents" optional="YES" attributeType="String"/>
+        <relationship name="product" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SIProduct" inverseName="serverMetadataFiles" inverseEntity="SIProduct"/>
     </entity>
     <entity name="SISourceListItem" representedClassName="SISourceListItemMO" syncable="YES">
-        <attribute name="iconImage" optional="YES" transient="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="iconName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isGroupItem" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="productFilterPredicate" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="sortIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="catalogReference" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SICatalog" inverseName="sourceListItem" inverseEntity="SICatalog" syncable="YES"/>
-        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SISourceListItem" inverseName="parent" inverseEntity="SISourceListItem" syncable="YES"/>
-        <relationship name="parent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SISourceListItem" inverseName="children" inverseEntity="SISourceListItem" syncable="YES"/>
+        <attribute name="iconImage" optional="YES" transient="YES" attributeType="Transformable" valueTransformerName=""/>
+        <attribute name="iconName" optional="YES" attributeType="String"/>
+        <attribute name="isGroupItem" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="productFilterPredicate" optional="YES" transient="YES" attributeType="Transformable" valueTransformerName=""/>
+        <attribute name="sortIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="catalogReference" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SICatalog" inverseName="sourceListItem" inverseEntity="SICatalog"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SISourceListItem" inverseName="parent" inverseEntity="SISourceListItem"/>
+        <relationship name="parent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SISourceListItem" inverseName="children" inverseEntity="SISourceListItem"/>
     </entity>
     <elements>
-        <element name="SICatalog" positionX="-522" positionY="-81" width="128" height="270"/>
+        <element name="SICatalog" positionX="-522" positionY="-81" width="128" height="254"/>
         <element name="SIDistribution" positionX="160" positionY="192" width="128" height="105"/>
         <element name="SIDownloadableObject" positionX="160" positionY="192" width="128" height="120"/>
         <element name="SIPackage" positionX="160" positionY="192" width="128" height="105"/>
         <element name="SIPackageMetadata" positionX="160" positionY="192" width="128" height="75"/>
         <element name="SIProduct" positionX="-234" positionY="-99" width="128" height="225"/>
-        <element name="SIReposadoInstance" positionX="-830" positionY="-72" width="128" height="209"/>
+        <element name="SIReposadoInstance" positionX="-830" positionY="-72" width="128" height="185"/>
         <element name="SIServerMetadata" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="SISourceListItem" positionX="160" positionY="192" width="128" height="180"/>
+        <element name="SISourceListItem" positionX="160" positionY="192" width="128" height="164"/>
     </elements>
 </model>

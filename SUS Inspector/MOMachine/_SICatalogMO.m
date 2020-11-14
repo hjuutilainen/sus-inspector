@@ -3,36 +3,12 @@
 
 #import "_SICatalogMO.h"
 
-const struct SICatalogMOAttributes SICatalogMOAttributes = {
-	.allowRemove = @"allowRemove",
-	.catalogDescription = @"catalogDescription",
-	.catalogDisplayName = @"catalogDisplayName",
-	.catalogFileURL = @"catalogFileURL",
-	.catalogOSVersion = @"catalogOSVersion",
-	.catalogTitle = @"catalogTitle",
-	.catalogURL = @"catalogURL",
-	.catalogURLCheckPending = @"catalogURLCheckPending",
-	.catalogURLFromInstanceDefaultURL = @"catalogURLFromInstanceDefaultURL",
-	.catalogURLIsValid = @"catalogURLIsValid",
-	.catalogURLStatusCode = @"catalogURLStatusCode",
-	.isActive = @"isActive",
-};
-
-const struct SICatalogMORelationships SICatalogMORelationships = {
-	.products = @"products",
-	.reposadoInstance = @"reposadoInstance",
-	.sourceListItem = @"sourceListItem",
-};
-
-const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
-};
-
 @implementation SICatalogMOID
 @end
 
 @implementation _SICatalogMO
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"SICatalog" inManagedObjectContext:moc_];
 }
@@ -52,7 +28,7 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"allowRemoveValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"allowRemove"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -82,12 +58,7 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 	return keyPaths;
 }
 
-
-
-
 @dynamic allowRemove;
-
-
 
 - (BOOL)allowRemoveValue {
 	NSNumber *result = [self allowRemove];
@@ -95,7 +66,7 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 }
 
 - (void)setAllowRemoveValue:(BOOL)value_ {
-	[self setAllowRemove:[NSNumber numberWithBool:value_]];
+	[self setAllowRemove:@(value_)];
 }
 
 - (BOOL)primitiveAllowRemoveValue {
@@ -104,58 +75,22 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 }
 
 - (void)setPrimitiveAllowRemoveValue:(BOOL)value_ {
-	[self setPrimitiveAllowRemove:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveAllowRemove:@(value_)];
 }
-
-
-
-
 
 @dynamic catalogDescription;
 
-
-
-
-
-
 @dynamic catalogDisplayName;
-
-
-
-
-
 
 @dynamic catalogFileURL;
 
-
-
-
-
-
 @dynamic catalogOSVersion;
-
-
-
-
-
 
 @dynamic catalogTitle;
 
-
-
-
-
-
 @dynamic catalogURL;
 
-
-
-
-
-
 @dynamic catalogURLCheckPending;
-
-
 
 - (BOOL)catalogURLCheckPendingValue {
 	NSNumber *result = [self catalogURLCheckPending];
@@ -163,7 +98,7 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 }
 
 - (void)setCatalogURLCheckPendingValue:(BOOL)value_ {
-	[self setCatalogURLCheckPending:[NSNumber numberWithBool:value_]];
+	[self setCatalogURLCheckPending:@(value_)];
 }
 
 - (BOOL)primitiveCatalogURLCheckPendingValue {
@@ -172,23 +107,12 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 }
 
 - (void)setPrimitiveCatalogURLCheckPendingValue:(BOOL)value_ {
-	[self setPrimitiveCatalogURLCheckPending:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveCatalogURLCheckPending:@(value_)];
 }
-
-
-
-
 
 @dynamic catalogURLFromInstanceDefaultURL;
 
-
-
-
-
-
 @dynamic catalogURLIsValid;
-
-
 
 - (BOOL)catalogURLIsValidValue {
 	NSNumber *result = [self catalogURLIsValid];
@@ -196,7 +120,7 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 }
 
 - (void)setCatalogURLIsValidValue:(BOOL)value_ {
-	[self setCatalogURLIsValid:[NSNumber numberWithBool:value_]];
+	[self setCatalogURLIsValid:@(value_)];
 }
 
 - (BOOL)primitiveCatalogURLIsValidValue {
@@ -205,16 +129,10 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 }
 
 - (void)setPrimitiveCatalogURLIsValidValue:(BOOL)value_ {
-	[self setPrimitiveCatalogURLIsValid:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveCatalogURLIsValid:@(value_)];
 }
 
-
-
-
-
 @dynamic catalogURLStatusCode;
-
-
 
 - (int32_t)catalogURLStatusCodeValue {
 	NSNumber *result = [self catalogURLStatusCode];
@@ -222,7 +140,7 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 }
 
 - (void)setCatalogURLStatusCodeValue:(int32_t)value_ {
-	[self setCatalogURLStatusCode:[NSNumber numberWithInt:value_]];
+	[self setCatalogURLStatusCode:@(value_)];
 }
 
 - (int32_t)primitiveCatalogURLStatusCodeValue {
@@ -231,16 +149,10 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 }
 
 - (void)setPrimitiveCatalogURLStatusCodeValue:(int32_t)value_ {
-	[self setPrimitiveCatalogURLStatusCode:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveCatalogURLStatusCode:@(value_)];
 }
 
-
-
-
-
 @dynamic isActive;
-
-
 
 - (BOOL)isActiveValue {
 	NSNumber *result = [self isActive];
@@ -248,7 +160,7 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 }
 
 - (void)setIsActiveValue:(BOOL)value_ {
-	[self setIsActive:[NSNumber numberWithBool:value_]];
+	[self setIsActive:@(value_)];
 }
 
 - (BOOL)primitiveIsActiveValue {
@@ -257,37 +169,74 @@ const struct SICatalogMOFetchedProperties SICatalogMOFetchedProperties = {
 }
 
 - (void)setPrimitiveIsActiveValue:(BOOL)value_ {
-	[self setPrimitiveIsActive:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveIsActive:@(value_)];
 }
-
-
-
-
 
 @dynamic products;
 
-	
-- (NSMutableSet*)productsSet {
+- (NSMutableSet<SIProductMO*>*)productsSet {
 	[self willAccessValueForKey:@"products"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"products"];
-  
+
+	NSMutableSet<SIProductMO*> *result = (NSMutableSet<SIProductMO*>*)[self mutableSetValueForKey:@"products"];
+
 	[self didAccessValueForKey:@"products"];
 	return result;
 }
-	
 
 @dynamic reposadoInstance;
 
-	
-
 @dynamic sourceListItem;
 
-	
-
-
-
-
-
-
 @end
+
+@implementation SICatalogMOAttributes 
++ (NSString *)allowRemove {
+	return @"allowRemove";
+}
++ (NSString *)catalogDescription {
+	return @"catalogDescription";
+}
++ (NSString *)catalogDisplayName {
+	return @"catalogDisplayName";
+}
++ (NSString *)catalogFileURL {
+	return @"catalogFileURL";
+}
++ (NSString *)catalogOSVersion {
+	return @"catalogOSVersion";
+}
++ (NSString *)catalogTitle {
+	return @"catalogTitle";
+}
++ (NSString *)catalogURL {
+	return @"catalogURL";
+}
++ (NSString *)catalogURLCheckPending {
+	return @"catalogURLCheckPending";
+}
++ (NSString *)catalogURLFromInstanceDefaultURL {
+	return @"catalogURLFromInstanceDefaultURL";
+}
++ (NSString *)catalogURLIsValid {
+	return @"catalogURLIsValid";
+}
++ (NSString *)catalogURLStatusCode {
+	return @"catalogURLStatusCode";
+}
++ (NSString *)isActive {
+	return @"isActive";
+}
+@end
+
+@implementation SICatalogMORelationships 
++ (NSString *)products {
+	return @"products";
+}
++ (NSString *)reposadoInstance {
+	return @"reposadoInstance";
+}
++ (NSString *)sourceListItem {
+	return @"sourceListItem";
+}
+@end
+

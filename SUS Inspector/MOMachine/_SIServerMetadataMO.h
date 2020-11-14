@@ -1,73 +1,51 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to SIServerMetadataMO.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
+
 #import "SIDownloadableObject.h"
 
-extern const struct SIServerMetadataMOAttributes {
-	__unsafe_unretained NSString *metadataFileContents;
-} SIServerMetadataMOAttributes;
-
-extern const struct SIServerMetadataMORelationships {
-	__unsafe_unretained NSString *product;
-} SIServerMetadataMORelationships;
-
-extern const struct SIServerMetadataMOFetchedProperties {
-} SIServerMetadataMOFetchedProperties;
+NS_ASSUME_NONNULL_BEGIN
 
 @class SIProductMO;
 
-
-
-@interface SIServerMetadataMOID : NSManagedObjectID {}
+@interface SIServerMetadataMOID : SIDownloadableObjectID {}
 @end
 
-@interface _SIServerMetadataMO : SIDownloadableObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _SIServerMetadataMO : SIDownloadableObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (SIServerMetadataMOID*)objectID;
++ (nullable NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@property (nonatomic, readonly, strong) SIServerMetadataMOID *objectID;
 
+@property (nonatomic, strong, nullable) NSString* metadataFileContents;
 
-
-
-
-@property (nonatomic, strong) NSString* metadataFileContents;
-
-
-
-//- (BOOL)validateMetadataFileContents:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) SIProductMO *product;
-
-//- (BOOL)validateProduct:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@end
-
-@interface _SIServerMetadataMO (CoreDataGeneratedAccessors)
+@property (nonatomic, strong, nullable) SIProductMO *product;
 
 @end
 
 @interface _SIServerMetadataMO (CoreDataGeneratedPrimitiveAccessors)
 
+- (nullable NSString*)primitiveMetadataFileContents;
+- (void)setPrimitiveMetadataFileContents:(nullable NSString*)value;
 
-- (NSString*)primitiveMetadataFileContents;
-- (void)setPrimitiveMetadataFileContents:(NSString*)value;
-
-
-
-
-
-- (SIProductMO*)primitiveProduct;
-- (void)setPrimitiveProduct:(SIProductMO*)value;
-
+- (nullable SIProductMO*)primitiveProduct;
+- (void)setPrimitiveProduct:(nullable SIProductMO*)value;
 
 @end
+
+@interface SIServerMetadataMOAttributes: NSObject 
++ (NSString *)metadataFileContents;
+@end
+
+@interface SIServerMetadataMORelationships: NSObject
++ (NSString *)product;
+@end
+
+NS_ASSUME_NONNULL_END

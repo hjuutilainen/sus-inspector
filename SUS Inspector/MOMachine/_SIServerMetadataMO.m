@@ -3,23 +3,12 @@
 
 #import "_SIServerMetadataMO.h"
 
-const struct SIServerMetadataMOAttributes SIServerMetadataMOAttributes = {
-	.metadataFileContents = @"metadataFileContents",
-};
-
-const struct SIServerMetadataMORelationships SIServerMetadataMORelationships = {
-	.product = @"product",
-};
-
-const struct SIServerMetadataMOFetchedProperties SIServerMetadataMOFetchedProperties = {
-};
-
 @implementation SIServerMetadataMOID
 @end
 
 @implementation _SIServerMetadataMO
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"SIServerMetadata" inManagedObjectContext:moc_];
 }
@@ -39,28 +28,25 @@ const struct SIServerMetadataMOFetchedProperties SIServerMetadataMOFetchedProper
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
 
 	return keyPaths;
 }
 
-
-
-
 @dynamic metadataFileContents;
-
-
-
-
-
 
 @dynamic product;
 
-	
-
-
-
-
-
-
 @end
+
+@implementation SIServerMetadataMOAttributes 
++ (NSString *)metadataFileContents {
+	return @"metadataFileContents";
+}
+@end
+
+@implementation SIServerMetadataMORelationships 
++ (NSString *)product {
+	return @"product";
+}
+@end
+

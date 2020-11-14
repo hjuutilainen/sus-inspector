@@ -1,109 +1,63 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to SIDistributionMO.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
+
 #import "SIDownloadableObject.h"
 
-extern const struct SIDistributionMOAttributes {
-	__unsafe_unretained NSString *distributionFileContents;
-	__unsafe_unretained NSString *distributionLanguage;
-	__unsafe_unretained NSString *distributionLanguageDisplayName;
-} SIDistributionMOAttributes;
-
-extern const struct SIDistributionMORelationships {
-	__unsafe_unretained NSString *product;
-} SIDistributionMORelationships;
-
-extern const struct SIDistributionMOFetchedProperties {
-} SIDistributionMOFetchedProperties;
+NS_ASSUME_NONNULL_BEGIN
 
 @class SIProductMO;
 
-
-
-
-
-@interface SIDistributionMOID : NSManagedObjectID {}
+@interface SIDistributionMOID : SIDownloadableObjectID {}
 @end
 
-@interface _SIDistributionMO : SIDownloadableObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _SIDistributionMO : SIDownloadableObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (SIDistributionMOID*)objectID;
++ (nullable NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@property (nonatomic, readonly, strong) SIDistributionMOID *objectID;
 
+@property (nonatomic, strong, nullable) NSString* distributionFileContents;
 
+@property (nonatomic, strong, nullable) NSString* distributionLanguage;
 
+@property (nonatomic, strong, nullable) NSString* distributionLanguageDisplayName;
 
-
-@property (nonatomic, strong) NSString* distributionFileContents;
-
-
-
-//- (BOOL)validateDistributionFileContents:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* distributionLanguage;
-
-
-
-//- (BOOL)validateDistributionLanguage:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* distributionLanguageDisplayName;
-
-
-
-//- (BOOL)validateDistributionLanguageDisplayName:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) SIProductMO *product;
-
-//- (BOOL)validateProduct:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@end
-
-@interface _SIDistributionMO (CoreDataGeneratedAccessors)
+@property (nonatomic, strong, nullable) SIProductMO *product;
 
 @end
 
 @interface _SIDistributionMO (CoreDataGeneratedPrimitiveAccessors)
 
+- (nullable NSString*)primitiveDistributionFileContents;
+- (void)setPrimitiveDistributionFileContents:(nullable NSString*)value;
 
-- (NSString*)primitiveDistributionFileContents;
-- (void)setPrimitiveDistributionFileContents:(NSString*)value;
+- (nullable NSString*)primitiveDistributionLanguage;
+- (void)setPrimitiveDistributionLanguage:(nullable NSString*)value;
 
+- (nullable NSString*)primitiveDistributionLanguageDisplayName;
+- (void)setPrimitiveDistributionLanguageDisplayName:(nullable NSString*)value;
 
-
-
-- (NSString*)primitiveDistributionLanguage;
-- (void)setPrimitiveDistributionLanguage:(NSString*)value;
-
-
-
-
-- (NSString*)primitiveDistributionLanguageDisplayName;
-- (void)setPrimitiveDistributionLanguageDisplayName:(NSString*)value;
-
-
-
-
-
-- (SIProductMO*)primitiveProduct;
-- (void)setPrimitiveProduct:(SIProductMO*)value;
-
+- (nullable SIProductMO*)primitiveProduct;
+- (void)setPrimitiveProduct:(nullable SIProductMO*)value;
 
 @end
+
+@interface SIDistributionMOAttributes: NSObject 
++ (NSString *)distributionFileContents;
++ (NSString *)distributionLanguage;
++ (NSString *)distributionLanguageDisplayName;
+@end
+
+@interface SIDistributionMORelationships: NSObject
++ (NSString *)product;
+@end
+
+NS_ASSUME_NONNULL_END

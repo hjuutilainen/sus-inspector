@@ -1,231 +1,85 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to SICatalogMO.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-
-extern const struct SICatalogMOAttributes {
-	__unsafe_unretained NSString *allowRemove;
-	__unsafe_unretained NSString *catalogDescription;
-	__unsafe_unretained NSString *catalogDisplayName;
-	__unsafe_unretained NSString *catalogFileURL;
-	__unsafe_unretained NSString *catalogOSVersion;
-	__unsafe_unretained NSString *catalogTitle;
-	__unsafe_unretained NSString *catalogURL;
-	__unsafe_unretained NSString *catalogURLCheckPending;
-	__unsafe_unretained NSString *catalogURLFromInstanceDefaultURL;
-	__unsafe_unretained NSString *catalogURLIsValid;
-	__unsafe_unretained NSString *catalogURLStatusCode;
-	__unsafe_unretained NSString *isActive;
-} SICatalogMOAttributes;
-
-extern const struct SICatalogMORelationships {
-	__unsafe_unretained NSString *products;
-	__unsafe_unretained NSString *reposadoInstance;
-	__unsafe_unretained NSString *sourceListItem;
-} SICatalogMORelationships;
-
-extern const struct SICatalogMOFetchedProperties {
-} SICatalogMOFetchedProperties;
+NS_ASSUME_NONNULL_BEGIN
 
 @class SIProductMO;
 @class SIReposadoInstanceMO;
 @class SISourceListItemMO;
 
-
-
-
-@class NSObject;
-
-
-
-
-
-
-
-
-
 @interface SICatalogMOID : NSManagedObjectID {}
 @end
 
-@interface _SICatalogMO : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _SICatalogMO : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (SICatalogMOID*)objectID;
++ (nullable NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@property (nonatomic, readonly, strong) SICatalogMOID *objectID;
 
+@property (nonatomic, strong, nullable) NSNumber* allowRemove;
 
-
-
-
-@property (nonatomic, strong) NSNumber* allowRemove;
-
-
-
-@property BOOL allowRemoveValue;
+@property (atomic) BOOL allowRemoveValue;
 - (BOOL)allowRemoveValue;
 - (void)setAllowRemoveValue:(BOOL)value_;
 
-//- (BOOL)validateAllowRemove:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* catalogDescription;
 
+@property (nonatomic, strong, nullable) NSString* catalogDisplayName;
 
+@property (nonatomic, strong, nullable) NSURL* catalogFileURL;
 
+@property (nonatomic, strong, nullable) NSString* catalogOSVersion;
 
+@property (nonatomic, strong, nullable) NSString* catalogTitle;
 
-@property (nonatomic, strong) NSString* catalogDescription;
+@property (nonatomic, strong, nullable) NSString* catalogURL;
 
+@property (nonatomic, strong, nullable) NSNumber* catalogURLCheckPending;
 
-
-//- (BOOL)validateCatalogDescription:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* catalogDisplayName;
-
-
-
-//- (BOOL)validateCatalogDisplayName:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) id catalogFileURL;
-
-
-
-//- (BOOL)validateCatalogFileURL:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* catalogOSVersion;
-
-
-
-//- (BOOL)validateCatalogOSVersion:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* catalogTitle;
-
-
-
-//- (BOOL)validateCatalogTitle:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* catalogURL;
-
-
-
-//- (BOOL)validateCatalogURL:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* catalogURLCheckPending;
-
-
-
-@property BOOL catalogURLCheckPendingValue;
+@property (atomic) BOOL catalogURLCheckPendingValue;
 - (BOOL)catalogURLCheckPendingValue;
 - (void)setCatalogURLCheckPendingValue:(BOOL)value_;
 
-//- (BOOL)validateCatalogURLCheckPending:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* catalogURLFromInstanceDefaultURL;
 
+@property (nonatomic, strong, nullable) NSNumber* catalogURLIsValid;
 
-
-
-
-@property (nonatomic, strong) NSString* catalogURLFromInstanceDefaultURL;
-
-
-
-//- (BOOL)validateCatalogURLFromInstanceDefaultURL:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* catalogURLIsValid;
-
-
-
-@property BOOL catalogURLIsValidValue;
+@property (atomic) BOOL catalogURLIsValidValue;
 - (BOOL)catalogURLIsValidValue;
 - (void)setCatalogURLIsValidValue:(BOOL)value_;
 
-//- (BOOL)validateCatalogURLIsValid:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSNumber* catalogURLStatusCode;
 
-
-
-
-
-@property (nonatomic, strong) NSNumber* catalogURLStatusCode;
-
-
-
-@property int32_t catalogURLStatusCodeValue;
+@property (atomic) int32_t catalogURLStatusCodeValue;
 - (int32_t)catalogURLStatusCodeValue;
 - (void)setCatalogURLStatusCodeValue:(int32_t)value_;
 
-//- (BOOL)validateCatalogURLStatusCode:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSNumber* isActive;
 
-
-
-
-
-@property (nonatomic, strong) NSNumber* isActive;
-
-
-
-@property BOOL isActiveValue;
+@property (atomic) BOOL isActiveValue;
 - (BOOL)isActiveValue;
 - (void)setIsActiveValue:(BOOL)value_;
 
-//- (BOOL)validateIsActive:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSSet<SIProductMO*> *products;
+- (nullable NSMutableSet<SIProductMO*>*)productsSet;
 
+@property (nonatomic, strong, nullable) SIReposadoInstanceMO *reposadoInstance;
 
-
-
-
-@property (nonatomic, strong) NSSet *products;
-
-- (NSMutableSet*)productsSet;
-
-
-
-
-@property (nonatomic, strong) SIReposadoInstanceMO *reposadoInstance;
-
-//- (BOOL)validateReposadoInstance:(id*)value_ error:(NSError**)error_;
-
-
-
-
-@property (nonatomic, strong) SISourceListItemMO *sourceListItem;
-
-//- (BOOL)validateSourceListItem:(id*)value_ error:(NSError**)error_;
-
-
-
-
+@property (nonatomic, strong, nullable) SISourceListItemMO *sourceListItem;
 
 @end
 
-@interface _SICatalogMO (CoreDataGeneratedAccessors)
-
-- (void)addProducts:(NSSet*)value_;
-- (void)removeProducts:(NSSet*)value_;
+@interface _SICatalogMO (ProductsCoreDataGeneratedAccessors)
+- (void)addProducts:(NSSet<SIProductMO*>*)value_;
+- (void)removeProducts:(NSSet<SIProductMO*>*)value_;
 - (void)addProductsObject:(SIProductMO*)value_;
 - (void)removeProductsObject:(SIProductMO*)value_;
 
@@ -233,107 +87,87 @@ extern const struct SICatalogMOFetchedProperties {
 
 @interface _SICatalogMO (CoreDataGeneratedPrimitiveAccessors)
 
-
-- (NSNumber*)primitiveAllowRemove;
-- (void)setPrimitiveAllowRemove:(NSNumber*)value;
+- (nullable NSNumber*)primitiveAllowRemove;
+- (void)setPrimitiveAllowRemove:(nullable NSNumber*)value;
 
 - (BOOL)primitiveAllowRemoveValue;
 - (void)setPrimitiveAllowRemoveValue:(BOOL)value_;
 
+- (nullable NSString*)primitiveCatalogDescription;
+- (void)setPrimitiveCatalogDescription:(nullable NSString*)value;
 
+- (nullable NSString*)primitiveCatalogDisplayName;
+- (void)setPrimitiveCatalogDisplayName:(nullable NSString*)value;
 
+- (nullable NSURL*)primitiveCatalogFileURL;
+- (void)setPrimitiveCatalogFileURL:(nullable NSURL*)value;
 
-- (NSString*)primitiveCatalogDescription;
-- (void)setPrimitiveCatalogDescription:(NSString*)value;
+- (nullable NSString*)primitiveCatalogOSVersion;
+- (void)setPrimitiveCatalogOSVersion:(nullable NSString*)value;
 
+- (nullable NSString*)primitiveCatalogTitle;
+- (void)setPrimitiveCatalogTitle:(nullable NSString*)value;
 
+- (nullable NSString*)primitiveCatalogURL;
+- (void)setPrimitiveCatalogURL:(nullable NSString*)value;
 
-
-- (NSString*)primitiveCatalogDisplayName;
-- (void)setPrimitiveCatalogDisplayName:(NSString*)value;
-
-
-
-
-- (id)primitiveCatalogFileURL;
-- (void)setPrimitiveCatalogFileURL:(id)value;
-
-
-
-
-- (NSString*)primitiveCatalogOSVersion;
-- (void)setPrimitiveCatalogOSVersion:(NSString*)value;
-
-
-
-
-- (NSString*)primitiveCatalogTitle;
-- (void)setPrimitiveCatalogTitle:(NSString*)value;
-
-
-
-
-- (NSString*)primitiveCatalogURL;
-- (void)setPrimitiveCatalogURL:(NSString*)value;
-
-
-
-
-- (NSNumber*)primitiveCatalogURLCheckPending;
-- (void)setPrimitiveCatalogURLCheckPending:(NSNumber*)value;
+- (nullable NSNumber*)primitiveCatalogURLCheckPending;
+- (void)setPrimitiveCatalogURLCheckPending:(nullable NSNumber*)value;
 
 - (BOOL)primitiveCatalogURLCheckPendingValue;
 - (void)setPrimitiveCatalogURLCheckPendingValue:(BOOL)value_;
 
+- (nullable NSString*)primitiveCatalogURLFromInstanceDefaultURL;
+- (void)setPrimitiveCatalogURLFromInstanceDefaultURL:(nullable NSString*)value;
 
-
-
-- (NSString*)primitiveCatalogURLFromInstanceDefaultURL;
-- (void)setPrimitiveCatalogURLFromInstanceDefaultURL:(NSString*)value;
-
-
-
-
-- (NSNumber*)primitiveCatalogURLIsValid;
-- (void)setPrimitiveCatalogURLIsValid:(NSNumber*)value;
+- (nullable NSNumber*)primitiveCatalogURLIsValid;
+- (void)setPrimitiveCatalogURLIsValid:(nullable NSNumber*)value;
 
 - (BOOL)primitiveCatalogURLIsValidValue;
 - (void)setPrimitiveCatalogURLIsValidValue:(BOOL)value_;
 
-
-
-
-- (NSNumber*)primitiveCatalogURLStatusCode;
-- (void)setPrimitiveCatalogURLStatusCode:(NSNumber*)value;
+- (nullable NSNumber*)primitiveCatalogURLStatusCode;
+- (void)setPrimitiveCatalogURLStatusCode:(nullable NSNumber*)value;
 
 - (int32_t)primitiveCatalogURLStatusCodeValue;
 - (void)setPrimitiveCatalogURLStatusCodeValue:(int32_t)value_;
 
-
-
-
-- (NSNumber*)primitiveIsActive;
-- (void)setPrimitiveIsActive:(NSNumber*)value;
+- (nullable NSNumber*)primitiveIsActive;
+- (void)setPrimitiveIsActive:(nullable NSNumber*)value;
 
 - (BOOL)primitiveIsActiveValue;
 - (void)setPrimitiveIsActiveValue:(BOOL)value_;
 
+- (NSMutableSet<SIProductMO*>*)primitiveProducts;
+- (void)setPrimitiveProducts:(NSMutableSet<SIProductMO*>*)value;
 
+- (nullable SIReposadoInstanceMO*)primitiveReposadoInstance;
+- (void)setPrimitiveReposadoInstance:(nullable SIReposadoInstanceMO*)value;
 
-
-
-- (NSMutableSet*)primitiveProducts;
-- (void)setPrimitiveProducts:(NSMutableSet*)value;
-
-
-
-- (SIReposadoInstanceMO*)primitiveReposadoInstance;
-- (void)setPrimitiveReposadoInstance:(SIReposadoInstanceMO*)value;
-
-
-
-- (SISourceListItemMO*)primitiveSourceListItem;
-- (void)setPrimitiveSourceListItem:(SISourceListItemMO*)value;
-
+- (nullable SISourceListItemMO*)primitiveSourceListItem;
+- (void)setPrimitiveSourceListItem:(nullable SISourceListItemMO*)value;
 
 @end
+
+@interface SICatalogMOAttributes: NSObject 
++ (NSString *)allowRemove;
++ (NSString *)catalogDescription;
++ (NSString *)catalogDisplayName;
++ (NSString *)catalogFileURL;
++ (NSString *)catalogOSVersion;
++ (NSString *)catalogTitle;
++ (NSString *)catalogURL;
++ (NSString *)catalogURLCheckPending;
++ (NSString *)catalogURLFromInstanceDefaultURL;
++ (NSString *)catalogURLIsValid;
++ (NSString *)catalogURLStatusCode;
++ (NSString *)isActive;
+@end
+
+@interface SICatalogMORelationships: NSObject
++ (NSString *)products;
++ (NSString *)reposadoInstance;
++ (NSString *)sourceListItem;
+@end
+
+NS_ASSUME_NONNULL_END

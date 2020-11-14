@@ -3,26 +3,12 @@
 
 #import "_SIDownloadableObject.h"
 
-const struct SIDownloadableObjectAttributes SIDownloadableObjectAttributes = {
-	.objectCachedPath = @"objectCachedPath",
-	.objectIsCached = @"objectIsCached",
-	.objectIsDownloading = @"objectIsDownloading",
-	.objectURL = @"objectURL",
-	.performPostDownloadAction = @"performPostDownloadAction",
-};
-
-const struct SIDownloadableObjectRelationships SIDownloadableObjectRelationships = {
-};
-
-const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedProperties = {
-};
-
 @implementation SIDownloadableObjectID
 @end
 
 @implementation _SIDownloadableObject
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"SIDownloadableObject" inManagedObjectContext:moc_];
 }
@@ -42,7 +28,7 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"objectIsCachedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"objectIsCached"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -62,19 +48,9 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 	return keyPaths;
 }
 
-
-
-
 @dynamic objectCachedPath;
 
-
-
-
-
-
 @dynamic objectIsCached;
-
-
 
 - (BOOL)objectIsCachedValue {
 	NSNumber *result = [self objectIsCached];
@@ -82,7 +58,7 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 }
 
 - (void)setObjectIsCachedValue:(BOOL)value_ {
-	[self setObjectIsCached:[NSNumber numberWithBool:value_]];
+	[self setObjectIsCached:@(value_)];
 }
 
 - (BOOL)primitiveObjectIsCachedValue {
@@ -91,16 +67,10 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 }
 
 - (void)setPrimitiveObjectIsCachedValue:(BOOL)value_ {
-	[self setPrimitiveObjectIsCached:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveObjectIsCached:@(value_)];
 }
 
-
-
-
-
 @dynamic objectIsDownloading;
-
-
 
 - (BOOL)objectIsDownloadingValue {
 	NSNumber *result = [self objectIsDownloading];
@@ -108,7 +78,7 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 }
 
 - (void)setObjectIsDownloadingValue:(BOOL)value_ {
-	[self setObjectIsDownloading:[NSNumber numberWithBool:value_]];
+	[self setObjectIsDownloading:@(value_)];
 }
 
 - (BOOL)primitiveObjectIsDownloadingValue {
@@ -117,23 +87,12 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 }
 
 - (void)setPrimitiveObjectIsDownloadingValue:(BOOL)value_ {
-	[self setPrimitiveObjectIsDownloading:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveObjectIsDownloading:@(value_)];
 }
-
-
-
-
 
 @dynamic objectURL;
 
-
-
-
-
-
 @dynamic performPostDownloadAction;
-
-
 
 - (BOOL)performPostDownloadActionValue {
 	NSNumber *result = [self performPostDownloadAction];
@@ -141,7 +100,7 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 }
 
 - (void)setPerformPostDownloadActionValue:(BOOL)value_ {
-	[self setPerformPostDownloadAction:[NSNumber numberWithBool:value_]];
+	[self setPerformPostDownloadAction:@(value_)];
 }
 
 - (BOOL)primitivePerformPostDownloadActionValue {
@@ -150,16 +109,26 @@ const struct SIDownloadableObjectFetchedProperties SIDownloadableObjectFetchedPr
 }
 
 - (void)setPrimitivePerformPostDownloadActionValue:(BOOL)value_ {
-	[self setPrimitivePerformPostDownloadAction:[NSNumber numberWithBool:value_]];
+	[self setPrimitivePerformPostDownloadAction:@(value_)];
 }
 
-
-
-
-
-
-
-
-
-
 @end
+
+@implementation SIDownloadableObjectAttributes 
++ (NSString *)objectCachedPath {
+	return @"objectCachedPath";
+}
++ (NSString *)objectIsCached {
+	return @"objectIsCached";
+}
++ (NSString *)objectIsDownloading {
+	return @"objectIsDownloading";
+}
++ (NSString *)objectURL {
+	return @"objectURL";
+}
++ (NSString *)performPostDownloadAction {
+	return @"performPostDownloadAction";
+}
+@end
+

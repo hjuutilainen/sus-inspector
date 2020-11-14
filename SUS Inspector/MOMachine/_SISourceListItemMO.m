@@ -3,30 +3,12 @@
 
 #import "_SISourceListItemMO.h"
 
-const struct SISourceListItemMOAttributes SISourceListItemMOAttributes = {
-	.iconImage = @"iconImage",
-	.iconName = @"iconName",
-	.isGroupItem = @"isGroupItem",
-	.productFilterPredicate = @"productFilterPredicate",
-	.sortIndex = @"sortIndex",
-	.title = @"title",
-};
-
-const struct SISourceListItemMORelationships SISourceListItemMORelationships = {
-	.catalogReference = @"catalogReference",
-	.children = @"children",
-	.parent = @"parent",
-};
-
-const struct SISourceListItemMOFetchedProperties SISourceListItemMOFetchedProperties = {
-};
-
 @implementation SISourceListItemMOID
 @end
 
 @implementation _SISourceListItemMO
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"SISourceListItem" inManagedObjectContext:moc_];
 }
@@ -46,7 +28,7 @@ const struct SISourceListItemMOFetchedProperties SISourceListItemMOFetchedProper
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"isGroupItemValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isGroupItem"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -61,26 +43,11 @@ const struct SISourceListItemMOFetchedProperties SISourceListItemMOFetchedProper
 	return keyPaths;
 }
 
-
-
-
 @dynamic iconImage;
-
-
-
-
-
 
 @dynamic iconName;
 
-
-
-
-
-
 @dynamic isGroupItem;
-
-
 
 - (BOOL)isGroupItemValue {
 	NSNumber *result = [self isGroupItem];
@@ -88,7 +55,7 @@ const struct SISourceListItemMOFetchedProperties SISourceListItemMOFetchedProper
 }
 
 - (void)setIsGroupItemValue:(BOOL)value_ {
-	[self setIsGroupItem:[NSNumber numberWithBool:value_]];
+	[self setIsGroupItem:@(value_)];
 }
 
 - (BOOL)primitiveIsGroupItemValue {
@@ -97,23 +64,12 @@ const struct SISourceListItemMOFetchedProperties SISourceListItemMOFetchedProper
 }
 
 - (void)setPrimitiveIsGroupItemValue:(BOOL)value_ {
-	[self setPrimitiveIsGroupItem:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveIsGroupItem:@(value_)];
 }
-
-
-
-
 
 @dynamic productFilterPredicate;
 
-
-
-
-
-
 @dynamic sortIndex;
-
-
 
 - (int32_t)sortIndexValue {
 	NSNumber *result = [self sortIndex];
@@ -121,7 +77,7 @@ const struct SISourceListItemMOFetchedProperties SISourceListItemMOFetchedProper
 }
 
 - (void)setSortIndexValue:(int32_t)value_ {
-	[self setSortIndex:[NSNumber numberWithInt:value_]];
+	[self setSortIndex:@(value_)];
 }
 
 - (int32_t)primitiveSortIndexValue {
@@ -130,44 +86,58 @@ const struct SISourceListItemMOFetchedProperties SISourceListItemMOFetchedProper
 }
 
 - (void)setPrimitiveSortIndexValue:(int32_t)value_ {
-	[self setPrimitiveSortIndex:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveSortIndex:@(value_)];
 }
-
-
-
-
 
 @dynamic title;
 
-
-
-
-
-
 @dynamic catalogReference;
-
-	
 
 @dynamic children;
 
-	
-- (NSMutableSet*)childrenSet {
+- (NSMutableSet<SISourceListItemMO*>*)childrenSet {
 	[self willAccessValueForKey:@"children"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"children"];
-  
+
+	NSMutableSet<SISourceListItemMO*> *result = (NSMutableSet<SISourceListItemMO*>*)[self mutableSetValueForKey:@"children"];
+
 	[self didAccessValueForKey:@"children"];
 	return result;
 }
-	
 
 @dynamic parent;
 
-	
-
-
-
-
-
-
 @end
+
+@implementation SISourceListItemMOAttributes 
++ (NSString *)iconImage {
+	return @"iconImage";
+}
++ (NSString *)iconName {
+	return @"iconName";
+}
++ (NSString *)isGroupItem {
+	return @"isGroupItem";
+}
++ (NSString *)productFilterPredicate {
+	return @"productFilterPredicate";
+}
++ (NSString *)sortIndex {
+	return @"sortIndex";
+}
++ (NSString *)title {
+	return @"title";
+}
+@end
+
+@implementation SISourceListItemMORelationships 
++ (NSString *)catalogReference {
+	return @"catalogReference";
+}
++ (NSString *)children {
+	return @"children";
+}
++ (NSString *)parent {
+	return @"parent";
+}
+@end
+

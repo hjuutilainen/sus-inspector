@@ -3,23 +3,12 @@
 
 #import "_SIPackageMetadataMO.h"
 
-const struct SIPackageMetadataMOAttributes SIPackageMetadataMOAttributes = {
-	.metadataFileContents = @"metadataFileContents",
-};
-
-const struct SIPackageMetadataMORelationships SIPackageMetadataMORelationships = {
-	.package = @"package",
-};
-
-const struct SIPackageMetadataMOFetchedProperties SIPackageMetadataMOFetchedProperties = {
-};
-
 @implementation SIPackageMetadataMOID
 @end
 
 @implementation _SIPackageMetadataMO
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"SIPackageMetadata" inManagedObjectContext:moc_];
 }
@@ -39,28 +28,25 @@ const struct SIPackageMetadataMOFetchedProperties SIPackageMetadataMOFetchedProp
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
 
 	return keyPaths;
 }
 
-
-
-
 @dynamic metadataFileContents;
-
-
-
-
-
 
 @dynamic package;
 
-	
-
-
-
-
-
-
 @end
+
+@implementation SIPackageMetadataMOAttributes 
++ (NSString *)metadataFileContents {
+	return @"metadataFileContents";
+}
+@end
+
+@implementation SIPackageMetadataMORelationships 
++ (NSString *)package {
+	return @"package";
+}
+@end
+

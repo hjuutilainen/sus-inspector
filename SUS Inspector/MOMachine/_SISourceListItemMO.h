@@ -1,26 +1,15 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to SISourceListItemMO.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-
-extern const struct SISourceListItemMOAttributes {
-	__unsafe_unretained NSString *iconImage;
-	__unsafe_unretained NSString *iconName;
-	__unsafe_unretained NSString *isGroupItem;
-	__unsafe_unretained NSString *productFilterPredicate;
-	__unsafe_unretained NSString *sortIndex;
-	__unsafe_unretained NSString *title;
-} SISourceListItemMOAttributes;
-
-extern const struct SISourceListItemMORelationships {
-	__unsafe_unretained NSString *catalogReference;
-	__unsafe_unretained NSString *children;
-	__unsafe_unretained NSString *parent;
-} SISourceListItemMORelationships;
-
-extern const struct SISourceListItemMOFetchedProperties {
-} SISourceListItemMOFetchedProperties;
+NS_ASSUME_NONNULL_BEGIN
 
 @class SICatalogMO;
 @class SISourceListItemMO;
@@ -28,120 +17,49 @@ extern const struct SISourceListItemMOFetchedProperties {
 
 @class NSObject;
 
-
 @class NSObject;
-
-
 
 @interface SISourceListItemMOID : NSManagedObjectID {}
 @end
 
-@interface _SISourceListItemMO : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _SISourceListItemMO : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (SISourceListItemMOID*)objectID;
++ (nullable NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@property (nonatomic, readonly, strong) SISourceListItemMOID *objectID;
 
+@property (nonatomic, strong, nullable) id iconImage;
 
+@property (nonatomic, strong, nullable) NSString* iconName;
 
+@property (nonatomic, strong, nullable) NSNumber* isGroupItem;
 
-
-@property (nonatomic, strong) id iconImage;
-
-
-
-//- (BOOL)validateIconImage:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* iconName;
-
-
-
-//- (BOOL)validateIconName:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* isGroupItem;
-
-
-
-@property BOOL isGroupItemValue;
+@property (atomic) BOOL isGroupItemValue;
 - (BOOL)isGroupItemValue;
 - (void)setIsGroupItemValue:(BOOL)value_;
 
-//- (BOOL)validateIsGroupItem:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) id productFilterPredicate;
 
+@property (nonatomic, strong, nullable) NSNumber* sortIndex;
 
-
-
-
-@property (nonatomic, strong) id productFilterPredicate;
-
-
-
-//- (BOOL)validateProductFilterPredicate:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* sortIndex;
-
-
-
-@property int32_t sortIndexValue;
+@property (atomic) int32_t sortIndexValue;
 - (int32_t)sortIndexValue;
 - (void)setSortIndexValue:(int32_t)value_;
 
-//- (BOOL)validateSortIndex:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* title;
 
+@property (nonatomic, strong, nullable) SICatalogMO *catalogReference;
 
+@property (nonatomic, strong, nullable) NSSet<SISourceListItemMO*> *children;
+- (nullable NSMutableSet<SISourceListItemMO*>*)childrenSet;
 
-
-
-@property (nonatomic, strong) NSString* title;
-
-
-
-//- (BOOL)validateTitle:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) SICatalogMO *catalogReference;
-
-//- (BOOL)validateCatalogReference:(id*)value_ error:(NSError**)error_;
-
-
-
-
-@property (nonatomic, strong) NSSet *children;
-
-- (NSMutableSet*)childrenSet;
-
-
-
-
-@property (nonatomic, strong) SISourceListItemMO *parent;
-
-//- (BOOL)validateParent:(id*)value_ error:(NSError**)error_;
-
-
-
-
+@property (nonatomic, strong, nullable) SISourceListItemMO *parent;
 
 @end
 
-@interface _SISourceListItemMO (CoreDataGeneratedAccessors)
-
-- (void)addChildren:(NSSet*)value_;
-- (void)removeChildren:(NSSet*)value_;
+@interface _SISourceListItemMO (ChildrenCoreDataGeneratedAccessors)
+- (void)addChildren:(NSSet<SISourceListItemMO*>*)value_;
+- (void)removeChildren:(NSSet<SISourceListItemMO*>*)value_;
 - (void)addChildrenObject:(SISourceListItemMO*)value_;
 - (void)removeChildrenObject:(SISourceListItemMO*)value_;
 
@@ -149,62 +67,54 @@ extern const struct SISourceListItemMOFetchedProperties {
 
 @interface _SISourceListItemMO (CoreDataGeneratedPrimitiveAccessors)
 
+- (nullable id)primitiveIconImage;
+- (void)setPrimitiveIconImage:(nullable id)value;
 
-- (id)primitiveIconImage;
-- (void)setPrimitiveIconImage:(id)value;
+- (nullable NSString*)primitiveIconName;
+- (void)setPrimitiveIconName:(nullable NSString*)value;
 
-
-
-
-- (NSString*)primitiveIconName;
-- (void)setPrimitiveIconName:(NSString*)value;
-
-
-
-
-- (NSNumber*)primitiveIsGroupItem;
-- (void)setPrimitiveIsGroupItem:(NSNumber*)value;
+- (nullable NSNumber*)primitiveIsGroupItem;
+- (void)setPrimitiveIsGroupItem:(nullable NSNumber*)value;
 
 - (BOOL)primitiveIsGroupItemValue;
 - (void)setPrimitiveIsGroupItemValue:(BOOL)value_;
 
+- (nullable id)primitiveProductFilterPredicate;
+- (void)setPrimitiveProductFilterPredicate:(nullable id)value;
 
-
-
-- (id)primitiveProductFilterPredicate;
-- (void)setPrimitiveProductFilterPredicate:(id)value;
-
-
-
-
-- (NSNumber*)primitiveSortIndex;
-- (void)setPrimitiveSortIndex:(NSNumber*)value;
+- (nullable NSNumber*)primitiveSortIndex;
+- (void)setPrimitiveSortIndex:(nullable NSNumber*)value;
 
 - (int32_t)primitiveSortIndexValue;
 - (void)setPrimitiveSortIndexValue:(int32_t)value_;
 
+- (nullable NSString*)primitiveTitle;
+- (void)setPrimitiveTitle:(nullable NSString*)value;
 
+- (nullable SICatalogMO*)primitiveCatalogReference;
+- (void)setPrimitiveCatalogReference:(nullable SICatalogMO*)value;
 
+- (NSMutableSet<SISourceListItemMO*>*)primitiveChildren;
+- (void)setPrimitiveChildren:(NSMutableSet<SISourceListItemMO*>*)value;
 
-- (NSString*)primitiveTitle;
-- (void)setPrimitiveTitle:(NSString*)value;
-
-
-
-
-
-- (SICatalogMO*)primitiveCatalogReference;
-- (void)setPrimitiveCatalogReference:(SICatalogMO*)value;
-
-
-
-- (NSMutableSet*)primitiveChildren;
-- (void)setPrimitiveChildren:(NSMutableSet*)value;
-
-
-
-- (SISourceListItemMO*)primitiveParent;
-- (void)setPrimitiveParent:(SISourceListItemMO*)value;
-
+- (nullable SISourceListItemMO*)primitiveParent;
+- (void)setPrimitiveParent:(nullable SISourceListItemMO*)value;
 
 @end
+
+@interface SISourceListItemMOAttributes: NSObject 
++ (NSString *)iconImage;
++ (NSString *)iconName;
++ (NSString *)isGroupItem;
++ (NSString *)productFilterPredicate;
++ (NSString *)sortIndex;
++ (NSString *)title;
+@end
+
+@interface SISourceListItemMORelationships: NSObject
++ (NSString *)catalogReference;
++ (NSString *)children;
++ (NSString *)parent;
+@end
+
+NS_ASSUME_NONNULL_END

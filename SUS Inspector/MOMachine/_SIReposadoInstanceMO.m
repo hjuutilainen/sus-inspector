@@ -3,31 +3,12 @@
 
 #import "_SIReposadoInstanceMO.h"
 
-const struct SIReposadoInstanceMOAttributes SIReposadoInstanceMOAttributes = {
-	.productInfoCreationDate = @"productInfoCreationDate",
-	.productInfoModificationDate = @"productInfoModificationDate",
-	.reposadoCatalogsBaseURLString = @"reposadoCatalogsBaseURLString",
-	.reposadoInstallURL = @"reposadoInstallURL",
-	.reposadoSetupComplete = @"reposadoSetupComplete",
-	.reposadoTitle = @"reposadoTitle",
-	.reposadoUpdatesMetadataDir = @"reposadoUpdatesMetadataDir",
-	.reposadoUpdatesRootDir = @"reposadoUpdatesRootDir",
-};
-
-const struct SIReposadoInstanceMORelationships SIReposadoInstanceMORelationships = {
-	.catalogs = @"catalogs",
-};
-
-const struct SIReposadoInstanceMOFetchedProperties SIReposadoInstanceMOFetchedProperties = {
-	.activeCatalogs = @"activeCatalogs",
-};
-
 @implementation SIReposadoInstanceMOID
 @end
 
 @implementation _SIReposadoInstanceMO
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"SIReposadoInstance" inManagedObjectContext:moc_];
 }
@@ -47,7 +28,7 @@ const struct SIReposadoInstanceMOFetchedProperties SIReposadoInstanceMOFetchedPr
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"reposadoSetupCompleteValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"reposadoSetupComplete"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -57,40 +38,15 @@ const struct SIReposadoInstanceMOFetchedProperties SIReposadoInstanceMOFetchedPr
 	return keyPaths;
 }
 
-
-
-
 @dynamic productInfoCreationDate;
-
-
-
-
-
 
 @dynamic productInfoModificationDate;
 
-
-
-
-
-
 @dynamic reposadoCatalogsBaseURLString;
-
-
-
-
-
 
 @dynamic reposadoInstallURL;
 
-
-
-
-
-
 @dynamic reposadoSetupComplete;
-
-
 
 - (BOOL)reposadoSetupCompleteValue {
 	NSNumber *result = [self reposadoSetupComplete];
@@ -98,7 +54,7 @@ const struct SIReposadoInstanceMOFetchedProperties SIReposadoInstanceMOFetchedPr
 }
 
 - (void)setReposadoSetupCompleteValue:(BOOL)value_ {
-	[self setReposadoSetupComplete:[NSNumber numberWithBool:value_]];
+	[self setReposadoSetupComplete:@(value_)];
 }
 
 - (BOOL)primitiveReposadoSetupCompleteValue {
@@ -107,52 +63,66 @@ const struct SIReposadoInstanceMOFetchedProperties SIReposadoInstanceMOFetchedPr
 }
 
 - (void)setPrimitiveReposadoSetupCompleteValue:(BOOL)value_ {
-	[self setPrimitiveReposadoSetupComplete:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveReposadoSetupComplete:@(value_)];
 }
-
-
-
-
 
 @dynamic reposadoTitle;
 
-
-
-
-
-
 @dynamic reposadoUpdatesMetadataDir;
-
-
-
-
-
 
 @dynamic reposadoUpdatesRootDir;
 
-
-
-
-
-
 @dynamic catalogs;
 
-	
-- (NSMutableSet*)catalogsSet {
+- (NSMutableSet<SICatalogMO*>*)catalogsSet {
 	[self willAccessValueForKey:@"catalogs"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"catalogs"];
-  
+
+	NSMutableSet<SICatalogMO*> *result = (NSMutableSet<SICatalogMO*>*)[self mutableSetValueForKey:@"catalogs"];
+
 	[self didAccessValueForKey:@"catalogs"];
 	return result;
 }
-	
-
-
 
 @dynamic activeCatalogs;
 
-
-
-
 @end
+
+@implementation SIReposadoInstanceMOAttributes 
++ (NSString *)productInfoCreationDate {
+	return @"productInfoCreationDate";
+}
++ (NSString *)productInfoModificationDate {
+	return @"productInfoModificationDate";
+}
++ (NSString *)reposadoCatalogsBaseURLString {
+	return @"reposadoCatalogsBaseURLString";
+}
++ (NSString *)reposadoInstallURL {
+	return @"reposadoInstallURL";
+}
++ (NSString *)reposadoSetupComplete {
+	return @"reposadoSetupComplete";
+}
++ (NSString *)reposadoTitle {
+	return @"reposadoTitle";
+}
++ (NSString *)reposadoUpdatesMetadataDir {
+	return @"reposadoUpdatesMetadataDir";
+}
++ (NSString *)reposadoUpdatesRootDir {
+	return @"reposadoUpdatesRootDir";
+}
+@end
+
+@implementation SIReposadoInstanceMORelationships 
++ (NSString *)catalogs {
+	return @"catalogs";
+}
+@end
+
+@implementation SIReposadoInstanceMOFetchedProperties 
++ (NSString *)activeCatalogs {
+	return @"activeCatalogs";
+}
+@end
+

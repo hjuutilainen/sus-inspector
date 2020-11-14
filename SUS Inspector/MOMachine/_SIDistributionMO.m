@@ -3,25 +3,12 @@
 
 #import "_SIDistributionMO.h"
 
-const struct SIDistributionMOAttributes SIDistributionMOAttributes = {
-	.distributionFileContents = @"distributionFileContents",
-	.distributionLanguage = @"distributionLanguage",
-	.distributionLanguageDisplayName = @"distributionLanguageDisplayName",
-};
-
-const struct SIDistributionMORelationships SIDistributionMORelationships = {
-	.product = @"product",
-};
-
-const struct SIDistributionMOFetchedProperties SIDistributionMOFetchedProperties = {
-};
-
 @implementation SIDistributionMOID
 @end
 
 @implementation _SIDistributionMO
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"SIDistribution" inManagedObjectContext:moc_];
 }
@@ -41,42 +28,35 @@ const struct SIDistributionMOFetchedProperties SIDistributionMOFetchedProperties
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
 
 	return keyPaths;
 }
 
-
-
-
 @dynamic distributionFileContents;
-
-
-
-
-
 
 @dynamic distributionLanguage;
 
-
-
-
-
-
 @dynamic distributionLanguageDisplayName;
-
-
-
-
-
 
 @dynamic product;
 
-	
-
-
-
-
-
-
 @end
+
+@implementation SIDistributionMOAttributes 
++ (NSString *)distributionFileContents {
+	return @"distributionFileContents";
+}
++ (NSString *)distributionLanguage {
+	return @"distributionLanguage";
+}
++ (NSString *)distributionLanguageDisplayName {
+	return @"distributionLanguageDisplayName";
+}
+@end
+
+@implementation SIDistributionMORelationships 
++ (NSString *)product {
+	return @"product";
+}
+@end
+

@@ -1,120 +1,53 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to SIDownloadableObject.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-
-extern const struct SIDownloadableObjectAttributes {
-	__unsafe_unretained NSString *objectCachedPath;
-	__unsafe_unretained NSString *objectIsCached;
-	__unsafe_unretained NSString *objectIsDownloading;
-	__unsafe_unretained NSString *objectURL;
-	__unsafe_unretained NSString *performPostDownloadAction;
-} SIDownloadableObjectAttributes;
-
-extern const struct SIDownloadableObjectRelationships {
-} SIDownloadableObjectRelationships;
-
-extern const struct SIDownloadableObjectFetchedProperties {
-} SIDownloadableObjectFetchedProperties;
-
-
-
-
-
-
-
+NS_ASSUME_NONNULL_BEGIN
 
 @interface SIDownloadableObjectID : NSManagedObjectID {}
 @end
 
-@interface _SIDownloadableObject : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _SIDownloadableObject : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (SIDownloadableObjectID*)objectID;
++ (nullable NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@property (nonatomic, readonly, strong) SIDownloadableObjectID *objectID;
 
-
-
-
-
-@property (nonatomic, strong) NSString* objectCachedPath;
-
-
-
-//- (BOOL)validateObjectCachedPath:(id*)value_ error:(NSError**)error_;
-
-
-
-
+@property (nonatomic, strong, nullable) NSString* objectCachedPath;
 
 @property (nonatomic, strong) NSNumber* objectIsCached;
 
-
-
-@property BOOL objectIsCachedValue;
+@property (atomic) BOOL objectIsCachedValue;
 - (BOOL)objectIsCachedValue;
 - (void)setObjectIsCachedValue:(BOOL)value_;
 
-//- (BOOL)validateObjectIsCached:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSNumber* objectIsDownloading;
 
-
-
-
-
-@property (nonatomic, strong) NSNumber* objectIsDownloading;
-
-
-
-@property BOOL objectIsDownloadingValue;
+@property (atomic) BOOL objectIsDownloadingValue;
 - (BOOL)objectIsDownloadingValue;
 - (void)setObjectIsDownloadingValue:(BOOL)value_;
 
-//- (BOOL)validateObjectIsDownloading:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* objectURL;
 
+@property (nonatomic, strong, nullable) NSNumber* performPostDownloadAction;
 
-
-
-
-@property (nonatomic, strong) NSString* objectURL;
-
-
-
-//- (BOOL)validateObjectURL:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* performPostDownloadAction;
-
-
-
-@property BOOL performPostDownloadActionValue;
+@property (atomic) BOOL performPostDownloadActionValue;
 - (BOOL)performPostDownloadActionValue;
 - (void)setPerformPostDownloadActionValue:(BOOL)value_;
-
-//- (BOOL)validatePerformPostDownloadAction:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-
-@end
-
-@interface _SIDownloadableObject (CoreDataGeneratedAccessors)
 
 @end
 
 @interface _SIDownloadableObject (CoreDataGeneratedPrimitiveAccessors)
 
-
-- (NSString*)primitiveObjectCachedPath;
-- (void)setPrimitiveObjectCachedPath:(NSString*)value;
-
-
-
+- (nullable NSString*)primitiveObjectCachedPath;
+- (void)setPrimitiveObjectCachedPath:(nullable NSString*)value;
 
 - (NSNumber*)primitiveObjectIsCached;
 - (void)setPrimitiveObjectIsCached:(NSNumber*)value;
@@ -122,31 +55,29 @@ extern const struct SIDownloadableObjectFetchedProperties {
 - (BOOL)primitiveObjectIsCachedValue;
 - (void)setPrimitiveObjectIsCachedValue:(BOOL)value_;
 
-
-
-
-- (NSNumber*)primitiveObjectIsDownloading;
-- (void)setPrimitiveObjectIsDownloading:(NSNumber*)value;
+- (nullable NSNumber*)primitiveObjectIsDownloading;
+- (void)setPrimitiveObjectIsDownloading:(nullable NSNumber*)value;
 
 - (BOOL)primitiveObjectIsDownloadingValue;
 - (void)setPrimitiveObjectIsDownloadingValue:(BOOL)value_;
 
+- (nullable NSString*)primitiveObjectURL;
+- (void)setPrimitiveObjectURL:(nullable NSString*)value;
 
-
-
-- (NSString*)primitiveObjectURL;
-- (void)setPrimitiveObjectURL:(NSString*)value;
-
-
-
-
-- (NSNumber*)primitivePerformPostDownloadAction;
-- (void)setPrimitivePerformPostDownloadAction:(NSNumber*)value;
+- (nullable NSNumber*)primitivePerformPostDownloadAction;
+- (void)setPrimitivePerformPostDownloadAction:(nullable NSNumber*)value;
 
 - (BOOL)primitivePerformPostDownloadActionValue;
 - (void)setPrimitivePerformPostDownloadActionValue:(BOOL)value_;
 
-
-
-
 @end
+
+@interface SIDownloadableObjectAttributes: NSObject 
++ (NSString *)objectCachedPath;
++ (NSString *)objectIsCached;
++ (NSString *)objectIsDownloading;
++ (NSString *)objectURL;
++ (NSString *)performPostDownloadAction;
+@end
+
+NS_ASSUME_NONNULL_END

@@ -3,25 +3,12 @@
 
 #import "_SIPackageMO.h"
 
-const struct SIPackageMOAttributes SIPackageMOAttributes = {
-	.packageMetadataURL = @"packageMetadataURL",
-	.packageSize = @"packageSize",
-};
-
-const struct SIPackageMORelationships SIPackageMORelationships = {
-	.metadata = @"metadata",
-	.product = @"product",
-};
-
-const struct SIPackageMOFetchedProperties SIPackageMOFetchedProperties = {
-};
-
 @implementation SIPackageMOID
 @end
 
 @implementation _SIPackageMO
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"SIPackage" inManagedObjectContext:moc_];
 }
@@ -41,7 +28,7 @@ const struct SIPackageMOFetchedProperties SIPackageMOFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"packageSizeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"packageSize"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -51,19 +38,9 @@ const struct SIPackageMOFetchedProperties SIPackageMOFetchedProperties = {
 	return keyPaths;
 }
 
-
-
-
 @dynamic packageMetadataURL;
 
-
-
-
-
-
 @dynamic packageSize;
-
-
 
 - (int64_t)packageSizeValue {
 	NSNumber *result = [self packageSize];
@@ -71,7 +48,7 @@ const struct SIPackageMOFetchedProperties SIPackageMOFetchedProperties = {
 }
 
 - (void)setPackageSizeValue:(int64_t)value_ {
-	[self setPackageSize:[NSNumber numberWithLongLong:value_]];
+	[self setPackageSize:@(value_)];
 }
 
 - (int64_t)primitivePackageSizeValue {
@@ -80,24 +57,30 @@ const struct SIPackageMOFetchedProperties SIPackageMOFetchedProperties = {
 }
 
 - (void)setPrimitivePackageSizeValue:(int64_t)value_ {
-	[self setPrimitivePackageSize:[NSNumber numberWithLongLong:value_]];
+	[self setPrimitivePackageSize:@(value_)];
 }
-
-
-
-
 
 @dynamic metadata;
 
-	
-
 @dynamic product;
 
-	
-
-
-
-
-
-
 @end
+
+@implementation SIPackageMOAttributes 
++ (NSString *)packageMetadataURL {
+	return @"packageMetadataURL";
+}
++ (NSString *)packageSize {
+	return @"packageSize";
+}
+@end
+
+@implementation SIPackageMORelationships 
++ (NSString *)metadata {
+	return @"metadata";
+}
++ (NSString *)product {
+	return @"product";
+}
+@end
+
