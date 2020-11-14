@@ -218,7 +218,7 @@
 	openPanel.resolvesAliases = YES;
     openPanel.prompt = @"Choose";
     
-	if ([openPanel runModal] == NSFileHandlingPanelOKButton)
+    if ([openPanel runModal] == NSModalResponseOK)
 	{
         NSURL *selectedDir = [[openPanel URLs] objectAtIndex:0];
         NSInteger numSavedPkginfos = 0;

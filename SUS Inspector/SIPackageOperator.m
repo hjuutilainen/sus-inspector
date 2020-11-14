@@ -17,7 +17,7 @@
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
 	savePanel.nameFieldStringValue = fileName;
     savePanel.title = @"Save expanded package";
-	if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+    if ([savePanel runModal] == NSModalResponseOK)
 	{
 		return [savePanel URL];
 	} else {
@@ -30,7 +30,7 @@
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
 	savePanel.nameFieldStringValue = fileName;
     savePanel.title = @"Save the original package";
-	if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+    if ([savePanel runModal] == NSModalResponseOK)
 	{
 		return [savePanel URL];
 	} else {
@@ -48,7 +48,7 @@
 	openPanel.canChooseFiles = NO;
 	openPanel.resolvesAliases = YES;
 	
-	if ([openPanel runModal] == NSFileHandlingPanelOKButton)
+    if ([openPanel runModal] == NSModalResponseOK)
 	{
 		return [[openPanel URLs] objectAtIndex:0];
 	} else {

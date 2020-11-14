@@ -124,7 +124,7 @@
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
 	savePanel.nameFieldStringValue = fileName;
     savePanel.title = @"Change Reposado Location";
-	if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+    if ([savePanel runModal] == NSModalResponseOK)
 	{
 		return [savePanel URL];
 	} else {

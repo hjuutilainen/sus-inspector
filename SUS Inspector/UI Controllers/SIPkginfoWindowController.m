@@ -54,7 +54,7 @@
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
 	savePanel.nameFieldStringValue = fileName;
     savePanel.title = @"Save pkginfo";
-	if ([savePanel runModal] == NSFileHandlingPanelOKButton)
+    if ([savePanel runModal] == NSModalResponseOK)
 	{
 		return [savePanel URL];
 	} else {
