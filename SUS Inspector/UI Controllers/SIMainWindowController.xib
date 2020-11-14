@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F67a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,25 +17,25 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <window title="SUS Inspector" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" frameAutosaveName="Main Window" animationBehavior="default" id="1">
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="SUS Inspector" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" frameAutosaveName="Main Window" animationBehavior="default" titleVisibility="hidden" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <rect key="contentRect" x="196" y="240" width="1070" height="569"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1792" height="1095"/>
             <value key="minSize" type="size" width="700" height="360"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="1070" height="569"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <splitView autosaveName="Main Window Split View" dividerStyle="thin" vertical="YES" id="5">
+                    <splitView fixedFrame="YES" autosaveName="Main Window Split View" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                         <rect key="frame" x="0.0" y="0.0" width="1070" height="569"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView id="6">
+                            <customView fixedFrame="YES" id="6">
                                 <rect key="frame" x="0.0" y="0.0" width="212" height="569"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </customView>
-                            <customView id="7">
+                            <customView fixedFrame="YES" id="7">
                                 <rect key="frame" x="213" y="0.0" width="857" height="569"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </customView>
@@ -49,13 +49,13 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="1DDB9BEB-F9C0-4B67-A5AB-40F12FF3CF1D" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="20">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="6A50E281-B68F-438E-B273-66C1739ECA53" explicitItemIdentifier="toolbarButtonProductInfo" label="Info" paletteLabel="Product Info" toolTip="Open product info window" image="NSRevealFreestandingTemplate" id="31" customClass="SIToolbarItem">
+                    <toolbarItem implicitItemIdentifier="6A50E281-B68F-438E-B273-66C1739ECA53" explicitItemIdentifier="toolbarButtonProductInfo" label="Info" paletteLabel="Product Info" toolTip="Open product info window" image="info.circle" id="31" customClass="SIToolbarItem">
                         <size key="minSize" width="35" height="25"/>
-                        <size key="maxSize" width="35" height="25"/>
+                        <size key="maxSize" width="40" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="29">
-                            <rect key="frame" x="19" y="14" width="35" height="25"/>
+                            <rect key="frame" x="16" y="14" width="40" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" title="Info" bezelStyle="texturedRounded" image="NSRevealFreestandingTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="30">
+                            <buttonCell key="cell" type="roundTextured" title="Info" bezelStyle="texturedRounded" image="info.circle" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="30">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -64,13 +64,13 @@
                             <action selector="getInfoAction:" target="-2" id="60"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="B798E606-7AFC-4424-AF45-ACCF1F818B00" explicitItemIdentifier="toolbarButtonOpenDistribution" label="Distribution" paletteLabel="Distribution" toolTip="View the default distribution file" image="NSRightFacingTriangleTemplate" id="74" customClass="SIToolbarItem">
+                    <toolbarItem implicitItemIdentifier="B798E606-7AFC-4424-AF45-ACCF1F818B00" explicitItemIdentifier="toolbarButtonOpenDistribution" label="Distribution" paletteLabel="Distribution" toolTip="View the default distribution file" image="doc.text" id="74" customClass="SIToolbarItem">
                         <size key="minSize" width="35" height="25"/>
-                        <size key="maxSize" width="35" height="25"/>
+                        <size key="maxSize" width="40" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="72">
-                            <rect key="frame" x="17" y="14" width="35" height="25"/>
+                            <rect key="frame" x="14" y="14" width="40" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" title="Round Textured" bezelStyle="texturedRounded" image="NSRightFacingTriangleTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="73">
+                            <buttonCell key="cell" type="roundTextured" title="Round Textured" bezelStyle="texturedRounded" image="doc.text" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="73">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -79,18 +79,18 @@
                             <action selector="openPreferredDistributionAction:" target="-2" id="75"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="758336F6-57B9-44C7-AEE8-49427306A226" explicitItemIdentifier="toolbarButtonSharePopup" label="Share" paletteLabel="Share" toolTip="Share product" image="NSShareTemplate" id="50" customClass="SIToolbarItem">
+                    <toolbarItem implicitItemIdentifier="758336F6-57B9-44C7-AEE8-49427306A226" explicitItemIdentifier="toolbarButtonSharePopup" label="Share" paletteLabel="Share" toolTip="Share product" image="square.and.arrow.up" id="50" customClass="SIToolbarItem">
                         <size key="minSize" width="43" height="25"/>
-                        <size key="maxSize" width="44" height="25"/>
+                        <size key="maxSize" width="55" height="25"/>
                         <popUpButton key="view" verticalHuggingPriority="750" id="44">
-                            <rect key="frame" x="0.0" y="14" width="43" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="55" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="shareTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" autoenablesItems="NO" selectedItem="47" id="45">
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="square.and.arrow.up" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" autoenablesItems="NO" selectedItem="47" id="45">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="menu"/>
                                 <menu key="menu" title="OtherViews" autoenablesItems="NO" id="46">
                                     <items>
-                                        <menuItem state="on" image="NSShareTemplate" hidden="YES" id="47"/>
+                                        <menuItem state="on" image="square.and.arrow.up" hidden="YES" id="47"/>
                                         <menuItem title="Export pkginfo..." id="48">
                                             <connections>
                                                 <action selector="createPkginfoAction:" target="-2" id="62"/>
@@ -106,13 +106,13 @@
                             </popUpButtonCell>
                         </popUpButton>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="81A66654-3917-45D5-8FAC-A790F3496F14" explicitItemIdentifier="toolbarButtonRefreshCatalogs" label="Refresh" paletteLabel="Refresh" toolTip="Refresh all catalogs and products" image="NSRefreshTemplate" id="53" customClass="SIToolbarItem">
+                    <toolbarItem implicitItemIdentifier="81A66654-3917-45D5-8FAC-A790F3496F14" explicitItemIdentifier="toolbarButtonRefreshCatalogs" label="Refresh" paletteLabel="Refresh" toolTip="Refresh all catalogs and products" image="arrow.clockwise" id="53" customClass="SIToolbarItem">
                         <size key="minSize" width="34" height="25"/>
-                        <size key="maxSize" width="35" height="25"/>
+                        <size key="maxSize" width="40" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="51">
-                            <rect key="frame" x="7" y="14" width="35" height="25"/>
+                            <rect key="frame" x="4" y="14" width="40" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" title="Round Textured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="52">
+                            <buttonCell key="cell" type="roundTextured" title="Round Textured" bezelStyle="texturedRounded" image="arrow.clockwise" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="52">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -127,6 +127,7 @@
                 <defaultToolbarItems>
                     <toolbarItem reference="31"/>
                     <toolbarItem reference="74"/>
+                    <toolbarItem reference="53"/>
                     <toolbarItem reference="50"/>
                     <toolbarItem reference="24"/>
                 </defaultToolbarItems>
@@ -137,13 +138,13 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="4"/>
             </connections>
+            <point key="canvasLocation" x="-136" y="132"/>
         </window>
     </objects>
     <resources>
-        <image name="NSRefreshTemplate" width="11" height="15"/>
-        <image name="NSRevealFreestandingTemplate" width="14" height="14"/>
-        <image name="NSRightFacingTriangleTemplate" width="9" height="12"/>
-        <image name="NSShareTemplate" width="11" height="16"/>
-        <image name="shareTemplate" width="32" height="32"/>
+        <image name="arrow.clockwise" width="12" height="14"/>
+        <image name="doc.text" width="11" height="14"/>
+        <image name="info.circle" width="13" height="13"/>
+        <image name="square.and.arrow.up" width="12" height="15"/>
     </resources>
 </document>
