@@ -160,6 +160,7 @@
     [textField setBezeled:NO];
     [textField setSelectable:YES];
     [textField setEditable:NO];
+    [textField setDrawsBackground:NO];
     [textField setFont:[NSFont systemFontOfSize:13.0]];
     [textField setAutoresizingMask:NSViewMaxXMargin|NSViewMinYMargin];
     [textField setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -264,7 +265,7 @@
     [productCatalogsTokenField setBezeled:NO];
     [productCatalogsTokenField setSelectable:YES];
     [productCatalogsTokenField setEditable:NO];
-    [productCatalogsTokenField setBackgroundColor:[NSColor windowBackgroundColor]];
+    [productCatalogsTokenField setDrawsBackground:NO];
     [parentView addSubview:productCatalogsTokenField];
     [productCatalogsTokenField bind:@"value" toObject:self withKeyPath:@"catalogs" options:bindOptions];
     
