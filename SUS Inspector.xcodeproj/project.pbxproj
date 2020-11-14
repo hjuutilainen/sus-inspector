@@ -99,6 +99,7 @@
 		26201BCF16EE4041003F6416 /* SIReposadoConfigurationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIReposadoConfigurationController.h; path = "UI Controllers/SIReposadoConfigurationController.h"; sourceTree = "<group>"; };
 		26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIReposadoConfigurationController.m; path = "UI Controllers/SIReposadoConfigurationController.m"; sourceTree = "<group>"; };
 		26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIReposadoConfigurationController.xib; path = "UI Controllers/SIReposadoConfigurationController.xib"; sourceTree = "<group>"; };
+		26451264256043A400E357AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		269466DA255FEAA700C370C2 /* icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icons.xcassets; sourceTree = "<group>"; };
 		26AB3DF417993B53007AE12F /* catalogTemplate.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = catalogTemplate.icns; sourceTree = "<group>"; };
 		26B05AD11711E42E00B24A5A /* SIPackageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIPackageMO.h; sourceTree = "<group>"; };
@@ -175,7 +176,6 @@
 		F5E06E4C16E473FF008B7831 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		F5E06E4E16E473FF008B7831 /* SIAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIAppDelegate.h; sourceTree = "<group>"; };
 		F5E06E4F16E473FF008B7831 /* SIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SIAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		F5E06E5216E473FF008B7831 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F5E06E5516E473FF008B7831 /* SUS_Inspector.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SUS_Inspector.xcdatamodel; sourceTree = "<group>"; };
 		F5E06E5C16E473FF008B7831 /* SUS InspectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SUS InspectorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E06E6416E47400008B7831 /* SUS InspectorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SUS InspectorTests-Info.plist"; sourceTree = "<group>"; };
@@ -620,7 +620,7 @@
 			attributes = {
 				CLASSPREFIX = SI;
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Hannes Juutilainen";
 				TargetAttributes = {
 					F5E06E3816E473FF008B7831 = {
@@ -636,11 +636,11 @@
 			};
 			buildConfigurationList = F5E06E3416E473FF008B7831 /* Build configuration list for PBXProject "SUS Inspector" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = F5E06E3016E473FF008B7831;
 			productRefGroup = F5E06E3A16E473FF008B7831 /* Products */;
@@ -844,7 +844,7 @@
 		F5E06E5116E473FF008B7831 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F5E06E5216E473FF008B7831 /* en */,
+				26451264256043A400E357AB /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -864,6 +864,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -879,6 +880,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -914,6 +916,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -929,6 +932,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -965,7 +969,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS Inspector/SUS Inspector-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hjuutilainen.SUS-Inspector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -987,7 +991,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS Inspector/SUS Inspector-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hjuutilainen.SUS-Inspector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
