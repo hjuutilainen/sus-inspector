@@ -43,7 +43,9 @@
 			<string>https://swscan.apple.com/content/catalogs/others/index-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz</string>
 			<key>catalogDisplayName</key>
 			<string>Big Sur</string>
-		</dict>		
+			<key>enabled</key>
+			<true/>
+		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
 			<string>10.15</string>
@@ -51,6 +53,8 @@
 			<string>https://swscan.apple.com/content/catalogs/others/index-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Catalina</string>
+			<key>enabled</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -59,6 +63,8 @@
 			<string>https://swscan.apple.com/content/catalogs/others/index-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Mojave</string>
+			<key>enabled</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -67,6 +73,8 @@
 			<string>https://swscan.apple.com/content/catalogs/others/index-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>High Sierra</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -75,6 +83,8 @@
 			<string>https://swscan.apple.com/content/catalogs/others/index-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Sierra</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -83,6 +93,8 @@
 			<string>https://swscan.apple.com/content/catalogs/others/index-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>El Capitan</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -91,6 +103,8 @@
 			<string>https://swscan.apple.com/content/catalogs/others/index-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Yosemite</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -99,6 +113,8 @@
 			<string>https://swscan.apple.com/content/catalogs/others/index-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Mavericks</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -107,6 +123,8 @@
 			<string>http://swscan.apple.com/content/catalogs/others/index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Mountain Lion</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -115,6 +133,8 @@
 			<string>http://swscan.apple.com/content/catalogs/others/index-lion-snowleopard-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Lion</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -123,6 +143,8 @@
 			<string>http://swscan.apple.com/content/catalogs/others/index-leopard-snowleopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Snow Leopard</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -131,6 +153,8 @@
 			<string>http://swscan.apple.com/content/catalogs/others/index-leopard.merged-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>Leopard</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -139,6 +163,8 @@
 			<string>http://swscan.apple.com/content/catalogs/index.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>index.sucatalog</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>catalogOSVersion</key>
@@ -147,6 +173,8 @@
 			<string>http://swscan.apple.com/content/catalogs/index-1.sucatalog</string>
 			<key>catalogDisplayName</key>
 			<string>index-1.sucatalog</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 	</array>
 	<key>reposadoDefaults</key>

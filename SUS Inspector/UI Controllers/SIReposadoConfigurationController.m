@@ -114,7 +114,7 @@
         newCatalog.catalogURL = newURL;
         newCatalog.catalogDisplayName = [defaultCatalog objectForKey:@"catalogDisplayName"];
         newCatalog.catalogOSVersion = [defaultCatalog objectForKey:@"catalogOSVersion"];
-        newCatalog.isActiveValue = YES;
+        newCatalog.isActive = [defaultCatalog objectForKey:@"enabled"];
         [self.reposadoInstance addCatalogsObject:newCatalog];
     }
 }
