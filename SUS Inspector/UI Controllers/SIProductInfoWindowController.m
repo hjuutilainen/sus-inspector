@@ -50,7 +50,7 @@
 {
     [super showWindow:sender];
         
-    [[self.descriptionWebView mainFrame] loadHTMLString:self.product.productDescription baseURL:nil];
+    [self.descriptionWebView loadHTMLString:self.product.productDescription baseURL:nil];
     
     NSPredicate *notDeprecated = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/deprecated"];
     NSPredicate *notAll = [NSPredicate predicateWithFormat:@"catalogURL != %@", @"/all"];
@@ -341,13 +341,14 @@
      Description web view
      */
     
-    WebView *webView = self.descriptionWebView;
-    [webView setPolicyDelegate:self];
+    WKWebView *webView = self.descriptionWebView;
+    [webView setNavigationDelegate:self];
     [webView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
     //[webView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [webView setShouldCloseWithWindow:NO];
-    [webView setShouldUpdateWhileOffscreen:YES];
-    [webView setDrawsBackground:YES];
+    
+    //[webView setShouldCloseWithWindow:NO];
+    //[webView setShouldUpdateWhileOffscreen:YES];
+    //[webView setDrawsBackground:NO];
     //NSDictionary *tabViewChildren = NSDictionaryOfVariableBindings(webView);
     
     //[tabView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[webView(>=300)]-|" options:NSLayoutFormatAlignAllTop metrics:nil views:tabViewChildren]];
@@ -501,14 +502,15 @@
     
 }
 
-
-- (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-    NSString *host = [[request URL] host];
-    if (host) {
-        [[NSWorkspace sharedWorkspace] openURL:[request URL]];
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
+        if (navigationAction.request.URL) {
+            [[NSWorkspace sharedWorkspace] openURL:navigationAction.request.URL];
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }
     } else {
-        [listener use];
+        decisionHandler(WKNavigationActionPolicyAllow);
     }
 }
 

@@ -24,7 +24,7 @@
 
 @class SIProductMO;
 
-@interface SIProductInfoWindowController : NSWindowController <NSWindowDelegate, NSTokenFieldDelegate, NSTabViewDelegate, WebPolicyDelegate> {
+@interface SIProductInfoWindowController : NSWindowController <NSWindowDelegate, NSTokenFieldDelegate, NSTabViewDelegate, WKNavigationDelegate> {
     
 }
 
@@ -37,7 +37,7 @@
 @property (weak) IBOutlet NSTokenField *catalogsTokenField;
 @property (weak) IBOutlet NSArrayController *packagesArrayController;
 @property (weak) IBOutlet NSTabView *tabView;
-@property (weak) IBOutlet WebView *descriptionWebView;
+@property (weak) IBOutlet WKWebView *descriptionWebView;
 @property (weak) IBOutlet NSView *tabContainerView;
 @property (weak) IBOutlet NSArrayController *distributionsArrayController;
 @property (weak) IBOutlet NSTableView *packagesTableView;

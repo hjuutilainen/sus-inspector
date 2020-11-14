@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		260775AE16F777AA0062F69C /* SIProductInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260775AC16F777AA0062F69C /* SIProductInfoWindowController.m */; };
 		260775AF16F777AA0062F69C /* SIProductInfoWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260775AD16F777AA0062F69C /* SIProductInfoWindowController.xib */; };
-		260775B116F77ADE0062F69C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260775B016F77ADE0062F69C /* WebKit.framework */; };
 		26201BCE16EE3C37003F6416 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26201BCD16EE3C37003F6416 /* UserDefaults.plist */; };
 		26201BD116EE4041003F6416 /* SIReposadoConfigurationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */; };
 		26201BD316EE405F003F6416 /* SIReposadoConfigurationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */; };
+		269466DB255FEAA700C370C2 /* icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 269466DA255FEAA700C370C2 /* icons.xcassets */; };
 		26AB3DF517993B53007AE12F /* catalogTemplate.icns in Resources */ = {isa = PBXBuildFile; fileRef = 26AB3DF417993B53007AE12F /* catalogTemplate.icns */; };
 		26B05AD31711E42E00B24A5A /* SIPackageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26B05AD21711E42E00B24A5A /* SIPackageMO.m */; };
 		26DD312B8C2E4A0CA40B9C63 /* libPods-SUS Inspector.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 231988F41C9F96621E833E9B /* libPods-SUS Inspector.a */; };
@@ -95,11 +95,11 @@
 		260775AB16F777AA0062F69C /* SIProductInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIProductInfoWindowController.h; path = "UI Controllers/SIProductInfoWindowController.h"; sourceTree = "<group>"; };
 		260775AC16F777AA0062F69C /* SIProductInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIProductInfoWindowController.m; path = "UI Controllers/SIProductInfoWindowController.m"; sourceTree = "<group>"; };
 		260775AD16F777AA0062F69C /* SIProductInfoWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIProductInfoWindowController.xib; path = "UI Controllers/SIProductInfoWindowController.xib"; sourceTree = "<group>"; };
-		260775B016F77ADE0062F69C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		26201BCD16EE3C37003F6416 /* UserDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserDefaults.plist; sourceTree = "<group>"; };
 		26201BCF16EE4041003F6416 /* SIReposadoConfigurationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIReposadoConfigurationController.h; path = "UI Controllers/SIReposadoConfigurationController.h"; sourceTree = "<group>"; };
 		26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIReposadoConfigurationController.m; path = "UI Controllers/SIReposadoConfigurationController.m"; sourceTree = "<group>"; };
 		26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIReposadoConfigurationController.xib; path = "UI Controllers/SIReposadoConfigurationController.xib"; sourceTree = "<group>"; };
+		269466DA255FEAA700C370C2 /* icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icons.xcassets; sourceTree = "<group>"; };
 		26AB3DF417993B53007AE12F /* catalogTemplate.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = catalogTemplate.icns; sourceTree = "<group>"; };
 		26B05AD11711E42E00B24A5A /* SIPackageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIPackageMO.h; sourceTree = "<group>"; };
 		26B05AD21711E42E00B24A5A /* SIPackageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIPackageMO.m; sourceTree = "<group>"; };
@@ -239,7 +239,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				260775B116F77ADE0062F69C /* WebKit.framework in Frameworks */,
 				F5E06E3D16E473FF008B7831 /* Cocoa.framework in Frameworks */,
 				26DD312B8C2E4A0CA40B9C63 /* libPods-SUS Inspector.a in Frameworks */,
 			);
@@ -300,7 +299,6 @@
 		F5E06E3016E473FF008B7831 = {
 			isa = PBXGroup;
 			children = (
-				260775B016F77ADE0062F69C /* WebKit.framework */,
 				F5E06E7316E479DB008B7831 /* reposado */,
 				F5E06E4216E473FF008B7831 /* SUS Inspector */,
 				F5E06E6216E47400008B7831 /* SUS InspectorTests */,
@@ -376,6 +374,7 @@
 				F5E06E4B16E473FF008B7831 /* Credits.rtf */,
 				26201BCD16EE3C37003F6416 /* UserDefaults.plist */,
 				F5595972174113E00077140B /* SUS Inspector.icns */,
+				269466DA255FEAA700C370C2 /* icons.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -640,6 +639,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = F5E06E3016E473FF008B7831;
@@ -662,6 +662,7 @@
 				F5E06E4D16E473FF008B7831 /* Credits.rtf in Resources */,
 				F5E06E5316E473FF008B7831 /* MainMenu.xib in Resources */,
 				F5EE0D9816E5D9E1006AEA8B /* SIMainWindowController.xib in Resources */,
+				269466DB255FEAA700C370C2 /* icons.xcassets in Resources */,
 				F53BDE5016E89BD200055BC3 /* SIProgressWindowController.xib in Resources */,
 				F53BDE5516E8A0CD00055BC3 /* SIProductsViewController.xib in Resources */,
 				F501048316E9DF0900B345DE /* SICatalogsViewController.xib in Resources */,
@@ -964,7 +965,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS Inspector/SUS Inspector-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hjuutilainen.SUS-Inspector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -986,7 +987,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS Inspector/SUS Inspector-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hjuutilainen.SUS-Inspector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
