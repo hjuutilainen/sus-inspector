@@ -132,12 +132,12 @@ static dispatch_queue_t serialQueue;
 
 - (void)createProductsSectionWithIndex:(NSUInteger)index managedObjectContext:(NSManagedObjectContext *)moc
 {
-    NSImage *iconFolderSmart = [NSImage imageNamed:NSImageNameFolderSmart];
+    NSImage *iconFolderSmart = [NSImage imageNamed:@"folder"];
     
     /*
      The PRODUCTS group item
      */
-    SISourceListItemMO *productsGroupItem = [self sourceListItemWithTitle:@"PRODUCTS" managedObjectContext:moc];
+    SISourceListItemMO *productsGroupItem = [self sourceListItemWithTitle:@"Products" managedObjectContext:moc];
     productsGroupItem.isGroupItemValue = YES;
     productsGroupItem.sortIndex = [NSNumber numberWithUnsignedInteger:index];
     
@@ -181,7 +181,7 @@ static dispatch_queue_t serialQueue;
 
 - (void)createProductGroupsSectionWithIndex:(NSUInteger)index managedObjectContext:(NSManagedObjectContext *)moc
 {
-    NSImage *iconFolderSmart = [NSImage imageNamed:NSImageNameFolderSmart];
+    NSImage *iconFolderSmart = [NSImage imageNamed:@"folder.badge.gear"];
     
     NSPredicate *includeDeprecatedPredicate;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"includeDeprecatedInProductGroups"]) {
@@ -193,7 +193,7 @@ static dispatch_queue_t serialQueue;
     /*
      The PRODUCT GROUPS item
      */
-    SISourceListItemMO *productGroupsGroupItem = [self sourceListItemWithTitle:@"PRODUCT GROUPS" managedObjectContext:moc];
+    SISourceListItemMO *productGroupsGroupItem = [self sourceListItemWithTitle:@"Product Groups" managedObjectContext:moc];
     productGroupsGroupItem.isGroupItemValue = YES;
     productGroupsGroupItem.sortIndex = [NSNumber numberWithUnsignedInteger:index];
     
@@ -384,7 +384,7 @@ static dispatch_queue_t serialQueue;
     /*
      The CATALOGS group item
      */
-    SISourceListItemMO *catalogsGroupItem = [self sourceListItemWithTitle:@"CATALOGS" managedObjectContext:moc];
+    SISourceListItemMO *catalogsGroupItem = [self sourceListItemWithTitle:@"Catalogs" managedObjectContext:moc];
     catalogsGroupItem.isGroupItemValue = YES;
     catalogsGroupItem.sortIndex = [NSNumber numberWithUnsignedInteger:index];
     
@@ -403,7 +403,7 @@ static dispatch_queue_t serialQueue;
         [allCatalogs enumerateObjectsUsingBlock:^(SICatalogMO *catalog, NSUInteger idx, BOOL *stop) {
             SISourceListItemMO *catalogItem = [self sourceListItemWithTitle:catalog.catalogDisplayName managedObjectContext:moc];
             
-            NSImage *catalogImage = [NSImage imageNamed:@"catalogTemplate"];
+            NSImage *catalogImage = [NSImage imageNamed:@"book"];
             [catalogImage setTemplate:YES];
             
             catalogItem.iconImage = catalogImage;
@@ -430,21 +430,21 @@ static dispatch_queue_t serialQueue;
     /*
      The PRODUCTS group item
      */
-    SISourceListItemMO *productsGroupItem = [self sourceListItemWithTitle:@"PRODUCTS" managedObjectContext:moc];
+    SISourceListItemMO *productsGroupItem = [self sourceListItemWithTitle:@"Products" managedObjectContext:moc];
     productsGroupItem.isGroupItemValue = YES;
     productsGroupItem.sortIndexValue = 0;
     
     /*
      The PRODUCT GROUPS item
      */
-    SISourceListItemMO *productGroupsGroupItem = [self sourceListItemWithTitle:@"PRODUCT GROUPS" managedObjectContext:moc];
+    SISourceListItemMO *productGroupsGroupItem = [self sourceListItemWithTitle:@"Product Groups" managedObjectContext:moc];
     productGroupsGroupItem.isGroupItemValue = YES;
     productGroupsGroupItem.sortIndexValue = 1;
     
     /*
      The CATALOGS group item
      */
-    SISourceListItemMO *catalogsGroupItem = [self sourceListItemWithTitle:@"CATALOGS" managedObjectContext:moc];
+    SISourceListItemMO *catalogsGroupItem = [self sourceListItemWithTitle:@"Catalogs" managedObjectContext:moc];
     catalogsGroupItem.isGroupItemValue = YES;
     catalogsGroupItem.sortIndexValue = 2;
 }
