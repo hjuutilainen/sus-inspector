@@ -479,7 +479,7 @@
 
         NSInteger answer = [alert runModal];
         
-        if (answer == NSAlertAlternateReturn) {
+        if (answer == NSModalResponseCancel) {
             return NSTerminateCancel;
         }
     }

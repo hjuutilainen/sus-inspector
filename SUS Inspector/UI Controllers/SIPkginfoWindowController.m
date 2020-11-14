@@ -481,7 +481,7 @@
 {
     NSTextField *textField = [[NSTextField alloc] init];
     [textField setIdentifier:identifier];
-    [[textField cell] setControlSize:NSRegularControlSize];
+    [[textField cell] setControlSize:NSControlSizeRegular];
     [textField setBordered:YES];
     [textField setBezeled:YES];
     [textField setSelectable:YES];
@@ -497,7 +497,7 @@
 {
     NSComboBox *textField = [[NSComboBox alloc] init];
     [textField setIdentifier:identifier];
-    [[textField cell] setControlSize:NSRegularControlSize];
+    [[textField cell] setControlSize:NSControlSizeRegular];
     [textField setBordered:YES];
     [textField setCompletes:YES];
     [textField setBezeled:YES];
@@ -515,8 +515,8 @@
     NSTextField *textField = [[NSTextField alloc] init];
     [textField setIdentifier:identifier];
     [textField setStringValue:title];
-    [[textField cell] setControlSize:NSRegularControlSize];
-    [textField setAlignment:NSRightTextAlignment];
+    [[textField cell] setControlSize:NSControlSizeRegular];
+    [textField setAlignment:NSTextAlignmentRight];
     [textField setBordered:NO];
     [textField setBezeled:NO];
     [textField setSelectable:NO];
@@ -655,7 +655,7 @@
     [forceAfterDatePicker setIdentifier:@"forceAfterDatePicker"];
     [forceAfterDatePicker setDatePickerStyle:NSTextFieldAndStepperDatePickerStyle];
     [forceAfterDatePicker setDatePickerElements:( NSYearMonthDayDatePickerElementFlag | NSHourMinuteDatePickerElementFlag)];
-    [[forceAfterDatePicker cell] setControlSize:NSRegularControlSize];
+    [[forceAfterDatePicker cell] setControlSize:NSControlSizeRegular];
     [forceAfterDatePicker setBordered:YES];
     [forceAfterDatePicker setBezeled:YES];
     [forceAfterDatePicker setDrawsBackground:YES];

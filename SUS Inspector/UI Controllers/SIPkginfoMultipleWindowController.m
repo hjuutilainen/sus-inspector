@@ -266,11 +266,11 @@
             alertText = [NSString stringWithFormat:@"%@.", createdString];
         }
         
-        NSAlert *importResultsAlert = [NSAlert alertWithMessageText:@"Done"
-                                                      defaultButton:@"OK"
-                                                    alternateButton:@""
-                                                        otherButton:@""
-                                          informativeTextWithFormat:@"%@", alertText];
+        NSAlert *importResultsAlert = [[NSAlert alloc] init];
+        importResultsAlert.messageText = @"Done";
+        importResultsAlert.informativeText = [NSString stringWithFormat:@"%@", alertText];
+        [importResultsAlert addButtonWithTitle:@"OK"];
+        
         [importResultsAlert runModal];
         
 	} else {
