@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,7 +13,6 @@
                 <outlet property="productsArrayController" destination="32" id="206"/>
                 <outlet property="productsListMenu" destination="186" id="214"/>
                 <outlet property="productsTableView" destination="7" id="205"/>
-                <outlet property="searchField" destination="157" id="222"/>
                 <outlet property="sendToMunkiAdminMenuItem" destination="238" id="241"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
@@ -24,23 +23,22 @@
             <rect key="frame" x="0.0" y="0.0" width="914" height="471"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="3">
-                    <rect key="frame" x="-1" y="-1" width="916" height="432"/>
+                <scrollView focusRingType="none" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                    <rect key="frame" x="-1" y="-1" width="916" height="472"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="VuF-SG-Hpn">
-                        <rect key="frame" x="1" y="0.0" width="914" height="431"/>
+                        <rect key="frame" x="0.0" y="0.0" width="916" height="472"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" autosaveColumns="NO" headerView="5" id="7" customClass="SITableView">
-                                <rect key="frame" x="0.0" y="0.0" width="914" height="414"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" autosaveColumns="NO" rowHeight="18" headerView="5" id="7" customClass="SITableView">
+                                <rect key="frame" x="0.0" y="0.0" width="916" height="455"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn editable="NO" width="465.32421875" minWidth="40" maxWidth="1000" id="12">
+                                    <tableColumn editable="NO" width="458.32421875" minWidth="40" maxWidth="1000" id="12">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -65,7 +63,6 @@
                                     </tableColumn>
                                     <tableColumn editable="NO" width="73.8515625" minWidth="10" maxWidth="3.4028234663852886e+38" id="10">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Version">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -90,7 +87,6 @@
                                     </tableColumn>
                                     <tableColumn editable="NO" width="83.5" minWidth="10" maxWidth="3.4028234663852886e+38" id="11">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Post Date">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -116,7 +112,6 @@
                                     </tableColumn>
                                     <tableColumn editable="NO" width="75.10546875" minWidth="10" maxWidth="3.4028234663852886e+38" id="9">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Size">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -142,7 +137,6 @@
                                     </tableColumn>
                                     <tableColumn editable="NO" width="117.05078125" minWidth="40" maxWidth="1000" id="13">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Product ID">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -162,7 +156,6 @@
                                     </tableColumn>
                                     <tableColumn editable="NO" width="81" minWidth="10" maxWidth="3.4028234663852886e+38" id="8">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Status">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -196,75 +189,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="5">
-                        <rect key="frame" x="0.0" y="0.0" width="914" height="17"/>
+                        <rect key="frame" x="0.0" y="0.0" width="916" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
-                <customView id="50">
-                    <rect key="frame" x="0.0" y="431" width="914" height="40"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <subviews>
-                        <searchField wantsLayer="YES" verticalHuggingPriority="750" id="157">
-                            <rect key="frame" x="744" y="10" width="150" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Any" usesSingleLineMode="YES" bezelStyle="round" id="158">
-                                <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </searchFieldCell>
-                            <connections>
-                                <binding destination="-2" name="predicate" keyPath="searchFieldPredicate" id="230">
-                                    <dictionary key="options">
-                                        <string key="NSDisplayName">Any</string>
-                                        <string key="NSPredicateFormat">productTitle contains[cd] $value OR productID contains[cd] $value OR productDescription contains[cd] $value</string>
-                                    </dictionary>
-                                </binding>
-                                <binding destination="-2" name="predicate2" keyPath="searchFieldPredicate" previousBinding="230" id="235">
-                                    <dictionary key="options">
-                                        <string key="NSDisplayName">Title</string>
-                                        <string key="NSPredicateFormat">productTitle contains[cd] $value</string>
-                                    </dictionary>
-                                </binding>
-                                <binding destination="-2" name="predicate3" keyPath="searchFieldPredicate" previousBinding="235" id="237">
-                                    <dictionary key="options">
-                                        <string key="NSDisplayName">Description</string>
-                                        <string key="NSPredicateFormat">productDescription contains[cd] $value</string>
-                                    </dictionary>
-                                </binding>
-                            </connections>
-                        </searchField>
-                        <textField verticalHuggingPriority="750" id="166">
-                            <rect key="frame" x="653" y="13" width="86" height="14"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Label" id="167">
-                                <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                            <connections>
-                                <binding destination="32" name="displayPatternValue1" keyPath="arrangedObjects.@count" id="176">
-                                    <dictionary key="options">
-                                        <string key="NSDisplayPattern">%{value1}@ products</string>
-                                    </dictionary>
-                                </binding>
-                            </connections>
-                        </textField>
-                        <textField hidden="YES" verticalHuggingPriority="750" id="7W6-Ff-zNc">
-                            <rect key="frame" x="18" y="13" width="204" height="14"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="fPn-7i-nXf">
-                                <byteCountFormatter key="formatter" id="khw-sI-zbX"/>
-                                <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                            <connections>
-                                <binding destination="32" name="value" keyPath="selectedObjects.@sum.productSize" id="AVa-Zs-ZtD"/>
-                            </connections>
-                        </textField>
-                    </subviews>
-                </customView>
             </subviews>
+            <point key="canvasLocation" x="-136" y="153.5"/>
         </customView>
         <arrayController mode="entity" entityName="SIProduct" automaticallyPreparesContent="YES" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="32" userLabel="Products">
             <connections>
