@@ -147,22 +147,23 @@
 {
     self.items = [[NSMutableDictionary alloc] init];
     
+    NSImage *prefsIcon;
+    if (@available(macOS 11.0, *)) {
+        prefsIcon = [NSImage imageWithSystemSymbolName:@"gearshape" accessibilityDescription:@"Gear shape"];
+    } else {
+        prefsIcon = [NSImage imageNamed:@"NSPreferencesGeneral"];
+    }
+    
 	NSToolbarItem *generalItem = [self toolbarItemWithIdentifier:@"General"];
     [generalItem setToolTip:NSLocalizedString(@"General preference options.", nil)];
-    [generalItem setImage:[NSImage imageNamed:@"NSPreferencesGeneral"]];
+    [generalItem setImage:prefsIcon];
     [self.items setObject:generalItem forKey:@"General"];
     
     NSToolbarItem *munkiItem = [self toolbarItemWithIdentifier:@"Munki"];
     [munkiItem setToolTip:NSLocalizedString(@"Munki preference options.", nil)];
-    [munkiItem setImage:[NSImage imageNamed:@"NSPreferencesGeneral"]];
+    [munkiItem setImage:prefsIcon];
     [self.items setObject:munkiItem forKey:@"Munki"];
     
-    
-    NSToolbarItem *advancedItem = [self toolbarItemWithIdentifier:@"Advanced"];
-    [advancedItem setToolTip:NSLocalizedString(@"Advanced options.", nil)];
-    [advancedItem setImage:[NSImage imageNamed:@"NSAdvanced"]];
-    [self.items setObject:advancedItem forKey:@"Advanced"];
-	
     //any other items you want to add, do so here.
     //after you are done, just do all the toolbar stuff.
     //myWindow is an outlet pointing to the Preferences Window you made to hold all these custom views.
@@ -172,8 +173,14 @@
     [self.toolbar setAllowsUserCustomization:NO];
     [self.toolbar setAutosavesConfiguration:NO];
     [self.window setToolbar:self.toolbar];
-	[self.window setShowsResizeIndicator:NO];
-	[self.window setShowsToolbarButton:NO];
+    if (@available(macOS 11.0, *)) {
+        [self.window setToolbarStyle:NSWindowToolbarStylePreference];
+    } else {
+        // Fallback on earlier versions
+    }
+    self.window.styleMask |= NSWindowStyleMaskClosable;
+    self.window.styleMask &= ~NSWindowStyleMaskResizable;
+
     [self.window center];
 	[self.window makeKeyAndOrderFront:self];
     [self switchViews:nil];
@@ -202,8 +209,6 @@
         prefsView = self.generalView;
     } else if ([sender isEqualToString:@"Munki"]) {
         prefsView = self.munkiView;
-    } else if ([sender isEqualToString:@"Advanced"]) {
-        prefsView = self.advancedView;
     } else {
         prefsView = self.generalView;
     }
@@ -236,7 +241,7 @@
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)theToolbar
 {
-    return [NSArray arrayWithObjects:@"General", @"Munki", @"Advanced", nil];
+    return @[@"General", @"Munki"];
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers: (NSToolbar *)toolbar
