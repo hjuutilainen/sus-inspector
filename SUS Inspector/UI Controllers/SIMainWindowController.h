@@ -43,6 +43,7 @@
 - (void)showProgressPanelAttachedToWindow:(NSWindow *)aWindow;
 - (void)hideProgressPanel;
 - (BOOL)validateToolbarItem:(SIToolbarItem *)item;
+- (void)configureToolbar:(id)sender;
 
 - (IBAction)openPreferredDistributionAction:(id)sender;
 - (IBAction)focusToSearchFieldAction:(id)sender;

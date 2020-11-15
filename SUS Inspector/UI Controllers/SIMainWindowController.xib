@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +19,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="SUS Inspector" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" frameAutosaveName="Main Window" animationBehavior="default" titleVisibility="hidden" id="1">
+        <window title="SUS Inspector" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" frameAutosaveName="Main Window" animationBehavior="default" toolbarStyle="unified" titleVisibility="hidden" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <rect key="contentRect" x="196" y="240" width="1070" height="569"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1792" height="1095"/>
@@ -49,12 +50,10 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="1DDB9BEB-F9C0-4B67-A5AB-40F12FF3CF1D" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="20">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="6A50E281-B68F-438E-B273-66C1739ECA53" explicitItemIdentifier="toolbarButtonProductInfo" label="Info" paletteLabel="Product Info" toolTip="Open product info window" image="info.circle" id="31" customClass="SIToolbarItem">
-                        <size key="minSize" width="35" height="25"/>
-                        <size key="maxSize" width="40" height="25"/>
+                    <toolbarItem implicitItemIdentifier="6A50E281-B68F-438E-B273-66C1739ECA53" explicitItemIdentifier="toolbarButtonProductInfo" label="Info" paletteLabel="Product Info" toolTip="Open product info window" image="info.circle" sizingBehavior="auto" id="31" customClass="SIToolbarItem">
                         <button key="view" verticalHuggingPriority="750" id="29">
-                            <rect key="frame" x="16" y="14" width="40" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <rect key="frame" x="24" y="14" width="25" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" title="Info" bezelStyle="texturedRounded" image="info.circle" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="30">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -64,12 +63,10 @@
                             <action selector="getInfoAction:" target="-2" id="60"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="B798E606-7AFC-4424-AF45-ACCF1F818B00" explicitItemIdentifier="toolbarButtonOpenDistribution" label="Distribution" paletteLabel="Distribution" toolTip="View the default distribution file" image="doc.text" id="74" customClass="SIToolbarItem">
-                        <size key="minSize" width="35" height="25"/>
-                        <size key="maxSize" width="40" height="25"/>
+                    <toolbarItem implicitItemIdentifier="B798E606-7AFC-4424-AF45-ACCF1F818B00" explicitItemIdentifier="toolbarButtonOpenDistribution" label="Distribution" paletteLabel="Distribution" toolTip="View the default distribution file" image="doc.text" sizingBehavior="auto" id="74" customClass="SIToolbarItem">
                         <button key="view" verticalHuggingPriority="750" id="72">
-                            <rect key="frame" x="14" y="14" width="40" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <rect key="frame" x="23" y="14" width="23" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" title="Round Textured" bezelStyle="texturedRounded" image="doc.text" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="73">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -79,13 +76,11 @@
                             <action selector="openPreferredDistributionAction:" target="-2" id="75"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="758336F6-57B9-44C7-AEE8-49427306A226" explicitItemIdentifier="toolbarButtonSharePopup" label="Share" paletteLabel="Share" toolTip="Share product" image="square.and.arrow.up" id="50" customClass="SIToolbarItem">
-                        <size key="minSize" width="43" height="25"/>
-                        <size key="maxSize" width="55" height="25"/>
+                    <toolbarItem implicitItemIdentifier="758336F6-57B9-44C7-AEE8-49427306A226" explicitItemIdentifier="toolbarButtonSharePopup" label="Share" paletteLabel="Share" toolTip="Share product" image="square.and.arrow.up" sizingBehavior="auto" id="50" customClass="SIToolbarItem">
                         <popUpButton key="view" verticalHuggingPriority="750" id="44">
-                            <rect key="frame" x="0.0" y="14" width="55" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="square.and.arrow.up" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" autoenablesItems="NO" selectedItem="47" id="45">
+                            <rect key="frame" x="0.0" y="14" width="51" height="25"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" autoenablesItems="NO" selectedItem="47" id="45">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" title="OtherViews" autoenablesItems="NO" id="46">
@@ -106,12 +101,10 @@
                             </popUpButtonCell>
                         </popUpButton>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="81A66654-3917-45D5-8FAC-A790F3496F14" explicitItemIdentifier="toolbarButtonRefreshCatalogs" label="Refresh" paletteLabel="Refresh" toolTip="Refresh all catalogs and products" image="arrow.clockwise" id="53" customClass="SIToolbarItem">
-                        <size key="minSize" width="34" height="25"/>
-                        <size key="maxSize" width="40" height="25"/>
+                    <toolbarItem implicitItemIdentifier="81A66654-3917-45D5-8FAC-A790F3496F14" explicitItemIdentifier="toolbarButtonRefreshCatalogs" label="Refresh" paletteLabel="Refresh" toolTip="Refresh all catalogs and products" image="arrow.clockwise" sizingBehavior="auto" id="53" customClass="SIToolbarItem">
                         <button key="view" verticalHuggingPriority="750" id="51">
-                            <rect key="frame" x="4" y="14" width="40" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <rect key="frame" x="12" y="14" width="24" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" title="Round Textured" bezelStyle="texturedRounded" image="arrow.clockwise" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="52">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -123,6 +116,26 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="21"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="24"/>
+                    <searchToolbarItem implicitItemIdentifier="2C19F795-0D4E-4932-915C-0906F3B8ECB7" label="Search" paletteLabel="Search" visibilityPriority="1001" id="6V0-Pl-x2U">
+                        <nil key="toolTip"/>
+                        <searchField key="view" verticalHuggingPriority="750" textCompletion="NO" id="dJl-8n-Tcf">
+                            <rect key="frame" x="0.0" y="0.0" width="100" height="21"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Any" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" id="YVH-Sa-A7b">
+                                <font key="font" usesAppearanceFont="YES"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </searchFieldCell>
+                            <connections>
+                                <binding destination="-2" name="predicate" keyPath="productsViewController.searchFieldPredicate" id="tEO-a5-ew9">
+                                    <dictionary key="options">
+                                        <string key="NSDisplayName">Search</string>
+                                        <string key="NSPredicateFormat">productTitle contains[cd] $value OR productID contains[cd] $value OR productDescription contains[cd] $value</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </searchField>
+                    </searchToolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="31"/>
@@ -130,6 +143,7 @@
                     <toolbarItem reference="53"/>
                     <toolbarItem reference="50"/>
                     <toolbarItem reference="24"/>
+                    <searchToolbarItem reference="6V0-Pl-x2U"/>
                 </defaultToolbarItems>
                 <connections>
                     <outlet property="delegate" destination="-2" id="71"/>

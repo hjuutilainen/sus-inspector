@@ -96,6 +96,33 @@
     [self.productsViewController sendSelectedItemsToMunkiAdmin];
 }
 
+- (void)configureToolbar:(id)sender
+{
+    if (@available(macOS 11.0, *)) {
+        
+        
+        [self.window.toolbar insertItemWithItemIdentifier:@"separator" atIndex:0];
+        //item.splitView = self.mainSplitView;
+        //item.dividerIndex = 0;
+        //[self.window setToolbarStyle:NSWindowToolbarStyleUnified];
+    } else {
+        // Fallback on earlier versions
+    }
+}
+
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar
+     itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier
+ willBeInsertedIntoToolbar:(BOOL)flag
+{
+    if (@available(macOS 11.0, *)) {
+        if ([itemIdentifier isEqualToString:@"separator"]) {
+            
+            NSTrackingSeparatorToolbarItem *item = [NSTrackingSeparatorToolbarItem trackingSeparatorToolbarItemWithIdentifier:@"separator" splitView:self.mainSplitView dividerIndex:0];
+            return item;
+        }
+    }
+    return nil;
+}
 
 - (void)windowDidLoad
 {

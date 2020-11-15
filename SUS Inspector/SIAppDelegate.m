@@ -250,6 +250,8 @@
      * We need one configured Reposado instance
      */
     [self checkForConfiguredReposadoInstance];
+    
+    [self.mainWindowController configureToolbar:self];
 }
 
 - (void)awakeFromNib
