@@ -132,7 +132,12 @@ static dispatch_queue_t serialQueue;
 
 - (void)createProductsSectionWithIndex:(NSUInteger)index managedObjectContext:(NSManagedObjectContext *)moc
 {
-    NSImage *iconFolderSmart = [NSImage imageNamed:@"folder"];
+    NSImage *iconFolderSmart;
+    if (@available(macOS 11.0, *)) {
+        iconFolderSmart = [NSImage imageWithSystemSymbolName:@"folder" accessibilityDescription:@"Folder"];
+    } else {
+        iconFolderSmart = [NSImage imageNamed:@"folder"];
+    }
     
     /*
      The PRODUCTS group item
@@ -181,7 +186,13 @@ static dispatch_queue_t serialQueue;
 
 - (void)createProductGroupsSectionWithIndex:(NSUInteger)index managedObjectContext:(NSManagedObjectContext *)moc
 {
-    NSImage *iconFolderSmart = [NSImage imageNamed:@"folder.badge.gear"];
+    NSImage *iconFolderSmart;
+    
+    if (@available(macOS 11.0, *)) {
+        iconFolderSmart = [NSImage imageWithSystemSymbolName:@"folder.badge.gear" accessibilityDescription:@"Folder with gear"];
+    } else {
+        iconFolderSmart = [NSImage imageNamed:@"folder.badge.gear"];
+    }
     
     NSPredicate *includeDeprecatedPredicate;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"includeDeprecatedInProductGroups"]) {
@@ -403,8 +414,14 @@ static dispatch_queue_t serialQueue;
         [allCatalogs enumerateObjectsUsingBlock:^(SICatalogMO *catalog, NSUInteger idx, BOOL *stop) {
             SISourceListItemMO *catalogItem = [self sourceListItemWithTitle:catalog.catalogDisplayName managedObjectContext:moc];
             
-            NSImage *catalogImage = [NSImage imageNamed:@"book"];
-            [catalogImage setTemplate:YES];
+            NSImage *catalogImage;
+            
+            if (@available(macOS 11.0, *)) {
+                catalogImage = [NSImage imageWithSystemSymbolName:@"book" accessibilityDescription:@"Catalog icon"];
+            } else {
+                catalogImage = [NSImage imageNamed:@"book"];
+                [catalogImage setTemplate:YES];
+            }
             
             catalogItem.iconImage = catalogImage;
             catalogItem.parent = catalogsGroupItem;
