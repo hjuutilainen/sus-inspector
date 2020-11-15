@@ -13,15 +13,14 @@
 		26201BD116EE4041003F6416 /* SIReposadoConfigurationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26201BD016EE4041003F6416 /* SIReposadoConfigurationController.m */; };
 		26201BD316EE405F003F6416 /* SIReposadoConfigurationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */; };
 		269466DB255FEAA700C370C2 /* icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 269466DA255FEAA700C370C2 /* icons.xcassets */; };
-		26AB3DF517993B53007AE12F /* catalogTemplate.icns in Resources */ = {isa = PBXBuildFile; fileRef = 26AB3DF417993B53007AE12F /* catalogTemplate.icns */; };
 		26B05AD31711E42E00B24A5A /* SIPackageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26B05AD21711E42E00B24A5A /* SIPackageMO.m */; };
-		26DD312B8C2E4A0CA40B9C63 /* libPods-SUS Inspector.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 231988F41C9F96621E833E9B /* libPods-SUS Inspector.a */; };
 		26F311FC1719A8E800ED6AC7 /* _SICatalogMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F11719A8E800ED6AC7 /* _SICatalogMO.m */; };
 		26F311FD1719A8E800ED6AC7 /* _SIDistributionMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F31719A8E800ED6AC7 /* _SIDistributionMO.m */; };
 		26F311FE1719A8E800ED6AC7 /* _SIPackageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F51719A8E800ED6AC7 /* _SIPackageMO.m */; };
 		26F311FF1719A8E800ED6AC7 /* _SIProductMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F71719A8E800ED6AC7 /* _SIProductMO.m */; };
 		26F312001719A8E800ED6AC7 /* _SIReposadoInstanceMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311F91719A8E800ED6AC7 /* _SIReposadoInstanceMO.m */; };
 		26F312011719A8E800ED6AC7 /* _SISourceListItemMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F311FB1719A8E800ED6AC7 /* _SISourceListItemMO.m */; };
+		C88EB2749A25619EF04A27DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 576D5183D27432B323AF2852 /* Localizable.strings */; };
 		D02F46BBA900C02FF0022F4B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0232CCEE9E4AC0981A6AAEE /* Localizable.strings */; };
 		F501048216E9DF0900B345DE /* SICatalogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048016E9DF0900B345DE /* SICatalogsViewController.m */; };
 		F501048316E9DF0900B345DE /* SICatalogsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F501048116E9DF0900B345DE /* SICatalogsViewController.xib */; };
@@ -40,10 +39,7 @@
 		F53BDE5816E8A3C300055BC3 /* SIGradientBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5716E8A3C200055BC3 /* SIGradientBackgroundView.m */; };
 		F53BDE5B16E8B4C800055BC3 /* AMShellWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F559596D1740C1CC0077140B /* SITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F559596C1740C1CC0077140B /* SITableView.m */; };
-		F5595973174113E00077140B /* SUS Inspector.icns in Resources */ = {isa = PBXBuildFile; fileRef = F5595972174113E00077140B /* SUS Inspector.icns */; };
 		F55EA4DC178FF2C80015717E /* SIMunkiAdminBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F55EA4DB178FF2C80015717E /* SIMunkiAdminBridge.m */; };
-		F56658AC179E979E00CE142B /* documentTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F56658AB179E979E00CE142B /* documentTemplate.pdf */; };
-		F56658B6179E9D7700CE142B /* infoTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F56658B5179E9D7700CE142B /* infoTemplate.pdf */; };
 		F58FF41316F7530500EF58B0 /* MIT-License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F58FF41016F7530500EF58B0 /* MIT-License.rtf */; };
 		F58FF41416F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F58FF41216F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.m */; };
 		F59340C3174A11F0003BBCEC /* SIPackageOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = F59340C2174A11F0003BBCEC /* SIPackageOperator.m */; };
@@ -65,9 +61,6 @@
 		F5E06EA716E4D8A1008B7831 /* SISizeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E06EA616E4D8A1008B7831 /* SISizeFormatter.m */; };
 		F5E07B5E170ACA910069993C /* SIPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E07B5C170ACA910069993C /* SIPreferencesController.m */; };
 		F5E07B5F170ACA910069993C /* SIPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5E07B5D170ACA910069993C /* SIPreferencesController.xib */; };
-		F5E2F72417954A6F00C4FEEE /* shareTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E2F72017954A6F00C4FEEE /* shareTemplate.png */; };
-		F5E2F72517954A6F00C4FEEE /* shareTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E2F72117954A6F00C4FEEE /* shareTemplate@2x.png */; };
-		F5E2F7391795670E00C4FEEE /* refreshTemplate.icns in Resources */ = {isa = PBXBuildFile; fileRef = F5E2F7381795670E00C4FEEE /* refreshTemplate.icns */; };
 		F5E559A1171BFD3000B285CF /* SIDownloadableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E559A0171BFD3000B285CF /* SIDownloadableObject.m */; };
 		F5E559A4171BFD3900B285CF /* _SIDownloadableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E559A3171BFD3900B285CF /* _SIDownloadableObject.m */; };
 		F5E559A7171C026800B285CF /* SIServerMetadataMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E559A6171C026800B285CF /* SIServerMetadataMO.m */; };
@@ -91,7 +84,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		231988F41C9F96621E833E9B /* libPods-SUS Inspector.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SUS Inspector.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		260775AB16F777AA0062F69C /* SIProductInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIProductInfoWindowController.h; path = "UI Controllers/SIProductInfoWindowController.h"; sourceTree = "<group>"; };
 		260775AC16F777AA0062F69C /* SIProductInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIProductInfoWindowController.m; path = "UI Controllers/SIProductInfoWindowController.m"; sourceTree = "<group>"; };
 		260775AD16F777AA0062F69C /* SIProductInfoWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIProductInfoWindowController.xib; path = "UI Controllers/SIProductInfoWindowController.xib"; sourceTree = "<group>"; };
@@ -101,7 +93,6 @@
 		26201BD216EE405F003F6416 /* SIReposadoConfigurationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIReposadoConfigurationController.xib; path = "UI Controllers/SIReposadoConfigurationController.xib"; sourceTree = "<group>"; };
 		26451264256043A400E357AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		269466DA255FEAA700C370C2 /* icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icons.xcassets; sourceTree = "<group>"; };
-		26AB3DF417993B53007AE12F /* catalogTemplate.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = catalogTemplate.icns; sourceTree = "<group>"; };
 		26B05AD11711E42E00B24A5A /* SIPackageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIPackageMO.h; sourceTree = "<group>"; };
 		26B05AD21711E42E00B24A5A /* SIPackageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIPackageMO.m; sourceTree = "<group>"; };
 		26F311F01719A8E800ED6AC7 /* _SICatalogMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SICatalogMO.h; sourceTree = "<group>"; };
@@ -116,8 +107,7 @@
 		26F311F91719A8E800ED6AC7 /* _SIReposadoInstanceMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SIReposadoInstanceMO.m; sourceTree = "<group>"; };
 		26F311FA1719A8E800ED6AC7 /* _SISourceListItemMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SISourceListItemMO.h; sourceTree = "<group>"; };
 		26F311FB1719A8E800ED6AC7 /* _SISourceListItemMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SISourceListItemMO.m; sourceTree = "<group>"; };
-		31EB5B854AAEC30CA86CFC5E /* Pods-SUS Inspector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SUS Inspector.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SUS Inspector/Pods-SUS Inspector.debug.xcconfig"; sourceTree = "<group>"; };
-		3AB2B4E1AB13B972A0B80228 /* Pods-SUS Inspector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SUS Inspector.release.xcconfig"; path = "Pods/Target Support Files/Pods-SUS Inspector/Pods-SUS Inspector.release.xcconfig"; sourceTree = "<group>"; };
+		8BAFA9CE1EAB3669A8BF5B6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D0232CCEE9E4AC0981A6AAEE /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "UI Controllers/Localizable.strings"; sourceTree = "<group>"; };
 		F501047F16E9DF0900B345DE /* SICatalogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SICatalogsViewController.h; path = "UI Controllers/SICatalogsViewController.h"; sourceTree = "<group>"; };
 		F501048016E9DF0900B345DE /* SICatalogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SICatalogsViewController.m; path = "UI Controllers/SICatalogsViewController.m"; sourceTree = "<group>"; };
@@ -149,11 +139,8 @@
 		F53BDE5A16E8B4C800055BC3 /* AMShellWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMShellWrapper.m; sourceTree = "<group>"; };
 		F559596B1740C1CC0077140B /* SITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SITableView.h; path = "View Subclasses/SITableView.h"; sourceTree = "<group>"; };
 		F559596C1740C1CC0077140B /* SITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SITableView.m; path = "View Subclasses/SITableView.m"; sourceTree = "<group>"; };
-		F5595972174113E00077140B /* SUS Inspector.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "SUS Inspector.icns"; sourceTree = "<group>"; };
 		F55EA4DA178FF2C80015717E /* SIMunkiAdminBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMunkiAdminBridge.h; sourceTree = "<group>"; };
 		F55EA4DB178FF2C80015717E /* SIMunkiAdminBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SIMunkiAdminBridge.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		F56658AB179E979E00CE142B /* documentTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = documentTemplate.pdf; sourceTree = "<group>"; };
-		F56658B5179E9D7700CE142B /* infoTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = infoTemplate.pdf; sourceTree = "<group>"; };
 		F580776621BE916F005D558C /* SUS Inspector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SUS Inspector.entitlements"; sourceTree = "<group>"; };
 		F58FF41016F7530500EF58B0 /* MIT-License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "MIT-License.rtf"; sourceTree = "<group>"; };
 		F58FF41116F7530500EF58B0 /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
@@ -210,9 +197,6 @@
 		F5E07B5B170ACA910069993C /* SIPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIPreferencesController.h; path = "UI Controllers/SIPreferencesController.h"; sourceTree = "<group>"; };
 		F5E07B5C170ACA910069993C /* SIPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIPreferencesController.m; path = "UI Controllers/SIPreferencesController.m"; sourceTree = "<group>"; };
 		F5E07B5D170ACA910069993C /* SIPreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIPreferencesController.xib; path = "UI Controllers/SIPreferencesController.xib"; sourceTree = "<group>"; };
-		F5E2F72017954A6F00C4FEEE /* shareTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareTemplate.png; sourceTree = "<group>"; };
-		F5E2F72117954A6F00C4FEEE /* shareTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shareTemplate@2x.png"; sourceTree = "<group>"; };
-		F5E2F7381795670E00C4FEEE /* refreshTemplate.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = refreshTemplate.icns; sourceTree = "<group>"; };
 		F5E5599F171BFD3000B285CF /* SIDownloadableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDownloadableObject.h; sourceTree = "<group>"; };
 		F5E559A0171BFD3000B285CF /* SIDownloadableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIDownloadableObject.m; sourceTree = "<group>"; };
 		F5E559A2171BFD3900B285CF /* _SIDownloadableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SIDownloadableObject.h; sourceTree = "<group>"; };
@@ -240,7 +224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5E06E3D16E473FF008B7831 /* Cocoa.framework in Frameworks */,
-				26DD312B8C2E4A0CA40B9C63 /* libPods-SUS Inspector.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,13 +238,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0842BEFE3C8B065C43A4FB38 /* Pods */ = {
+		ACFD15D24D846F89E042D60E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				31EB5B854AAEC30CA86CFC5E /* Pods-SUS Inspector.debug.xcconfig */,
-				3AB2B4E1AB13B972A0B80228 /* Pods-SUS Inspector.release.xcconfig */,
+				576D5183D27432B323AF2852 /* Localizable.strings */,
 			);
-			name = Pods;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		F53BDE4516E875AE00055BC3 /* Operations */ = {
@@ -283,19 +265,6 @@
 			path = RSVerticallyCenteredTextFieldCell;
 			sourceTree = "<group>";
 		};
-		F5D151A516EDED8B0072EE5F /* icons */ = {
-			isa = PBXGroup;
-			children = (
-				F56658B5179E9D7700CE142B /* infoTemplate.pdf */,
-				F56658AB179E979E00CE142B /* documentTemplate.pdf */,
-				26AB3DF417993B53007AE12F /* catalogTemplate.icns */,
-				F5E2F7381795670E00C4FEEE /* refreshTemplate.icns */,
-				F5E2F72017954A6F00C4FEEE /* shareTemplate.png */,
-				F5E2F72117954A6F00C4FEEE /* shareTemplate@2x.png */,
-			);
-			name = icons;
-			sourceTree = "<group>";
-		};
 		F5E06E3016E473FF008B7831 = {
 			isa = PBXGroup;
 			children = (
@@ -304,7 +273,6 @@
 				F5E06E6216E47400008B7831 /* SUS InspectorTests */,
 				F5E06E3B16E473FF008B7831 /* Frameworks */,
 				F5E06E3A16E473FF008B7831 /* Products */,
-				0842BEFE3C8B065C43A4FB38 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -322,7 +290,6 @@
 			children = (
 				F5E06E3C16E473FF008B7831 /* Cocoa.framework */,
 				F5E06E3E16E473FF008B7831 /* Other Frameworks */,
-				231988F41C9F96621E833E9B /* libPods-SUS Inspector.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -359,6 +326,7 @@
 				F5E06E5416E473FF008B7831 /* SUS_Inspector.xcdatamodeld */,
 				F5E06E4316E473FF008B7831 /* Supporting Files */,
 				D0232CCEE9E4AC0981A6AAEE /* Localizable.strings */,
+				ACFD15D24D846F89E042D60E /* Resources */,
 			);
 			path = "SUS Inspector";
 			sourceTree = "<group>";
@@ -366,14 +334,12 @@
 		F5E06E4316E473FF008B7831 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F5D151A516EDED8B0072EE5F /* icons */,
 				F5E06E4416E473FF008B7831 /* SUS Inspector-Info.plist */,
 				F5E06E4516E473FF008B7831 /* InfoPlist.strings */,
 				F5E06E4816E473FF008B7831 /* main.m */,
 				F5E06E4A16E473FF008B7831 /* SUS Inspector-Prefix.pch */,
 				F5E06E4B16E473FF008B7831 /* Credits.rtf */,
 				26201BCD16EE3C37003F6416 /* UserDefaults.plist */,
-				F5595972174113E00077140B /* SUS Inspector.icns */,
 				269466DA255FEAA700C370C2 /* icons.xcassets */,
 			);
 			name = "Supporting Files";
@@ -577,7 +543,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5E06E6D16E47400008B7831 /* Build configuration list for PBXNativeTarget "SUS Inspector" */;
 			buildPhases = (
-				1BA39623A606C473FF76A2D3 /* [CP] Check Pods Manifest.lock */,
 				F5E06E3516E473FF008B7831 /* Sources */,
 				F5E06E3616E473FF008B7831 /* Frameworks */,
 				F5E06E3716E473FF008B7831 /* Resources */,
@@ -674,13 +639,7 @@
 				D02F46BBA900C02FF0022F4B /* Localizable.strings in Resources */,
 				F5E07B5F170ACA910069993C /* SIPreferencesController.xib in Resources */,
 				F50EFBF21727E6BD00B38233 /* SIPkginfoMultipleWindowController.xib in Resources */,
-				F5595973174113E00077140B /* SUS Inspector.icns in Resources */,
-				F5E2F72417954A6F00C4FEEE /* shareTemplate.png in Resources */,
-				F5E2F72517954A6F00C4FEEE /* shareTemplate@2x.png in Resources */,
-				F5E2F7391795670E00C4FEEE /* refreshTemplate.icns in Resources */,
-				26AB3DF517993B53007AE12F /* catalogTemplate.icns in Resources */,
-				F56658AC179E979E00CE142B /* documentTemplate.pdf in Resources */,
-				F56658B6179E9D7700CE142B /* infoTemplate.pdf in Resources */,
+				C88EB2749A25619EF04A27DD /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,24 +654,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1BA39623A606C473FF76A2D3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SUS Inspector-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F5214CE418B3BDAA001891E9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -724,7 +665,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Update the CFBundleShortVersionString in the generated Info.plist using the most recent Git tag.\n# Idea taken from http://tinyurl.com/3usjj9d by Joachim Bondo.\n\n# Get the current release description from Git.\nGIT_RELEASE_VERSION=$(git describe --tags)\n\n# Set the CFBundleShortVersionString in the generated Info.plist (stripping off the leading \"v\").\ndefaults write \"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH%.*}\" \"CFBundleShortVersionString\" \"${GIT_RELEASE_VERSION#*v}\"\n\n# Set the CFBundleVersion in the generated Info.plist (stripping off the leading \"v\").\ndefaults write \"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH%.*}\" \"CFBundleVersion\" \"${GIT_RELEASE_VERSION#*v}\"";
+			shellScript = "# Update the CFBundleShortVersionString in the generated Info.plist using the most recent Git tag.\n# Idea taken from http://tinyurl.com/3usjj9d by Joachim Bondo.\n\n# Get the current release description from Git.\nGIT_RELEASE_VERSION=$(git describe --tags)\n\n# Set the CFBundleShortVersionString in the generated Info.plist (stripping off the leading \"v\").\ndefaults write \"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH%.*}\" \"CFBundleShortVersionString\" \"${GIT_RELEASE_VERSION#*v}\"\n\n# Set the CFBundleVersion in the generated Info.plist (stripping off the leading \"v\").\ndefaults write \"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH%.*}\" \"CFBundleVersion\" \"${GIT_RELEASE_VERSION#*v}\"\n";
 		};
 		F5D151A416EDC11C0072EE5F /* reposado */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -825,6 +766,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		576D5183D27432B323AF2852 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8BAFA9CE1EAB3669A8BF5B6F /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		F5E06E4516E473FF008B7831 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -906,7 +855,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -951,15 +900,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F5E06E6E16E47400008B7831 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31EB5B854AAEC30CA86CFC5E /* Pods-SUS Inspector.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -980,8 +929,8 @@
 		};
 		F5E06E6F16E47400008B7831 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3AB2B4E1AB13B972A0B80228 /* Pods-SUS Inspector.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
