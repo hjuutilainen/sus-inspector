@@ -733,6 +733,9 @@ static dispatch_queue_t serialQueue;
         /*
          Create a thread safe context
          */
+        dispatch_async(dispatch_get_main_queue(), ^{
+          
+        
         NSManagedObjectContext *moc = [(SIAppDelegate *)[NSApp delegate] managedObjectContext];
         [moc performBlockWithPrivateQueueConcurrency:^(NSManagedObjectContext *threadSafeMoc) {
             
@@ -778,7 +781,7 @@ static dispatch_queue_t serialQueue;
             }
             
         }];
-        
+        });
     }];
 }
 
