@@ -12,6 +12,7 @@
                 <outlet property="leftView" destination="6" id="14"/>
                 <outlet property="mainSplitView" destination="5" id="16"/>
                 <outlet property="rightView" destination="7" id="15"/>
+                <outlet property="searchField" destination="dJl-8n-Tcf" id="2IN-3s-IRJ"/>
                 <outlet property="sendToMunkiAdminMenuItem" destination="49" id="76"/>
                 <outlet property="shareMenu" destination="46" id="77"/>
                 <outlet property="window" destination="1" id="3"/>

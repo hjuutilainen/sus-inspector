@@ -71,7 +71,7 @@
 
 - (IBAction)focusToSearchFieldAction:(id)sender
 {
-    [[self.productsViewController searchField] becomeFirstResponder];
+    [self.searchField becomeFirstResponder];
 }
 
 - (IBAction)getInfoAction:(id)sender

@@ -38,6 +38,7 @@
 @property (weak) IBOutlet NSSplitView *mainSplitView;
 @property (weak) IBOutlet NSMenuItem *sendToMunkiAdminMenuItem;
 @property (weak) IBOutlet NSMenu *shareMenu;
+@property (weak) IBOutlet NSSearchField *searchField;
 
 - (void)showProgressPanel;
 - (void)showProgressPanelAttachedToWindow:(NSWindow *)aWindow;
