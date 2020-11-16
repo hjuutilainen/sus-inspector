@@ -158,11 +158,13 @@
 
 - (BOOL)writeReposadoBundleInfoDictionary
 {
-    NSDate *bundledReposadoCommitDate = [NSDate dateWithString:kReposadoCurrentCommitDateString];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+    NSDate *bundledReposadoCommitDate = [dateFormatter dateFromString:kReposadoCurrentCommitDateString];
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyyMMdd.HHmmss"];
     NSString *versionStringFromDate = [formatter stringFromDate:bundledReposadoCommitDate];
-    //[formatter release];
     NSString *bundledReposadoCommitHash = kReposadoCurrentCommitHash;
     NSDictionary *newInfoDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                        versionStringFromDate,       @"commitVersion",

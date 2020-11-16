@@ -206,7 +206,13 @@
             // Check Reposado version
             NSDictionary *infoDict = instance.reposadoBundleInfoDictionary;
             NSDate *instanceDate = [infoDict objectForKey:@"commitDate"];
-            NSDate *bundledReposadoCommitDate = [NSDate dateWithString:kReposadoCurrentCommitDateString];
+            NSLog(@"Installed Reposado commit date: %@", instanceDate);
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+            NSDate *bundledReposadoCommitDate = [dateFormatter dateFromString:kReposadoCurrentCommitDateString];
+            NSLog(@"Bundled Reposado commit date: %@", bundledReposadoCommitDate);
+            
             if ([bundledReposadoCommitDate compare:instanceDate] == NSOrderedDescending) {
                 NSLog(@"Installed Reposado should be updated...");
                 [instance updateReposado];
