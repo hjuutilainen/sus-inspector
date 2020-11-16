@@ -158,9 +158,7 @@
 
 - (void)showProgressPanelAttachedToWindow:(NSWindow *)aWindow
 {
-    [NSApp beginSheet:self.progressWindowController.window
-       modalForWindow:aWindow modalDelegate:nil
-       didEndSelector:nil contextInfo:nil];
+    [self.window beginSheet:self.progressWindowController.window completionHandler:^(NSModalResponse returnCode) {}];
     
     [self.progressWindowController.progressIndicator setIndeterminate:YES];
     [self.progressWindowController.progressIndicator startAnimation:self];
@@ -169,7 +167,7 @@
 
 - (void)hideProgressPanel
 {
-    [NSApp endSheet:self.progressWindowController.window];
+    [self.window endSheet:self.progressWindowController.window];
     [self.progressWindowController.window close];
     [self.progressWindowController.progressIndicator stopAnimation:self];
 }
