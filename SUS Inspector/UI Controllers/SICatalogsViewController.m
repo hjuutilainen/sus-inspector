@@ -102,9 +102,9 @@
     NSTableCellView *view = nil;
     
     if ([[item representedObject] isGroupItemValue]) {
-        view = [ov makeViewWithIdentifier:@"HeaderCell" owner:self];
+        view = [ov makeViewWithIdentifier:@"HeaderCell" owner:nil];
     } else {
-        view = [ov makeViewWithIdentifier:@"DataCell" owner:self];
+        view = [ov makeViewWithIdentifier:@"DataCell" owner:nil];
     }
     
     return view;
