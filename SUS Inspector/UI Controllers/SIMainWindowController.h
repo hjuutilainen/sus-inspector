@@ -33,6 +33,7 @@
 @property (strong) SIProductsViewController *productsViewController;
 @property (strong) SICatalogsViewController *catalogsViewController;
 @property (strong) SIReposadoConfigurationController *reposadoConfigurationController;
+@property (weak) IBOutlet NSSplitViewController *mainSplitViewViewController;
 @property (weak) IBOutlet NSView *leftView;
 @property (weak) IBOutlet NSView *rightView;
 @property (weak) IBOutlet NSSplitView *mainSplitView;

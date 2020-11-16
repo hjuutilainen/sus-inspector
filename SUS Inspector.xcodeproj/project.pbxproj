@@ -25,6 +25,7 @@
 		F501048216E9DF0900B345DE /* SICatalogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048016E9DF0900B345DE /* SICatalogsViewController.m */; };
 		F501048316E9DF0900B345DE /* SICatalogsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F501048116E9DF0900B345DE /* SICatalogsViewController.xib */; };
 		F501048616EA044100B345DE /* SISourceListItemMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F501048516EA044100B345DE /* SISourceListItemMO.m */; };
+		F50EF6F32562951E001771CB /* SIMainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50EF6F22562951E001771CB /* SIMainSplitViewController.m */; };
 		F50EFBF11727E6BD00B38233 /* SIPkginfoMultipleWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50EFBEF1727E6BD00B38233 /* SIPkginfoMultipleWindowController.m */; };
 		F50EFBF21727E6BD00B38233 /* SIPkginfoMultipleWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F50EFBF01727E6BD00B38233 /* SIPkginfoMultipleWindowController.xib */; };
 		F51F79AB16F8C421008BEA0D /* SIPkginfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F51F79A916F8C421008BEA0D /* SIPkginfoWindowController.m */; };
@@ -114,6 +115,8 @@
 		F501048116E9DF0900B345DE /* SICatalogsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SICatalogsViewController.xib; path = "UI Controllers/SICatalogsViewController.xib"; sourceTree = "<group>"; };
 		F501048416EA044100B345DE /* SISourceListItemMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SISourceListItemMO.h; sourceTree = "<group>"; };
 		F501048516EA044100B345DE /* SISourceListItemMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SISourceListItemMO.m; sourceTree = "<group>"; };
+		F50EF6F12562951E001771CB /* SIMainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SIMainSplitViewController.h; path = "UI Controllers/SIMainSplitViewController.h"; sourceTree = "<group>"; };
+		F50EF6F22562951E001771CB /* SIMainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SIMainSplitViewController.m; path = "UI Controllers/SIMainSplitViewController.m"; sourceTree = "<group>"; };
 		F50EFBEE1727E6BD00B38233 /* SIPkginfoMultipleWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIPkginfoMultipleWindowController.h; path = "UI Controllers/SIPkginfoMultipleWindowController.h"; sourceTree = "<group>"; };
 		F50EFBEF1727E6BD00B38233 /* SIPkginfoMultipleWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIPkginfoMultipleWindowController.m; path = "UI Controllers/SIPkginfoMultipleWindowController.m"; sourceTree = "<group>"; };
 		F50EFBF01727E6BD00B38233 /* SIPkginfoMultipleWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIPkginfoMultipleWindowController.xib; path = "UI Controllers/SIPkginfoMultipleWindowController.xib"; sourceTree = "<group>"; };
@@ -504,6 +507,8 @@
 				F501047F16E9DF0900B345DE /* SICatalogsViewController.h */,
 				F501048016E9DF0900B345DE /* SICatalogsViewController.m */,
 				F501048116E9DF0900B345DE /* SICatalogsViewController.xib */,
+				F50EF6F12562951E001771CB /* SIMainSplitViewController.h */,
+				F50EF6F22562951E001771CB /* SIMainSplitViewController.m */,
 				F5EE0D9416E5D9E1006AEA8B /* SIMainWindowController.h */,
 				F5EE0D9516E5D9E1006AEA8B /* SIMainWindowController.m */,
 				F5EE0D9616E5D9E1006AEA8B /* SIMainWindowController.xib */,
@@ -707,6 +712,7 @@
 				F5E06E9C16E49CC9008B7831 /* SIReposadoInstanceMO.m in Sources */,
 				F5E06E9D16E49CC9008B7831 /* SICatalogMO.m in Sources */,
 				F5E06E9E16E49CC9008B7831 /* SIProductMO.m in Sources */,
+				F50EF6F32562951E001771CB /* SIMainSplitViewController.m in Sources */,
 				F5E06EA716E4D8A1008B7831 /* SISizeFormatter.m in Sources */,
 				F5EE0D9716E5D9E1006AEA8B /* SIMainWindowController.m in Sources */,
 				F53BDE4416E874D300055BC3 /* SIOperationManager.m in Sources */,

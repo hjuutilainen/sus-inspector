@@ -99,12 +99,8 @@
 - (void)configureToolbar:(id)sender
 {
     if (@available(macOS 11.0, *)) {
-        
-        
         [self.window.toolbar insertItemWithItemIdentifier:@"separator" atIndex:0];
-        //item.splitView = self.mainSplitView;
-        //item.dividerIndex = 0;
-        //[self.window setToolbarStyle:NSWindowToolbarStyleUnified];
+        [self.window.toolbar insertItemWithItemIdentifier:NSToolbarToggleSidebarItemIdentifier atIndex:0];
     } else {
         // Fallback on earlier versions
     }
@@ -116,7 +112,6 @@
 {
     if (@available(macOS 11.0, *)) {
         if ([itemIdentifier isEqualToString:@"separator"]) {
-            
             NSTrackingSeparatorToolbarItem *item = [NSTrackingSeparatorToolbarItem trackingSeparatorToolbarItemWithIdentifier:@"separator" splitView:self.mainSplitView dividerIndex:0];
             return item;
         }
@@ -136,18 +131,16 @@
     self.catalogsViewController.delegate = self;
     self.reposadoConfigurationController = [[SIReposadoConfigurationController alloc] initWithWindowNibName:@"SIReposadoConfigurationController"];
     
-    [self.mainSplitView setDelegate:self];
     [self.shareMenu setDelegate:self];
     
-    [self.rightView addSubview:self.productsViewController.view];
-    [[self.productsViewController view] setFrame:[self.rightView frame]];
-    [[self.productsViewController view] setFrameOrigin:NSMakePoint(0,0)];
-    [[self.productsViewController view] setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    NSSplitViewItem *sidebarView = [NSSplitViewItem sidebarWithViewController:self.catalogsViewController];
+    [self.mainSplitViewViewController addSplitViewItem:sidebarView];
     
-    [self.leftView addSubview:self.catalogsViewController.view];
-    [[self.catalogsViewController view] setFrame:[self.leftView frame]];
-    [[self.catalogsViewController view] setFrameOrigin:NSMakePoint(0,0)];
-    [[self.catalogsViewController view] setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    NSSplitViewItem *listView = [NSSplitViewItem contentListWithViewController:self.productsViewController];
+    [self.mainSplitViewViewController addSplitViewItem:listView];
+    
+    [self.window setContentView:self.mainSplitViewViewController.splitView];
+    
     
 }
 
@@ -186,34 +179,8 @@
 }
 
 
-#pragma mark -
-#pragma mark NSSplitView delegates
-
-- (void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize
-{
-    if (sender == self.mainSplitView) {
-        
-        // Resize only the right side of the split view
-        
-        NSView *left = [[sender subviews] objectAtIndex:0];
-        NSView *right = [[sender subviews] objectAtIndex:1];
-        CGFloat dividerThickness = [sender dividerThickness];
-        NSRect newFrame = [sender frame];
-        NSRect leftFrame = [left frame];
-        NSRect rightFrame = [right frame];
-        
-        rightFrame.size.height = newFrame.size.height;
-        rightFrame.size.width = newFrame.size.width - leftFrame.size.width - dividerThickness;
-        rightFrame.origin = NSMakePoint(leftFrame.size.width + dividerThickness, 0);
-        
-        leftFrame.size.height = newFrame.size.height;
-        leftFrame.origin.x = 0;
-        
-        [left setFrame:leftFrame];
-        [right setFrame:rightFrame];
-    }
-}
-
+# pragma mark -
+# pragma mark NSOutlineView delegates
 
 - (void)outlineViewSelectionDidChange
 {

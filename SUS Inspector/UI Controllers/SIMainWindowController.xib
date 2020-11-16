@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="leftView" destination="6" id="14"/>
                 <outlet property="mainSplitView" destination="5" id="16"/>
+                <outlet property="mainSplitViewViewController" destination="0IH-ou-8JZ" id="XVx-kq-Kg0"/>
                 <outlet property="rightView" destination="7" id="15"/>
                 <outlet property="searchField" destination="dJl-8n-Tcf" id="2IN-3s-IRJ"/>
                 <outlet property="sendToMunkiAdminMenuItem" destination="49" id="76"/>
@@ -20,34 +21,14 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="SUS Inspector" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" frameAutosaveName="Main Window" animationBehavior="default" toolbarStyle="unified" titleVisibility="hidden" id="1">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+        <window title="SUS Inspector" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" frameAutosaveName="Main Window" animationBehavior="default" titleVisibility="hidden" id="1">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <rect key="contentRect" x="196" y="240" width="1070" height="569"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1792" height="1095"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <value key="minSize" type="size" width="700" height="360"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="1070" height="569"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                <subviews>
-                    <splitView fixedFrame="YES" autosaveName="Main Window Split View" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                        <rect key="frame" x="0.0" y="0.0" width="1070" height="569"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <customView fixedFrame="YES" id="6">
-                                <rect key="frame" x="0.0" y="0.0" width="212" height="569"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </customView>
-                            <customView fixedFrame="YES" id="7">
-                                <rect key="frame" x="213" y="0.0" width="857" height="569"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </customView>
-                        </subviews>
-                        <holdingPriorities>
-                            <real value="250"/>
-                            <real value="250"/>
-                        </holdingPriorities>
-                    </splitView>
-                </subviews>
             </view>
             <toolbar key="toolbar" implicitIdentifier="1DDB9BEB-F9C0-4B67-A5AB-40F12FF3CF1D" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="20">
                 <allowedToolbarItems>
@@ -155,6 +136,32 @@
             </connections>
             <point key="canvasLocation" x="-136" y="132"/>
         </window>
+        <viewController id="0IH-ou-8JZ" customClass="NSSplitViewController">
+            <connections>
+                <outlet property="sourceItemView" destination="6" id="naw-Vr-TQu"/>
+                <outlet property="splitView" destination="5" id="TR7-sX-qIg"/>
+                <outlet property="view" destination="5" id="CWT-IK-fTc"/>
+            </connections>
+        </viewController>
+        <splitView autosaveName="Main Window Split View" dividerStyle="thin" vertical="YES" id="5">
+            <rect key="frame" x="0.0" y="0.0" width="1070" height="569"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView fixedFrame="YES" id="6">
+                    <rect key="frame" x="0.0" y="0.0" width="262" height="569"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </customView>
+                <customView fixedFrame="YES" id="7">
+                    <rect key="frame" x="263" y="0.0" width="807" height="569"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </customView>
+            </subviews>
+            <holdingPriorities>
+                <real value="250"/>
+                <real value="250"/>
+            </holdingPriorities>
+            <point key="canvasLocation" x="-155" y="781"/>
+        </splitView>
     </objects>
     <resources>
         <image name="arrow.clockwise" width="128" height="128"/>
