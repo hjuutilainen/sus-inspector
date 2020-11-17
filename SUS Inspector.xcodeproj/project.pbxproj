@@ -918,10 +918,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 8XXWJ76X9Y;
+				DSTROOT = build;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS Inspector/SUS Inspector-Info.plist";
+				INSTALL_PATH = /Applications;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hjuutilainen.SUS-Inspector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -940,10 +942,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 8XXWJ76X9Y;
+				DSTROOT = build;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SUS Inspector/SUS Inspector-Prefix.pch";
 				INFOPLIST_FILE = "SUS Inspector/SUS Inspector-Info.plist";
+				INSTALL_PATH = /Applications;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hjuutilainen.SUS-Inspector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
