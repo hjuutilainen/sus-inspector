@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>python2Path</key>
+	<string>/Library/Frameworks/Python.framework/Versions/2.7/bin/python2</string>
 	<key>includeDeprecatedInProductGroups</key>
 	<false/>
 	<key>pkginfoPrefillVersion</key>

@@ -586,6 +586,65 @@ static dispatch_queue_t serialQueue;
 
 - (void)runReposync:(SIReposadoInstanceMO *)instance
 {
+    /*
+     Python 2 shenanigans
+     */
+    BOOL python2found = NO;
+    NSString *python2Path;
+    NSURL *python2URL;
+    
+    /*
+     First check if NSUserDefaults has a Python 2 path that exists. SUS Inspector default value is "/Library/Frameworks/Python.framework/Versions/2.7/bin/python2"
+     */
+    NSString *python2PathUser = [[NSUserDefaults standardUserDefaults] stringForKey:@"python2Path"];
+    BOOL isdir;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:python2PathUser isDirectory:&isdir]) {
+        if (!isdir) {
+            python2Path = python2PathUser;
+            python2found = YES;
+            NSLog(@"Python 2 found at NSUserDefaults path: %@", python2PathUser);
+        } else {
+            NSLog(@"Python 2 defined as: %@ but it is a directory", python2PathUser);
+            NSAlert *pythonAlert = [[NSAlert alloc] init];
+            pythonAlert.messageText = @"Error";
+            pythonAlert.informativeText = [NSString stringWithFormat:@"Python 2 path set to \"%@\" but it is a directory.", python2PathUser];
+            [pythonAlert addButtonWithTitle:@"OK"];
+            
+            [pythonAlert runModal];
+            return;
+        }
+    } else {
+        /*
+         Check a few other known locations for existing Python 2 installation
+         */
+        NSArray *python2PathsToCheck = @[
+            @"/usr/bin/python",
+            @"/Library/Frameworks/Python.framework/Versions/2.7/bin/python2",
+            @"/usr/local/munkireport/munkireport-python2"
+        ];
+        for (NSString *path in python2PathsToCheck) {
+            if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                python2Path = path;
+                python2found = YES;
+                NSLog(@"Python 2 found at path: %@", path);
+                break;
+            }
+        }
+    }
+    
+    if (python2found) {
+        python2URL = [NSURL fileURLWithPath:python2Path];
+    } else {
+        NSAlert *pythonAlert = [[NSAlert alloc] init];
+        pythonAlert.messageText = @"Error";
+        pythonAlert.informativeText = [NSString stringWithFormat:@"Could not find a suitable Python 2 installation and SUS Inspector needs Python 2 to work.\n\nPython 2 can be downloaded from https://www.python.org/downloads/macos/"];
+        [pythonAlert addButtonWithTitle:@"OK"];
+        
+        [pythonAlert runModal];
+        return;
+    }
+    
+    
     [self willStartOperations];
     
     [self deleteAllObjectsForEntityName:@"SIProduct"];
@@ -597,8 +656,10 @@ static dispatch_queue_t serialQueue;
     self.currentOperationTitle = @"Refreshing catalogs...";
     
     NSTask *task = [[NSTask alloc] init];
-    NSString *launchPath = instance.reposyncPath;
-    task.launchPath = launchPath;
+    task.executableURL = python2URL;
+    
+    NSString *reposyncPath = instance.reposyncPath;
+    task.arguments = @[reposyncPath];
     
     NSMutableDictionary *defaultEnv = [[NSMutableDictionary alloc] initWithDictionary:[[NSProcessInfo processInfo] environment]];
     [defaultEnv setObject:@"YES" forKey:@"NSUnbufferedIO"] ;
